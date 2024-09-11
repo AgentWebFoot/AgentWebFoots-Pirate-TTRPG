@@ -1,0 +1,953 @@
+﻿<!--All Variables-->
+<div class="variables">
+    <input type="number" name="attr_noArmor" value="16" disabled="true" hidden="true" />
+    <input type="number" name="attr_leather" value="12" disabled="true" hidden="true" />
+    <input type="number" name="attr_chain" value="8" disabled="true" hidden="true" />
+    <input type="number" name="attr_plate" value="4" disabled="true" hidden="true" />
+
+    <input type="number" name="attr_noArmorToughness" value="0" disabled="true" hidden="true" />
+    <input type="number" name="attr_woodShield" value="1" disabled="true" hidden="true" />
+    <input type="number" name="attr_metalShield" value="2" disabled="true" hidden="true" />
+    <input type="number" name="attr_woodShieldEvasion" value="-2" disabled="true" hidden="true" />
+    <input type="number" name="attr_metalShieldEvasion" value="-4" disabled="true" hidden="true" />
+
+    <input type="number" name="attr_leatherBludgeoning" value="3" disabled="true" hidden="true" />
+    <input type="number" name="attr_chainBludgeoning" value="2" disabled="true" hidden="true" />
+    <input type="number" name="attr_plateBludgeoning" value="4" disabled="true" hidden="true" />
+
+    <input type="number" name="attr_leatherPiercing" value="1" disabled="true" hidden="true" />
+    <input type="number" name="attr_chainPiercing" value="2" disabled="true" hidden="true" />
+    <input type="number" name="attr_platePiercing" value="3" disabled="true" hidden="true" />
+
+    <input type="number" name="attr_leatherSlashing" value="2" disabled="true" hidden="true" />
+    <input type="number" name="attr_chainSlashing" value="4" disabled="true" hidden="true" />
+    <input type="number" name="attr_plateSlashing" value="5" disabled="true" hidden="true" />
+
+    <input type="number" name="attr_leatherSpeed" value="-0.2" disabled="true" hidden="true" />
+    <input type="number" name="attr_chainSpeed" value="-0.4" disabled="true" hidden="true" />
+    <input type="number" name="attr_plateSpeed" value="-1" disabled="true" hidden="true" />
+    <input type="number" name="attr_shieldSpeed" value="-1" disabled="true" hidden="true" />
+
+    <input type="number" name="attr_initialSpeed" value="2" disabled="true" hidden="true" />
+</div>
+
+<h1>Pirate TTRPG Character Sheet</h1>
+
+<div class="sheet-grid-section">
+    <div class="sheet-namelvl sheet-block">
+        <!--Name-->
+        <span>Name:</span>
+        <input type="text" name="attr_character_name" style="width: 150px;" />
+
+        <!--Background-->
+        <span>Crew:</span>
+        <input type="text" name="attr_crew" value="Crew" style="width: 150px;">
+
+        <!--Heritage-->
+        <span>Country:</span>
+        <input type="text" name="attr_country" value="Country" style="width: 150px;">
+
+    </div>
+
+    <div class="sheet-stat sheet-block">
+        <h2>Main Stat</h2>
+        <h3>Strength</h3>
+        <input type="number" name="attr_Strength" value="0" min="0" max="10">
+
+        <h3>Dexterity</h3>
+        <input type="number" name="attr_Dexterity" value="0" min="0" max="10">
+
+        <h3>Perception</h3>
+        <input type="number" name="attr_Perception" value="0" min="0" max="10">
+
+        <h3>Vitality</h3>
+        <input type="number" name="attr_Vitality" value="0" min="0" max="10">
+
+        <h3>Intelligence</h3>
+        <input type="number" name="attr_Intelligence" value="0" min="0" max="10">
+
+        <hr>
+
+        <h2>Secondary Stat</h2>
+
+        <h3>Speed</h3>
+        <input type="number" name="attr_speed" value="(@{speedMod})" disabled="true">
+        <h3>Loyalty</h3>
+        <input type="number" name="attr_loyalty" value="0">
+
+
+
+    </div>
+
+    <div class="sheet-skills sheet-block">
+        <input type="hidden" class="sheet-tabstoggle" name="attr_sheetTab" value="combat" />
+        <div>
+            <button type="action" name="act_combat">Combat</button>
+            <button type="action" name="act_armor">Armor</button>
+            <button type="action" name="act_attacks">Attacks</button>
+            <button type="action" name="act_skills">Skills</button>
+            <button type="action" name="act_conditions">Conditions</button>
+            <button type="action" name="act_notes">Notes</button>
+        </div>
+
+        <div class="sheet-combat">
+            <h3>Combat</h3>
+            <h4>Main HP</h4>
+            <input type="number" name="attr_healthpoints" min="0">
+            <span>/</span>
+            <input type="number" name="attr_healthpoints_max" value="((@{Vitality}+@{level})*4)" disabled="true" />
+
+            <h4>Limb HP</h4>
+            <div class='col'>
+                <span>Left Arm HP</span>
+                <input type="number" name="attr_healthpoints_left_arm" min="0">
+                <span>/</span>
+                <input type="number" name="attr_healthpoints_left_arm_max" value="(@{Vitality}+@{level})" disabled="true" />
+
+                <span>Right Arm HP</span>
+                <input type="number" name="attr_healthpoints_right_arm" min="0">
+                <span>/</span>
+                <input type="number" name="attr_healthpoints_right_arm_max" value="(@{Vitality}+@{level})" disabled="true" />
+            </div>
+            <div class='col'>
+                <span>Left Leg HP</span>
+                <input type="number" name="attr_healthpoints_left_leg" min="0">
+                <span>/</span>
+                <input type="number" name="attr_healthpoints_left_leg_max" value="(@{Vitality}+@{level})" disabled="true" />
+
+                <span>Right Leg HP</span>
+                <input type="number" name="attr_healthpoints_right_leg" min="0">
+                <span>/</span>
+                <input type="number" name="attr_healthpoints_right_leg_max" value="(@{Vitality}+@{level})" disabled="true" />
+            </div>
+
+            <hr>
+
+            <h4>Combat Abilities</h4>
+            <div>
+                <div>
+                    <h5>Actions: </h5>
+                    <input type="number" name="attr_actions" value="0" min="0" max="3">
+                    <span>/</span>
+                    <input type="number" name="attr_actionsmax" value="3" disabled="true" />
+                </div>
+                <span style="margin-right: 7px;"></span>
+                <span style="margin-right: 125px;">Name</span>
+                <span style="margin-right: 110px;">Description</span>
+                <span>Action Cost</span>
+                <fieldset class="repeating_combatabilities">
+                    <input type="text" name="attr_name" style="width: 50px;" />
+                    <input type="text" name="attr_description" style="width: 300px;">
+                    <input type="number" name="attr_cost" value="0" min="0" max="3">
+                </fieldset>
+
+            </div>
+        </div>
+
+        <div class="sheet-armor">
+            <h3>Armor</h3>
+            <h4>Head:</h4>
+            <select type="number" name="attr_HeadArmor" style="width: 150px;">
+                <option value="@{noArmor}" selected>None</option>
+                <option value="@{leather}">Leather</option>
+                <option value="@{chain}">Chain</option>
+                <option value="@{plate}">Plate</option>
+            </select>
+
+            <span>Evasion:</span>
+            <input type="number" name="attr_HeadEvasion" value="(@{Dexterity}+@{HeadArmor}+@{shield}+5)" disabled="true">
+            <div class='col'>
+                <span>Bludgeoning:</span>
+                <input type="number" name="attr_HeadBludgeoning" value="@{HeadArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+
+                <span>Piercing:</span>
+                <input type="number" name="attr_HeadPiercing" value="@{HeadArmor_Piercing}+@{shield_mod}" disabled="true">
+
+                <span>Slashing:</span>
+                <input type="number" name="attr_HeadSlashing" value="@{HeadArmor_Slashing}+@{shield_mod}" disabled="true">
+            </div>
+            <hr>
+
+            <h4>Chest:</h4>
+            <select type="number" name="attr_ChestArmor" style="width: 150px;">
+                <option value="@{noArmor}" selected>None</option>
+                <option value="@{leather}">Leather</option>
+                <option value="@{chain}">Chain</option>
+                <option value="@{plate}">Plate</option>
+            </select>
+
+            <span>Evasion:</span>
+            <input type="number" name="attr_ChestEvasion" value="(@{Dexterity}+@{ChestArmor}+@{shield})" disabled="true">
+            <div class='col'>
+                <span>Bludgeoning:</span>
+                <input type="number" name="attr_ChestBludgeoning" value="@{ChestArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+
+                <span>Piercing:</span>
+                <input type="number" name="attr_ChestPiercing" value="@{ChestArmor_Piercing}+@{shield_mod}" disabled="true">
+
+                <span>Slashing:</span>
+                <input type="number" name="attr_ChestSlashing" value="@{ChestArmor_Slashing}+@{shield_mod}" disabled="true">
+            </div>
+            <hr>
+
+            <h4>Arms:</h4>
+            <select type="number" name="attr_ArmsArmor" style="width: 150px;">
+                <option value="@{noArmor}" selected>None</option>
+                <option value="@{leather}">Leather</option>
+                <option value="@{chain}">Chain</option>
+                <option value="@{plate}">Plate</option>
+            </select>
+
+            <span>Evasion:</span>
+            <input type="number" name="attr_ArmsEvasion" value="(@{Dexterity}+@{ArmsArmor}+@{shield})" disabled="true">
+            <div class='col'>
+                <span>Bludgeoning:</span>
+                <input type="number" name="attr_ArmsBludgeoning" value="@{ArmsArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+
+                <span>Piercing:</span>
+                <input type="number" name="attr_ArmsPiercing" value="@{ArmsArmor_Piercing}+@{shield_mod}" disabled="true">
+
+                <span>Slashing:</span>
+                <input type="number" name="attr_ArmsSlashing" value="@{ArmsArmor_Slashing}+@{shield_mod}" disabled="true">
+            </div>
+            <hr>
+
+            <h4>Legs:</h4>
+            <select type="number" name="attr_LegsArmor" style="width: 150px;">
+                <option value="@{noArmor}" selected>None</option>
+                <option value="@{leather}">Leather</option>
+                <option value="@{chain}">Chain</option>
+                <option value="@{plate}">Plate</option>
+            </select>
+
+            <span>Evasion:</span>
+            <input type="number" name="attr_LegsEvasion" value="(@{Dexterity}+@{LegsArmor}+@{shield})" disabled="true">
+            <div class='col'>
+                <span>Bludgeoning:</span>
+                <input type="number" name="attr_LegsBludgeoning" value="@{LegsArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+
+                <span>Piercing:</span>
+                <input type="number" name="attr_LegsPiercing" value="@{LegsArmor_Piercing}+@{shield_mod}" disabled="true">
+
+                <span>Slashing:</span>
+                <input type="number" name="attr_LegsSlashing" value="@{LegsArmor_Slashing}+@{shield_mod}" disabled="true">
+            </div>
+            <hr>
+
+            <h4>Joints:</h4>
+            <select type="number" name="attr_JointsArmor" style="width: 150px;">
+                <option value="@{noArmor}" selected>None</option>
+                <option value="@{leather}">Leather</option>
+                <option value="@{chain}">Chain</option>
+                <option value="@{plate}">Plate</option>
+            </select>
+            <span>Evasion:</span>
+            <input type="number" name="attr_JointsEvasion" value="(@{Dexterity}+@{JointsArmor}+@{shield}+3)" disabled="true">
+            <div class='col'>
+                <span>Bludgeoning:</span>
+                <input type="number" name="attr_JointsBludgeoning" value="@{JointsArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+
+                <span>Piercing:</span>
+                <input type="number" name="attr_JointsPiercing" value="@{JointsArmor_Piercing}+@{shield_mod}" disabled="true">
+
+                <span>Slashing:</span>
+                <input type="number" name="attr_JointsSlashing" value="@{JointsArmor_Slashing}+@{shield_mod}" disabled="true">
+            </div>
+            <hr>
+
+            <h4>Shield:</h4>
+            <select type="number" name="attr_shield" style="width: 150px;">
+                <option value="0" selected>None</option>
+                <option value="@{woodShieldEvasion}">Wooden</option>
+                <option value="@{metalShieldEvasion}">Metal</option>
+            </select>
+        </div>
+
+        <div class="sheet-attacks">
+            <h3>Attacks</h3>
+            <h4>Strength Attacks</h4>
+            <fieldset class="repeating_strengthweapon">
+                <input type="text" name="attr_weaponname" style="width: 80px;" />
+                <button type="roll" value="&{template:default} {{name=@{weaponname} Attack}} {{@{weaponname} Attack=[[1d20+@{Weapon}]]}}"></button>
+                <input type="number" name="attr_Weapon" value="(@{Strength}+@{WeaponMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_WeaponMod" value="0" min="0" max="5">
+                <span>| Equipped:</span>
+                <input type="checkbox" name="attr_Equipped">
+                <span>| Loaded:</span>
+                <input type="checkbox" name="attr_WeaponLoaded">
+                <span>Damage:</span>
+                <button type="roll" value="&{template:default} {{name=@{weaponname} Damage}} {{@{weaponname} Damage=[[@{Damage}]] @{DamageType}}}"></button>
+                <input type="text" name="attr_Damage" style="width: 80px;" />
+                <input type="text" name="attr_DamageType" style="width: 80px;" />
+                <select type="text" name="attr_WeaponType" style="width: 150px;">
+                    <option value="primary" selected>Primary</option>
+                    <option value="secondary">Secondary</option>
+                </select>
+
+            </fieldset>
+            <hr>
+
+            <h4>Dexterity Attacks</h4>
+            <fieldset class="repeating_dexterityweapon">
+                <input type="text" name="attr_weaponname" style="width: 80px;" />
+                <button type="roll" value="&{template:default} {{name=@{weaponname} Attack}} {{@{weaponname} Attack=[[1d20+@{Weapon}]]}}"></button>
+                <input type="number" name="attr_Weapon" value="(@{Dexterity}+@{WeaponMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_WeaponMod" value="0" min="0" max="5">
+                <span>| Equipped:</span>
+                <input type="checkbox" name="attr_Equipped">
+                <span>| Loaded:</span>
+                <input type="checkbox" name="attr_WeaponLoaded">
+                <span>Damage:</span>
+                <button type="roll" value="&{template:default} {{name=@{weaponname} Damage}} {{@{weaponname} Damage=[[@{Damage}]] @{DamageType}}}"></button>
+                <input type="text" name="attr_Damage" style="width: 80px;" />
+                <input type="text" name="attr_DamageType" style="width: 80px;" />
+                <select type="text" name="attr_WeaponType" style="width: 150px;">
+                    <option value="primary" selected>Primary</option>
+                    <option value="secondary">Secondary</option>
+                </select>
+            </fieldset>
+            <hr>
+
+            <h4>Perception Attacks</h4>
+            <fieldset class="repeating_perceptionweapon">
+                <input type="text" name="attr_weaponname" style="width: 80px;" />
+                <button type="roll" value="&{template:default} {{name=@{weaponname} Attack}} {{@{weaponname} Attack=[[1d20+@{Weapon}]]}}"></button>
+                <input type="number" name="attr_Weapon" value="(@{Perception}+@{WeaponMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_WeaponMod" value="0" min="0" max="5">
+                <span>| Equipped:</span>
+                <input type="checkbox" name="attr_Equipped">
+                <span>| Loaded:</span>
+                <input type="checkbox" name="attr_WeaponLoaded">
+                <span>Damage:</span>
+                <button type="roll" value="&{template:default} {{name=@{weaponname} Damage}} {{@{weaponname} Damage=[[@{Damage}]] @{DamageType}}}"></button>
+                <input type="text" name="attr_Damage" style="width: 80px;" />
+                <input type="text" name="attr_DamageType" style="width: 80px;" />
+                <select type="text" name="attr_WeaponType" style="width: 150px;">
+                    <option value="primary" selected>Primary</option>
+                    <option value="secondary">Secondary</option>
+                </select>
+            </fieldset>
+        </div>
+
+        <div class="sheet-skills">
+            <h3>Skills:</h3>
+            <h4 style="display: inline-block;">Strength</h4>
+            <button type="roll" value="&{template:default} {{name=Strength Check}} {{Strength Check=[[1d20+@{Strength}]]}}" style="display: inline-block;"></button>
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Climbing Check}} {{Climbing Check=[[1d20+@{Climbing}]]}}">Climbing</button>
+                <input type="number" name="attr_Climbing" value="(@{Strength}+@{ClimbingMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_ClimbingMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Lifting Check}} {{Lifting Check=[[1d20+@{Lifting}]]}}">Lifting</button>
+                <input type="number" name="attr_Lifting" value="(@{Strength}+@{LiftingMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_LiftingMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Swimming Check}} {{Swimming Check=[[1d20+@{Swimming}]]}}">Swimming</button>
+                <input type="number" name="attr_Swimming" value="(@{Strength}+@{SwimmingMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_SwimmingMod" value="0" min="0" max="10">
+            </div>
+
+            <hr>
+
+            <h4 style="display: inline-block;">Dexterity</h4>
+            <button type="roll" value="&{template:default} {{name=Dexterity Check}} {{Dexterity Check=[[1d20+@{Dexterity}]]}}" style="display: inline-block;"></button>
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Balance Check}} {{Balance Check=[[1d20+@{Balance}]]}}">Balance</button>
+                <input type="number" name="attr_Balance" value="(@{Dexterity}+@{BalanceMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_BalanceMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Sleight Of Hand Check}} {{Sleight of Hand Check=[[1d20+@{SleightOfHand}]]}}">Sleight Of Hand</button>
+                <input type="number" name="attr_SleightOfHand" value="(@{Dexterity}+@{SleightOfHandMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_SleightOfHandMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Stealth Check}} {{Stealth Check=[[1d20+@{Stealth}]]}}">Stealth</button>
+                <input type="number" name="attr_Stealth" value="(@{Dexterity}+@{StealthMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_StealthMod" value="0" min="0" max="10">
+            </div>
+
+            <hr>
+
+            <h4 style="display: inline-block;">Perception</h4>
+            <button type="roll" value="&{template:default} {{name=Perception Check}} {{Perception Check=[[1d20+@{Perception}]]}}" style="display: inline-block;"></button>
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Fishing Check}} {{Fishing Check=[[1d20+@{Fishing}]]}}">Fishing</button>
+                <input type="number" name="attr_Fishing" value="(@{Perception}+@{FishingMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_FishingMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Investigation Check}} {{Investigation Check=[[1d20+@{Stealth}]]}}">Investigation</button>
+                <input type="number" name="attr_Investigation" value="(@{Perception}+@{InvestigationMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_InvestigationMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Intuition Check}} {{Intuition Check=[[1d20+@{Intuition}]]}}">Intuition</button>
+                <input type="number" name="attr_Intuition" value="(@{Perception}+@{IntuitionMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_IntuitionMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Tracking Check}} {{Tracking Check=[[1d20+@{Tracking}]]}}">Tracking</button>
+                <input type="number" name="attr_Tracking" value="(@{Perception}+@{TrackingMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_TrackingMod" value="0" min="0" max="10">
+            </div>
+
+            <hr>
+
+            <h4 style="display: inline-block;">Vitality</h4>
+            <button type="roll" value="&{template:default} {{name=Vitality Check}} {{Vitality Check=[[1d20+@{Vitality}]]}}" style="display: inline-block;"></button>
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Alcohol Tolerance Check}} {{Alcohol Tolerance Check=[[1d20+@{AlcoholTolerance}]]}}">Alcohol Tolerance</button>
+                <input type="number" name="attr_AlcoholTolerance" value="(@{Vitality}+@{AlcoholToleranceMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_AlcoholToleranceMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Nausea Check}} {{Nausea Check=[[1d20+@{Nausea}]]}}">Nausea</button>
+                <input type="number" name="attr_Nausea" value="(@{Vitality}+@{NauseaMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_NauseaMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Resilience Check}} {{Resilience Check=[[1d20+@{Stealth}]]}}">Resilience</button>
+                <input type="number" name="attr_Resilience" value="(@{Vitality}+@{ResilienceMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_ResilienceMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Weather Tolerance Check}} {{Weather Tolerance Check=[[1d20+@{WeatherTolerance}]]}}">Weather Tolerance</button>
+                <input type="number" name="attr_WeatherTolerance" value="(@{Vitality}+@{WeatherToleranceMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_WeatherToleranceMod" value="0" min="0" max="10">
+            </div>
+
+            <hr>
+
+            <h4 style="display: inline-block;">Intelligence</h4>
+            <button type="roll" value="&{template:default} {{name=Intelligence Check}} {{Intelligence Check=[[1d20+@{Intelligence}]]}}" style="display: inline-block;"></button>
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=History Check}} {{History Check=[[1d20+@{History}]]}}"> History</button>
+                <input type="number" name="attr_History" value="(@{Intelligence}+@{HistoryMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_HistoryMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Learning Check}} {{Learning Check=[[1d20+@{Learning}]]}}">Learning</button>
+                <input type="number" name="attr_Learning" value="(@{Intelligence}+@{LearningMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_LearningMod" value="0" min="0" max="10">
+            </div>
+
+            <div class='col'>
+                <button type="roll" value="&{template:default} {{name=Tinkering Check}} {{Tinkering Check=[[1d20+@{Tinkering}]]}}">Tinkering</button>
+                <input type="number" name="attr_Tinkering" value="(@{Intelligence}+@{TinkeringMod})" disabled="true" />
+                <span>| Bonus:</span>
+                <input type="number" name="attr_TinkeringMod" value="0" min="0" max="10">
+            </div>
+        </div>
+
+        <div class="sheet-conditions">
+            <h3>Conditions:</h3>
+            <span>Alarmed:</span>
+            <input type="checkbox" name="attr_alarmed">
+            <br>
+            <span>Bleeding:</span>
+            <input type="checkbox" name="attr_bleeding">
+            <br>
+            <span>Blinded:</span>
+            <input type="checkbox" name="attr_blinded">
+            <br>
+            <span>Burning:</span>
+            <input type="checkbox" name="attr_burning">
+            <br>
+            <span>Calm:</span>
+            <input type="checkbox" name="attr_calm">
+            <br>
+            <span>Concussed:</span>
+            <input type="checkbox" name="attr_concussed">
+            <br>
+            <span>Deafened:</span>
+            <input type="checkbox" name="attr_deafened">
+            <br>
+            <span>Drunk:</span>
+            <input type="checkbox" name="attr_drunk">
+            <br>
+            <span>Grappled:</span>
+            <input type="checkbox" name="attr_grappled">
+            <br>
+            <span>Poisoned:</span>
+            <input type="checkbox" name="attr_poisoned">
+            <br>
+            <span>Soaked:</span>
+            <input type="checkbox" name="attr_soaked">
+            <br>
+            <span>Staggered:</span>
+            <input type="checkbox" name="attr_staggered">
+            <br>
+            <span>Stunned:</span>
+            <input type="checkbox" name="attr_stunned">
+            <br>
+            <span>Toppled:</span>
+            <input type="checkbox" name="attr_toppled">
+            <br>
+            <span>Unconscious:</span>
+            <input type="checkbox" name="attr_unconscious">
+            <br>
+            <span>Winded:</span>
+            <input type="checkbox" name="attr_winded">
+        </div>
+
+        <div class="sheet-notes">
+            <h3>Notes: </h3>
+            <textarea name="attr_abilities" style="width: 400px; height: 500px; overflow: auto; resize: none;"></textarea>
+            <br>
+        </div>
+    </div>
+
+    <div class="sheet-equip sheet-block">
+        <h3>Equipment</h3>
+
+        <span style="margin-right: 48px;"></span>
+        <span style="margin-right: 48px;">Item</span>
+        <span style="margin-right: 2px;">Amount</span>
+        <span>Weight</span>
+        <div class='col'>
+
+            <fieldset class="repeating_equipment">
+                <input type="text" name="attr_item" style="width: 120px;" />
+                <input type="number" name="attr_amount" value="0" min="0">
+                <input type="number" name="attr_weight" value="0" min="0" step="any">
+            </fieldset>
+        </div>
+        <hr>
+        <span>Total Weight</span>
+        <input type="number" name="attr_weight" value="(@{weightMod})" disabled="true">
+        <span>Money</span>
+        <input type="number" name="attr_money" value="0">
+    </div>
+
+    <div class="sheet-class sheet-block">
+        <h3>Classes</h3>
+        <h5>Character Level</h5>
+        <input type="number" name="attr_level" value="(@{totalLevel}-2)" disabled="true">
+
+        <hr>
+        <fieldset id="classField" data-custom-attribute="custom-value" class="repeating_classes">
+            <input type="text" name="attr_class" style="width: 350px;" />
+
+            <input type="number" name="attr_classLevel" value="0" min="0" max="5">
+            <hr>
+        </fieldset>
+    </div>
+
+    <div class="sheet-abilities sheet-block">
+        <h3>Abilities</h3>
+        <textarea name="attr_abilities" style="width: 650px; height: 300px; overflow: auto; resize: none;"></textarea>
+        <br>
+    </div>
+</div>
+
+<!--Speed Script-->
+<script type="text/worker">
+            const int = score => parseInt(score, 10) || 0;
+
+            const armorAttributes = ["HeadArmor", "ChestArmor", "ArmsArmor", "LegsArmor", "JointsArmor"];
+            const dexterityAttribute = "Dexterity";
+            const shieldAttribute = "shield";
+            const noArmorAttribute = "noArmor";
+            const leatherAttribute = "leather";
+            const chainAttribute = "chain";
+            const plateAttribute = "plate";
+
+            const leatherSpeedAttribute = "leatherSpeed";
+            const chainSpeedAttribute = "chainSpeed";
+            const plateSpeedAttribute = "plateSpeed";
+            const shieldSpeedAttribute = "shieldSpeed";
+            const metalShieldEvasionAttribute = "metalShieldEvasion";
+
+            const initialSpeedAttribute = "initialSpeed";
+
+            // Function to initialize armor speeds to 0
+            function initializeArmorSpeeds() {
+                const speedValues = armorAttributes.reduce((acc, armor) => {
+                    acc[`${armor}_Speed`] = 0;
+                    return acc;
+                }, {});
+
+                setAttrs(speedValues);
+                // Calculate and update initial total speedMod
+                calculateTotalSpeedMod();
+            }
+
+            // Function to update armor speeds on change
+            function updateArmorSpeeds(armor) {
+                getAttrs([armor, dexterityAttribute, noArmorAttribute, leatherAttribute, chainAttribute, plateAttribute, leatherSpeedAttribute, chainSpeedAttribute, plateSpeedAttribute], values => {
+                    const noArmor = parsFloat(values[noArmorAttribute]);
+                    const leather = parsFloat(values[leatherAttribute]);
+                    const chain = parsFloat(values[chainAttribute]);
+                    const plate = parsFloat(values[plateAttribute]);
+
+                    if (values[armor]  == "@{noArmor}") values[armor] = noArmor;
+                    else if (values[armor]  == "@{leather}") values[armor] = leather;
+                    else if (values[armor]  == "@{chain}") values[armor] = chain;
+                    else if (values[armor]  == "@{plate}") values[armor] = plate;
+
+                    let armor_base = parsFloat(values[armor]);
+                    const dexterity = parsFloat(values[dexterityAttribute]);
+                    const leatherSpeed = parsFloat(values[leatherSpeedAttribute]);
+                    const chainSpeed = parsFloat(values[chainSpeedAttribute]);
+                    const plateSpeed = parsFloat(values[plateSpeedAttribute]);
+
+                    // Calculate speed_mod based on armor rating
+                    let speed_mod = 0.0;
+
+                    if (armor_base == noArmor) {
+                        if (armor_base == leather)
+                            speed_mod = leatherSpeed;
+                        else if (armor_base == chain)
+                            speed_mod = chainSpeed;
+                        else
+                            speed_mod = plateSpeed;
+                    }
+
+                    setAttrs({
+                        [`${armor}_Speed`]: speed_mod
+                    });
+
+                    // Calculate and update total speedMod
+                    calculateTotalSpeedMod(dexterity);
+                });
+           }
+
+            // Function to calculate total speedMod and update the attribute
+        function calculateTotalSpeedMod() {
+        getAttrs(["HeadArmor_Speed", "ChestArmor_Speed", "ArmsArmor_Speed", "LegsArmor_Speed", "JointsArmor_Speed", dexterityAttribute, shieldAttribute, shieldSpeedAttribute, metalShieldEvasionAttribute, initialSpeedAttribute]), values => {
+            const dexterity = parsFloat(values[dexterityAttribute]);
+            const shieldValue = parsFloat(values[shieldAttribute]);
+            const shieldSpeed = parsFloat(values[shieldSpeedAttribute]);
+            const initialSpeed = parsFloat(values[initialSpeedAttribute]);
+            const metalShieldEvasion = parsFloat(values[metalShieldEvasionAttribute]);
+            const HeadArmor_Speed = parsFloat(values["HeadArmor_Speed"]);
+            const ChestArmor_Speed = parsFloat(values["ChestArmor_Speed"]);
+            const ArmsArmor_Speed = parsFloat(values["ArmsArmor_Speed"]);
+            const LegsArmor_Speed = parsFloat(values["LegsArmor_Speed"]);
+            const JointsArmor_Speed = parsFloat(values["JointsArmor_Speed"]);
+
+            let totalSpeedMod = initialSpeed + dexterity + HeadArmor_Speed + ChestArmor_Speed + ArmsArmor_Speed + LegsArmor_Speed + JointsArmor_Speed
+
+            if ((shieldValue == "@{metalShieldEvasion}")||(shieldValue == metalShieldEvasion)) {
+                totalSpeedMod += shieldSpeed;
+            }
+
+
+            // Ensure that totalSpeedMod is at least 1 and rounds up to the nearest whole number
+            totalSpeedMod = Math.max(Math.ceil(totalSpeedMod), 1);
+
+            setAttrs({
+                speedMod: totalSpeedMod
+            });
+        });
+    }
+
+    // Initialize armor speeds on sheet launch
+    on("sheet:opened", function (eventInfo) {
+        initializeArmorSpeeds();
+    });
+
+    // Update armor speeds on armor, dexterity, or shield change
+    armorAttributes.forEach(armor => {
+        on(`change:${armor}`, () => {
+            updateArmorSpeeds(armor);
+        });
+    });
+
+    // Update total speedMod when dexterity or shield changes
+    on(`change:${dexterityAttribute} change:${shieldAttribute} change:metalShieldSpeed`, () => {
+        calculateTotalSpeedMod();
+    });
+</script>
+
+<!--Buttons Script-->
+<script type="text/worker">
+    const buttonlist = ["combat", "armor", "attacks", "skills", "conditions", "notes"];
+    buttonlist.forEach(button => {
+        on(`clicked:${button}`, function() {
+            setAttrs({
+                sheetTab: button
+            });
+        });
+    });
+</script>
+
+<!--Armor Script-->
+<script type="text/worker">
+    function updateArmor() {
+        const int = score => parseInt(score, 10) || 0;
+
+        const armorAttributes = ["HeadArmor", "ChestArmor", "ArmsArmor", "LegsArmor", "JointsArmor"];
+        const noArmorAttribute = "noArmor";
+        const leatherAttribute = "leather";
+        const chainAttribute = "chain";
+        const plateAttribute = "plate";
+        const noArmorToughnessAttribute = "noArmorToughness";
+        const leatherToughnessAttribute = "leatherBludgeoning";
+        const chainToughnessAttribute = "chainBludgeoning";
+        const plateToughnessAttribute = "plateBludgeoning";
+
+        armorAttributes.forEach(attribute => {
+            getAttrs([attribute, noArmorAttribute, leatherAttribute, chainAttribute, plateAttribute, noArmorToughnessAttribute, leatherToughnessAttribute, chainToughnessAttribute, plateToughnessAttribute], values => {
+                const noArmor = int(values[noArmorAttribute]);
+                const leather = int(values[leatherAttribute]);
+                const chain = int(values[chainAttribute]);
+                const plate = int(values[plateAttribute]);
+
+                if (values[attribute]  == "@{noArmor}") values[attribute] = noArmor;
+                else if (values[attribute]  == "@{leather}") values[attribute] = leather;
+                else if (values[attribute]  == "@{chain}") values[attribute] = chain;
+                else if (values[attribute]  == "@{plate}") values[attribute] = plate;
+
+                const armor_base = int(values[attribute]);
+                const noArmorToughness = int(values[noArmorToughnessAttribute]);
+                const leatherToughness = int(values[leatherToughnessAttribute]);
+                const chainToughness = int(values[chainToughnessAttribute]);
+                const plateToughness = int(values[plateToughnessAttribute]);
+
+                let armor_mod = 0;
+
+                if (armor_base >= noArmor) armor_mod = noArmorToughness;
+                else if (armor_base >= leather) armor_mod = leatherToughness;
+                else if (armor_base >= chain) armor_mod = chainToughness;
+                else armor_mod = plateToughness;
+
+                setAttrs({
+                    [`${attribute}_Bludgeoning`]: armor_mod
+                });
+            });
+        });
+    }
+
+    on("sheet:opened", function (eventInfo) {
+        updateArmor();
+    });
+
+    on("change:HeadArmor change:ChestArmor change:ArmsArmor change:LegsArmor change:JointsArmor", updateArmor);
+    on("clicked:act_armor", function () {
+        updateArmor();
+    });
+</script>
+
+<script type="text/worker">
+    function updateArmor() {
+        const int = score => parseInt(score, 10) || 0;
+
+        const armorAttributes = ["HeadArmor", "ChestArmor", "ArmsArmor", "LegsArmor", "JointsArmor"];
+        const noArmorAttribute = "noArmor";
+        const leatherAttribute = "leather";
+        const chainAttribute = "chain";
+        const plateAttribute = "plate";
+        const noArmorToughnessAttribute = "noArmorToughness";
+        const leatherToughnessAttribute = "leatherPiercing";
+        const chainToughnessAttribute = "chainPiercing";
+        const plateToughnessAttribute = "platePiercing";
+
+        armorAttributes.forEach(attribute => {
+            getAttrs([attribute, noArmorAttribute, leatherAttribute, chainAttribute, plateAttribute, noArmorToughnessAttribute, leatherToughnessAttribute, chainToughnessAttribute, plateToughnessAttribute], values => {
+                const noArmor = int(values[noArmorAttribute]);
+                const leather = int(values[leatherAttribute]);
+                const chain = int(values[chainAttribute]);
+                const plate = int(values[plateAttribute]);
+
+                if (values[attribute]  == "@{noArmor}") values[attribute] = noArmor;
+                else if (values[attribute]  == "@{leather}") values[attribute] = leather;
+                else if (values[attribute]  == "@{chain}") values[attribute] = chain;
+                else if (values[attribute]  == "@{plate}") values[attribute] = plate;
+
+                const armor_base = int(values[attribute]);
+                const noArmorToughness = int(values[noArmorToughnessAttribute]);
+                const leatherToughness = int(values[leatherToughnessAttribute]);
+                const chainToughness = int(values[chainToughnessAttribute]);
+                const plateToughness = int(values[plateToughnessAttribute]);
+
+                let armor_mod = 0;
+
+                if (armor_base >= noArmor) armor_mod = noArmorToughness;
+                else if (armor_base >= leather) armor_mod = leatherToughness;
+                else if (armor_base >= chain) armor_mod = chainToughness;
+                else armor_mod = plateToughness;
+
+                setAttrs({
+                    [`${attribute}_Piercing`]: armor_mod
+                });
+            });
+        });
+    }
+
+    on("sheet:opened", function (eventInfo) {
+        updateArmor();
+    });
+
+    on("change:HeadArmor change:ChestArmor change:ArmsArmor change:LegsArmor change:JointsArmor", updateArmor);
+    on("clicked:act_armor", function () {
+        updateArmor();
+    });
+</script>
+
+<script type="text/worker">
+    function updateArmor() {
+        const int = score => parseInt(score, 10) || 0;
+
+        const armorAttributes = ["HeadArmor", "ChestArmor", "ArmsArmor", "LegsArmor", "JointsArmor"];
+        const noArmorAttribute = "noArmor";
+        const leatherAttribute = "leather";
+        const chainAttribute = "chain";
+        const plateAttribute = "plate";
+        const noArmorToughnessAttribute = "noArmorToughness";
+        const leatherToughnessAttribute = "leatherSlashing";
+        const chainToughnessAttribute = "chainSlashing";
+        const plateToughnessAttribute = "plateSlashing";
+
+        armorAttributes.forEach(attribute => {
+            getAttrs([attribute, noArmorAttribute, leatherAttribute, chainAttribute, plateAttribute, noArmorToughnessAttribute, leatherToughnessAttribute, chainToughnessAttribute, plateToughnessAttribute], values => {
+                const noArmor = int(values[noArmorAttribute]);
+                const leather = int(values[leatherAttribute]);
+                const chain = int(values[chainAttribute]);
+                const plate = int(values[plateAttribute]);
+
+                if (values[attribute]  == "@{noArmor}") values[attribute] = noArmor;
+                else if (values[attribute]  == "@{leather}") values[attribute] = leather;
+                else if (values[attribute]  == "@{chain}") values[attribute] = chain;
+                else if (values[attribute]  == "@{plate}") values[attribute] = plate;
+
+                const armor_base = int(values[attribute]);
+                const noArmorToughness = int(values[noArmorToughnessAttribute]);
+                const leatherToughness = int(values[leatherToughnessAttribute]);
+                const chainToughness = int(values[chainToughnessAttribute]);
+                const plateToughness = int(values[plateToughnessAttribute]);
+
+                let armor_mod = 0;
+
+                if (armor_base >= noArmor) armor_mod = noArmorToughness;
+                else if (armor_base >= leather) armor_mod = leatherToughness;
+                else if (armor_base >= chain) armor_mod = chainToughness;
+                else armor_mod = plateToughness;
+
+                setAttrs({
+                    [`${attribute}_Slashing`]: armor_mod
+                });
+            });
+        });
+    }
+
+    on("sheet:opened", function (eventInfo) {
+        updateArmor();
+    });
+
+    on("change:HeadArmor change:ChestArmor change:ArmsArmor change:LegsArmor change:JointsArmor", updateArmor);
+    on("clicked:act_armor", function () {
+        updateArmor();
+    });
+</script>
+
+<script type="text/worker">
+        function updateArmor() {
+            const int = score => parseInt(score, 10) || 0;
+
+            const shieldAttribute = "shield";
+            const woodShieldAttribute = "woodShield";
+            const metalShieldAttribute = "metalShield";
+            const woodShieldEvasionAttribute = "woodShieldEvasion";
+            const metalShieldEvasionAttribute = "metalShieldEvasion";
+
+            getAttrs([shieldAttribute, woodShieldAttribute, metalShieldAttribute, woodShieldEvasionAttribute, metalShieldEvasionAttribute], function(result) {
+                let shieldValue = result[shieldAttribute];
+                const woodShieldEvasion = int(result[woodShieldEvasionAttribute]);
+                const metalShieldEvasion = int(result[metalShieldEvasionAttribute]);
+                const woodShield = int(result[woodShieldAttribute]);
+                const metalShield = int(result[metalShieldAttribute]);
+
+                if (shieldValue === "@{woodShieldEvasion}") {
+                    result[shieldAttribute] = woodShieldEvasion;
+                } else if (shieldValue === "@{metalShieldEvasion}") {
+                    result[shieldAttribute] = metalShieldEvasion;
+                }
+
+                const shield = int(result[shieldAttribute]);
+                let toughness_mod = 0;
+
+                if (shield >= 0) {
+                    toughness_mod = 0;
+                } else if (shield >= woodShieldEvasion) {
+                    toughness_mod = woodShield;
+                } else {
+                    toughness_mod = metalShield;
+                }
+
+                setAttrs({
+                    shield_mod: toughness_mod
+                });
+            })
+        }
+
+        on("sheet:opened", function (eventInfo) {
+            updateArmor();
+        });
+
+        on("change:shield", updateArmor);
+        on("clicked:act_armor", function () {
+            updateArmor();
+        });
+</script>
+
+<!--Class and Equipment Script-->
+<script type="text/worker">
+                on('change:repeating_classes:classLevel remove:repeating_classes', function() {
+            repeatingSum("totalLevel","classes","classLevel");
+        });
+
+        on('change:repeating_equipment remove:repeating_equipment', function() {
+        repeatingSum("weightMod","equipment",["weight","amount"]);
+    });
+                const repeatingSum = (destinations, section, fields) => {
+                if (!Array.isArray(destinations)) destinations = [destinations.replace(/\s/g, '').split(',')];
+                if (!Array.isArray(fields)) fields = [fields.replace(/\s/g, '').split(',')];
+                getSectionIDs(`repeating_${section}`, idArray => {
+                    const attrArray = idArray.reduce((m, id) => [...m, ...(fields.map(field => `repeating_${section}_${id}_${field}`))], []);
+                    getAttrs([...attrArray], v => {
+                        const getValue = (section, id, field) => v[`repeating_${section}_${id}_${field}`] === 'on' ? 1 : parseFloat(v[`repeating_${section}_${id}_${field}`]) || 0;
+                        const commonMultipliers = (fields.length <= destinations.length) ? [] : fields.splice(destinations.length, fields.length - destinations.length);
+                        const output = {};
+                        destinations.forEach((destination, index) => {
+                            output[destination] = idArray.reduce((total, id) => total + getValue(section, id, fields[index]) * commonMultipliers.reduce((subtotal, mult) => subtotal * getValue(section, id, mult), 1), 0);
+                        });
+                        setAttrs(output);
+                    });
+                });
+            };
+</script>
+
