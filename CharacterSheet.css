@@ -1,0 +1,103 @@
+.charsheet .sheet-grid-section {
+    display: grid;
+    grid-template-columns: 450px 250px;
+    grid-template-rows: 50px 540px $skill-row-length $equipment-row-length $class-row-length;
+    grid-template-areas: "namelvl namelvl"
+        "skills  stat   "
+        "skills  equip   "
+        "class   equip  "
+        "abilities abilities";
+    grid-gap: 5px;
+}
+.charsheet div.sheet-block{
+  display: block;
+  padding: 10px;
+  border: 3px solid black;
+}
+.charsheet div.sheet-namelvl {
+    text-align: center;
+    grid-area: namelvl;
+}
+.charsheet div.sheet-stat{
+  text-align: center;
+  grid-area: stat;
+}
+.charsheet div.sheet-skills{
+  grid-area: skills;
+}
+.charsheet div.sheet-equip{
+  grid-area: equip;
+}
+.charsheet div.sheet-class{
+  grid-area: class;
+}
+
+.charsheet div.sheet-abilities {
+    grid-area: abilities;
+}
+
+/*Configure the tab buttons*/
+.charsheet .sheet-combat,
+.charsheet .sheet-armor,
+.charsheet .sheet-attacks,
+.charsheet .sheet-skills,
+.charsheet .sheet-conditions,
+.charsheet .sheet-notes {
+    display: none;
+}
+
+/* show the selected tab */
+.charsheet .sheet-tabstoggle[value="combat"] ~ div.sheet-combat,
+.charsheet .sheet-tabstoggle[value="armor"] ~ div.sheet-armor,
+.charsheet .sheet-tabstoggle[value="attacks"] ~ div.sheet-attacks,
+.charsheet .sheet-tabstoggle[value="skills"] ~ div.sheet-skills,
+.charsheet .sheet-tabstoggle[value="conditions"] ~ div.sheet-conditions,
+.charsheet .sheet-tabstoggle[value="notes"] ~ div.sheet-notes {
+    display: block;
+}
+
+
+/* Button Selection */
+.charsheet .sheet-dots{
+  display:flex;
+}
+
+/* Configure the button styling. This example makes it look like a radio. */
+.charsheet button.sheet-dot {
+  padding: 0;
+  border: solid 1px #a8a8a8;
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.charsheet button.sheet-dot > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: buttontext;
+}
+
+/* Hide the "checked" section of the radio if the hidden attribute value is greater than the button value */
+.charsheet input.sheet-dot[value="0"] ~ button.sheet-gt-0 > span.sheet-checked {
+    display: none;
+}
+.charsheet input.sheet-dot[value="1"] ~ button.sheet-gt-1 > span.sheet-checked {
+    display: none;
+}
+.charsheet input.sheet-dot[value="2"] ~ button.sheet-gt-2 > span.sheet-checked {
+    display: none;
+}
+.charsheet input.sheet-dot[value="3"] ~ button.sheet-gt-3 > span.sheet-checked {
+    display: none;
+}
+.charsheet input.sheet-dot[value="4"] ~ button.sheet-gt-4 > span.sheet-checked {
+    display: none;
+}
+.charsheet input.sheet-dot[value="5"] ~ button.sheet-gt-5 > span.sheet-checked {
+    display: none;
+}
