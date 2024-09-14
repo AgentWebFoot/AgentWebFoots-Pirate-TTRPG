@@ -1,7 +1,7 @@
 .charsheet .sheet-grid-section {
     display: grid;
-    grid-template-columns: 450px 250px;
-    grid-template-rows: 50px 540px $skill-row-length $equipment-row-length $class-row-length;
+    grid-template-columns: 525px 250px;
+    grid-template-rows: 50px 540px;
     grid-template-areas: "namelvl namelvl"
         "skills  stat   "
         "skills  equip   "
@@ -41,9 +41,16 @@
 .charsheet .sheet-armor,
 .charsheet .sheet-attacks,
 .charsheet .sheet-skills,
+.charsheet .sheet-omens,
 .charsheet .sheet-conditions,
-.charsheet .sheet-notes {
+.charsheet .sheet-notes,
+.charsheet .sheet-settings {
     display: none;
+}
+
+.charsheet .sheet-warningOn,
+.charsheet .sheet-warningOff {
+  display: none;
 }
 
 /* show the selected tab */
@@ -51,11 +58,17 @@
 .charsheet .sheet-tabstoggle[value="armor"] ~ div.sheet-armor,
 .charsheet .sheet-tabstoggle[value="attacks"] ~ div.sheet-attacks,
 .charsheet .sheet-tabstoggle[value="skills"] ~ div.sheet-skills,
+.charsheet .sheet-tabstoggle[value="omens"] ~ div.sheet-omens,
 .charsheet .sheet-tabstoggle[value="conditions"] ~ div.sheet-conditions,
-.charsheet .sheet-tabstoggle[value="notes"] ~ div.sheet-notes {
+.charsheet .sheet-tabstoggle[value="notes"] ~ div.sheet-notes,
+.charsheet .sheet-tabstoggle[value="settings"] ~ div.sheet-settings {
     display: block;
 }
 
+.charsheet .sheet-warningtoggle[value="warningOn"] ~ div.sheet-warningOn,
+.charsheet .sheet-warningtoggle[value="warningOff"] ~ div.sheet-warningOff {
+    display: block;
+}
 
 /* Button Selection */
 .charsheet .sheet-dots{
@@ -80,24 +93,4 @@
   height: 6px;
   border-radius: 50%;
   background: buttontext;
-}
-
-/* Hide the "checked" section of the radio if the hidden attribute value is greater than the button value */
-.charsheet input.sheet-dot[value="0"] ~ button.sheet-gt-0 > span.sheet-checked {
-    display: none;
-}
-.charsheet input.sheet-dot[value="1"] ~ button.sheet-gt-1 > span.sheet-checked {
-    display: none;
-}
-.charsheet input.sheet-dot[value="2"] ~ button.sheet-gt-2 > span.sheet-checked {
-    display: none;
-}
-.charsheet input.sheet-dot[value="3"] ~ button.sheet-gt-3 > span.sheet-checked {
-    display: none;
-}
-.charsheet input.sheet-dot[value="4"] ~ button.sheet-gt-4 > span.sheet-checked {
-    display: none;
-}
-.charsheet input.sheet-dot[value="5"] ~ button.sheet-gt-5 > span.sheet-checked {
-    display: none;
 }

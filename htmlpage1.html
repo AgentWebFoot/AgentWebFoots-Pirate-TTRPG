@@ -1,36 +1,3 @@
-<!--All Variables-->
-<div class="variables">
-    <input type="number" name="attr_noArmor" value="16" disabled="true" hidden="true" />
-    <input type="number" name="attr_leather" value="12" disabled="true" hidden="true" />
-    <input type="number" name="attr_chain" value="8" disabled="true" hidden="true" />
-    <input type="number" name="attr_plate" value="4" disabled="true" hidden="true" />
-
-    <input type="number" name="attr_noArmorToughness" value="0" disabled="true" hidden="true" />
-    <input type="number" name="attr_woodShield" value="1" disabled="true" hidden="true" />
-    <input type="number" name="attr_metalShield" value="2" disabled="true" hidden="true" />
-    <input type="number" name="attr_woodShieldEvasion" value="-2" disabled="true" hidden="true" />
-    <input type="number" name="attr_metalShieldEvasion" value="-4" disabled="true" hidden="true" />
-
-    <input type="number" name="attr_leatherBludgeoning" value="3" disabled="true" hidden="true" />
-    <input type="number" name="attr_chainBludgeoning" value="2" disabled="true" hidden="true" />
-    <input type="number" name="attr_plateBludgeoning" value="4" disabled="true" hidden="true" />
-
-    <input type="number" name="attr_leatherPiercing" value="1" disabled="true" hidden="true" />
-    <input type="number" name="attr_chainPiercing" value="2" disabled="true" hidden="true" />
-    <input type="number" name="attr_platePiercing" value="3" disabled="true" hidden="true" />
-
-    <input type="number" name="attr_leatherSlashing" value="2" disabled="true" hidden="true" />
-    <input type="number" name="attr_chainSlashing" value="4" disabled="true" hidden="true" />
-    <input type="number" name="attr_plateSlashing" value="5" disabled="true" hidden="true" />
-
-    <input type="number" name="attr_leatherSpeed" value="-0.2" disabled="true" hidden="true" />
-    <input type="number" name="attr_chainSpeed" value="-0.4" disabled="true" hidden="true" />
-    <input type="number" name="attr_plateSpeed" value="-1" disabled="true" hidden="true" />
-    <input type="number" name="attr_shieldSpeed" value="-1" disabled="true" hidden="true" />
-
-    <input type="number" name="attr_initialSpeed" value="2" disabled="true" hidden="true" />
-</div>
-
 <h1>Pirate TTRPG Character Sheet</h1>
 <div class="sheet-grid-section">
     <div class="sheet-namelvl sheet-block">
@@ -85,8 +52,10 @@
             <button type="action" name="act_armor">Armor</button>
             <button type="action" name="act_attacks">Attacks</button>
             <button type="action" name="act_skills">Skills</button>
+            <button type="action" name="act_omens">Omens</button>
             <button type="action" name="act_conditions">Conditions</button>
             <button type="action" name="act_notes">Notes</button>
+            <button type="action" name="act_settings">Settings</button>
         </div>
 
         <div class="sheet-combat">
@@ -154,18 +123,18 @@
             </select>
 
             <span>Evasion:</span>
-            <input type="number" name="attr_HeadEvasion" value="(@{Dexterity}+@{HeadArmor}+@{shield}+5)" disabled="true">
+            <input type="number" name="attr_HeadEvasion" value="(@{Dexterity}+@{HeadArmor}+@{shield}+@{headBonus})" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_HeadBludgeoning" value="@{HeadArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_HeadBludgeoning" value="@{HeadArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_HeadPiercing" value="@{HeadArmor_Piercing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_HeadPiercing" value="@{HeadArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_HeadSlashing" value="@{HeadArmor_Slashing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_HeadSlashing" value="@{HeadArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
-                <input type="number" name="attr_HeadSpeed" value="@{HeadArmor_Speed}" disabled="true">
+                <input type="number" name="attr_HeadSpeed" value="@{HeadArmor_Speed}" disabled="true" hidden="true">
             </div>
             <hr>
 
@@ -181,15 +150,15 @@
             <input type="number" name="attr_ChestEvasion" value="(@{Dexterity}+@{ChestArmor}+@{shield})" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_ChestBludgeoning" value="@{ChestArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_ChestBludgeoning" value="@{ChestArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_ChestPiercing" value="@{ChestArmor_Piercing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_ChestPiercing" value="@{ChestArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_ChestSlashing" value="@{ChestArmor_Slashing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_ChestSlashing" value="@{ChestArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
-                <input type="number" name="attr_ChestSpeed" value="@{ChestArmor_Speed}" disabled="true">
+                <input type="number" name="attr_ChestSpeed" value="@{ChestArmor_Speed}" disabled="true" hidden="true">
             </div>
             <hr>
 
@@ -205,15 +174,15 @@
             <input type="number" name="attr_ArmsEvasion" value="(@{Dexterity}+@{ArmsArmor}+@{shield})" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_ArmsBludgeoning" value="@{ArmsArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_ArmsBludgeoning" value="@{ArmsArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_ArmsPiercing" value="@{ArmsArmor_Piercing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_ArmsPiercing" value="@{ArmsArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_ArmsSlashing" value="@{ArmsArmor_Slashing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_ArmsSlashing" value="@{ArmsArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
-                <input type="number" name="attr_ArmsSpeed" value="@{ArmsArmor_Speed}" disabled="true">
+                <input type="number" name="attr_ArmsSpeed" value="@{ArmsArmor_Speed}" disabled="true" hidden="true">
             </div>
             <hr>
 
@@ -229,15 +198,15 @@
             <input type="number" name="attr_LegsEvasion" value="(@{Dexterity}+@{LegsArmor}+@{shield})" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_LegsBludgeoning" value="@{LegsArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_LegsBludgeoning" value="@{LegsArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_LegsPiercing" value="@{LegsArmor_Piercing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_LegsPiercing" value="@{LegsArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_LegsSlashing" value="@{LegsArmor_Slashing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_LegsSlashing" value="@{LegsArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
-                <input type="number" name="attr_LegsSpeed" value="@{LegsArmor_Speed}" disabled="true">
+                <input type="number" name="attr_LegsSpeed" value="@{LegsArmor_Speed}" disabled="true" hidden="true">
             </div>
             <hr>
 
@@ -249,18 +218,18 @@
                 <option value="@{plate}">Plate</option>
             </select>
             <span>Evasion:</span>
-            <input type="number" name="attr_JointsEvasion" value="(@{Dexterity}+@{JointsArmor}+@{shield}+3)" disabled="true">
+            <input type="number" name="attr_JointsEvasion" value="(@{Dexterity}+@{JointsArmor}+@{shield}+@{jointBonus})" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_JointsBludgeoning" value="@{JointsArmor_Bludgeoning}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_JointsBludgeoning" value="@{JointsArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_JointsPiercing" value="@{JointsArmor_Piercing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_JointsPiercing" value="@{JointsArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_JointsSlashing" value="@{JointsArmor_Slashing}+@{shield_mod}" disabled="true">
+                <input type="number" name="attr_JointsSlashing" value="@{JointsArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
 
-                <input type="number" name="attr_JointsSpeed" value="@{JointsArmor_Speed}" disabled="true">
+                <input type="number" name="attr_JointsSpeed" value="@{JointsArmor_Speed}" disabled="true" hidden="true">
             </div>
             <hr>
 
@@ -270,14 +239,17 @@
                 <option value="@{woodShieldEvasion}">Wooden</option>
                 <option value="@{metalShieldEvasion}">Metal</option>
             </select>
-            <input type="number" name="attr_EquippedShieldSpeed" value="@{Shield_Speed}" disabled="true">
+            <input type="number" name="attr_EquippedShieldSpeed" value="@{Shield_Speed}" disabled="true" hidden="true">
+
+            <span>Brute Class Bonus:</span>
+            <input type="checkbox" name="attr_bruteBonus" value="1">
         </div>
 
         <div class="sheet-attacks">
             <h3>Attacks</h3>
             <h4>Strength Attacks</h4>
             <fieldset class="repeating_strengthweapon">
-                <input type="text" name="attr_weaponname" style="width: 80px;" />
+                <input type="text" name="attr_weaponname" style="width: 100px;" />
                 <button type="roll" value="&{template:default} {{name=@{weaponname} Attack}} {{@{weaponname} Attack=[[1d20+@{Weapon}]]}}"></button>
                 <input type="number" name="attr_Weapon" value="(@{Strength}+@{WeaponMod})" disabled="true" />
                 <span>| Bonus:</span>
@@ -286,9 +258,12 @@
                 <input type="checkbox" name="attr_Equipped">
                 <span>| Loaded:</span>
                 <input type="checkbox" name="attr_WeaponLoaded">
+                <br>
                 <span>Damage:</span>
                 <button type="roll" value="&{template:default} {{name=@{weaponname} Damage}} {{@{weaponname} Damage=[[@{Damage}]] @{DamageType}}}"></button>
+                <span>Dice:</span>
                 <input type="text" name="attr_Damage" style="width: 80px;" />
+                <span>Type:</span>
                 <input type="text" name="attr_DamageType" style="width: 80px;" />
                 <select type="text" name="attr_WeaponType" style="width: 150px;">
                     <option value="primary" selected>Primary</option>
@@ -309,9 +284,12 @@
                 <input type="checkbox" name="attr_Equipped">
                 <span>| Loaded:</span>
                 <input type="checkbox" name="attr_WeaponLoaded">
+                <br>
                 <span>Damage:</span>
                 <button type="roll" value="&{template:default} {{name=@{weaponname} Damage}} {{@{weaponname} Damage=[[@{Damage}]] @{DamageType}}}"></button>
+                <span>Dice:</span>
                 <input type="text" name="attr_Damage" style="width: 80px;" />
+                <span>Type:</span>
                 <input type="text" name="attr_DamageType" style="width: 80px;" />
                 <select type="text" name="attr_WeaponType" style="width: 150px;">
                     <option value="primary" selected>Primary</option>
@@ -331,9 +309,12 @@
                 <input type="checkbox" name="attr_Equipped">
                 <span>| Loaded:</span>
                 <input type="checkbox" name="attr_WeaponLoaded">
+                <br>
                 <span>Damage:</span>
                 <button type="roll" value="&{template:default} {{name=@{weaponname} Damage}} {{@{weaponname} Damage=[[@{Damage}]] @{DamageType}}}"></button>
+                <span>Dice:</span>
                 <input type="text" name="attr_Damage" style="width: 80px;" />
+                <span>Type:</span>
                 <input type="text" name="attr_DamageType" style="width: 80px;" />
                 <select type="text" name="attr_WeaponType" style="width: 150px;">
                     <option value="primary" selected>Primary</option>
@@ -343,7 +324,7 @@
         </div>
 
         <div class="sheet-skills">
-            <h3>Skills:</h3>
+            <h3>Skills</h3>
             <h4 style="display: inline-block;">Strength</h4>
             <button type="roll" value="&{template:default} {{name=Strength Check}} {{Strength Check=[[1d20+@{Strength}]]}}" style="display: inline-block;"></button>
             <div class='col'>
@@ -482,8 +463,16 @@
             </div>
         </div>
 
+        <div class="sheet-omens">
+            <h3>Omens</h3>
+            <fieldset class="repeating_omen"></fieldset>
+                <input type="text" name="attr_omenName" style="width: 100px;" />
+                <input type="text" name="attr_omenDescription" style="width: 300px;" />
+            </fieldset>
+        </div>
+
         <div class="sheet-conditions">
-            <h3>Conditions:</h3>
+            <h3>Conditions</h3>
             <span>Alarmed:</span>
             <input type="checkbox" name="attr_alarmed">
             <br>
@@ -534,9 +523,73 @@
         </div>
 
         <div class="sheet-notes">
-            <h3>Notes: </h3>
-            <textarea name="attr_abilities" style="width: 400px; height: 500px; overflow: auto; resize: none;"></textarea>
+            <h3>Notes</h3>
+            <textarea name="attr_notes" style="width: 400px; height: 500px; overflow: auto; resize: none;"></textarea>
             <br>
+        </div>
+        
+        <div class="sheet-settings">
+            <!--All Variables-->
+            <h3>Settings</h3>
+            <h4>Armor Evasion Bonuses:</h4>
+            <span>No Armor Evasion:</span>
+            <input type="number" name="attr_noArmor" value="16"/><br>
+            <span>Head Evasion Bonus:</span>
+            <input type="number" name="attr_headBonus" value="5"/><br>
+            <span>Joint Evasion Bonus:</span>
+            <input type="number" name="attr_jointBonus" value="2"/><br>
+            <span>Leather Armor Evasion:</span>
+            <input type="number" name="attr_leather" value="12"/><br>
+            <span>Chain Armor Evasion:</span>
+            <input type="number" name="attr_chain" value="8"/><br>
+            <span>Plate Armor Evasion:</span>
+            <input type="number" name="attr_plate" value="4"/><br>
+            <span>Wooden Shield Evasion Bonus:</span>
+            <input type="number" name="attr_woodShieldEvasion" value="-2"/><br>
+            <span>Metal Shield Evasion Bonus:</span>
+            <input type="number" name="attr_metalShieldEvasion" value="-4"/><br>
+            
+            <h4>Armor Toughness Bonuses:</h4>
+            <span>Base Toughness:</span>
+            <input type="number" name="attr_noArmorToughness" value="0"/><br>
+            <span>Wooden Shield Toughness Bonus:</span>
+            <input type="number" name="attr_woodShield" value="1"/><br>
+            <span>Metal Shield Toughness Bonus:</span>
+            <input type="number" name="attr_metalShield" value="2"/><br>
+            
+            
+            <span>Leather Bludgeoning Toughness:</span>
+            <input type="number" name="attr_leatherBludgeoning" value="3"/><br>
+            <span>Chain Bludgeoning Toughness:</span>
+            <input type="number" name="attr_chainBludgeoning" value="2"/><br>
+            <span>Plate Bludgeoning Toughness:</span>
+            <input type="number" name="attr_plateBludgeoning" value="4"/><br>
+
+            <span>Leather Piercing Toughness:</span>
+            <input type="number" name="attr_leatherPiercing" value="1"/><br>
+            <span>Chain Piercing Toughness:</span>
+            <input type="number" name="attr_chainPiercing" value="2"/><br>
+            <span>Plate Piercing Toughness:</span>
+            <input type="number" name="attr_platePiercing" value="3"/><br>
+
+            <span>Leather Slashing Toughness:</span>
+            <input type="number" name="attr_leatherSlashing" value="2"/><br>
+            <span>Chain Slashing Toughness:</span>
+            <input type="number" name="attr_chainSlashing" value="4"/><br>
+            <span>Plate Slashing Toughness:</span>
+            <input type="number" name="attr_plateSlashing" value="5"/><br>
+
+            <h4>Speed Bonuses:</h4>
+            <span>Base Movement Speed:</span>
+            <input type="number" name="attr_initialSpeed" value="2"/><br>
+            <span>Leather Speed Bonus:</span>
+            <input type="number" name="attr_leatherSpeed" value="-0.2"/><br>
+            <span>Chain Speed Bonus:</span>
+            <input type="number" name="attr_chainSpeed" value="-0.4"/><br>
+            <span>Shield Speed Bonus:</span>
+            <input type="number" name="attr_plateSpeed" value="-1"/><br>
+            <span>Metal Shield Bonus:</span>
+            <input type="number" name="attr_shieldSpeed" value="-1"/><br>
         </div>
     </div>
 
@@ -565,12 +618,17 @@
     <div class="sheet-class sheet-block">
         <h3>Classes</h3>
         <h5>Character Level</h5>
-        <input type="number" name="attr_level" value="(@{totalLevel}-2)" disabled="true">
-
+        <input type="number" name="attr_level" value="(@{newLevel})" disabled="true">
+        <input type="number" name="attr_classAmount" value="(@{totalClasses})" disabled="true">
+    
+        <!-- Warning message -->
+        <div id="warning-message" class="warning-message" style="display: none;">
+            Warning: Please select a minimum of 3 classes.
+        </div>
         <hr>
+    
         <fieldset id="classField" data-custom-attribute="custom-value" class="repeating_classes">
             <input type="text" name="attr_class" style="width: 350px;" />
-
             <input type="number" name="attr_classLevel" value="0" min="0" max="5">
             <hr>
         </fieldset>
@@ -630,6 +688,7 @@
                 setAttrs({
                     [`${attribute}_Speed`]: speed_mod
                 });
+                updateOverallSpeed();
             });
         });
     }
@@ -653,6 +712,7 @@
             setAttrs({
                 Shield_Speed: shield_base
             });
+            updateOverallSpeed();
         });
     }
 
@@ -683,16 +743,16 @@
             const initialSpeed = float(values[initialSpeedAttribute]);
 
             let totalSpeed;
-            totalSpeed = initialSpeed + dexterity +
-                             headArmorSpeed + chestArmorSpeed +
-                             armsArmorSpeed + legsArmorSpeed +
-                             jointsArmorSpeed + shieldSpeed;
+            let speedChange = headArmorSpeed + chestArmorSpeed + armsArmorSpeed + legsArmorSpeed + jointsArmorSpeed + shieldSpeed;
+            speedChange = Math.ceil(speedChange);
+            totalSpeed = initialSpeed + dexterity + speedChange;
+                             
 
             // Ensure the minimum speed is 1
             totalSpeed = Math.max(totalSpeed, 1);
 
             // Convert to integer (e.g., using Math.round())
-            totalSpeed = Math.round(totalSpeed);
+            totalSpeed = Math.ceil(totalSpeed);
 
             setAttrs({
                 speed_mod: totalSpeed
@@ -706,9 +766,17 @@
         updateOverallSpeed(); // Ensure to update overall speed on sheet open
     });
 
-    on("change:HeadArmor change:ChestArmor change:ArmsArmor change:LegsArmor change:JointsArmor", updateArmorSpeed);
-    on("change:shield", updateShieldSpeed); // Ensure to update shield speed on shield change
-    on("change:dexterity change:initialSpeed", updateOverallSpeed); // Ensure to update overall speed on changes
+    on("change:HeadArmor change:ChestArmor change:ArmsArmor change:LegsArmor change:JointsArmor", function() {
+        updateArmorSpeed();
+        
+    });
+    
+    on("change:shield", function() {
+        updateShieldSpeed();
+    });
+    
+    on("change:dexterity change:initialSpeed", updateOverallSpeed);
+    
     on("clicked:act_armor", function () {
         updateArmorSpeed();
         updateShieldSpeed();
@@ -718,13 +786,35 @@
 
 <!--Buttons Script-->
 <script type="text/worker">
-    const buttonlist = ["combat", "armor", "attacks", "skills", "conditions", "notes"];
+    const buttonlist = ["combat", "armor", "attacks", "skills", "omens", "conditions", "notes", "settings"];
     buttonlist.forEach(button => {
         on(`clicked:${button}`, function() {
             setAttrs({
                 sheetTab: button
             });
         });
+    });
+</script>
+
+<script type="text/worker">
+    function updateWarning() {
+        getAttrs(["totalClasses"], function(result) {
+            const totalClasses = parseInt(result["totalClasses"], 10) || 0;
+            const warningDisplay = totalClasses < 3 ? 'block' : 'none';
+
+            // Update the warning message visibility
+            document.getElementById('warning-message').style.display = warningDisplay;
+        });
+    }
+
+    // Update warning when totalClasses changes
+    on("change:totalClasses", function() {
+        updateWarning();
+    });
+
+    // Also call updateWarning when the sheet opens
+    on("sheet:opened", function() {
+        updateWarning();
     });
 </script>
 
@@ -949,27 +1039,69 @@
 
 <!--Class and Equipment Script-->
 <script type="text/worker">
-                on('change:repeating_classes:classLevel remove:repeating_classes', function() {
-            repeatingSum("totalLevel","classes","classLevel");
-        });
-
-        on('change:repeating_equipment remove:repeating_equipment', function() {
-        repeatingSum("weightMod","equipment",["weight","amount"]);
+    on('change:repeating_classes:classLevel remove:repeating_classes', function() {
+        repeatingSum("totalLevel", "classes", "classLevel");
+        updateTotalClasses(); // Add this to update the count of classes
     });
-                const repeatingSum = (destinations, section, fields) => {
-                if (!Array.isArray(destinations)) destinations = [destinations.replace(/\s/g, '').split(',')];
-                if (!Array.isArray(fields)) fields = [fields.replace(/\s/g, '').split(',')];
-                getSectionIDs(`repeating_${section}`, idArray => {
-                    const attrArray = idArray.reduce((m, id) => [...m, ...(fields.map(field => `repeating_${section}_${id}_${field}`))], []);
-                    getAttrs([...attrArray], v => {
-                        const getValue = (section, id, field) => v[`repeating_${section}_${id}_${field}`] === 'on' ? 1 : parseFloat(v[`repeating_${section}_${id}_${field}`]) || 0;
-                        const commonMultipliers = (fields.length <= destinations.length) ? [] : fields.splice(destinations.length, fields.length - destinations.length);
-                        const output = {};
-                        destinations.forEach((destination, index) => {
-                            output[destination] = idArray.reduce((total, id) => total + getValue(section, id, fields[index]) * commonMultipliers.reduce((subtotal, mult) => subtotal * getValue(section, id, mult), 1), 0);
-                        });
-                        setAttrs(output);
-                    });
+
+    on('change:repeating_equipment remove:repeating_equipment', function() {
+        repeatingSum("weightMod", "equipment", ["weight", "amount"]);
+    });
+
+    const repeatingSum = (destinations, section, fields) => {
+        if (!Array.isArray(destinations)) destinations = [destinations.replace(/\s/g, '').split(',')];
+        if (!Array.isArray(fields)) fields = [fields.replace(/\s/g, '').split(',')];
+
+        getSectionIDs(`repeating_${section}`, idArray => {
+            const attrArray = idArray.reduce((m, id) => [...m, ...(fields.map(field => `repeating_${section}_${id}_${field}`))], []);
+            getAttrs([...attrArray], v => {
+                const getValue = (section, id, field) => v[`repeating_${section}_${id}_${field}`] === 'on' ? 1 : parseFloat(v[`repeating_${section}_${id}_${field}`]) || 0;
+                const commonMultipliers = (fields.length <= destinations.length) ? [] : fields.splice(destinations.length, fields.length - destinations.length);
+                const output = {};
+
+                destinations.forEach((destination, index) => {
+                    // Calculate the sum for each destination
+                    const sum = idArray.reduce((total, id) => total + getValue(section, id, fields[index]) * commonMultipliers.reduce((subtotal, mult) => subtotal * getValue(section, id, mult), 1), 0);
+                    // Ensure the sum is not less than 0
+                    output[destination] = Math.max(sum, 0);
                 });
-            };
+
+                setAttrs(output);
+            });
+        });
+    };
+
+    const updateTotalClasses = () => {
+        getSectionIDs('repeating_classes', idArray => {
+            // Set the total number of classes
+            setAttrs({
+                totalClasses: idArray.length
+            });
+        });
+    };
+
+    // Initial call to update total classes on sheet open
+    on('sheet:opened', updateTotalClasses);
+</script>
+
+<script type="text/worker"> 
+    function updateLevel() {
+        getAttrs(["totalLevel"], function(result) {
+            // Retrieve totalLevel and ensure it's parsed as an integer
+            const totalLevel = parseInt(result["totalLevel"], 10) || 0;
+            // Calculate the new level, ensuring it's at least 0
+            const newLevel = Math.max(totalLevel - 2, 0);
+
+            // Update the attribute level
+            setAttrs({
+                newLevel: newLevel
+            });
+        });
+    }
+
+    // Trigger updateLevel whenever totalLevel changes
+    on("change:totalLevel", updateLevel);
+
+    // Also call updateLevel when the sheet opens
+    on("sheet:opened", updateLevel);
 </script>
