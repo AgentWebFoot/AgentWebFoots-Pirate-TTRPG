@@ -1,4 +1,4 @@
-﻿<!--All Variables-->
+<!--All Variables-->
 <div class="variables">
     <input type="number" name="attr_noArmor" value="16" disabled="true" hidden="true" />
     <input type="number" name="attr_leather" value="12" disabled="true" hidden="true" />
@@ -71,7 +71,7 @@
         <h2>Secondary Stat</h2>
 
         <h3>Speed</h3>
-        <input type="number" name="attr_speed" value="(@{speedMod})" disabled="true">
+        <input type="number" name="attr_speed" value="@{speed_mod}" disabled="true">
         <h3>Loyalty</h3>
         <input type="number" name="attr_loyalty" value="0">
 
@@ -165,6 +165,8 @@
 
                 <span>Slashing:</span>
                 <input type="number" name="attr_HeadSlashing" value="@{HeadArmor_Slashing}+@{shield_mod}" disabled="true">
+
+                <input type="number" name="attr_HeadSpeed" value="@{HeadArmor_Speed}" disabled="true">
             </div>
             <hr>
 
@@ -187,6 +189,8 @@
 
                 <span>Slashing:</span>
                 <input type="number" name="attr_ChestSlashing" value="@{ChestArmor_Slashing}+@{shield_mod}" disabled="true">
+
+                <input type="number" name="attr_ChestSpeed" value="@{ChestArmor_Speed}" disabled="true">
             </div>
             <hr>
 
@@ -209,6 +213,8 @@
 
                 <span>Slashing:</span>
                 <input type="number" name="attr_ArmsSlashing" value="@{ArmsArmor_Slashing}+@{shield_mod}" disabled="true">
+
+                <input type="number" name="attr_ArmsSpeed" value="@{ArmsArmor_Speed}" disabled="true">
             </div>
             <hr>
 
@@ -231,6 +237,8 @@
 
                 <span>Slashing:</span>
                 <input type="number" name="attr_LegsSlashing" value="@{LegsArmor_Slashing}+@{shield_mod}" disabled="true">
+
+                <input type="number" name="attr_LegsSpeed" value="@{LegsArmor_Speed}" disabled="true">
             </div>
             <hr>
 
@@ -252,6 +260,8 @@
 
                 <span>Slashing:</span>
                 <input type="number" name="attr_JointsSlashing" value="@{JointsArmor_Slashing}+@{shield_mod}" disabled="true">
+
+                <input type="number" name="attr_JointsSpeed" value="@{JointsArmor_Speed}" disabled="true">
             </div>
             <hr>
 
@@ -261,6 +271,7 @@
                 <option value="@{woodShieldEvasion}">Wooden</option>
                 <option value="@{metalShieldEvasion}">Metal</option>
             </select>
+            <input type="number" name="attr_EquippedShieldSpeed" value="@{Shield_Speed}" disabled="true">
         </div>
 
         <div class="sheet-attacks">
@@ -575,121 +586,134 @@
 
 <!--Speed Script-->
 <script type="text/worker">
-            const int = score => parseInt(score, 10) || 0;
+    function updateArmorSpeed() {
+        const int = score => parseInt(score, 10) || 0;
+        const float = value => parseFloat(value) || 0; // Add this helper for parsing floats
 
-            const armorAttributes = ["HeadArmor", "ChestArmor", "ArmsArmor", "LegsArmor", "JointsArmor"];
-            const dexterityAttribute = "Dexterity";
-            const shieldAttribute = "shield";
-            const noArmorAttribute = "noArmor";
-            const leatherAttribute = "leather";
-            const chainAttribute = "chain";
-            const plateAttribute = "plate";
+        const armorAttributes = ["HeadArmor", "ChestArmor", "ArmsArmor", "LegsArmor", "JointsArmor"];
+        const noArmorAttribute = "noArmor";
+        const leatherAttribute = "leather";
+        const chainAttribute = "chain";
+        const plateAttribute = "plate";
+        const leatherSpeedAttribute = "leatherSpeed";
+        const chainSpeedAttribute = "chainSpeed";
+        const plateSpeedAttribute = "plateSpeed";
 
-            const leatherSpeedAttribute = "leatherSpeed";
-            const chainSpeedAttribute = "chainSpeed";
-            const plateSpeedAttribute = "plateSpeed";
-            const shieldSpeedAttribute = "shieldSpeed";
-            const metalShieldEvasionAttribute = "metalShieldEvasion";
+        armorAttributes.forEach(attribute => {
+            getAttrs([attribute, noArmorAttribute, leatherAttribute, chainAttribute, plateAttribute, leatherSpeedAttribute, chainSpeedAttribute, plateSpeedAttribute], values => {
+                const noArmor = float(values[noArmorAttribute]);
+                const leather = float(values[leatherAttribute]);
+                const chain = float(values[chainAttribute]);
+                const plate = float(values[plateAttribute]);
 
-            const initialSpeedAttribute = "initialSpeed";
+                // Determine the base speed value
+                let speed_base;
+                if (values[attribute] === `@{noArmor}`) speed_base = noArmor;
+                else if (values[attribute] === `@{leather}`) speed_base = leather;
+                else if (values[attribute] === `@{chain}`) speed_base = chain;
+                else if (values[attribute] === `@{plate}`) speed_base = plate;
+                else speed_base = 0; // Default if no valid match
 
-            // Function to initialize armor speeds to 0
-            function initializeArmorSpeeds() {
-                const speedValues = armorAttributes.reduce((acc, armor) => {
-                    acc[`${armor}_Speed`] = 0;
-                    return acc;
-                }, {});
+                // Get speed modifiers
+                const noArmorSpeed = 0;
+                const leatherSpeed = float(values[leatherSpeedAttribute]);
+                const chainSpeed = float(values[chainSpeedAttribute]);
+                const plateSpeed = float(values[plateSpeedAttribute]);
 
-                setAttrs(speedValues);
-                // Calculate and update initial total speedMod
-                calculateTotalSpeedMod();
-            }
+                // Determine the speed modifier based on the base speed
+                let speed_mod;
+                if (speed_base === noArmor) speed_mod = noArmorSpeed;
+                else if (speed_base === leather) speed_mod = leatherSpeed;
+                else if (speed_base === chain) speed_mod = chainSpeed;
+                else if (speed_base === plate) speed_mod = plateSpeed;
+                else speed_mod = 0; // Default if no valid match
 
-            // Function to update armor speeds on change
-            function updateArmorSpeeds(armor) {
-                getAttrs([armor, dexterityAttribute, noArmorAttribute, leatherAttribute, chainAttribute, plateAttribute, leatherSpeedAttribute, chainSpeedAttribute, plateSpeedAttribute], values => {
-                    const noArmor = parsFloat(values[noArmorAttribute]);
-                    const leather = parsFloat(values[leatherAttribute]);
-                    const chain = parsFloat(values[chainAttribute]);
-                    const plate = parsFloat(values[plateAttribute]);
-
-                    if (values[armor]  == "@{noArmor}") values[armor] = noArmor;
-                    else if (values[armor]  == "@{leather}") values[armor] = leather;
-                    else if (values[armor]  == "@{chain}") values[armor] = chain;
-                    else if (values[armor]  == "@{plate}") values[armor] = plate;
-
-                    let armor_base = parsFloat(values[armor]);
-                    const dexterity = parsFloat(values[dexterityAttribute]);
-                    const leatherSpeed = parsFloat(values[leatherSpeedAttribute]);
-                    const chainSpeed = parsFloat(values[chainSpeedAttribute]);
-                    const plateSpeed = parsFloat(values[plateSpeedAttribute]);
-
-                    // Calculate speed_mod based on armor rating
-                    let speed_mod = 0.0;
-
-                    if (armor_base == noArmor) {
-                        if (armor_base == leather)
-                            speed_mod = leatherSpeed;
-                        else if (armor_base == chain)
-                            speed_mod = chainSpeed;
-                        else
-                            speed_mod = plateSpeed;
-                    }
-
-                    setAttrs({
-                        [`${armor}_Speed`]: speed_mod
-                    });
-
-                    // Calculate and update total speedMod
-                    calculateTotalSpeedMod(dexterity);
+                setAttrs({
+                    [`${attribute}_Speed`]: speed_mod
                 });
-           }
-
-            // Function to calculate total speedMod and update the attribute
-        function calculateTotalSpeedMod() {
-        getAttrs(["HeadArmor_Speed", "ChestArmor_Speed", "ArmsArmor_Speed", "LegsArmor_Speed", "JointsArmor_Speed", dexterityAttribute, shieldAttribute, shieldSpeedAttribute, metalShieldEvasionAttribute, initialSpeedAttribute]), values => {
-            const dexterity = parsFloat(values[dexterityAttribute]);
-            const shieldValue = parsFloat(values[shieldAttribute]);
-            const shieldSpeed = parsFloat(values[shieldSpeedAttribute]);
-            const initialSpeed = parsFloat(values[initialSpeedAttribute]);
-            const metalShieldEvasion = parsFloat(values[metalShieldEvasionAttribute]);
-            const HeadArmor_Speed = parsFloat(values["HeadArmor_Speed"]);
-            const ChestArmor_Speed = parsFloat(values["ChestArmor_Speed"]);
-            const ArmsArmor_Speed = parsFloat(values["ArmsArmor_Speed"]);
-            const LegsArmor_Speed = parsFloat(values["LegsArmor_Speed"]);
-            const JointsArmor_Speed = parsFloat(values["JointsArmor_Speed"]);
-
-            let totalSpeedMod = initialSpeed + dexterity + HeadArmor_Speed + ChestArmor_Speed + ArmsArmor_Speed + LegsArmor_Speed + JointsArmor_Speed
-
-            if ((shieldValue == "@{metalShieldEvasion}")||(shieldValue == metalShieldEvasion)) {
-                totalSpeedMod += shieldSpeed;
-            }
-
-
-            // Ensure that totalSpeedMod is at least 1 and rounds up to the nearest whole number
-            totalSpeedMod = Math.max(Math.ceil(totalSpeedMod), 1);
-
-            setAttrs({
-                speedMod: totalSpeedMod
             });
         });
     }
 
-    // Initialize armor speeds on sheet launch
-    on("sheet:opened", function (eventInfo) {
-        initializeArmorSpeeds();
-    });
+    function updateShieldSpeed() {
+        const int = score => parseInt(score, 10) || 0;
+        const float = value => parseFloat(value) || 0; // Helper for parsing floats
 
-    // Update armor speeds on armor, dexterity, or shield change
-    armorAttributes.forEach(armor => {
-        on(`change:${armor}`, () => {
-            updateArmorSpeeds(armor);
+        const shieldAttribute = "shield";
+        const metalShieldEvasionAttribute = "metalShieldEvasion";
+        const shieldSpeedAttribute = "shieldSpeed";
+
+        getAttrs([shieldAttribute, metalShieldEvasionAttribute, shieldSpeedAttribute], values => {
+            const metalShieldEvasion = int(values[metalShieldEvasionAttribute]);
+            const shieldSpeed = float(values[shieldSpeedAttribute]);
+
+            let shield_base;
+            if (values[shieldAttribute] === `@{metalShieldEvasion}`) shield_base = shieldSpeed;
+            else shield_base = 0; // Default if no valid match
+
+            setAttrs({
+                Shield_Speed: shield_base
+            });
         });
+    }
+
+    function updateOverallSpeed() {
+    const float = value => parseFloat(value) || 0; // Helper for parsing floats
+
+    const headArmorSpeedAttribute = "HeadArmor_Speed";
+    const chestArmorSpeedAttribute = "ChestArmor_Speed";
+    const armsArmorSpeedAttribute = "ArmsArmor_Speed";
+    const legsArmorSpeedAttribute = "LegsArmor_Speed";
+    const jointsArmorSpeedAttribute = "JointsArmor_Speed";
+    const shieldSpeedAttribute = "Shield_Speed";
+    const dexterityAttribute = "dexterity";
+    const initialSpeedAttribute = "initialSpeed";
+
+    getAttrs([
+        headArmorSpeedAttribute, chestArmorSpeedAttribute, armsArmorSpeedAttribute,
+        legsArmorSpeedAttribute, jointsArmorSpeedAttribute, shieldSpeedAttribute,
+        dexterityAttribute, initialSpeedAttribute
+    ], values => {
+            const headArmorSpeed = float(values[headArmorSpeedAttribute]);
+            const chestArmorSpeed = float(values[chestArmorSpeedAttribute]);
+            const armsArmorSpeed = float(values[armsArmorSpeedAttribute]);
+            const legsArmorSpeed = float(values[legsArmorSpeedAttribute]);
+            const jointsArmorSpeed = float(values[jointsArmorSpeedAttribute]);
+            const shieldSpeed = float(values[shieldSpeedAttribute]);
+            const dexterity = float(values[dexterityAttribute]);
+            const initialSpeed = float(values[initialSpeedAttribute]);
+
+            let totalSpeed;
+            totalSpeed = initialSpeed + dexterity +
+                             headArmorSpeed + chestArmorSpeed +
+                             armsArmorSpeed + legsArmorSpeed +
+                             jointsArmorSpeed + shieldSpeed;
+
+            // Ensure the minimum speed is 1
+            totalSpeed = Math.max(totalSpeed, 1);
+
+            // Convert to integer (e.g., using Math.round())
+            totalSpeed = Math.round(totalSpeed);
+
+            setAttrs({
+                speed_mod: totalSpeed
+            });
+        });
+    }
+
+    on("sheet:opened", function (eventInfo) {
+        updateArmorSpeed();
+        updateShieldSpeed();
+        updateOverallSpeed(); // Ensure to update overall speed on sheet open
     });
 
-    // Update total speedMod when dexterity or shield changes
-    on(`change:${dexterityAttribute} change:${shieldAttribute} change:metalShieldSpeed`, () => {
-        calculateTotalSpeedMod();
+    on("change:HeadArmor change:ChestArmor change:ArmsArmor change:LegsArmor change:JointsArmor", updateArmorSpeed);
+    on("change:shield", updateShieldSpeed); // Ensure to update shield speed on shield change
+    on("change:dexterity change:initialSpeed", updateOverallSpeed); // Ensure to update overall speed on changes
+    on("clicked:act_armor", function () {
+        updateArmorSpeed();
+        updateShieldSpeed();
+        updateOverallSpeed();
     });
 </script>
 
@@ -950,4 +974,3 @@
                 });
             };
 </script>
-
