@@ -48,11 +48,6 @@
     display: none;
 }
 
-.charsheet .sheet-warningOn,
-.charsheet .sheet-warningOff {
-  display: none;
-}
-
 /* show the selected tab */
 .charsheet .sheet-tabstoggle[value="combat"] ~ div.sheet-combat,
 .charsheet .sheet-tabstoggle[value="armor"] ~ div.sheet-armor,
@@ -63,34 +58,4 @@
 .charsheet .sheet-tabstoggle[value="notes"] ~ div.sheet-notes,
 .charsheet .sheet-tabstoggle[value="settings"] ~ div.sheet-settings {
     display: block;
-}
-
-.charsheet .sheet-warningtoggle[value="warningOn"] ~ div.sheet-warningOn,
-.charsheet .sheet-warningtoggle[value="warningOff"] ~ div.sheet-warningOff {
-    display: block;
-}
-
-/* Button Selection */
-.charsheet .sheet-dots{
-  display:flex;
-}
-
-/* Configure the button styling. This example makes it look like a radio. */
-.charsheet button.sheet-dot {
-  padding: 0;
-  border: solid 1px #a8a8a8;
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.charsheet button.sheet-dot > span {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: buttontext;
 }

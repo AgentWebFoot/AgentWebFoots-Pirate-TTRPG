@@ -465,9 +465,14 @@
 
         <div class="sheet-omens">
             <h3>Omens</h3>
-            <fieldset class="repeating_omen"></fieldset>
-                <input type="text" name="attr_omenName" style="width: 100px;" />
-                <input type="text" name="attr_omenDescription" style="width: 300px;" />
+            <span style="margin-right: 7px;"></span>
+                <span style="margin-right: 175px;">Name</span>
+                <span style="margin-right: 150px;">Description</span>
+                <span>Cost</span>
+            <fieldset class="repeating_omen">
+                <input type="text" name="attr_omenName" style="width: 50px;" />
+                <input type="text" name="attr_omenDescription" style="width: 375px;">
+                <input type="number" name="attr_cost" value="0">
             </fieldset>
         </div>
 
@@ -620,18 +625,16 @@
         <h5>Character Level</h5>
         <input type="number" name="attr_level" value="(@{newLevel})" disabled="true">
         <input type="number" name="attr_classAmount" value="(@{totalClasses})" disabled="true">
-    
-        <!-- Warning message -->
-        <div id="warning-message" class="warning-message" style="display: none;">
-            Warning: Please select a minimum of 3 classes.
-        </div>
+        
         <hr>
-    
         <fieldset id="classField" data-custom-attribute="custom-value" class="repeating_classes">
             <input type="text" name="attr_class" style="width: 350px;" />
             <input type="number" name="attr_classLevel" value="0" min="0" max="5">
             <hr>
         </fieldset>
+
+        <input class="sheet-classWarningToggle" name="attr_classWarning" value="@{warningClass}"  disabled="true" style=" width: 500px; color: red; text-align: center;"/>
+
     </div>
 
     <div class="sheet-abilities sheet-block">
@@ -784,6 +787,7 @@
     });
 </script>
 
+
 <!--Buttons Script-->
 <script type="text/worker">
     const buttonlist = ["combat", "armor", "attacks", "skills", "omens", "conditions", "notes", "settings"];
@@ -796,27 +800,6 @@
     });
 </script>
 
-<script type="text/worker">
-    function updateWarning() {
-        getAttrs(["totalClasses"], function(result) {
-            const totalClasses = parseInt(result["totalClasses"], 10) || 0;
-            const warningDisplay = totalClasses < 3 ? 'block' : 'none';
-
-            // Update the warning message visibility
-            document.getElementById('warning-message').style.display = warningDisplay;
-        });
-    }
-
-    // Update warning when totalClasses changes
-    on("change:totalClasses", function() {
-        updateWarning();
-    });
-
-    // Also call updateWarning when the sheet opens
-    on("sheet:opened", function() {
-        updateWarning();
-    });
-</script>
 
 <!--Armor Script-->
 <script type="text/worker">
@@ -1104,4 +1087,33 @@
 
     // Also call updateLevel when the sheet opens
     on("sheet:opened", updateLevel);
+</script>
+
+<script type="text/worker">
+    function classWarning(){
+        const classAmountAttribute = "totalClasses";
+
+        getAttrs([classAmountAttribute], function(result) {
+            const classAmount = parseInt(result[classAmountAttribute], 10) || 0;
+            setAttrs({
+                classTest: classAmount
+            });
+
+            if (classAmount < 3) {
+                setAttrs({
+                    warningClass: "Please include at least three classes"
+                });
+            } else {
+                setAttrs({
+                    warningClass: " "
+                });
+            }
+        });
+    }
+
+    // Listen for changes in classAmount and run classWarning function
+    on("change:classAmount", classWarning);
+
+    // Also call classWarning when the sheet opens
+    on("sheet:opened", classWarning);
 </script>
