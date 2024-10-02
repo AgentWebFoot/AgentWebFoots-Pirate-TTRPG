@@ -3,15 +3,18 @@
     <div class="sheet-namelvl sheet-block">
         <!--Name-->
         <span>Name:</span>
-        <input type="text" name="attr_character_name" style="width: 150px;" />
+        <input type="text" name="attr_character_name" style="width: 100px;" />
 
         <!--Background-->
         <span>Crew:</span>
-        <input type="text" name="attr_crew" value="Crew" style="width: 150px;">
+        <input type="text" name="attr_crew" value="Crew" style="width: 100px;">
 
         <!--Heritage-->
         <span>Country:</span>
-        <input type="text" name="attr_country" value="Country" style="width: 150px;">
+        <input type="text" name="attr_country" value="Country" style="width: 100px;">
+
+        <span>Religion:</span>
+        <input type="text" name="attr_religion" value="Religion" style="width: 100px;">
 
     </div>
 
@@ -123,16 +126,16 @@
             </select>
 
             <span>Evasion:</span>
-            <input type="number" name="attr_HeadEvasion" value="(@{Dexterity}+@{HeadArmor}+@{shield}+@{headBonus})" disabled="true">
+            <input type="number" name="attr_HeadEvasion" value="@{Dexterity}+@{HeadArmor}+@{shield}+@{headBonus}+@{dodgeBonus}*@{dodge}" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_HeadBludgeoning" value="@{HeadArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_HeadBludgeoning" value="@{HeadArmor_Bludgeoning}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_HeadPiercing" value="@{HeadArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_HeadPiercing" value="@{HeadArmor_Piercing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_HeadSlashing" value="@{HeadArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_HeadSlashing" value="@{HeadArmor_Slashing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <input type="number" name="attr_HeadSpeed" value="@{HeadArmor_Speed}" disabled="true" hidden="true">
             </div>
@@ -147,16 +150,16 @@
             </select>
 
             <span>Evasion:</span>
-            <input type="number" name="attr_ChestEvasion" value="(@{Dexterity}+@{ChestArmor}+@{shield})" disabled="true">
+            <input type="number" name="attr_ChestEvasion" value="@{Dexterity}+@{ChestArmor}+@{shield}+@{dodgeBonus}*@{dodge}" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_ChestBludgeoning" value="@{ChestArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_ChestBludgeoning" value="@{ChestArmor_Bludgeoning}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_ChestPiercing" value="@{ChestArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_ChestPiercing" value="@{ChestArmor_Piercing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_ChestSlashing" value="@{ChestArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_ChestSlashing" value="@{ChestArmor_Slashing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <input type="number" name="attr_ChestSpeed" value="@{ChestArmor_Speed}" disabled="true" hidden="true">
             </div>
@@ -171,16 +174,16 @@
             </select>
 
             <span>Evasion:</span>
-            <input type="number" name="attr_ArmsEvasion" value="(@{Dexterity}+@{ArmsArmor}+@{shield})" disabled="true">
+            <input type="number" name="attr_ArmsEvasion" value="@{Dexterity}+@{ArmsArmor}+@{shield}+@{dodgeBonus}*@{dodge}" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_ArmsBludgeoning" value="@{ArmsArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_ArmsBludgeoning" value="@{ArmsArmor_Bludgeoning}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_ArmsPiercing" value="@{ArmsArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_ArmsPiercing" value="@{ArmsArmor_Piercing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_ArmsSlashing" value="@{ArmsArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_ArmsSlashing" value="@{ArmsArmor_Slashing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <input type="number" name="attr_ArmsSpeed" value="@{ArmsArmor_Speed}" disabled="true" hidden="true">
             </div>
@@ -195,16 +198,16 @@
             </select>
 
             <span>Evasion:</span>
-            <input type="number" name="attr_LegsEvasion" value="(@{Dexterity}+@{LegsArmor}+@{shield})" disabled="true">
+            <input type="number" name="attr_LegsEvasion" value="@{Dexterity}+@{LegsArmor}+@{shield}+@{dodgeBonus}*@{dodge}" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_LegsBludgeoning" value="@{LegsArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_LegsBludgeoning" value="@{LegsArmor_Bludgeoning}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_LegsPiercing" value="@{LegsArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_LegsPiercing" value="@{LegsArmor_Piercing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_LegsSlashing" value="@{LegsArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_LegsSlashing" value="@{LegsArmor_Slashing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <input type="number" name="attr_LegsSpeed" value="@{LegsArmor_Speed}" disabled="true" hidden="true">
             </div>
@@ -218,16 +221,16 @@
                 <option value="@{plate}">Plate</option>
             </select>
             <span>Evasion:</span>
-            <input type="number" name="attr_JointsEvasion" value="(@{Dexterity}+@{JointsArmor}+@{shield}+@{jointBonus})" disabled="true">
+            <input type="number" name="attr_JointsEvasion" value="@{Dexterity}+@{JointsArmor}+@{shield}+@{jointBonus}+@{dodgeBonus}*@{dodge}" disabled="true">
             <div class='col'>
                 <span>Bludgeoning:</span>
-                <input type="number" name="attr_JointsBludgeoning" value="@{JointsArmor_Bludgeoning}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_JointsBludgeoning" value="@{JointsArmor_Bludgeoning}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Piercing:</span>
-                <input type="number" name="attr_JointsPiercing" value="@{JointsArmor_Piercing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_JointsPiercing" value="@{JointsArmor_Piercing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <span>Slashing:</span>
-                <input type="number" name="attr_JointsSlashing" value="@{JointsArmor_Slashing}+@{shield_mod}+@{bruteBonus}" disabled="true">
+                <input type="number" name="attr_JointsSlashing" value="@{JointsArmor_Slashing}+@{shield_mod}+@{braceBonus}*@{brace}" disabled="true">
 
                 <input type="number" name="attr_JointsSpeed" value="@{JointsArmor_Speed}" disabled="true" hidden="true">
             </div>
@@ -241,8 +244,27 @@
             </select>
             <input type="number" name="attr_EquippedShieldSpeed" value="@{Shield_Speed}" disabled="true" hidden="true">
 
-            <span>Brute Class Bonus:</span>
-            <input type="checkbox" name="attr_bruteBonus" value="1">
+            <hr>
+            <h4>Defensive Stance:</h4>
+            <select type="number" name="attr_defensiveStance" style="width: 150px;">
+                <option value=0 selected>Brace</option>
+                <option value=1>Dodge</option>
+                <option value=2>Duck</option>
+                <option value=3>Parry</option>
+                <option value=4>Relentless Adrenaline</option>
+                <option value=5>Iron Body</option>
+                <option value=6>Firm Ground</option>
+                <option value=7>Defensive Coating</option>
+                <option value=8>Fancy Footwork</option>
+            </select>
+            <div class='col'>
+                <span>Brace Bonus:</span>
+                <input type="checkbox" name="attr_braceBonus" value="1">
+    
+                <span>Dodge Bonus:</span>
+                <input type="checkbox" name="attr_dodgeBonus" value="1">
+
+            </div> 
         </div>
 
         <div class="sheet-attacks">
@@ -595,6 +617,13 @@
             <input type="number" name="attr_plateSpeed" value="-1"/><br>
             <span>Metal Shield Bonus:</span>
             <input type="number" name="attr_shieldSpeed" value="-1"/><br>
+
+            <h4>Defensive Styles:</h4>
+            <span>Dodge Bonus:</span>
+            <input type="number" name="attr_dodge" value="5"/><br>
+            <span>Brace Bonus:</span>
+            <input type="number" name="attr_brace" value="3"/><br>
+
         </div>
     </div>
 
@@ -624,7 +653,7 @@
         <h3>Classes</h3>
         <h5>Character Level</h5>
         <input type="number" name="attr_level" value="(@{newLevel})" disabled="true">
-        <input type="number" name="attr_classAmount" value="(@{totalClasses})" disabled="true">
+        <input type="number" name="attr_classAmount" value="(@{totalClasses})" disabled="true" hidden="true">
         
         <hr>
         <fieldset id="classField" data-custom-attribute="custom-value" class="repeating_classes">
