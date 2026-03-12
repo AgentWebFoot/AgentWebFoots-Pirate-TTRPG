@@ -75,31 +75,49 @@
             const LEVEL_POINTS = level => level === 1 ? 10 : 1
             const LEVEL_STAT_CAP = level => level === 1 ? 5 : 10
 
-            function MainPage({statTotals}) {
+            function MainPage({statTotals,classCounts}) {
                 return (
-                    <div className="mainpage">
-                    <div className="statRow">
-                        {Object.entries(stats).map(([stat,skills])=>(
-                        <div className="statBlock" key={stat}>
-                            <h3>{stat}</h3>
+                <div className="mainpage">
 
-                            <input
-                                type="number"
-                                value={statTotals[stat]}
-                                readOnly
-                            />
-                            <ul>
-                                {skills.map(skill=>(
-                                <li key={skill}>{skill}</li>
-                                ))}
-                            </ul>
-                        </div>
-                        ))}
-                    </div>
+                <div className="statRow">
+                {Object.entries(stats).map(([stat,skills])=>(
+                <div className="statBlock" key={stat}>
 
-                    </div>
+                <h3>{stat}</h3>
+
+                <input
+                type="number"
+                value={statTotals[stat]}
+                readOnly
+                />
+
+                <ul>
+                {skills.map(skill=>(
+                <li key={skill}>{skill}</li>
+                ))}
+                </ul>
+
+                </div>
+                ))}
+                </div>
+
+                <div style={{marginTop:"30px"}}>
+
+                <h3>Class Ranks</h3>
+
+                <ul>
+                {Object.entries(classCounts).map(([cls,count])=>(
+                <li key={cls}>
+                {cls} - {count}
+                </li>
+                ))}
+                </ul>
+
+                </div>
+
+                </div>
                 )
-            }
+                }
 
             function TopBar({name,setName,country,setCountry,level}) {
                 return (
@@ -150,167 +168,190 @@
             ]
 
             const allClasses = classGroups.flatMap(g=>g.classes)
+                function LeftPanel({
+                    statTotals,
+                    setStatTotals,
+                    levelStats,
+                    setLevelStats,
+                    levels,
+                    setLevels,
+                    level1,
+                    setLevel1
+                    }) {
 
-            function LeftPanel({statTotals,setStatTotals,levelStats,setLevelStats}) {
-                const [levels,setLevels] = React.useState(
-                    Array(20).fill(null)
-                )
+                        const selectedClasses = [
+                            ...level1,
+                            ...levels
+                            ].filter(Boolean)
 
-                const [level1,setLevel1] = React.useState(["","",""])
+                            const classCounts = {}
 
-                function updateLevel(index,value){
-                    const copy=[...levels]
-                    copy[index]=value
-                    setLevels(copy)
-                }
+                            selectedClasses.forEach(cls=>{
+                            classCounts[cls] = (classCounts[cls] || 0) + 1
+                        })
 
-                function updateLevel1(index,value){
-                    const copy=[...level1]
-                    copy[index]=value
-                    setLevel1(copy)
-                }
+                        function updateLevel(index,value){
+                            const copy=[...levels]
+                            copy[index]=value
+                            setLevels(copy)
+                        }
 
-                return(
-                    <div className="leftpanel">
-
-                    {/* Level 1 */}
-
-                    <div>
-                        <h3>Level 1</h3>
-
-                        {[0,1,2].map(i=>(
-                        <select
-                            key={i}
-                            value={level1[i]}
-                            onChange={e=>updateLevel1(i,e.target.value)}
-                        >
-
-                            <option value="">Select Class</option>
-
-                            {classGroups.map(group => (
-                            <optgroup key={group.title} label={group.title}>
-                                {group.classes
-                                .filter(c => !level1.includes(c) || level1[i] === c)
-                                .map(c => (
-                                    <option key={c}>{c}</option>
-                                ))
-                                }
-                            </optgroup>
-                            ))}
-
-                        </select>
-
-                        
-                        ))}
-
-                        <div className="statButtons">
-                            {STAT_LIST.map(stat=>(
-                            <div key={stat}>
-
-                            <button onClick={()=>
-                            removeStat(
-                            1,
-                            stat,
-                            statTotals,
-                            setStatTotals,
-                            levelStats,
-                            setLevelStats
-                            )
-                            }>-</button>
-
-                            <span>
-                            {stat} ({levelStats[0][stat]})
-                            </span>
-
-                            <button onClick={()=>
-                            addStat(
-                            1,
-                            stat,
-                            statTotals,
-                            setStatTotals,
-                            levelStats,
-                            setLevelStats
-                            )
-                            }>+</button>
-
-                            </div>
-                            ))}
-
-                            </div>
-
-                    </div>
-
-                        
-
-                    {/* Levels 2–20 */}
-
-                    {Array.from({length:19},(_,i)=>{
-
-                        const level=i+2
+                        function updateLevel1(index,value){
+                            const copy=[...level1]
+                            copy[index]=value
+                            setLevel1(copy)
+                        }
 
                         return(
-                        <div key={level}>
-                            <h3>Level {level}</h3>
+                            <div className="leftpanel">
 
-                            <select
-                            value={levels[level-1]||""}
-                            onChange={e=>updateLevel(level-1,e.target.value)}
-                            >
+                            {/* Level 1 */}
 
-                            <option value="">Select Class</option>
+                            <div>
+                                <h3>Level 1</h3>
 
-                            {classGroups.map(group=>(
-                                <optgroup key={group.title} label={group.title}>
-                                {group.classes.map(c=>(
-                                    <option key={c}>{c}</option>
+                                {[0,1,2].map(i=>(
+                                <select
+                                    key={i}
+                                    value={level1[i]}
+                                    onChange={e=>updateLevel1(i,e.target.value)}
+                                >
+
+                                    <option value="">Select Class</option>
+
+                                    {classGroups.map(group => (
+                                    <optgroup key={group.title} label={group.title}>
+                                        {group.classes
+                                        .filter(c => !level1.includes(c) || level1[i] === c)
+                                        .map(c => (
+                                            <option
+                                                key={c}
+                                                disabled={
+                                                (classCounts[c] || 0) >= 5 && level1[i] !== c
+                                                }
+                                                >
+                                                {c}
+                                                </option>
+                                        ))
+                                        }
+                                    </optgroup>
+                                    ))}
+
+                                </select>
+
+                                
                                 ))}
-                                </optgroup>
-                            ))}
 
-                            </select>
-                            <div className="statButtons">
+                                <div className="statButtons">
+                                    {STAT_LIST.map(stat=>(
+                                    <div key={stat}>
 
-                            {STAT_LIST.map(stat=>(
-                            <div key={stat}>
+                                    <button onClick={()=>
+                                    removeStat(
+                                    1,
+                                    stat,
+                                    statTotals,
+                                    setStatTotals,
+                                    levelStats,
+                                    setLevelStats
+                                    )
+                                    }>-</button>
 
-                            <button onClick={()=>
-                                removeStat(
-                                level,
-                                stat,
-                                statTotals,
-                                setStatTotals,
-                                levelStats,
-                                setLevelStats
+                                    <span>
+                                    {stat} ({levelStats[0][stat]})
+                                    </span>
+
+                                    <button onClick={()=>
+                                    addStat(
+                                    1,
+                                    stat,
+                                    statTotals,
+                                    setStatTotals,
+                                    levelStats,
+                                    setLevelStats
+                                    )
+                                    }>+</button>
+
+                                    </div>
+                                    ))}
+
+                                    </div>
+
+                            </div>             
+
+                            {/* Levels 2–20 */}
+
+                            {Array.from({length:19},(_,i)=>{
+
+                                const level=i+2
+
+                                return(
+                                <div key={level}>
+                                    <h3>Level {level}</h3>
+
+                                    <select
+                                    value={levels[level-1]||""}
+                                    onChange={e=>updateLevel(level-1,e.target.value)}
+                                    >
+
+                                    <option value="">Select Class</option>
+
+                                    {classGroups.map(group=>(
+                                        <optgroup key={group.title} label={group.title}>
+                                        {group.classes.map(c=>(
+                                            <option
+                                                key={c}
+                                                disabled={
+                                                (classCounts[c] || 0) >= 5 && levels[level-1] !== c
+                                                }
+                                                >
+                                                {c}
+                                            </option>
+                                        ))}
+                                        </optgroup>
+                                    ))}
+
+                                    </select>
+                                    <div className="statButtons">
+
+                                    {STAT_LIST.map(stat=>(
+                                    <div key={stat}>
+
+                                    <button onClick={()=>
+                                        removeStat(
+                                        level,
+                                        stat,
+                                        statTotals,
+                                        setStatTotals,
+                                        levelStats,
+                                        setLevelStats
+                                        )
+                                        }>-</button>
+
+                                    <span>
+                                    {stat} ({levelStats[level-1][stat]})
+                                    </span>
+
+                                    <button onClick={()=>
+                                        addStat(
+                                        level,
+                                        stat,
+                                        statTotals,
+                                        setStatTotals,
+                                        levelStats,
+                                        setLevelStats
+                                        )
+                                        }>+</button>
+
+                                    </div>
+                                    ))}
+                                </div>
+                                </div>
                                 )
-                                }>-</button>
-
-                            <span>
-                            {stat} ({levelStats[level-1][stat]})
-                            </span>
-
-                            <button onClick={()=>
-                                addStat(
-                                level,
-                                stat,
-                                statTotals,
-                                setStatTotals,
-                                levelStats,
-                                setLevelStats
-                                )
-                                }>+</button>
-
+                            })}
                             </div>
-                            ))}
-
-                        </div>
-
-                        </div>
                         )
-                    })}
-        
-                    </div>
-                )
-            }
+                }
 
             function addStat(level,stat,statTotals,setStatTotals,levelStats,setLevelStats){
                 const levelIndex = level-1
@@ -353,24 +394,34 @@
                 const level = 1
 
                 const [statTotals,setStatTotals] = React.useState({
-                Brawn:0,
-                Finesse:0,
-                Grit:0,
-                Awareness:0,
-                Brains:0,
-                Swagger:0
-            })
+                    Brawn:0,
+                    Finesse:0,
+                    Grit:0,
+                    Awareness:0,
+                    Brains:0,
+                    Swagger:0
+                })
+                const [levels,setLevels] = React.useState(Array(20).fill(null))
+                const [level1,setLevel1] = React.useState(["","",""])
 
-            const [levelStats,setLevelStats] = React.useState(
-                Array.from({length:20},()=>({
-                Brawn:0,
-                Finesse:0,
-                Grit:0,
-                Awareness:0,
-                Brains:0,
-                Swagger:0
-                }))
-            )
+                const [levelStats,setLevelStats] = React.useState(
+                    Array.from({length:20},()=>({
+                    Brawn:0,
+                    Finesse:0,
+                    Grit:0,
+                    Awareness:0,
+                    Brains:0,
+                    Swagger:0
+                    }))
+                )
+
+                const selectedClasses = [...level1, ...levels].filter(Boolean)
+
+                const classCounts = {}
+
+                selectedClasses.forEach(cls=>{
+                classCounts[cls] = (classCounts[cls] || 0) + 1
+                })
 
                 return(
                     <div className="app">
@@ -388,10 +439,15 @@
                         setStatTotals={setStatTotals}
                         levelStats={levelStats}
                         setLevelStats={setLevelStats}
-                        />
+                        levels={levels}
+                        setLevels={setLevels}
+                        level1={level1}
+                        setLevel1={setLevel1}
+                    />
 
                     <MainPage
                         statTotals={statTotals}
+                        classCounts={classCounts}
                         />
 
                     </div>
