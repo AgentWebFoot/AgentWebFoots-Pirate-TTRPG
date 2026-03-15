@@ -102,6 +102,9 @@
                 setLevelSkills,
                 availableSkillPoints
                 }) {
+
+                const [activeTab,setActiveTab] = React.useState("class")
+
                 return (
                 <div className="mainpage">
 
@@ -159,6 +162,19 @@
 
                 <div style={{marginTop:"30px"}}>
 
+                <div style={{display:"flex",gap:"10px",marginBottom:"10px"}}>
+
+                <button onClick={()=>setActiveTab("class")}>Class</button>
+                <button onClick={()=>setActiveTab("combat")}>Combat</button>
+                <button onClick={()=>setActiveTab("settings")}>Settings</button>
+
+                </div>
+
+                <div>
+
+                {activeTab === "class" && (
+                <div>
+
                 <h3>Class Ranks</h3>
 
                 <ul>
@@ -168,6 +184,29 @@
                 </li>
                 ))}
                 </ul>
+
+                </div>
+                )}
+
+                {activeTab === "combat" && (
+                <div>
+
+                <h3>Combat</h3>
+                <p>Combat options will go here.</p>
+
+                </div>
+                )}
+
+                {activeTab === "settings" && (
+                <div>
+
+                <h3>Settings</h3>
+                <p>Settings options will go here.</p>
+
+                </div>
+                )}
+
+                </div>
 
                 </div>
 
