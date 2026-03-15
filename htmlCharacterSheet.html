@@ -55,13 +55,20 @@
 
         <script type="text/babel">
             const stats = {
-                Brawn: ["Rigging","Lifting","Pinning","Swimming"],
-                Finesse: ["Acrobatics","Skulduggery","Sneaking"],
-                Grit: ["Nausea","Resilience","Tolerance"],
-                Awareness: ["Fishing","Investigation","Intuition","Tracking"],
-                Brains: ["History","Learning","Tinkering"],
-                Swagger: ["Infamy","Influence","Negotiation"]
+                Brawn:["Rigging","Lifting","Pinning","Swimming"],
+                Finesse:["Acrobatics","Skulduggery","Sneaking"],
+                Grit:["Nausea","Resilience","Tolerance"],
+                Awareness:["Fishing","Investigation","Intuition","Tracking"],
+                Brains:["History","Learning","Tinkering"],
+                Swagger:["Infamy","Influence","Negotiation"]
             }
+
+            const SKILL_TO_STAT = {}
+                Object.entries(stats).forEach(([stat,skills])=>{
+                skills.forEach(skill=>{
+                SKILL_TO_STAT[skill] = stat
+                })
+            })
 
             const STAT_LIST = [
                 "Brawn",
@@ -71,11 +78,30 @@
                 "Brains",
                 "Swagger"
             ]
+            const SKILL_LIST = {
+                Brawn:["Rigging","Lifting","Pinning","Swimming"],
+                Finesse:["Acrobatics","Skulduggery","Sneaking"],
+                Grit:["Nausea","Resilience","Tolerance"],
+                Awareness:["Fishing","Investigation","Intuition","Tracking"],
+                Brains:["History","Learning","Tinkering"],
+                Swagger:["Infamy","Influence","Negotiation"]
+            }
 
             const LEVEL_POINTS = level => level === 1 ? 10 : 1
             const LEVEL_STAT_CAP = level => level === 1 ? 5 : 10
 
-            function MainPage({statTotals,classCounts}) {
+            
+            const LEVEL_SKILL_POINTS = level => level === 1 ? 10 : 2
+
+            function MainPage({
+                statTotals,
+                classCounts,
+                skillTotals,
+                currentLevel,
+                levelSkills,
+                setLevelSkills,
+                availableSkillPoints
+                }) {
                 return (
                 <div className="mainpage">
 
@@ -92,13 +118,43 @@
                 />
 
                 <ul>
-                {skills.map(skill=>(
-                <li key={skill}>{skill}</li>
-                ))}
+                    {skills.map(skill=>(
+                    <li key={skill}>
+
+                    {skill}
+
+                    <input
+                    type="number"
+                    value={skillTotals[skill]}
+                    readOnly
+                    />
+
+                    
+
+                    <div>
+
+                        <button onClick={()=>removeSkill(currentLevel,skill,levelSkills,setLevelSkills)}>-</button>
+
+                        <span>
+                        {levelSkills
+                            .slice(0,currentLevel)
+                            .reduce((sum,lvl)=>sum + lvl[skill],0)}
+                        </span>
+
+                        <button onClick={()=>addSkill(currentLevel,skill,levelSkills,setLevelSkills,availableSkillPoints)}>+</button>
+
+                    </div>
+
+                    </li>
+                    ))}
                 </ul>
 
                 </div>
                 ))}
+                </div>
+
+                <div style={{marginBottom:"15px"}}>
+                    <strong>Available Skill Points:</strong> {availableSkillPoints}
                 </div>
 
                 <div style={{marginTop:"30px"}}>
@@ -376,6 +432,35 @@
                 setLevelStats(newLevelStats)
             }
 
+            function addSkill(level,skill,levelSkills,setLevelSkills,availableSkillPoints){
+                const idx = level - 1
+
+                if(availableSkillPoints <= 0) return
+
+                const skillTotal =
+                levelSkills.reduce((sum,lvl)=>sum + lvl[skill],0)
+
+                if(skillTotal >= 10) return   // max +10 skill bonus
+
+                const newSkills = [...levelSkills]
+                newSkills[idx][skill]++
+
+                setLevelSkills(newSkills)
+                }
+
+            function removeSkill(level,skill,levelSkills,setLevelSkills){
+
+                const idx=level-1
+                if(levelSkills[idx][skill]===0) return
+
+                const newSkills=[...levelSkills]
+                newSkills[idx][skill]--
+
+                setLevelSkills(newSkills)
+            }
+
+            
+
             function App(){
                 const [name,setName] = React.useState("")
                 const [country,setCountry] = React.useState("")
@@ -396,7 +481,7 @@
                 )
 
                 const activeStats = levelStats.slice(0,currentLevel)
-
+                    
                 const statTotals = {
                     Brawn:0,
                     Finesse:0,
@@ -412,6 +497,61 @@
                 })
                 })
 
+                const [levelSkills,setLevelSkills] = React.useState(
+                    Array.from({length:20},()=>({
+                    Rigging:0,
+                    Lifting:0,
+                    Pinning:0,
+                    Swimming:0,
+                    Acrobatics:0,
+                    Skulduggery:0,
+                    Sneaking:0,
+                    Nausea:0,
+                    Resilience:0,
+                    Tolerance:0,
+                    Fishing:0,
+                    Investigation:0,
+                    Intuition:0,
+                    Tracking:0,
+                    History:0,
+                    Learning:0,
+                    Tinkering:0,
+                    Infamy:0,
+                    Influence:0,
+                    Negotiation:0
+                    }))
+                )
+
+                let totalSkillPoints = 10 + (currentLevel - 1) * 2
+
+                const spentSkillPoints =
+                levelSkills
+                .slice(0,currentLevel)
+                .reduce((sum,level)=>{
+                return sum + Object.values(level).reduce((a,b)=>a+b,0)
+                },0)
+
+                const availableSkillPoints =
+                totalSkillPoints - spentSkillPoints
+
+                const activeSkills = levelSkills.slice(0,currentLevel)
+
+                const skillTotals = {}
+                    Object.values(SKILL_LIST).flat().forEach(skill=>{
+                    skillTotals[skill] = 0
+                })
+
+                activeSkills.forEach(level=>{
+                    Object.keys(level).forEach(skill=>{
+                    skillTotals[skill] += level[skill]
+                    })
+                })
+
+                Object.keys(skillTotals).forEach(skill=>{
+                    const stat = SKILL_TO_STAT[skill]
+                    skillTotals[skill] += statTotals[stat]
+                })
+
                 const selectedClasses = [
                     ...level1,
                     ...levels.slice(0,currentLevel)
@@ -422,7 +562,6 @@
                     selectedClasses.forEach(cls=>{
                     classCounts[cls] = (classCounts[cls] || 0) + 1
                 })
-
 
                 return(
                     <div className="app">
@@ -450,7 +589,12 @@
                     <MainPage
                         statTotals={statTotals}
                         classCounts={classCounts}
-                        />
+                        skillTotals={skillTotals}
+                        currentLevel={currentLevel}
+                        levelSkills={levelSkills}
+                        setLevelSkills={setLevelSkills}
+                        availableSkillPoints={availableSkillPoints}
+                    />
 
                     </div>
                 )
