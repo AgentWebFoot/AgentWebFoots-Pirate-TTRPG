@@ -119,7 +119,7 @@
                 )
                 }
 
-            function TopBar({name,setName,country,setCountry,level}) {
+            function TopBar({name,setName,country,setCountry,currentLevel,setCurrentLevel}) {
                 return (
                     <div className="topbar">
 
@@ -136,9 +136,22 @@
                     </div>
 
                     <div>
-                        Level: {level}
-                    </div>
+                        Level:
 
+                        <select
+                        value={currentLevel}
+                        onChange={e=>setCurrentLevel(Number(e.target.value))}
+                        >
+
+                        {Array.from({length:20},(_,i)=>(
+                        <option key={i+1} value={i+1}>
+                        {i+1}
+                        </option>
+                        ))}
+
+                        </select>
+
+                        </div>
                     </div>
                 )
             }
@@ -170,26 +183,14 @@
             const allClasses = classGroups.flatMap(g=>g.classes)
                 function LeftPanel({
                     statTotals,
-                    setStatTotals,
                     levelStats,
                     setLevelStats,
                     levels,
                     setLevels,
                     level1,
-                    setLevel1
+                    setLevel1,
+                    classCounts
                     }) {
-
-                        const selectedClasses = [
-                            ...level1,
-                            ...levels
-                            ].filter(Boolean)
-
-                            const classCounts = {}
-
-                            selectedClasses.forEach(cls=>{
-                            classCounts[cls] = (classCounts[cls] || 0) + 1
-                        })
-
                         function updateLevel(index,value){
                             const copy=[...levels]
                             copy[index]=value
@@ -250,8 +251,6 @@
                                     removeStat(
                                     1,
                                     stat,
-                                    statTotals,
-                                    setStatTotals,
                                     levelStats,
                                     setLevelStats
                                     )
@@ -265,8 +264,6 @@
                                     addStat(
                                     1,
                                     stat,
-                                    statTotals,
-                                    setStatTotals,
                                     levelStats,
                                     setLevelStats
                                     )
@@ -274,7 +271,6 @@
 
                                     </div>
                                     ))}
-
                                     </div>
 
                             </div>             
@@ -319,13 +315,11 @@
 
                                     <button onClick={()=>
                                         removeStat(
-                                        level,
-                                        stat,
-                                        statTotals,
-                                        setStatTotals,
-                                        levelStats,
-                                        setLevelStats
-                                        )
+                                            level,
+                                            stat,
+                                            levelStats,
+                                            setLevelStats
+                                            )
                                         }>-</button>
 
                                     <span>
@@ -334,13 +328,11 @@
 
                                     <button onClick={()=>
                                         addStat(
-                                        level,
-                                        stat,
-                                        statTotals,
-                                        setStatTotals,
-                                        levelStats,
-                                        setLevelStats
-                                        )
+                                            level,
+                                            stat,
+                                            levelStats,
+                                            setLevelStats
+                                            )
                                         }>+</button>
 
                                     </div>
@@ -353,27 +345,27 @@
                         )
                 }
 
-            function addStat(level,stat,statTotals,setStatTotals,levelStats,setLevelStats){
+            function addStat(level,stat,levelStats,setLevelStats){
+
                 const levelIndex = level-1
 
                 const spent = Object.values(levelStats[levelIndex]).reduce((a,b)=>a+b,0)
                 const levelLimit = LEVEL_POINTS(level)
 
                 if(spent >= levelLimit) return
-                if(statTotals[stat] >= 10) return
+
+                const statTotal = levelStats.reduce((sum,lvl)=>sum + lvl[stat],0)
+
+                if(statTotal >= 10) return
                 if(level === 1 && levelStats[levelIndex][stat] >= 5) return
 
                 const newLevelStats=[...levelStats]
                 newLevelStats[levelIndex][stat]++
 
-                const newTotals={...statTotals}
-                newTotals[stat]++
-
                 setLevelStats(newLevelStats)
-                setStatTotals(newTotals)
             }
 
-            function removeStat(level,stat,statTotals,setStatTotals,levelStats,setLevelStats){
+            function removeStat(level,stat,levelStats,setLevelStats){
 
                 const levelIndex = level-1
                 if(levelStats[levelIndex][stat] <= 0) return
@@ -381,47 +373,56 @@
                 const newLevelStats=[...levelStats]
                 newLevelStats[levelIndex][stat]--
 
-                const newTotals={...statTotals}
-                newTotals[stat]--
-
                 setLevelStats(newLevelStats)
-                setStatTotals(newTotals)
             }
 
             function App(){
                 const [name,setName] = React.useState("")
                 const [country,setCountry] = React.useState("")
-                const level = 1
+                const [currentLevel,setCurrentLevel] = React.useState(1)
 
-                const [statTotals,setStatTotals] = React.useState({
-                    Brawn:0,
-                    Finesse:0,
-                    Grit:0,
-                    Awareness:0,
-                    Brains:0,
-                    Swagger:0
-                })
                 const [levels,setLevels] = React.useState(Array(20).fill(null))
                 const [level1,setLevel1] = React.useState(["","",""])
 
                 const [levelStats,setLevelStats] = React.useState(
-                    Array.from({length:20},()=>({
+                Array.from({length:20},()=>({
+                Brawn:0,
+                Finesse:0,
+                Grit:0,
+                Awareness:0,
+                Brains:0,
+                Swagger:0
+                }))
+                )
+
+                const activeStats = levelStats.slice(0,currentLevel)
+
+                const statTotals = {
                     Brawn:0,
                     Finesse:0,
                     Grit:0,
                     Awareness:0,
                     Brains:0,
                     Swagger:0
-                    }))
-                )
+                }
 
-                const selectedClasses = [...level1, ...levels].filter(Boolean)
-
-                const classCounts = {}
-
-                selectedClasses.forEach(cls=>{
-                classCounts[cls] = (classCounts[cls] || 0) + 1
+                activeStats.forEach(level=>{
+                STAT_LIST.forEach(stat=>{
+                statTotals[stat]+=level[stat]
                 })
+                })
+
+                const selectedClasses = [
+                    ...level1,
+                    ...levels.slice(0,currentLevel)
+                    ].filter(Boolean)
+
+                    const classCounts = {}
+
+                    selectedClasses.forEach(cls=>{
+                    classCounts[cls] = (classCounts[cls] || 0) + 1
+                })
+
 
                 return(
                     <div className="app">
@@ -431,18 +432,19 @@
                         setName={setName}
                         country={country}
                         setCountry={setCountry}
-                        level={level}
+                        currentLevel={currentLevel}
+                        setCurrentLevel={setCurrentLevel}
                     />
 
                     <LeftPanel
                         statTotals={statTotals}
-                        setStatTotals={setStatTotals}
                         levelStats={levelStats}
                         setLevelStats={setLevelStats}
                         levels={levels}
                         setLevels={setLevels}
                         level1={level1}
                         setLevel1={setLevel1}
+                        classCounts={classCounts}
                     />
 
                     <MainPage
