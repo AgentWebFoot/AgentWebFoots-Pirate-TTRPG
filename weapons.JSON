@@ -1,0 +1,282 @@
+[
+{
+"name":"Unarmed Strike",
+"type":["Strike"],
+"attackStats":["Brawn","Finesse"],
+"damage":{"dice":"1d4","type":"Bludgeoning"},
+"enduranceCost":1,
+"properties":["Conceal","Defenseless"]
+},
+{
+"name":"Improvised Weapons",
+"type":["Strike"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d4","type":"Bludgeoning"},
+"enduranceCost":2,
+"properties":["Breakable","Conceal"]
+},
+{
+"name":"Brass Knuckles",
+"type":["Strike"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d6","type":"Bludgeoning"},
+"enduranceCost":1,
+"properties":["Conceal","Defenseless","Versatile (Piercing)"]
+},
+{
+"name":"Clawed Gloves",
+"type":["Strike"],
+"attackStats":["Finesse"],
+"damage":{"dice":"1d6","type":"Slashing"},
+"enduranceCost":1,
+"properties":["Conceal","Defenseless","Versatile (Piercing)"]
+},
+{
+"name":"Siege Gauntlets",
+"type":["Blunt","Strike"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d10","type":"Bludgeoning"},
+"enduranceCost":3,
+"properties":["Armor Breaker","Defenseless","Joint Breaker","Powerful","Two-Handed"]
+},
+{
+"name":"Dagger",
+"type":["Sword"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d6","type":"Slashing"},
+"enduranceCost":1,
+"properties":["Conceal","Thrown","Versatile (Piercing)"]
+},
+{
+"name":"Cutlass",
+"type":["Sword"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d8","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Versatile (Piercing)"]
+},
+{
+"name":"Rapier",
+"type":["Sword"],
+"attackStats":["Finesse"],
+"damage":{"dice":"1d8","type":"Piercing"},
+"enduranceCost":2,
+"properties":["Versatile (Slashing)"]
+},
+{
+"name":"Shortsword",
+"type":["Sword"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d8","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Versatile (Piercing)"]
+},
+{
+"name":"Sickle",
+"type":["Sword"],
+"attackStats":["Finesse"],
+"damage":{"dice":"1d8","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Hooked","Versatile (Piercing)"]
+},
+{
+"name":"Longsword",
+"type":["Sword"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d10","type":"Slashing"},
+"enduranceCost":3,
+"properties":["Versatile (Piercing)"]
+},
+{
+"name":"Greatsword",
+"type":["Sword"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d12","type":"Slashing"},
+"enduranceCost":3,
+"properties":["Powerful","Two-Handed"]
+},
+{
+"name":"Spear",
+"type":["Polearm"],
+"attackStats":["Finesse"],
+"damage":{"dice":"1d8","type":"Piercing"},
+"enduranceCost":2,
+"properties":["Reach","Thrown","Versatile (Slashing)"]
+},
+{
+"name":"Hand-Axe",
+"type":["Axe"],
+"attackStats":["Finesse"],
+"damage":{"dice":"1d6","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Thrown"]
+},
+{
+"name":"Broadaxe",
+"type":["Axe"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d8","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Thrown","Versatile (Bludgeoning)"]
+},
+{
+"name":"Battle-Axe",
+"type":["Axe","Polearm"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d8","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Armor Breaker","Versatile (Bludgeoning)"]
+},
+{
+"name":"Hamaxe",
+"type":["Axe","Blunt"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d10","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Two-Handed","Versatile (Bludgeoning)"]
+},
+{
+"name":"Greataxe",
+"type":["Axe","Polearm"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d12","type":"Slashing"},
+"enduranceCost":3,
+"properties":["Powerful","Two-Handed"]
+},
+{
+"name":"Mace",
+"type":["Blunt"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d8","type":"Bludgeoning"},
+"enduranceCost":2,
+"properties":["Joint Breaker"]
+},
+{
+"name":"Morning Star",
+"type":["Blunt"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d8","type":"Bludgeoning"},
+"enduranceCost":2,
+"properties":["Joint Breaker"]
+},
+{
+"name":"Hammer",
+"type":["Blunt"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d8","type":"Bludgeoning"},
+"enduranceCost":2,
+"properties":["Armor Breaker","Joint Breaker"]
+},
+{
+"name":"Pickaxe",
+"type":["Blunt","Polearm"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d8","type":"Piercing"},
+"enduranceCost":2,
+"properties":["Two-Handed"]
+},
+{
+"name":"Scythe",
+"type":["Polearm"],
+"attackStats":["Finesse"],
+"damage":{"dice":"1d10","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Hooked","Reach (1m)","Two-Handed"]
+},
+{
+"name":"Halbert",
+"type":["Axe","Polearm"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d10","type":"Slashing"},
+"enduranceCost":2,
+"properties":["Reach (1m)","Two-Handed"]
+},
+{
+"name":"Glaive",
+"type":["Polearm","Sword"],
+"attackStats":["Finesse"],
+"damage":{"dice":"1d12","type":"Piercing"},
+"enduranceCost":2,
+"properties":["Powerful","Reach (1m)","Two-Handed","Versatile (Slashing)"]
+},
+{
+"name":"Warhammer",
+"type":["Blunt","Polearm"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d10","type":"Bludgeoning"},
+"enduranceCost":3,
+"properties":["Armor Breaker","Joint Breaker","Two-Handed"]
+},
+{
+"name":"Greathammer",
+"type":["Blunt","Polearm"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d12","type":"Bludgeoning"},
+"enduranceCost":3,
+"properties":["Armor Breaker","Joint Breaker","Powerful","Two-Handed"]
+},
+{
+"name":"Club",
+"type":["Blunt"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d6","type":"Bludgeoning"},
+"enduranceCost":1,
+"properties":["Conceal","Thrown"]
+},
+{
+"name":"Bow",
+"type":["Sniper Firearm"],
+"attackStats":["Awareness"],
+"damage":{"dice":"1d12","type":"Piercing"},
+"enduranceCost":2,
+"properties":["Ammunition","Range (70m)","Two-Handed","Quick Reload"]
+},
+{
+"name":"Crossbow",
+"type":["Sniper Firearm"],
+"attackStats":["Awareness"],
+"damage":{"dice":"1d12","type":"Piercing"},
+"enduranceCost":2,
+"properties":["Ammunition","Range (24m)","Quick Reload"]
+},
+{
+"name":"Musket",
+"type":["Sniper Firearm"],
+"attackStats":["Awareness"],
+"damage":{"dice":"4d6","type":"Piercing"},
+"enduranceCost":4,
+"properties":["Ammunition","Armor Piercing","Range (70m)","Two-Handed"]
+},
+{
+"name":"Blunderbuss",
+"type":["Hand Firearm"],
+"attackStats":["Awareness"],
+"damage":{"dice":"3d10","type":"Piercing"},
+"enduranceCost":4,
+"properties":["Ammunition","Armor Piercing","Range (10m)","Two-Handed"]
+},
+{
+"name":"Pistol",
+"type":["Hand Firearm"],
+"attackStats":["Awareness"],
+"damage":{"dice":"3d6","type":"Piercing"},
+"enduranceCost":4,
+"properties":["Ammunition","Armor Piercing","Range (16m)"]
+},
+{
+"name":"Alcohol Grenade",
+"type":["Grenade"],
+"attackStats":["Brawn"],
+"damage":{"dice":"1d6","type":"Fire"},
+"enduranceCost":5,
+"properties":["Consumable","Explosive (10)","Fuse","Thrown","Radius (1m)"]
+},
+{
+"name":"Black Powder Grenade",
+"type":["Grenade"],
+"attackStats":["Brawn"],
+"damage":{"dice":"2d6","type":"Fire"},
+"enduranceCost":6,
+"properties":["Consumable","Explosive (12)","Fuse","Thrown","Radius (2m)"]
+}
+]

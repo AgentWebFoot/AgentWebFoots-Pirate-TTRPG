@@ -93,6 +93,48 @@
             
             const LEVEL_SKILL_POINTS = level => level === 1 ? 10 : 2
 
+            const ARMOR_STATS = {
+                "No Armor": { 
+                    baseEvasion:16, 
+                    toughness:0 
+                },
+                "Leather Armor": { 
+                    baseEvasion:14, 
+                    toughness:2 
+                },
+                "Chain Mail": { 
+                    baseEvasion:12, 
+                    toughness:3 
+                },
+                "Plate Armor": { 
+                    baseEvasion:10, 
+                    toughness:4 
+                }
+            }
+
+            const SHIELD_STATS = {
+                "No Shield":{
+                toughness:0,
+                braceCost:0,
+                properties:[]
+                },
+                "Buckler":{
+                toughness:1,
+                braceCost:2,
+                properties:["Attachable","Parry"]
+                },
+                "Round Shield":{
+                toughness:2,
+                braceCost:3,
+                properties:[]
+                },
+                "Tower Shield":{
+                toughness:4,
+                braceCost:4,
+                properties:[]
+                }
+            }
+
             function MainPage({
                 statTotals,
                 classCounts,
@@ -100,7 +142,20 @@
                 currentLevel,
                 levelSkills,
                 setLevelSkills,
-                availableSkillPoints
+                availableSkillPoints,
+                armor,
+                setArmor,
+                shield,
+                setShield,
+                shieldStats,
+                weapons,
+                equippedWeapons,
+                removeWeapon,
+                inventoryWeapons,
+                swapWeapon,
+                weaponChoice,
+                setWeaponChoice,
+                addWeaponToInventory
                 }) {
 
                 const [activeTab,setActiveTab] = React.useState("class")
@@ -189,11 +244,201 @@
                 )}
 
                 {activeTab === "combat" && (
-                <div>
+                    <div>
 
-                <h3>Combat</h3>
-                <p>Combat options will go here.</p>
+                    <h3>Combat</h3>
 
+                   <div style={{display:"flex",gap:"40px"}}>
+
+                    <div>
+
+                    <label>Armor: </label>
+
+                    <select
+                    value={armor}
+                    onChange={e=>setArmor(e.target.value)}
+                    >
+
+                    <option>No Armor</option>
+                    <option>Leather Armor</option>
+                    <option>Chain Mail</option>
+                    <option>Plate Armor</option>
+
+                    </select>
+
+                    <div style={{marginTop:"8px"}}>
+                    Base Evasion: {ARMOR_STATS[armor].baseEvasion} + ½ Finesse
+                    <br/>
+                    Toughness Bonus: +{ARMOR_STATS[armor].toughness}
+                    </div>
+
+                    </div>
+
+
+                    <div>
+
+                    <label>Shield: </label>
+
+                    <select
+                        value={shield}
+                        onChange={e=>setShield(e.target.value)}
+                        >
+
+                        <option>No Shield</option>
+                        <option>Buckler</option>
+                        <option>Round Shield</option>
+                        <option>Tower Shield</option>
+
+                    </select>
+
+                    <div style={{marginTop:"8px"}}>
+                    Physical Toughness: {shieldStats.toughness > 0 ? "+"+shieldStats.toughness : "0"}
+
+                    <br/>
+
+                    Brace Endurance Cost: {shieldStats.braceCost}
+
+                    <br/>
+
+                    Additional Properties:
+                    {shieldStats.properties.length
+                    ? " " + shieldStats.properties.join(", ")
+                    : " None"}
+
+                    </div>
+
+                    </div>
+
+                    </div>
+
+                    <h3>Weapons</h3>
+                    <select
+                    value={weaponChoice}
+                    onChange={e=>setWeaponChoice(e.target.value)}
+                    >
+
+                    <option value="">Select Weapon</option>
+
+                    {weapons.map(w=>(
+                    <option key={w.name} value={w.name}>
+                    {w.name}
+                    </option>
+                    ))}
+
+                    </select>
+
+                    <button onClick={()=>addWeaponToInventory(weaponChoice)}> Add to Inventory </button>
+
+                    <h4>Equipped Weapons</h4>
+
+                    <div style={{marginTop:"10px"}}>
+                        <div style={{
+                        display:"grid",
+                        gridTemplateColumns:"120px 120px 120px 120px 120px 120px 1fr 80px 80px",
+                        fontWeight:"bold",
+                        borderBottom:"2px solid #ccc",
+                        paddingBottom:"4px"
+                        }}>
+
+                        <div>Name</div>
+                        <div>Type</div>
+                        <div>Attack Stat</div>
+                        <div>Attack Bonus</div>
+                        <div>Damage</div>
+                        <div>Endurance</div>
+                        <div>Properties</div>
+                        <div>Swap</div>
+                        <div>Remove</div>
+
+
+                        </div>
+
+                        {equippedWeapons.map((w,i)=>{
+
+                        const attackBonus =
+                        Math.max(...w.attackStats.map(stat=>statTotals[stat]))
+
+                        return(
+
+                        <div
+                        key={i}
+                        style={{
+                        display:"grid",
+                        gridTemplateColumns:"120px 120px 120px 120px 120px 120px 1fr 80px 80px",
+                        padding:"4px 0",
+                        borderBottom:"1px solid #ddd"
+                        }}
+                        >
+
+                        <div>{w.name}</div>
+                        <div>{w.type.join(", ")}</div>
+                        <div>{w.attackStats.join(", ")}</div>
+                        <div>+{attackBonus}</div>
+                        <div>{w.damage.dice} {w.damage.type}</div>
+                        <div>{w.enduranceCost}</div>
+                        <div>{w.properties.join(", ")}</div>
+                        <button onClick={()=>swapWeapon(i,"equipped")}>Unequip</button>
+                        <div><button onClick={()=>removeWeapon(i,"equipped")}>Remove</button></div>
+                        </div>
+
+                        )
+
+                        })}
+                    </div>
+
+                    <h4>Inventory</h4>
+                    <div style={{
+                    display:"grid",
+                    gridTemplateColumns:"120px 120px 120px 120px 120px 120px 1fr 80px 80px",
+                    fontWeight:"bold",
+                    borderBottom:"2px solid #ccc",
+                    paddingBottom:"4px"
+                    }}>
+
+                    <div>Name</div>
+                    <div>Type</div>
+                    <div>Attack Stat</div>
+                    <div>Attack Bonus</div>
+                    <div>Damage</div>
+                    <div>Endurance</div>
+                    <div>Properties</div>
+                    <div>Swap</div>
+                    <div>Remove</div>
+
+                    </div>
+
+                    {inventoryWeapons.map((w,i)=>{
+
+                    const attackBonus =
+                    Math.max(...w.attackStats.map(stat=>statTotals[stat]))
+
+                    return(
+
+                    <div
+                    key={i}
+                    style={{
+                    display:"grid",
+                    gridTemplateColumns:"120px 120px 120px 120px 120px 120px 1fr 80px 80px",
+                    borderBottom:"1px solid #ddd"
+                    }}
+                    >
+
+                    <div>{w.name}</div>
+                    <div>{w.type.join(", ")}</div>
+                    <div>{w.attackStats.join(", ")}</div>
+                    <div>+{attackBonus}</div>
+                    <div>{w.damage.dice} {w.damage.type}</div>
+                    <div>{w.enduranceCost}</div>
+                    <div>{w.properties.join(", ")}</div>
+                    <div><button onClick={()=>swapWeapon(i,"inventory")}>Equip</button></div>
+                    <div><button onClick={()=>removeWeapon(i,"inventory")}>Remove</button></div>
+                    
+
+                    </div>
+
+                    )
+
+                    })}
                 </div>
                 )}
 
@@ -214,7 +459,17 @@
                 )
                 }
 
-            function TopBar({name,setName,country,setCountry,currentLevel,setCurrentLevel}) {
+            function TopBar({
+                name,
+                setName,
+                country,
+                setCountry,
+                currentLevel,
+                setCurrentLevel,
+                evasion,
+                toughness
+                }) {
+
                 return (
                     <div className="topbar">
 
@@ -230,22 +485,34 @@
                         </div>
                     </div>
 
-                    <div>
-                        Level:
+                    <div style={{display:"flex",gap:"20px",alignItems:"center"}}>
+                        <div>
+                            Evasion:
+                            <input type="number" value={evasion} readOnly />
+                        </div>
 
-                        <select
-                        value={currentLevel}
-                        onChange={e=>setCurrentLevel(Number(e.target.value))}
-                        >
+                        <div>
+                            Toughness:
+                            <input type="number" value={toughness} readOnly />
+                        </div>
 
-                        {Array.from({length:20},(_,i)=>(
-                        <option key={i+1} value={i+1}>
-                        {i+1}
-                        </option>
-                        ))}
+                        <div>
+                            Level:
 
-                        </select>
+                            <select
+                            value={currentLevel}
+                            onChange={e=>setCurrentLevel(Number(e.target.value))}
+                            >
 
+                            {Array.from({length:20},(_,i)=>(
+                            <option key={i+1} value={i+1}>
+                            {i+1}
+                            </option>
+                            ))}
+
+                            </select>
+
+                            </div>
                         </div>
                     </div>
                 )
@@ -602,6 +869,82 @@
                     classCounts[cls] = (classCounts[cls] || 0) + 1
                 })
 
+                const [armor,setArmor] = React.useState("No Armor")
+                const [shield,setShield] = React.useState("No Shield")
+
+                const armorStats = ARMOR_STATS[armor]
+                const shieldStats = SHIELD_STATS[shield]
+
+                const evasion =
+                armorStats.baseEvasion +
+                Math.floor(statTotals.Finesse / 2)
+
+                const toughness =
+                armorStats.toughness +
+                shieldStats.toughness
+
+                const [weapons,setWeapons] = React.useState([])
+
+                const [equippedWeapons,setEquippedWeapons] = React.useState([])
+                const [weaponChoice,setWeaponChoice] = React.useState("")
+
+                const [inventoryWeapons,setInventoryWeapons] = React.useState([])
+
+                React.useEffect(()=>{
+                fetch("weapons.JSON")
+                .then(res=>res.json())
+                .then(data=>setWeapons(data))
+                },[])
+
+                function addWeaponToInventory(name){
+
+                    const weapon = weapons.find(w=>w.name === name)
+                    if(!weapon) return
+
+                    setInventoryWeapons([...inventoryWeapons,weapon])
+
+                }
+
+                function swapWeapon(index,from){
+                    if(from === "inventory"){
+
+                    const weapon = inventoryWeapons[index]
+
+                    setInventoryWeapons(inventoryWeapons.filter((_,i)=>i!==index))
+                    setEquippedWeapons([...equippedWeapons,weapon])
+
+                    }
+
+                    else{
+
+                    const weapon = equippedWeapons[index]
+
+                    setEquippedWeapons(equippedWeapons.filter((_,i)=>i!==index))
+                    setInventoryWeapons([...inventoryWeapons,weapon])
+
+                    }
+
+                }
+
+                function removeWeapon(index, from){
+                    if(from === "equipped"){
+
+                    setEquippedWeapons(
+                    equippedWeapons.filter((_,i)=>i !== index)
+                    )
+
+                    }
+
+                    if(from === "inventory"){
+
+                    setInventoryWeapons(
+                    inventoryWeapons.filter((_,i)=>i !== index)
+                    )
+
+                    }
+
+                }
+
                 return(
                     <div className="app">
 
@@ -612,6 +955,8 @@
                         setCountry={setCountry}
                         currentLevel={currentLevel}
                         setCurrentLevel={setCurrentLevel}
+                        evasion={evasion}
+                        toughness={toughness}
                     />
 
                     <LeftPanel
@@ -633,6 +978,19 @@
                         levelSkills={levelSkills}
                         setLevelSkills={setLevelSkills}
                         availableSkillPoints={availableSkillPoints}
+                        armor={armor}
+                        setArmor={setArmor}
+                        shield={shield}
+                        setShield={setShield}
+                        shieldStats={shieldStats}
+                        weapons={weapons}
+                        equippedWeapons={equippedWeapons}
+                        removeWeapon={removeWeapon}
+                        inventoryWeapons={inventoryWeapons}
+                        swapWeapon={swapWeapon}
+                        weaponChoice={weaponChoice}
+                        setWeaponChoice={setWeaponChoice}
+                        addWeaponToInventory={addWeaponToInventory}
                     />
 
                     </div>
