@@ -467,36 +467,99 @@
                 currentLevel,
                 setCurrentLevel,
                 evasion,
-                toughness
+                toughness,
+                health,
+                setHealth,
+                maxHealth,
+                endurance,
+                setEndurance,
+                maxEndurance,
+                speed,
+                dashSpeed,
+                luck,
+                setLuck
                 }) {
+
+                    const smallBox = {
+                    width:"40px",
+                    textAlign:"center"
+                    }
 
                 return (
                     <div className="topbar">
-
-                    <div>
                         <div>
-                        Name:
-                        <input value={name} onChange={e=>setName(e.target.value)} />
+                            <div>
+                            Name:
+                            <input value={name} onChange={e=>setName(e.target.value)} />
+                            </div>
+
+                            <div>
+                            Country of Origin:
+                            <input value={country} onChange={e=>setCountry(e.target.value)} />
+                            </div>
                         </div>
 
-                        <div>
-                        Country of Origin:
-                        <input value={country} onChange={e=>setCountry(e.target.value)} />
-                        </div>
-                    </div>
-
-                    <div style={{display:"flex",gap:"20px",alignItems:"center"}}>
-                        <div>
+                        <div style={{display:"flex",gap:"20px",alignItems:"center"}}>
+                            <div>
                             Evasion:
-                            <input type="number" value={evasion} readOnly />
-                        </div>
+                            <input type="number" style={smallBox} value={evasion} readOnly />
+                            </div>
 
-                        <div>
+                            <div>
                             Toughness:
-                            <input type="number" value={toughness} readOnly />
-                        </div>
+                            <input type="number" style={smallBox} value={toughness} readOnly />
+                            </div>
 
-                        <div>
+                            <div>
+                            Health:
+                            <input
+                            type="number"
+                            value={health}
+                            style={smallBox}
+                            onChange={e=>{
+                            const v = Number(e.target.value)
+                            setHealth(Math.max(0,Math.min(v,maxHealth)))
+                            }}
+                            />
+                            / {maxHealth}
+                            </div>
+
+                            <div>
+                            Endurance:
+                            <input
+                            type="number"
+                            value={endurance}
+                            style={smallBox}
+                            onChange={e=>{
+                            const v = Number(e.target.value)
+                            setEndurance(Math.max(0,Math.min(v,maxEndurance)))
+                            }}
+                            />
+                            / {maxEndurance}
+                            </div>
+
+                            <div>
+                            Speed:
+                            <input type="number" style={smallBox} value={speed} readOnly />
+                            <br/>
+                            Dash:
+                            <input type="number" style={smallBox} value={dashSpeed} readOnly />
+                            </div>
+
+                            <div>
+                            Luck:
+                            <input
+                            type="number"
+                            value={luck}
+                            style={smallBox}
+                            onChange={e=>{
+                            const v = Number(e.target.value)
+                            setLuck(Math.max(0,Math.min(v,3)))
+                            }}
+                            />
+                            </div>
+
+                            <div>
                             Level:
 
                             <select
@@ -513,6 +576,7 @@
                             </select>
 
                             </div>
+
                         </div>
                     </div>
                 )
@@ -828,6 +892,21 @@
                     }))
                 )
 
+                const maxHealth = 15 + statTotals.Grit
+                const [health,setHealth] = React.useState(maxHealth)
+
+                const calculatedEndurance =
+                Math.floor((statTotals.Brawn + statTotals.Finesse + statTotals.Grit)/2) * currentLevel
+
+                const maxEndurance = Math.max(10, calculatedEndurance)
+                const [endurance,setEndurance] = React.useState(maxEndurance)
+
+                const speed = 3
+
+                const dashSpeed = 3 + statTotals.Finesse
+
+                const [luck,setLuck] = React.useState(3)
+
                 let totalSkillPoints = 10 + (currentLevel - 1) * 2
 
                 const spentSkillPoints =
@@ -957,6 +1036,16 @@
                         setCurrentLevel={setCurrentLevel}
                         evasion={evasion}
                         toughness={toughness}
+                        health={health}
+                        setHealth={setHealth}
+                        maxHealth={maxHealth}
+                        endurance={endurance}
+                        setEndurance={setEndurance}
+                        maxEndurance={maxEndurance}
+                        speed={speed}
+                        dashSpeed={dashSpeed}
+                        luck={luck}
+                        setLuck={setLuck}
                     />
 
                     <LeftPanel
