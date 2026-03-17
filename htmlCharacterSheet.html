@@ -155,7 +155,9 @@
                 swapWeapon,
                 weaponChoice,
                 setWeaponChoice,
-                addWeaponToInventory
+                addWeaponToInventory,
+                settings,
+                setSettings
                 }) {
 
                 const [activeTab,setActiveTab] = React.useState("class")
@@ -446,7 +448,157 @@
                 <div>
 
                 <h3>Settings</h3>
-                <p>Settings options will go here.</p>
+                <div style={{display:"grid",gridTemplateColumns:"200px 100px",gap:"8px"}}>
+                <h3>Stats</h3>
+                <div></div>
+
+                {STAT_LIST.map(stat=>(
+                <React.Fragment key={stat}>
+                <div>{stat}</div>
+                <input
+                type="number"
+                value={settings.statOverrides[stat] ?? ""}
+                placeholder="Override"
+                onChange={e=>{
+                const v = e.target.value
+                setSettings(prev=>({
+                ...prev,
+                statOverrides:{
+                ...prev.statOverrides,
+                [stat]: v === "" ? undefined : Number(v)
+                }
+                }))
+                }}
+               />
+                </React.Fragment>
+                ))}
+
+                <h3>General</h3>
+                <div></div>
+
+                <div>Available Skill Points</div>
+                <input
+                type="number"
+                value={settings.skillPointsOverride ?? ""}
+                placeholder="Override"
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                skillPointsOverride: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
+                <div>Evasion</div>
+                <input
+                type="number"
+                value={settings.evasionOverride ?? ""}
+                placeholder="Override"
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                evasionOverride: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
+                <div>Toughness</div>
+                <input
+                type="number"
+                value={settings.toughnessOverride ?? ""}
+                placeholder="Override"
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                toughnessOverride: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
+                <h3>Health</h3>
+                <div></div>
+
+                <div>Min</div>
+                <input
+                type="number"
+                value={settings.healthMin}
+                placeholder="0"
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                healthMin:Number(e.target.value)
+                }))}
+                />
+
+                <div>Max</div>
+                <input
+                type="number"
+                placeholder="Override"
+                value={settings.healthMax ?? ""}
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                healthMax: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
+                <h3>Endurance</h3>
+                <div></div>
+
+                <div>Min</div>
+                <input
+                type="number"
+                placeholder="0"
+                value={settings.enduranceMin}
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                enduranceMin:Number(e.target.value)
+                }))}
+                />
+
+                <div>Max</div>
+                <input
+                type="number"
+                placeholder="Override"
+                value={settings.enduranceMax ?? ""}
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                enduranceMax: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
+                <h3>Movement</h3>
+                <div></div>
+
+                <div>Speed</div>
+                <input
+                type="number"
+                placeholder="3"
+                value={settings.speedOverride ?? ""}
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                speedOverride: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
+                <div>Dash</div>
+                <input
+                type="number"
+                placeholder="Override"
+                value={settings.dashOverride ?? ""}
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                dashOverride: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
+                <h3>Luck</h3>
+                <div></div>
+
+                <div>Max Luck</div>
+                <input
+                type="number"
+                placeholder="3"
+                value={settings.luckMax}
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                luckMax:Number(e.target.value)
+                }))}
+                />
+
+                </div>
 
                 </div>
                 )}
@@ -470,6 +622,7 @@
                 toughness,
                 health,
                 setHealth,
+                minHealth,
                 maxHealth,
                 endurance,
                 setEndurance,
@@ -477,7 +630,8 @@
                 speed,
                 dashSpeed,
                 luck,
-                setLuck
+                setLuck,
+                settings
                 }) {
 
                     const smallBox = {
@@ -518,7 +672,7 @@
                             style={smallBox}
                             onChange={e=>{
                             const v = Number(e.target.value)
-                            setHealth(Math.max(0,Math.min(v,maxHealth)))
+                            setHealth(Math.max(minHealth, Math.min(v, maxHealth)))
                             }}
                             />
                             / {maxHealth}
@@ -554,7 +708,7 @@
                             style={smallBox}
                             onChange={e=>{
                             const v = Number(e.target.value)
-                            setLuck(Math.max(0,Math.min(v,3)))
+                            setLuck(Math.max(0, Math.min(v, settings.luckMax)))
                             }}
                             />
                             </div>
@@ -892,18 +1046,59 @@
                     }))
                 )
 
-                const maxHealth = 15 + statTotals.Grit
-                const [health,setHealth] = React.useState(maxHealth)
+                const [settings,setSettings] = React.useState({
+                    statOverrides:{},
+                    skillPointsOverride:null,
+                    evasionOverride:null,
+                    toughnessOverride:null,
+                    healthMin:0,
+                    healthMax:null,
+                    enduranceMin:0,
+                    enduranceMax:null,
+                    speedOverride:null,
+                    dashOverride:null,
+                    luckMax:3
+                })
 
-                const calculatedEndurance =
-                Math.floor((statTotals.Brawn + statTotals.Finesse + statTotals.Grit)/2) * currentLevel
+                const finalStats = {
+                    ...statTotals,
+                    ...(settings?.statOverrides || {})
+                }
 
-                const maxEndurance = Math.max(10, calculatedEndurance)
-                const [endurance,setEndurance] = React.useState(maxEndurance)
+                const baseMaxHealth = 15 + finalStats.Grit
 
-                const speed = 3
+                const maxHealth =
+                settings.healthMax ?? baseMaxHealth
 
-                const dashSpeed = 3 + statTotals.Finesse
+                const minHealth =
+                settings.healthMin ?? 0
+
+                const [health,setHealth] = React.useState(0)
+
+                React.useEffect(()=>{
+                setHealth(maxHealth)
+                },[maxHealth])
+
+                const baseEndurance =
+                Math.floor((finalStats.Brawn + finalStats.Finesse + finalStats.Grit)/2) * currentLevel
+
+                const maxEndurance =
+                settings.enduranceMax ?? Math.max(10, baseEndurance)
+
+                const minEndurance =
+                settings.enduranceMin ?? 0
+
+                const [endurance,setEndurance] = React.useState(0)
+
+                React.useEffect(()=>{
+                setEndurance(maxEndurance)
+                },[maxEndurance])
+
+                const speed =
+                settings.speedOverride ?? 3
+
+                const dashSpeed =
+                settings.dashOverride ?? (3 + finalStats.Finesse)
 
                 const [luck,setLuck] = React.useState(3)
 
@@ -916,8 +1111,7 @@
                 return sum + Object.values(level).reduce((a,b)=>a+b,0)
                 },0)
 
-                const availableSkillPoints =
-                totalSkillPoints - spentSkillPoints
+                const availableSkillPoints = settings.skillPointsOverride ?? (totalSkillPoints - spentSkillPoints)
 
                 const activeSkills = levelSkills.slice(0,currentLevel)
 
@@ -955,19 +1149,19 @@
                 const shieldStats = SHIELD_STATS[shield]
 
                 const evasion =
-                armorStats.baseEvasion +
-                Math.floor(statTotals.Finesse / 2)
+                settings.evasionOverride ??
+                (armorStats.baseEvasion + Math.floor(finalStats.Finesse/2))
 
                 const toughness =
-                armorStats.toughness +
-                shieldStats.toughness
+                settings.toughnessOverride ??
+                (armorStats.toughness + shieldStats.toughness)
 
                 const [weapons,setWeapons] = React.useState([])
 
                 const [equippedWeapons,setEquippedWeapons] = React.useState([])
                 const [weaponChoice,setWeaponChoice] = React.useState("")
 
-                const [inventoryWeapons,setInventoryWeapons] = React.useState([])
+                const [inventoryWeapons,setInventoryWeapons] = React.useState([]) 
 
                 React.useEffect(()=>{
                 fetch("weapons.JSON")
@@ -1038,6 +1232,7 @@
                         toughness={toughness}
                         health={health}
                         setHealth={setHealth}
+                        minHealth={minHealth}
                         maxHealth={maxHealth}
                         endurance={endurance}
                         setEndurance={setEndurance}
@@ -1046,6 +1241,7 @@
                         dashSpeed={dashSpeed}
                         luck={luck}
                         setLuck={setLuck}
+                        settings={settings}
                     />
 
                     <LeftPanel
@@ -1080,6 +1276,8 @@
                         weaponChoice={weaponChoice}
                         setWeaponChoice={setWeaponChoice}
                         addWeaponToInventory={addWeaponToInventory}
+                        settings={settings}
+                        setSettings={setSettings}
                     />
 
                     </div>
