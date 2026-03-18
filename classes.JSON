@@ -67,7 +67,7 @@
     "rank": 5,
     "name": "FINISHER: Bone Bash",
     "actionCost": 2,
-    "enduranceCost": "Weapon",
+    "enduranceCost": 0,
     "description": "You make a powerful strike strong enough to break bones. On a successful hit the target gains 3 stacks of the Sprained condition until they regain Health.",
     "type": "action"
   },
@@ -79,5 +79,618 @@
     "enduranceCost": "1/2 Weapon",
     "description": "After you successfully hit a Backhand Hit attack, you can use this ability to make a mighty blow against a target's head. When doing so you gain advantage on your attack and the target becomes toppled.",
     "type": "action"
+  },
+
+
+  {
+    "class": "Brute",
+    "rank": 1,
+    "name": "Natural Defense",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain +1 Physical Toughness when wielding an armor or shield.",
+    "type": "passive"
+  },
+  {
+    "class": "Brute",
+    "rank": 2,
+    "name": "Unstoppable",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have trained to stay on your footing both in and out of combat. You have advantage on all checks that would topple you.",
+    "type": "passive"
+  },
+  {
+    "class": "Brute",
+    "rank": 2,
+    "name": "Relentless Adrenaline",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "If your health has been reduced since the end of your last turn, you can allow adrenaline to heal your wounds. You can spend 2 Endurance and regain 1d4 health up to the amount of damage taken.",
+    "type": "passive"
+  },
+  {
+    "class": "Brute",
+    "rank": 3,
+    "name": "Stand Ground",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "Until the start of your next turn, all attacks against you have disadvantage.",
+    "type": "action"
+  },
+  {
+    "class": "Brute",
+    "rank": 3,
+    "name": "Superior Defense",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "It no longer costs Endurance to Brace with the shield.",
+    "type": "passive"
+  },
+  {
+    "class": "Brute",
+    "rank": 4,
+    "name": "Iron Body",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You are immune to the Concussed, Staggered, or Winded conditions. ",
+    "type": "passive"
+  },
+  {
+    "class": "Brute",
+    "rank": 4,
+    "name": "Improved Natural Defense",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your Physical Toughness now applies to all damage types.",
+    "type": "passive"
+  },
+  {
+    "class": "Brute",
+    "rank": 5,
+    "name": "FINISHER: Overrun",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "With a burst of adrenaline you push past your limits, charging forward and moving up to 12 meters in a straight line, moving up to your movement, and can make one free attack against each creature within your reach.",
+    "type": "action"
+  },
+
+  {
+    "class": "Cleaver",
+    "rank": 1,
+    "name": "Improved Axe Attacks",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain an additional +1 to attack for each rank in this class on all Axe Attacks.",
+    "type": "passive"
+  },
+  {
+    "class": "Cleaver",
+    "rank": 2,
+    "name": "Hatchet",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "All attacks made with an axe against wooden objects deal double damage",
+    "type": "passive"
+  },
+  {
+    "class": "Cleaver",
+    "rank": 2,
+    "name": "COMBO: Cross Attack",
+    "actionCost": 2,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After you make an attack action on your turn and miss, you can perform a Cross Attack, making a second attack that follows along your initial slash but in the opposite direction. On a hit, you inflict the bleed condition until the start of your next turn.",
+    "type": "action"
+  },
+  {
+    "class": "Cleaver",
+    "rank": 3,
+    "name": "Downward Strike",
+    "actionCost": 2,
+    "enduranceCost": "Weapon",
+    "description": "While using a weapon in both hands, you can make a large strike on a target's head, giving you an additional +1 to damage for each rank in this class.",
+    "type": "action"
+  },
+  {
+    "class": "Cleaver",
+    "rank": 4,
+    "name": "Destructive Nature",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you score a critical hit, the target gains the Bleeding condition until healed.",
+    "type": "passive"
+  },
+  {
+    "class": "Cleaver",
+    "rank": 5,
+    "name": "FINISHER: Executioner's Cleave",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "You swing with one massive slash. Make an attack roll with this weapon and on a hit, your target's toughness is halved and the armor gains the Damaged property. You become staggered after using this ability. ",
+    "type": "action"
+  },
+  {
+    "class": "Cleaver",
+    "rank": 5,
+    "name": "COMBO: Dismemberment",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After you perform an attack that inflicted Bleed, you can perform another powerful chop, opening the wound further. On a successful hit, the target must make a DC 15 Grit roll or gain 2 additional stacks of the Bleed condition for 1 minute on a fail and 1 additional stack of the Bleed condition for 1 minute on a success.",
+    "type": "action"
+  },
+
+  {
+    "class": "Marksman",
+    "rank": 1,
+    "name": "Improved Firearm Attacks",
+    "actionCost": 0,
+    "enduranceCost": "",
+    "description": "Gain an additional +1 to attack for each rank in this class on all Hand-Firearm attacks",
+    "type": "passive"
+  },
+  {
+    "class": "Marksman",
+    "rank": 2,
+    "name": "Trick Shot",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "When you make a ranged weapon attack, you can use a trick shot to ricochet your attack off and ignore a target's cover. When you do so, the damage from your weapon is halved.",
+    "type": "passive"
+  },
+  {
+    "class": "Marksman",
+    "rank": 2,
+    "name": "Wide Eye",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have an eye for detail while in close quarters. You have advantage on all Awareness checks.",
+    "type": "passive"
+  },
+  {
+    "class": "Marksman",
+    "rank": 3,
+    "name": "Quick Draw",
+    "actionCost": 1,
+    "enduranceCost": "Weapon",
+    "description": "Once per turn, when you switch weapons into a loaded firearm, you can make an attack for free.",
+    "type": "action"
+  },
+  {
+    "class": "Marksman",
+    "rank": 3,
+    "name": "Dodge Roll",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Once per round, whenever you Dodge, you can move 1 meter.",
+    "type": "passive"
+  },
+  {
+    "class": "Marksman",
+    "rank": 4,
+    "name": "Improved Reload",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you use the reload action, you can reload two firearms instead of one.",
+    "type": "passive"
+  },
+  {
+    "class": "Marksman",
+    "rank": 5,
+    "name": "FINISHER: Rapid Fire",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You quickly and rapidly load and fire your Hand-Firearm easily. Use this ability to spend up to 3 action points on this turn. For each action point spent, you can attack it with advantage and reload instantly.",
+    "type": "action"
+  },
+
+ {
+  "class": "Martial Artist",
+    "rank": 1,
+    "name": "Improved Unarmed Attacks",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain an additional +1 to attack for each rank in this class on all strike weapons.",
+    "type": "passive"
+  },
+  {
+  "class": "Martial Artist",
+    "rank": 1,
+    "name": "Meditation",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "While training in martial arts, you also learned how to meditate to rapidly recover your Endurance. You regain an amount of Endurance equal to your rank in this class.",
+    "type": "action"
+  },
+  {
+  "class": "Martial Artist",
+    "rank": 2,
+    "name": "Trip",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "You know the art of quickly knocking creatures that are one size larger than you or smaller to their feet. Make an attack against a creature with legs, they gain the Toppled condition in addition to dealing damage.",
+    "type": "action"
+  },
+  {
+  "class": "Martial Artist",
+    "rank": 2,
+    "name": "COMBO: Knee Jab",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "After successfully landing an attack on a target within your reach, you can make an additional attack as an Unarmed Strike on the same target. On a successful attack, in addition to dealing damage, perform a Grit Contest and if the target fails they gain the Winded condition until the end of your next turn.",
+    "type": "action"
+  },
+  {
+  "class": "Martial Artist",
+    "rank": 3,
+    "name": "COMBO: Pin",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After you successfully make a Trip attack, you can perform this combo to pin the target giving them the Grappled Condition.",
+    "type": "action"
+  },
+  {
+  "class": "Martial Artist",
+    "rank": 3,
+    "name": "Silent Step",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your footprints are silent. When you are walking you don't make a noise.",
+    "type": "passive"
+  },
+  {
+  "class": "Martial Artist",
+    "rank": 4,
+    "name": "Flury",
+    "actionCost": 1,
+    "enduranceCost": "Weapon",
+    "description": "Once per turn, you can use this ability to attack with increased agility. Choose a target within your weapon's range; you can make 2 attacks against them.",
+    "type": "action"
+  },
+  {
+  "class": "Martial Artist",
+    "rank": 4,
+    "name": "COMBO: Central Blow",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Weapon",
+    "description": "If the target of your attack has the Winded condition from a previous attack, you can make a central Strike attack on them. On a successful hit, in addition to dealing damage the target becomes Defenseless until the start of your next turn.",
+    "type": "action"
+  },
+  {
+  "class": "Martial Artist",
+    "rank": 5,
+    "name": "FINISHER: Nerve Attack",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "Whenever you perform a successful Pin attack, you can strike their Nerves. The target gains the Stunned Condition for one minute. At the end of the Target's turn they can make a Grit Contest to end the condition early.",
+    "type": "action"
+  },
+
+  {
+  "class": "Sharpshooter",
+    "rank": 1,
+    "name": "Improved Firearm Attacks",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain an additional +1 to attack for each rank in this class on all Sniper-Firearm attacks.",
+    "type": "passive"
+  },
+  {
+  "class": "Sharpshooter",
+    "rank": 2,
+    "name": "Eagle Eye",
+    "actionCost": 0,
+    "enduranceCost": "",
+    "description": "You have better eyesight, allowing you to make out details from further away. You can make out land masses and other ships from 20 meters away. Additionally, your range with sniper firearms increases by 2 meters for each rank in this class.",
+    "type": "passive"
+  },
+  {
+  "class": "Sharpshooter",
+    "rank": 2,
+    "name": "Aim",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "You can line up your shot with your ranged attacks to improve your accuracy. Your next attack made with a ranged weapon has advantage.",
+    "type": "action"
+  },
+  {
+  "class": "Sharpshooter",
+    "rank": 3,
+    "name": "Defensive Range",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your knowledge of attacking from a great distance also helps you stay hidden. Whenever you have half cover, you gain an additional +1 to toughness against all non-melee attacks.",
+    "type": "passive"
+  },
+  {
+  "class": "Sharpshooter",
+    "rank": 4,
+    "name": "Perfect Precision",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you score a critical hit, you always deal the maximum damage.",
+    "type": "passive"
+  },
+  {
+  "class": "Sharpshooter",
+    "rank": 5,
+    "name": "FINISHER: Deadshot",
+    "actionCost": 3,
+    "enduranceCost": 0,
+    "description": "You can spend your turn to line up the perfect shot with your Sniper-Firearm. You can hold an attack without setting a condition. When you make your attack roll with this ability, roll three times and take the highest and lowest attack rolls on your target, dealing damage from both as if they were separate attacks if they hit.",
+    "type": "action"
+  },
+
+  {
+  "class": "Spearman",
+    "rank": 1,
+    "name": "Improved Polearm Attack",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain an additional +1 to attack for each rank in this class on all Polearm attacks.",
+    "type": "passive"
+  },
+  {
+  "class": "Spearman",
+    "rank": 2,
+    "name": "Keeping Distance",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "On your first successful attack with a polearm on your turn, you can forgo damage to reduce a target's Speed by 2 for their first move action on their next turn.",
+    "type": "passive"
+  },
+  {
+  "class": "Spearman",
+    "rank": 2,
+    "name": "COMBO: Thrust",
+    "actionCost": 2,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After you make a move action, you can make a powerful thrusting attack. Make an attack roll against your target. On a hit, in addition to taking damage they must make a Brawn Contest against you and on a fail will be knocked back 1 meter.",
+    "type": "action"
+  },
+  {
+  "class": "Spearman",
+    "rank": 3,
+    "name": "Firm Ground",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "When you use this ability, until the start of your next turn whenever a creature willingly enters your attack range for the first time on their turn, you can make an attack on them. After each consecutive attack with this ability you gain an additional -5 to hit, until the start of your next turn.",
+    "type": "passive"
+  },
+  {
+  "class": "Spearman",
+    "rank": 4,
+    "name": "Extended Reach",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "All weapons (excluding strike weapons and ranged weapons) now have the reach property if they did not already.",
+    "type": "passive"
+  },
+  {
+  "class": "Spearman",
+    "rank": 4,
+    "name": "Improved Keeping Distance",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you use your “Keeping Distance” ability it now reduces the target's Speed to 0 for their next Move action on their turn.",
+    "type": "passive"
+  },
+  {
+  "class": "Spearman",
+    "rank": 5,
+    "name": "FINISHER: Gaping Wound",
+    "actionCost": 3,
+    "enduranceCost": 0,
+    "description": "Make 3 attacks rolls on up to 3 targets. On a hit, you create a large gaping wound, causing their Speed to be set to 0 until the end of your next turn.",
+    "type": "action"
+  },
+
+  {
+  "class": "Swordsman",
+    "rank": 1,
+    "name": "Improved Sword Attacks",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "Gain an additional +1 to attack for each rank in this class on all Sword attacks.",
+    "type": "passive"
+  },
+  {
+  "class": "Swordsman",
+    "rank": 1,
+    "name": "Sword's Intuition",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "Knowledge of the weapons helps you perform perfect slices. Your melee attacks this round have advantage.",
+    "type": "action"
+  },
+  {
+  "class": "Swordsman",
+    "rank": 2,
+    "name": "Duelist",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you are fighting against a creature, and you and the creature do not have any allies within 5 feet, you deal an additional +2 damage on all Sword attacks.",
+    "type": "passive"
+  },
+  {
+  "class": "Swordsman",
+    "rank": 2,
+    "name": "Improved Parry",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you use Parry an attack, it only costs you normal endurance cost, instead of double the endurance cost.",
+    "type": "passive"
+  },
+  {
+  "class": "Swordsman",
+    "rank": 3,
+    "name": "COMBO: X Slice",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After you make an attack with a sword and you have a second melee weapon in your hand, you can make a second attack crossing the first to the same target. On a successful hit you can add the damage from Duelist even if you have allies around the target. If there are no allies around the target you deal the damage from Duelist twice.",
+    "type": "action"
+  },
+  {
+  "class": "Swordsman",
+    "rank": 4,
+    "name": "Perfect Parry",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Once per round, you can parry without spending the weapons Endurance Cost.",
+    "type": "passive"
+  },
+  {
+  "class": "Swordsman",
+    "rank": 5,
+    "name": "FINISHER: Edge Alignment",
+    "actionCost": 3,
+    "enduranceCost": 0,
+    "description": "You change your footing to one of pure aggression. For the next 3 rounds you can parry without spending the weapons Endurance Cost. Additionally any of your attacks which are Parried do not have an additional Endurance Cost to attack again.",
+    "type": ""
+  },
+
+{
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Recipes",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "For each rank you have in this class you learn one alcohol recipe or compound recipe from the list below.",
+    "type": "passive"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Brew Concoctions",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You can use ingredients to create a batch of an alcohol or compound. These compounds can either be enhancements or poisons. Your Poison DC is equal to 10 + your rank in this class. ",
+    "type": "passive"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 2,
+    "name": "Weapon Coating",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "You know how to coat weapons with poison. Take a poison you have in your inventory and dip this weapon or ammunition into the poison. On a hit, the poison is applied to the target.",
+    "type": "action"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 3,
+    "name": "Chemist's Resistance",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have advantage on all rolls from poisons or compounds.",
+    "type": "passive"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 3,
+    "name": "Toxic Cloud",
+    "actionCost": 3,
+    "enduranceCost": 3,
+    "description": "Your knowledge of toxic fumes allows you to make any of your poisons airborne as well. You can throw a vial of poison and scatter it in the air, releasing a puff of toxic smoke in a 1 meter radius. All creatures in this area become inflicted with this poison.",
+    "type": "action"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 4,
+    "name": "Defensive Coating",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your natural poison resistance allows you to apply a poison to your skin without it affecting you. Whenever a creature hits you with an attack within 1 meter of you, they become inflicted with this poison. ",
+    "type": "passive"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 5,
+    "name": "Toxic Blood",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": " You are immune to the poison condition and take half damage from all poison damage. ",
+    "type": "passive"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 5,
+    "name": "Improved Toxicity",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You can now coat your weapon with multiple poisons at the same time. It takes 1 action per poison applied.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Blacksmith",
+    "rank": 1,
+    "name": "Forge",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you are working a forge you can craft a metal item whose worth is equal to the worth of the material it is made from.",
+    "type": "passive"
+  },
+  {
+  "class": "Blacksmith",
+    "rank": 1,
+    "name": "Smith",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You gain the ability to use smith's tools.",
+    "type": "passive"
+  },
+  {
+  "class": "Blacksmith",
+    "rank": 1,
+    "name": "Polish",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You are well versed in all forms of metal work. You can polish an old or rusted piece of equipment in order to remove any negative physical effects caused by the item's age.",
+    "type": "passive"
+  },
+  {
+  "class": "Blacksmith",
+    "rank": 2,
+    "name": "Armor Analysis",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "If an opponent is wearing armor made, you can analyze its weaknesses. All weapons with Armor Breaker and Armor Piercing have advantage against that target until the end of your next turn.",
+    "type": "action"
+  },
+  {
+  "class": "Blacksmith",
+    "rank": 2,
+    "name": "Makeshift Forge",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You can use your blacksmith tools to create and use a makeshift forge as if it was a normal forge. Making items in this way takes twice as long.",
+    "type": "passive"
+  },
+{
+  "class": "Blacksmith",
+    "rank": 3,
+    "name": "",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have built up a resilience to extreme heats. You have advantage on all Weather Tolerance checks against heat and have a Toughness 1 against Fire damage.",
+    "type": "passive"
+  },
+  {
+  "class": "Blacksmith",
+    "rank": 4,
+    "name": "COMB: Hammered Rhythm",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After making a successful attack against a target, you can make an additional attack against the same target with the same weapon. This additional attack does not have an endurance cost.",
+    "type": "action"
+  },
+  {
+  "class": "Blacksmith",
+    "rank": 5,
+    "name": "Improved Forging",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you are working a forge you can craft a metal item whose worth is equal to double the worth of the material it is made from.",
+    "type": "passive"
   }
 ]
