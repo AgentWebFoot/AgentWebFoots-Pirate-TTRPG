@@ -136,7 +136,7 @@
             }
 
             function MainPage({
-                statTotals,
+                finalStats,
                 classCounts,
                 skillTotals,
                 currentLevel,
@@ -173,7 +173,7 @@
 
                 <input
                 type="number"
-                value={statTotals[stat]}
+                value={Number.isFinite(finalStats[stat]) ? finalStats[stat] : 0}
                 readOnly
                 />
 
@@ -185,7 +185,7 @@
 
                     <input
                     type="number"
-                    value={skillTotals[skill]}
+                    value={Number.isFinite(skillTotals[skill]) ? skillTotals[skill] : 0}
                     readOnly
                     />
 
@@ -412,7 +412,7 @@
                     {inventoryWeapons.map((w,i)=>{
 
                     const attackBonus =
-                    Math.max(...w.attackStats.map(stat=>statTotals[stat]))
+                    Math.max(...w.attackStats.map(stat=>finalStats[stat]))
 
                     return(
 
@@ -465,7 +465,7 @@
                 ...prev,
                 statOverrides:{
                 ...prev.statOverrides,
-                [stat]: v === "" ? undefined : Number(v)
+                [stat]: v === "" ? null : Number(v)
                 }
                 }))
                 }}
@@ -594,7 +594,7 @@
                 value={settings.luckMax}
                 onChange={e=>setSettings(prev=>({
                 ...prev,
-                luckMax:Number(e.target.value)
+                luckMax:e.target.value === "" ? null : Number(e.target.value)
                 }))}
                 />
 
@@ -626,6 +626,7 @@
                 maxHealth,
                 endurance,
                 setEndurance,
+                minEndurance,
                 maxEndurance,
                 speed,
                 dashSpeed,
@@ -671,7 +672,7 @@
                             value={health}
                             style={smallBox}
                             onChange={e=>{
-                            const v = Number(e.target.value)
+                            const v = e.target.value === "" ? null : Number(e.target.value)
                             setHealth(Math.max(minHealth, Math.min(v, maxHealth)))
                             }}
                             />
@@ -685,8 +686,11 @@
                             value={endurance}
                             style={smallBox}
                             onChange={e=>{
-                            const v = Number(e.target.value)
-                            setEndurance(Math.max(0,Math.min(v,maxEndurance)))
+                                const raw = e.target.value
+                                if(raw === "") return
+
+                                const v = Number(raw)
+                                setEndurance(Math.max(minEndurance, Math.min(v, maxEndurance)))
                             }}
                             />
                             / {maxEndurance}
@@ -707,7 +711,7 @@
                             value={luck}
                             style={smallBox}
                             onChange={e=>{
-                            const v = Number(e.target.value)
+                            const v = e.target.value === "" ? null : Number(e.target.value)
                             setLuck(Math.max(0, Math.min(v, settings.luckMax)))
                             }}
                             />
@@ -762,7 +766,7 @@
 
             const allClasses = classGroups.flatMap(g=>g.classes)
                 function LeftPanel({
-                    statTotals,
+                    finalStats,
                     levelStats,
                     setLevelStats,
                     levels,
@@ -1060,10 +1064,13 @@
                     luckMax:3
                 })
 
-                const finalStats = {
-                    ...statTotals,
-                    ...(settings?.statOverrides || {})
-                }
+                const finalStats = {...statTotals}
+
+                Object.entries(settings.statOverrides || {}).forEach(([stat,val])=>{
+                    if(val !== null && !Number.isNaN(val)){
+                        finalStats[stat] = val
+                    }
+                })
 
                 const baseMaxHealth = 15 + finalStats.Grit
 
@@ -1091,8 +1098,10 @@
                 const [endurance,setEndurance] = React.useState(0)
 
                 React.useEffect(()=>{
-                setEndurance(maxEndurance)
-                },[maxEndurance])
+                    setEndurance(prev =>
+                        Math.max(minEndurance, Math.min(prev, maxEndurance))
+                    )
+                },[maxEndurance, minEndurance])
 
                 const speed =
                 settings.speedOverride ?? 3
@@ -1128,7 +1137,7 @@
 
                 Object.keys(skillTotals).forEach(skill=>{
                     const stat = SKILL_TO_STAT[skill]
-                    skillTotals[skill] += statTotals[stat]
+                    skillTotals[skill] += finalStats[stat]
                 })
 
                 const selectedClasses = [
@@ -1229,14 +1238,15 @@
                         currentLevel={currentLevel}
                         setCurrentLevel={setCurrentLevel}
                         evasion={evasion}
+                        endurance={endurance}
+                        setEndurance={setEndurance}
+                        minEndurance={minEndurance}
+                        maxEndurance={maxEndurance}
                         toughness={toughness}
                         health={health}
                         setHealth={setHealth}
                         minHealth={minHealth}
                         maxHealth={maxHealth}
-                        endurance={endurance}
-                        setEndurance={setEndurance}
-                        maxEndurance={maxEndurance}
                         speed={speed}
                         dashSpeed={dashSpeed}
                         luck={luck}
@@ -1245,7 +1255,7 @@
                     />
 
                     <LeftPanel
-                        statTotals={statTotals}
+                        finalStats={finalStats}
                         levelStats={levelStats}
                         setLevelStats={setLevelStats}
                         levels={levels}
@@ -1256,7 +1266,7 @@
                     />
 
                     <MainPage
-                        statTotals={statTotals}
+                        finalStats={finalStats}
                         classCounts={classCounts}
                         skillTotals={skillTotals}
                         currentLevel={currentLevel}
