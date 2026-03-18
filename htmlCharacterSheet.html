@@ -36,6 +36,7 @@
 
             .mainpage {
                 padding: 20px;
+                padding-bottom: 80px;
             }
 
             .statRow{
@@ -85,6 +86,27 @@
                 Awareness:["Fishing","Investigation","Intuition","Tracking"],
                 Brains:["History","Learning","Tinkering"],
                 Swagger:["Infamy","Influence","Negotiation"]
+            }
+
+            const WEAPON_TYPES = [
+                "Strike",
+                "Blunt",
+                "Sword",
+                "Axe",
+                "Polearm",
+                "Hand Firearm",
+                "Sniper Firearm",
+                "Grenade"
+            ]
+
+            const CLASS_WEAPON_BONUS = {
+                Basher: ["Blunt"],
+                Cleaver: ["Axe"],
+                Marksman: ["Hand Firearm"],
+                "Martial Artist": ["Strike"],
+                Sharpshooter: ["Sniper Firearm"],
+                Spearman: ["Polearm"],
+                Swordsman: ["Sword"]
             }
 
             const LEVEL_POINTS = level => level === 1 ? 10 : 1
@@ -156,8 +178,13 @@
                 weaponChoice,
                 setWeaponChoice,
                 addWeaponToInventory,
+                weaponTypeBonuses,
                 settings,
-                setSettings
+                setSettings,
+                sortBy,
+                setSortBy,
+                sortedActionAbilities,
+                passiveAbilities
                 }) {
 
                 const [activeTab,setActiveTab] = React.useState("class")
@@ -242,7 +269,44 @@
                 ))}
                 </ul>
 
+                <div>
+
+                <h3>Class Abilities</h3>
+
+                <div style={{marginBottom:"10px"}}>
+                Sort:
+                <select value={sortBy} onChange={e=>setSortBy(e.target.value)}>
+                <option value="rank">By Rank</option>
+                <option value="cost">By Action Cost</option>
+                </select>
                 </div>
+
+                <h4>Action Abilities</h4>
+
+                {sortedActionAbilities.map((a,i)=>(
+                <div key={i} style={{borderBottom:"1px solid #ccc",marginBottom:"6px"}}>
+                <strong>{a.name}</strong> (Rank {a.rank})<br/>
+                Class: {a.class}<br/>
+                Action Cost: {a.actionCost} | Endurance: {a.enduranceCost}<br/>
+                {a.description}
+                </div>
+                ))}
+
+                <h4>Free / Passive Abilities</h4>
+
+                {passiveAbilities.map((a,i)=>(
+                <div key={i} style={{borderBottom:"1px solid #ccc",marginBottom:"6px"}}>
+                <strong>{a.name}</strong> (Rank {a.rank})<br/>
+                Class: {a.class}<br/>
+                {a.description}
+                </div>
+                ))}
+
+                </div>
+
+                </div>
+
+                
                 )}
 
                 {activeTab === "combat" && (
@@ -336,7 +400,7 @@
                     <div style={{marginTop:"10px"}}>
                         <div style={{
                         display:"grid",
-                        gridTemplateColumns:"120px 120px 120px 120px 120px 120px 1fr 80px 80px",
+                        gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px",
                         fontWeight:"bold",
                         borderBottom:"2px solid #ccc",
                         paddingBottom:"4px"
@@ -357,8 +421,24 @@
 
                         {equippedWeapons.map((w,i)=>{
 
-                        const attackBonus =
-                        Math.max(...w.attackStats.map(stat=>finalStats[stat]))
+                        const statBonus =
+                        Math.max(...w.attackStats.map(stat => finalStats[stat]))
+
+                        const classBonus =
+                        Math.max(
+                            0,
+                            ...w.type.map(type => {
+
+                                const classVal = weaponTypeBonuses[type] || 0
+                                const overrideVal = settings.weaponTypeOverrides?.[type]
+
+                                return overrideVal !== null && overrideVal !== undefined
+                                    ? overrideVal
+                                    : classVal
+                            })
+                        )
+
+                        const attackBonus = statBonus + classBonus
 
                         return(
 
@@ -366,7 +446,7 @@
                         key={i}
                         style={{
                         display:"grid",
-                        gridTemplateColumns:"120px 120px 120px 120px 120px 120px 1fr 80px 80px",
+                        gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px",
                         padding:"4px 0",
                         borderBottom:"1px solid #ddd"
                         }}
@@ -391,7 +471,7 @@
                     <h4>Inventory</h4>
                     <div style={{
                     display:"grid",
-                    gridTemplateColumns:"120px 120px 120px 120px 120px 120px 1fr 80px 80px",
+                    gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px",
                     fontWeight:"bold",
                     borderBottom:"2px solid #ccc",
                     paddingBottom:"4px"
@@ -411,7 +491,25 @@
 
                     {inventoryWeapons.map((w,i)=>{
 
-                    const attackBonus =
+                    const statBonus =
+                    Math.max(...w.attackStats.map(stat => finalStats[stat]))
+
+                    const classBonus =
+                    Math.max(
+                        0,
+                        ...w.type.map(type => {
+
+                            const classVal = weaponTypeBonuses[type] || 0
+                            const overrideVal = settings.weaponTypeOverrides?.[type]
+
+                            return overrideVal !== null && overrideVal !== undefined
+                                ? overrideVal
+                                : classVal
+                        })
+                    )
+
+                    const attackBonus = statBonus + classBonus
+
                     Math.max(...w.attackStats.map(stat=>finalStats[stat]))
 
                     return(
@@ -420,7 +518,7 @@
                     key={i}
                     style={{
                     display:"grid",
-                    gridTemplateColumns:"120px 120px 120px 120px 120px 120px 1fr 80px 80px",
+                    gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px",
                     borderBottom:"1px solid #ddd"
                     }}
                     >
@@ -598,6 +696,34 @@
                 }))}
                 />
 
+                <h3>Weapon Type Overrides</h3>
+                <div></div>
+
+                {WEAPON_TYPES.map(type=>(
+                <React.Fragment key={type}>
+
+                <div>{type}</div>
+
+                <input
+                type="number"
+                value={settings.weaponTypeOverrides[type] ?? ""}
+                placeholder="Override"
+                onChange={e=>{
+                    const v = e.target.value
+
+                    setSettings(prev=>({
+                        ...prev,
+                        weaponTypeOverrides:{
+                            ...prev.weaponTypeOverrides,
+                            [type]: v === "" ? null : Number(v)
+                        }
+                    }))
+                }}
+                />
+
+                </React.Fragment>
+                ))}
+
                 </div>
 
                 </div>
@@ -736,7 +862,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> 
                 )
             }
 
@@ -1061,7 +1187,8 @@
                     enduranceMax:null,
                     speedOverride:null,
                     dashOverride:null,
-                    luckMax:3
+                    luckMax:3,
+                    weaponTypeOverrides:{}
                 })
 
                 const finalStats = {...statTotals}
@@ -1151,6 +1278,20 @@
                     classCounts[cls] = (classCounts[cls] || 0) + 1
                 })
 
+                const weaponTypeBonuses = {}
+
+                Object.entries(classCounts).forEach(([cls, rank]) => {
+                    const types = CLASS_WEAPON_BONUS[cls]
+                    if(!types) return
+
+                    types.forEach(type => {
+                        weaponTypeBonuses[type] = Math.max(
+                            weaponTypeBonuses[type] || 0,
+                            rank
+                        )
+                    })
+                })
+
                 const [armor,setArmor] = React.useState("No Armor")
                 const [shield,setShield] = React.useState("No Shield")
 
@@ -1177,6 +1318,31 @@
                 .then(res=>res.json())
                 .then(data=>setWeapons(data))
                 },[])
+
+                const [classAbilities,setClassAbilities] = React.useState([])
+
+                React.useEffect(()=>{
+                    fetch("classes.json")
+                    .then(res=>res.json())
+                    .then(data=>setClassAbilities(data))
+                },[])
+
+                const availableAbilities = classAbilities.filter(ability=>{
+                    const rank = classCounts[ability.class] || 0
+                    return ability.rank <= rank
+                })
+
+                const actionAbilities = availableAbilities.filter(a=>a.type === "action")
+                const passiveAbilities = availableAbilities.filter(a=>a.type !== "action")
+
+                const [sortBy,setSortBy] = React.useState("rank")
+
+                const sortedActionAbilities = [...actionAbilities].sort((a,b)=>{
+                    if(sortBy === "cost"){
+                        return a.actionCost - b.actionCost
+                    }
+                    return a.rank - b.rank
+                })
 
                 function addWeaponToInventory(name){
 
@@ -1225,6 +1391,106 @@
 
                     }
 
+                }
+
+                function exportData(){
+                    const data = {
+                        name: typeof raw.name === "string" ? raw.name : "",
+                        country: typeof raw.country === "string" ? raw.country : "",
+                        currentLevel: Number.isInteger(raw.currentLevel) ? raw.currentLevel : 1,
+
+                        levels: Array.isArray(raw.levels) ? raw.levels : Array(20).fill(null),
+                        level1: Array.isArray(raw.level1) ? raw.level1 : ["","",""],
+
+                        levelStats: Array.isArray(raw.levelStats) ? raw.levelStats : levelStats,
+                        levelSkills: Array.isArray(raw.levelSkills) ? raw.levelSkills : levelSkills,
+
+                        settings: typeof raw.settings === "object" ? raw.settings : settings,
+
+                        armor: typeof raw.armor === "string" ? raw.armor : "No Armor",
+                        shield: typeof raw.shield === "string" ? raw.shield : "No Shield",
+
+                        equippedWeapons: Array.isArray(raw.equippedWeapons) ? raw.equippedWeapons : [],
+                        inventoryWeapons: Array.isArray(raw.inventoryWeapons) ? raw.inventoryWeapons : [],
+
+                        health: Number.isFinite(raw.health) ? raw.health : 0,
+                        endurance: Number.isFinite(raw.endurance) ? raw.endurance : 0,
+                        luck: Number.isFinite(raw.luck) ? raw.luck : 3,
+                        version: 1
+                    }
+
+                    const json = JSON.stringify(data, null, 2)
+
+                    const blob = new Blob([json], {type:"application/json"})
+                    const url = URL.createObjectURL(blob)
+
+                    const a = document.createElement("a")
+                    a.href = url
+                    a.download = "character.json"
+                    a.click()
+
+                    URL.revokeObjectURL(url)
+                }
+
+                function importData(){
+                    const input = document.createElement("input")
+                    input.type = "file"
+                    input.accept = "application/json"
+
+                    input.onchange = e => {
+                        const file = e.target.files[0]
+                        if(!file) return
+
+                        const reader = new FileReader()
+
+                        reader.onload = event => {
+                            try{
+                                delete raw.__proto__
+                                delete raw.constructor
+                                delete raw.prototype
+
+                                const raw = JSON.parse(event.target.result)
+
+                                if(file.size > 100000){ // ~100KB
+                                    alert("File too large")
+                                    return
+                                }
+
+                                if(typeof raw !== "object" || raw === null){
+                                    alert("Invalid file")
+                                    return
+                                }
+
+                                if(raw.version !== 1){
+                                    alert("Invalid version")
+                                    return
+                                }
+                                
+                                setName(data.name ?? "")
+                                setCountry(data.country ?? "")
+                                setCurrentLevel(data.currentLevel ?? 1)
+                                setLevels(data.levels ?? Array(20).fill(null))
+                                setLevel1(data.level1 ?? ["","",""])
+                                setLevelStats(data.levelStats ?? levelStats)
+                                setLevelSkills(data.levelSkills ?? levelSkills)
+                                setSettings(data.settings ?? settings)
+                                setArmor(data.armor ?? "No Armor")
+                                setShield(data.shield ?? "No Shield")
+                                setEquippedWeapons(data.equippedWeapons ?? [])
+                                setInventoryWeapons(data.inventoryWeapons ?? [])
+                                setHealth(data.health ?? 0)
+                                setEndurance(data.endurance ?? 0)
+                                setLuck(data.luck ?? 3)
+
+                            } catch(err){
+                                alert("Invalid file")
+                            }
+                        }
+
+                        reader.readAsText(file)
+                    }
+
+                    input.click()
                 }
 
                 return(
@@ -1286,9 +1552,25 @@
                         weaponChoice={weaponChoice}
                         setWeaponChoice={setWeaponChoice}
                         addWeaponToInventory={addWeaponToInventory}
+                        weaponTypeBonuses={weaponTypeBonuses}
                         settings={settings}
                         setSettings={setSettings}
+                        sortBy={sortBy}
+                        setSortBy={setSortBy}
+                        sortedActionAbilities={sortedActionAbilities}
+                        passiveAbilities={passiveAbilities}
                     />
+
+                    <div style={{
+                        position:"fixed",
+                        bottom:"10px",
+                        right:"10px",
+                        display:"flex",
+                        gap:"10px"
+                    }}>
+                        <button onClick={exportData}>Export</button>
+                        <button onClick={importData}>Import</button>
+                    </div>
 
                     </div>
                 )

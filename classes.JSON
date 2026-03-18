@@ -1,0 +1,83 @@
+[
+  {
+    "class": "Basher",
+    "rank": 1,
+    "name": "Improved Blunt Attacks",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain an additional +1 to attack for each rank in this class on all Blunt Weapons attacks.",
+    "type": "passive"
+  },
+  {
+    "class": "Basher",
+    "rank": 2,
+    "name": "Full Spin",
+    "actionCost": 2,
+    "enduranceCost": "x2 Weapon",
+    "description": "While using a weapon with the Two-Handed property, you can make a 360-degree swing. Make an attack against each creature within your range.This action costs double the weapon's Endurance cost.",
+    "type": "action"
+  },
+  {
+    "class": "Basher",
+    "rank": 2,
+    "name": "COMBO: Backhand Hit",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After you make a successful attack, you can perform an additional attack to the same target. If this Backhanded hit is successful, perform a Brawn Contest and on a fail the target is staggered.",
+    "type": "action"
+  },
+  {
+    "class": "Basher",
+    "rank": 3,
+    "name": "Crusher",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "All attacks made with a blunt weapon against a stone or metal object that isn't worn or carried automatically crits.",
+    "type": "passive"
+  },
+  {
+    "class": "Basher",
+    "rank": 3,
+    "name": "Joint Damage",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you score a critical hit the target becomes Sprained for the next minute.",
+    "type": "passive"
+  },
+  {
+    "class": "Basher",
+    "rank": 4,
+    "name": "Power Slam",
+    "actionCost": 3,
+    "enduranceCost": "Weapon",
+    "description": "Make an attack against an opponent. If you hit, perform a Brawn Contest. If they fail, they are staggered, and all attacks against them are critical hits until the start of your next turn. ",
+    "type": "action"
+  },
+  {
+    "class": "Basher",
+    "rank": 4,
+    "name": "COMBO: Ground Pound",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After you make a Full Swing attack, use can use this ability to slam the ground. Any creature you missed with your attack must make a Brawn Contest against you. All creatures that fail become toppled.",
+    "type": "action"
+  },
+  {
+    "class": "Basher",
+    "rank": 5,
+    "name": "FINISHER: Bone Bash",
+    "actionCost": 2,
+    "enduranceCost": "Weapon",
+    "description": "You make a powerful strike strong enough to break bones. On a successful hit the target gains 3 stacks of the Sprained condition until they regain Health.",
+    "type": "action"
+  },
+  {
+    "class": "Basher",
+    "rank": 5,
+    "name": "COMBO: Head Strike",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Weapon",
+    "description": "After you successfully hit a Backhand Hit attack, you can use this ability to make a mighty blow against a target's head. When doing so you gain advantage on your attack and the target becomes toppled.",
+    "type": "action"
+  }
+]
