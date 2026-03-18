@@ -358,7 +358,7 @@
                         {equippedWeapons.map((w,i)=>{
 
                         const attackBonus =
-                        Math.max(...w.attackStats.map(stat=>statTotals[stat]))
+                        Math.max(...w.attackStats.map(stat=>finalStats[stat]))
 
                         return(
 
