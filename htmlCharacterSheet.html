@@ -12,6 +12,49 @@
         <div id="root"></div>
 
         <style>
+            :root {
+                --bg-main: #1e1e1e;
+                --bg-panel: #2a2a2a;
+                --bg-card: #333;
+                --bg-highlight: #3f3f3f;
+
+                --text-main: #ffffff;
+                --text-muted: #bbbbbb;
+
+                --accent: #4e4e4e;
+
+                --font-main: "Segoe UI", sans-serif;
+                --font-header: "Georgia", serif;
+
+                --font-size-base: 14px;
+                --font-size-large: 18px;
+                --font-size-header: 22px;
+            }
+
+            body {
+                margin: 0;
+                background: var(--bg-main);
+                color: var(--text-main);
+                font-family: var(--font-main);
+                font-size: var(--font-size-base);
+            }
+
+            .panel {
+                background: var(--bg-panel);
+                border-radius: 8px;
+                padding: 10px;
+            }
+
+            .card {
+                background: var(--bg-card);
+                border-radius: 6px;
+                padding: 8px;
+            }
+
+            .highlight {
+                background: var(--bg-highlight);
+            }
+
             .app {
                 display: grid;
                 grid-template-rows: 90px 1fr;
@@ -26,12 +69,15 @@
                 align-items: center;
                 padding: 10px 20px;
                 border-bottom: 2px solid #ccc;
+                background: var(--bg-panel);
+                font-size: var(--font-size-large);
             }
 
             .leftpanel {
                 padding: 10px;
                 overflow-y: auto;
                 border-right: 2px solid #ccc;
+                
             }
 
             .mainpage {
@@ -46,6 +92,43 @@
 
             .statBlock{
                 min-width:120px;
+                background: var(--bg-card);
+                padding: 8px;
+                border-radius: 6px;
+            }
+
+            .statBlock ul {
+                list-style: none;
+                padding-left: 0;
+                margin: 0;
+            }
+
+            li {
+                background: var(--bg-panel);
+                margin-bottom: 6px;
+                padding: 6px;
+                border-radius: 4px;
+            }
+
+            button {
+                background: var(--accent);
+                border: none;
+                padding: 4px 8px;
+                border-radius: 4px;
+                cursor: pointer;
+                color: white;
+            }
+
+            button:hover {
+                opacity: 0.85;
+            }
+
+            input, select {
+                background: #222;
+                color: white;
+                border: 1px solid #555;
+                border-radius: 4px;
+                padding: 2px 4px;
             }
         </style>
 
@@ -216,8 +299,6 @@
                     readOnly
                     />
 
-                    
-
                     <div>
 
                         <button onClick={()=>removeSkill(currentLevel,skill,levelSkills,setLevelSkills)}>-</button>
@@ -274,7 +355,7 @@
                 <h3>Class Abilities</h3>
 
                 <div style={{marginBottom:"10px"}}>
-                Sort:
+                Sort:{" "}
                 <select value={sortBy} onChange={e=>setSortBy(e.target.value)}>
                 <option value="rank">By Rank</option>
                 <option value="cost">By Action Cost</option>
@@ -770,12 +851,12 @@
                     <div className="topbar">
                         <div>
                             <div>
-                            Name:
+                             Name:{" "}
                             <input value={name} onChange={e=>setName(e.target.value)} />
                             </div>
 
                             <div>
-                            Country of Origin:
+                            Country of Origin:{" "} 
                             <input value={country} onChange={e=>setCountry(e.target.value)} />
                             </div>
                         </div>
@@ -1328,6 +1409,9 @@
                 },[])
 
                 const availableAbilities = classAbilities.filter(ability=>{
+
+                    if(ability.class === "General") return true
+
                     const rank = classCounts[ability.class] || 0
                     return ability.rank <= rank
                 })
