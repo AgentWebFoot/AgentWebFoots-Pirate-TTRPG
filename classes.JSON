@@ -1,4 +1,68 @@
 [
+ { 
+    "class": "General",
+    "rank": 1,
+    "name": "Attack",
+    "actionCost": 1,
+    "enduranceCost": "Weapon",
+    "description": "Make an attack with a weapon in one of your hands.",
+    "type": "action"
+  },
+  { 
+    "class": "General",
+    "rank": 1,
+    "name": "Move",
+    "actionCost": 1,
+    "enduranceCost": "Tiles moved",
+    "description": "Choose to either move your Base Movement Speed, Dash, or stand up to end the Toppled condition on yourself.",
+    "type": "action"
+  },
+  { 
+    "class": "General",
+    "rank": 1,
+    "name": "Switch",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "Exchange the weapons in your hand for another on your person or next to you that isn't being worn or carried.",
+    "type": "action"
+  },
+  { 
+    "class": "General",
+    "rank": 1,
+    "name": "Hold Action",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "You may choose to hold one action point until a condition is met on the battlefield. You must declare what you are spending the action on and what the when you use the Hold Action. For example, you may wait until the enemy pops out from behind a barrel, or wait to run until an obstacle has cleared your path.",
+    "type": "action"
+  },
+  { 
+    "class": "General",
+    "rank": 1,
+    "name": "Gapple",
+    "actionCost": 2,
+    "enduranceCost": 2,
+    "description": "Perform a Brawn Contest. If your target fails they are grappled by you and gain the grappled condition. This condition ends if you choose to end it or unwillingly move away from them. You can only grapple one target at once.",
+    "type": "action"
+  },
+  { 
+    "class": "General",
+    "rank": 1,
+    "name": "Catch Breath",
+    "actionCost": 3,
+    "enduranceCost": 0,
+    "description": "Roll 1d10 + Grit regain that much lost Endurance.",
+    "type": "action"
+  },
+  { 
+    "class": "General",
+    "rank": 1,
+    "name": "Reload",
+    "actionCost": 3,
+    "enduranceCost": 0,
+    "description": "Reload the ammunition of a Firearm.",
+    "type": "action"
+  },
+
   {
     "class": "Basher",
     "rank": 1,
@@ -14,7 +78,7 @@
     "name": "Full Spin",
     "actionCost": 2,
     "enduranceCost": "x2 Weapon",
-    "description": "While using a weapon with the Two-Handed property, you can make a 360-degree swing. Make an attack against each creature within your range.This action costs double the weapon's Endurance cost.",
+    "description": "While using a weapon with the Two-Handed property, you can make a 360-degree swing. Make an attack against each creature within your range. This action costs double the weapon's Endurance cost.",
     "type": "action"
   },
   {
@@ -692,5 +756,891 @@
     "enduranceCost": 0,
     "description": "Whenever you are working a forge you can craft a metal item whose worth is equal to double the worth of the material it is made from.",
     "type": "passive"
+  },
+
+  {
+  "class": "Carpenter",
+    "rank": 1,
+    "name": "Investigate Planks",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You can inspect the wood of the ship for damage, allowing you to repair 2d10 of a ship’s hit points while not at a port.",
+    "type": "passive"
+  },
+  {
+  "class": "Carpenter",
+    "rank": 1,
+    "name": "Carpentry",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You gain the ability to use carpenter's tools. You can carve trinkets from wood. The value of the trinket is equal to the value of the material it is made from.",
+    "type": "passive"
+  },
+  {
+  "class": "Carpenter",
+    "rank": 2,
+    "name": "Rapid Cover",
+    "actionCost": 3,
+    "enduranceCost": 10,
+    "description": "You can use some of your scrap wood to create a barricade of half cover at a space in front of you.",
+    "type": "action"
+  },
+  {
+  "class": "Carpenter",
+    "rank": 2,
+    "name": "Good Eye",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "You can analyze the planks in a 2 meter radius around you for weak spots. If you find one you can attack it as an additional action to do critical damage to a ship.",
+    "type": "action"
+  },
+  {
+  "class": "Carpenter",
+    "rank": 3,
+    "name": "COMBO: Quick Repair",
+    "actionCost": 2,
+    "enduranceCost": 2,
+    "description": "After you have successfully found a weak spot using the Good Eye ability, you can repair it. You must have two free hands to use this feature. Whenever you fix a spot it can no longer be used to do critical damage to a ship.",
+    "type": "action"
+  },
+  {
+  "class": "Carpenter",
+    "rank": 4,
+    "name": "Sawdust Cloud",
+    "actionCost": 2,
+    "enduranceCost": 3,
+    "description": "You pull out a large amount of sawdust from your bag and create a puff of obscuring fog in a 3 meter radius around you. All creatures within the area become Blinded and gain Full Cover. This has an Endurance cost of 3.",
+    "type": "passive"
+  },
+  {
+  "class": "Carpenter",
+    "rank": 5,
+    "name": "Perfect Carvings",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "The value of your carvings after you finish working on them is now double the cost of the material it is made from.",
+    "type": "passive"
+  },
+  {
+  "class": "Carpenter",
+    "rank": 5,
+    "name": "Splinter",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you cause a stack of the Bleed condition, the target is affected for one additional round.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Chef",
+    "rank": 1,
+    "name": "Cook",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Using 2 charges from cooking supplies, you craft a meal for the crew. Each member who eats this food regains 3d4 hit points per rank in this class. A person can only receive these benefits once per day.",
+    "type": "passive"
+  },
+  {
+  "class": "Chef",
+    "rank": 1,
+    "name": "Cooking",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You gain the ability to use cooking tools.",
+    "type": "passive"
+  },
+  {
+  "class": "Chef",
+    "rank": 2,
+    "name": "Knife Training",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You gain the ability to use a knife as a Finesse based sword or strike weapon that deals 1d4 slashing damage with the concealed and thrown properties.",
+    "type": "passive"
+  },
+  {
+  "class": "Chef",
+    "rank": 3,
+    "name": "Stomach Resilient",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your iron gut makes you immune to the poison condition.",
+    "type": "passive"
+  },
+  {
+  "class": "Chef",
+    "rank": 3,
+    "name": "Firebreath",
+    "actionCost": 2,
+    "enduranceCost": 5,
+    "description": "You take a swig of alcohol and take a torch to breath fire on all creatures in a 3 meter cone in front of you. They must make a Finesse Contest against you or take 2d6 Fire damage.",
+    "type": "action"
+  },
+  {
+  "class": "Chef",
+    "rank": 4,
+    "name": "Experimental Cooking",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "You rapidly create a dish and feed it to all allies you can see within 4 meters. Roll a d6. On a 1, all targets become Intoxicated. On a 2-5, all creatures regain 1d4 Health. On a 6, all creatures regain 1d4 Health and 2d6 Endurance.",
+    "type": "action"
+  },
+  {
+  "class": "Chef",
+    "rank": 5,
+    "name": "Devilishly Delicious",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "The healing received from eating your food is always the maximum possible roll and a creature's endurance is spent Endurance. A person can only receive these benefits once per day.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Farmer",
+    "rank": 1,
+    "name": "Laborer Resilience",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your affinity for strenuous labor has helped you toughen up against the world. You have advantage on all Brawn Contests. ",
+    "type": "passive"
+  },
+  {
+  "class": "Farmer",
+    "rank": 1,
+    "name": "Textile Crafting",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You gain knowledge on how to use textile tools.",
+    "type": "passive"
+  },
+  {
+  "class": "Farmer",
+    "rank": 2,
+    "name": "Planter Box",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You can construct and tend to a number of planter boxes equal to your rank with this class, which must be tended to daily. After 2 weeks, you will receive 1d4 units of your planted ingredient daily.",
+    "type": "passive"
+  },
+  {
+  "class": "Farmer",
+    "rank": 2,
+    "name": "Hem",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have the knowledge necessary to make and mend cloth of all nature.",
+    "type": "passive"
+  },
+  {
+  "class": "Farmer",
+    "rank": 3,
+    "name": "Hard Worker",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Reduce the Endurance cost of all actions you take by 1.",
+    "type": "passive"
+  },
+  {
+  "class": "Farmer",
+    "rank": 4,
+    "name": "COMBO: Harvest",
+    "actionCost": 1,
+    "enduranceCost": 3,
+    "description": "After you perform an attack, perform a Brawn Contest. On a success, reduce the Endurance cost of all attacks made on the target by 1 until the end of your next turn.",
+    "type": "action"
+  },
+  {
+  "class": "Farmer",
+    "rank": 5,
+    "name": "FINISHER- Haymaker",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "You perform a fast sideways unarmed strike at the head of your target. On a successful hit, they are unable to Parry or Dodge until the end of your next turn.",
+    "type": "action"
+  },
+  {
+  "class": "Farmer",
+    "rank": 5,
+    "name": "Master Worker",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": " Reduce the Endurance cost of all actions you take by 2. This does stack with Hard Worker.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Fisherman",
+    "rank": 1,
+    "name": "",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have advantage on all fishing checks.",
+    "type": "passive"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 1,
+    "name": "Boating",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have advantage on all Nausea checks involving sea sickness.",
+    "type": "passive"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 1,
+    "name": "Knot Knowledge",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "You have a vast understanding of knots. While next to a target you can perform a Brawn Contest. If the target fails they are restrained. The restraint DC is equal to 10+your rank in this class.",
+    "type": "action"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 2,
+    "name": "Fishing Rod",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You gain the ability to use a fishing rod as a Brawn-based polearm weapon that deals 1d6 bludgeoning damage with the two-handed, hooked, and reach property.",
+    "type": "passive"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 2,
+    "name": "Hook",
+    "actionCost": 1,
+    "enduranceCost": 2,
+    "description": "While wielding a fishing pole in combat, you cast a line onto an enemy you can see within 6 meters of you. Perform a Brawn Contest. If a target is restrained they automatically fail this Contest. If the target fails, they are moved 2 meters in a direction of your choice.",
+    "type": "action"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 3,
+    "name": "Bait",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You know how to craft bait that lures fish to you using an additional charge. Whenever you throw this bait in the water, all creatures gain a +5 on Fishing check nearby for up to 1 hour.",
+    "type": "passive"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 3,
+    "name": "Weathered",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have advantage on all Weather Tolerance roll.",
+    "type": "passive"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 4,
+    "name": "Knot Expertise",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your knowledge of knots is even stronger than before. Whenever you restrain a creature they have disadvantage to break free.",
+    "type": "passive"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 4,
+    "name": "Perfect Cast",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You automatically succeed on all fishing checks whose difficulty is less than your total character level.",
+    "type": "passive"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 5,
+    "name": "Net",
+    "actionCost": 2,
+    "enduranceCost": 3,
+    "description": "You can use a net as a single-use weapon. The net covers a 2 meter by 2 meter square. When you use this finish you toss the net up to 4 meters away and all creatures become restrained. The restrain DC is 15 and they have disadvantage to break free.",
+    "type": "action"
+  },
+  {
+  "class": "Fisherman",
+    "rank": 5,
+    "name": "Catching Ships",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you perform the Tender Ship Action, reduce the cost by 2 SAP.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Craft Grenade",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "During your freetime you gain the ability to craft grenades. You learn one grenade recipe per rank in this class. ",
+    "type": "passive"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Improved Explosions",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Increase the DC of the explosion ability by your rank in this class.",
+    "type": "passive"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 2,
+    "name": "Explosion Resistance",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain 2 toughness against grenades",
+    "type": "passive"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 3,
+    "name": "Improved Fuse",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have better control over the fuses you time your grenades. Whenever you use the fuse ability on a grenade, choose a creature. The fuse will go off at the start of their next turn.",
+    "type": "passive"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 3,
+    "name": "Explosive Response",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you make a Finesse roll against the Explosion ability, you take no damage on a successful roll and half damage on a fail.",
+    "type": "passive"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 4,
+    "name": "Improved Grenade Crafting",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you use the Craft Grenades Freetime ability, you can craft 2 grenades for the same amount of charges and the same time.",
+    "type": "passive"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 5,
+    "name": "FINISHER: Self Destruction",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "Using the scraps of supplies on you, you create an instantaneous explosion centered on yourself. All creatures in a 2 meter radius, including yourself, are hit with an Explosion (14) that deals 4d4 fire damage.",
+    "type": "action"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 5,
+    "name": "Explosive Weaponry",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you perform the Fire Weapon Ship Action, reduce the cost by 2 SAP.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Trapper",
+    "rank": 1,
+    "name": "Create Trap",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You can expend a number of charges to create a type of trap you are familiar with. You learn one trap type from the list below for each rank in this class. Whenever someone triggers your trap, they must make a save against your Trap DC, equal to 10 + Brains.",
+    "type": "passive"
+  },
+  {
+  "class": "Trapper",
+    "rank": 1,
+    "name": "",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "Choose a square within 1 meter of you. Choose a trap from your inventory and place it down. You can pick up a trap to move it as an additional action.",
+    "type": "action"
+  },
+  {
+  "class": "Trapper",
+    "rank": 2,
+    "name": "Tracker",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You know how to track the movements of creatures while on land. You have advantage on all checks to track or determine a creature's direction",
+    "type": "passive"
+  },
+  {
+  "class": "Trapper",
+    "rank": 3,
+    "name": "COMBO: False Trigger",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "After using the Place Trap ability, you can trigger the trap on a creature if you are both within 1 meter of the trap. ",
+    "type": "action"
+  },
+  {
+  "class": "Trapper",
+    "rank": 4,
+    "name": "Improved Craft Traps",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you use the Craft Trap ability, you can craft 2 traps for the same amount of charges. ",
+    "type": "passive"
+  },
+  {
+  "class": "Trapper",
+    "rank": 5,
+    "name": "Responsive Deployment",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you start combat, you can place up to 3 traps instantly within 5 meters of yourself.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Clergyman",
+    "rank": 1,
+    "name": "Religious Study",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have a strong understanding of different religions and what they believe. When you choose this class you and your GM must choose a Religion for you to follow.",
+    "type": "passive"
+  },
+  {
+  "class": "Clergyman",
+    "rank": 1,
+    "name": "Omen of Blessing",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain a Blessing from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it.",
+    "type": "passive"
+  },
+  {
+  "class": "Clergyman",
+    "rank": 2,
+    "name": "Preach",
+    "actionCost": 3,
+    "enduranceCost": 0,
+    "description": "Choose an enemy to condemn for their sins. Perform a Brains Contest. If they fail, they cannot target you with an attack for 1 minute. Whenever you deal damage to them they get to make this Contest again.",
+    "type": "action"
+  },
+  {
+  "class": "Clergyman",
+    "rank": 3,
+    "name": "Omen of Blessing 2",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain a second Blessing or Curse from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it.",
+    "type": "passive"
+  },
+  {
+  "class": "Clergyman",
+    "rank": 3,
+    "name": "Give Praise",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Choose an ally to give praise to. This ally must follow your religion. They gain a +3 bonus to their first attack roll made on their next turn.",
+    "type": "action"
+  },
+  {
+  "class": "Clergyman",
+    "rank": 4,
+    "name": "",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You can give a sermon to denounce the powers of a non-religious Omen to all crew members following your religion. Make a Brains roll against the Omen DC. If you pass, the Omen will no longer affect your crew's Camaraderie.",
+    "type": "passive"
+  },
+  {
+  "class": "Clergyman",
+    "rank": 5,
+    "name": "Religious Confidence",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You are immune to the Conversion and Preach abilities of Clergyman who do not follow your religion.",
+    "type": "passive"
+  },
+  {
+  "class": "Clergyman",
+    "rank": 5,
+    "name": "Omen of Blessing 3",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Gain a third Blessing or Curse from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Doctor",
+    "rank": 1,
+    "name": "Quicken Heal",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You regain 2 hit points for every hour they rest.",
+    "type": "passive"
+  },
+  {
+  "class": "Doctor",
+    "rank": 1,
+    "name": "Medical Knowledge",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have an extensive understanding of the human body.",
+    "type": "passive"
+  },
+  {
+  "class": "Doctor",
+    "rank": 2,
+    "name": "Bandage",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "You expend one use of a medical supply kit to heal a 1d6 Health on a target within your reach.",
+    "type": "action"
+  },
+  {
+  "class": "Doctor",
+    "rank": 2,
+    "name": "Sanitation",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "All creatures have advantage on rolls to prevent sickness or disease while you are on the crew.",
+    "type": "passive"
+  },
+  {
+  "class": "Doctor",
+    "rank": 3,
+    "name": "Mend",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You can help mend a resting sailor's broken bones, they regain 2 hit points for every hour they rest until they are at full health or are damaged. ",
+    "type": "passive"
+  },
+  {
+  "class": "Doctor",
+    "rank": 3,
+    "name": "Nursing",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You help nurse a sick sailor's health. They have advantage on the roll to help them end the sickness.",
+    "type": "passive"
+  },
+  {
+  "class": "Doctor",
+    "rank": 4,
+    "name": "Surgical Precision",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your medical knowledge can be used for more than just healing people. Whenever you deal piercing damage with a melee weapon, you also inflict your target with the Bleeding condition until the start of your next turn.",
+    "type": "passive"
+  },
+  {
+  "class": "Doctor",
+    "rank": 5,
+    "name": "Masters of Death",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "You can blur the line between being alive and dead. If a creature within your reach has been reduced to 0 Health since the end of your last time, you can use this action to bring them back to life to an unconscious state. Once you use this ability on a creature, they must become fully healed before you are able to use this ability on them again.",
+    "type": "action"
+  },
+
+  {
+  "class": "Ecologist",
+    "rank": 1,
+    "name": "Natural Reach",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have a deep understanding of different flora and fauna around you.",
+    "type": "passive"
+  },
+  {
+  "class": "Ecologist",
+    "rank": 1,
+    "name": "Forage",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "While on land, you can forage for different herbs that might be useful to you. Make a Brains roll, the DC based on the rarity of the herbs you are looking for.",
+    "type": "passive"
+  },
+  {
+  "class": "Ecologist",
+    "rank": 2,
+    "name": "Tame Animal",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your knowledge of animals allows you to understand what is necessary to tame a beast. You and your Sea Master agree on a creature to act as your pet. Some suggested animals are a bird, a cat, a dog, or a fish.",
+    "type": "passive"
+  },
+  {
+  "class": "Ecologist",
+    "rank": 2,
+    "name": "Command Beast",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "You can command a beast you have previously tamed on your turn, allowing you to control it in combat after your turn is over. ",
+    "type": "action"
+  },
+  {
+  "class": "Ecologist",
+    "rank": 3,
+    "name": "Animal Identification",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "You can quickly identify any beast you see, allowing you to identify any weaknesses it might have. ",
+    "type": "action"
+  },
+  {
+  "class": "Ecologist",
+    "rank": 4,
+    "name": "Veterinary Studies",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You understand the medical needs of beasts which you have tamed. ",
+    "type": "passive"
+  },
+  {
+  "class": "Ecologist",
+    "rank": 4,
+    "name": "Improved Beast Command",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you take the Command Beast action, you can command the orders you command last for 2 rounds. You can control it in combat after your next turn is over as well without an additional action.",
+    "type": "passive"
+  },
+  {
+  "class": "Ecologist",
+    "rank": 5,
+    "name": "Nature's Wrath",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "You can command any beast that is not currently hostile against you, allowing you to control it in combat after your turn is over. ",
+    "type": "action"
+  },
+
+  {
+  "class": "Musician",
+    "rank": 1,
+    "name": "Perfect Practice",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You gain the ability to play a musical instrument, sing, or learn a new dance of your choice each time you gain a rank in this class.",
+    "type": "passive"
+  },
+  {
+  "class": "Musician",
+    "rank": 1,
+    "name": "Musical Theory",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have a lucrative understanding of music theory and know how to write songs.",
+    "type": "passive"
+  },
+  {
+  "class": "Musician",
+    "rank": 2,
+    "name": "Distractive Presence",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "Choose a creature that can hear and see you. Perform a Brains Contest. If they fail, they gain the alarmed condition until the end of their next turn.",
+    "type": "action"
+  },
+  {
+  "class": "Musician",
+    "rank": 2,
+    "name": "Calming Melody",
+    "actionCost": 1,
+    "enduranceCost": 0,
+    "description": "Choose a creature that can hear and see you. They gain the calm condition until the end of their next turn.",
+    "type": "action"
+  },
+  {
+  "class": "Musician",
+    "rank": 3,
+    "name": "Rally Anthem",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "Choose a number of creatures equal to your Brains score that can hear and see you. Reduce the Endurance cost of their next action by 3.",
+    "type": "action"
+  },
+  {
+  "class": "Musician",
+    "rank": 4,
+    "name": "Fancy Footwork",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Dodging costs you 2 less Endurance. ",
+    "type": "passive"
+  },
+  {
+  "class": "Musician",
+    "rank": 4,
+    "name": "Demeaning Anthem",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "Choose a creature that can hear and see you. Perform a Brains Contest. If they fail, increase the Endurance cost of their next action by 3.",
+    "type": "action"
+  },
+  {
+  "class": "Musician",
+    "rank": 5,
+    "name": "Sweet Lullabies",
+    "actionCost": 3,
+    "enduranceCost": 0,
+    "description": "You play a sweet melody capable of putting even the largest of beasts to sleep. Any creature that can hear you and is below a quarter of their health must perform a Brains Contest. If they fail, they gain the winded condition until you stop playing. If they already have the winded condition from a different ability, they instead fall unconscious for 1 hour or until they are awoken or take damage.",
+    "type": "action"
+  },
+  {
+  "class": "Musician",
+    "rank": 5,
+    "name": "Party Hard",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Each night you can host a party with your crew. Your crew gains 1 Camaraderie for each crew member that participates in your party.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Navigator",
+    "rank": 1,
+    "name": "Superior Movement",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You are immune to any ability that lowers your movement through a square.",
+    "type": "passive"
+  },
+  {
+  "class": "Navigator",
+    "rank": 1,
+    "name": "Nautical Knowledge",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have a considerable understanding of how to read all types of nautical charts.",
+    "type": "passive"
+  },
+  {
+  "class": "Navigator",
+    "rank": 2,
+    "name": "Calculate Location",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You are able to analyze the stars, sun, and nearby islands to determine your precise location on a nautical map.",
+    "type": "passive"
+  },
+  {
+  "class": "Navigator",
+    "rank": 2,
+    "name": "Chart a Course",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your knowledge of nautical charts allows you to follow a map to a location",
+    "type": "passive"
+  },
+  {
+  "class": "Navigator",
+    "rank": 3,
+    "name": "COMBO: Exploted Opportunity",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Movement",
+    "description": "Whenever you use the move action, you can create a moment of opportunity, allowing one of your ally's to move up to their base movement on your turn as well.",
+    "type": "passive"
+  },
+  {
+  "class": "Navigator",
+    "rank": 3,
+    "name": "Improved Speed",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": " You gain an additional 2 meters of base movement on the first Move action of your turn.",
+    "type": "passive"
+  },
+  {
+  "class": "Navigator",
+    "rank": 4,
+    "name": "Cartographer",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your knowledge of nautical charts now extends to making maps as well. You can now make a nautical map of your current location, allowing other navigators to chart a course here.",
+    "type": "passive"
+  },
+  {
+  "class": "Navigator",
+    "rank": 5,
+    "name": "Ship Control",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you perform the Turn or Adjust Rigging Ship Action, reduce the cost by 2 SAP.",
+    "type": "passive"
+  },
+
+  {
+  "class": "Noble",
+    "rank": 1,
+    "name": "Linguist's Education",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You know and understand the art of language very well. Each time you gain a rank in this class you learn a new language.",
+    "type": "passive"
+  },
+  {
+  "class": "Noble",
+    "rank": 1,
+    "name": "Good Negotiator",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "You have advantage on all negotiation checks.",
+    "type": "passive"
+  },
+  {
+  "class": "Noble",
+    "rank": 2,
+    "name": "Natural Leader",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "You can give a command to your allies, improving their coordination and their ability to work together until the end of your next turn. You learn one command for each rank in this class from the list below.",
+    "type": "action"
+  },
+  {
+  "class": "Noble",
+    "rank": 2,
+    "name": "Take Charge",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Improve your rolls for Ship Action Points by 1.",
+    "type": "passive"
+  },
+  {
+  "class": "Noble",
+    "rank": 3,
+    "name": "Historic Bloodline",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your noble heritage did not just come with an education. Your name carries a reputation based on the circles you travel in. ",
+    "type": "passive"
+  },
+  {
+  "class": "Noble",
+    "rank": 4,
+    "name": "Inspiring",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Improve your rolls for Ship Action Points by an additional 1.",
+    "type": "passive"
+  },
+  {
+  "class": "Noble",
+    "rank": 5,
+    "name": "True Captain",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Whenever you roll for Ship Action Points, if your roll is 4 or less, change the roll to be 5.",
+    "type": "passive"
+  },
+  {
+  "class": "Noble",
+    "rank": 5,
+    "name": "Strong Leader",
+    "actionCost": 0,
+    "enduranceCost": 0,
+    "description": "Your Ship's Camaraderie cannot fall lower than 0 - the number of total crew members.",
+    "type": "passive"
   }
+
 ]
