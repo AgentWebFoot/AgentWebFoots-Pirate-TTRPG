@@ -1211,7 +1211,7 @@
     "name": "Omen of Blessing",
     "actionCost": 0,
     "enduranceCost": 0,
-    "description": "Gain a Blessing from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it.",
+    "description": "Gain a Blessing from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it. You can apply a Blessing or Curse to a person you are with while not in combat. You can have up to 1 Blessing active at once.",
     "type": "passive"
   },
   {
@@ -1229,7 +1229,7 @@
     "name": "Omen of Blessing 2",
     "actionCost": 0,
     "enduranceCost": 0,
-    "description": "Gain a second Blessing or Curse from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it.",
+    "description": "Gain a second Blessing or Curse from the list of Blessings below. Additionally you may now have up to 2 Blessings or Curses active at once.",
     "type": "passive"
   },
   {
@@ -1265,7 +1265,7 @@
     "name": "Omen of Blessing 3",
     "actionCost": 0,
     "enduranceCost": 0,
-    "description": "Gain a third Blessing or Curse from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it.",
+    "description": "Gain a third Blessing or Curse from the list of Blessings below. Additionally you may now have up to 3 Blessings or Curses active at once.",
     "type": "passive"
   },
 
