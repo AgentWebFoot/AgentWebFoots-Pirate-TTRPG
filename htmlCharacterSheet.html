@@ -1479,27 +1479,21 @@
 
                 function exportData(){
                     const data = {
-                        name: typeof raw.name === "string" ? raw.name : "",
-                        country: typeof raw.country === "string" ? raw.country : "",
-                        currentLevel: Number.isInteger(raw.currentLevel) ? raw.currentLevel : 1,
-
-                        levels: Array.isArray(raw.levels) ? raw.levels : Array(20).fill(null),
-                        level1: Array.isArray(raw.level1) ? raw.level1 : ["","",""],
-
-                        levelStats: Array.isArray(raw.levelStats) ? raw.levelStats : levelStats,
-                        levelSkills: Array.isArray(raw.levelSkills) ? raw.levelSkills : levelSkills,
-
-                        settings: typeof raw.settings === "object" ? raw.settings : settings,
-
-                        armor: typeof raw.armor === "string" ? raw.armor : "No Armor",
-                        shield: typeof raw.shield === "string" ? raw.shield : "No Shield",
-
-                        equippedWeapons: Array.isArray(raw.equippedWeapons) ? raw.equippedWeapons : [],
-                        inventoryWeapons: Array.isArray(raw.inventoryWeapons) ? raw.inventoryWeapons : [],
-
-                        health: Number.isFinite(raw.health) ? raw.health : 0,
-                        endurance: Number.isFinite(raw.endurance) ? raw.endurance : 0,
-                        luck: Number.isFinite(raw.luck) ? raw.luck : 3,
+                        name,
+                        country,
+                        currentLevel,
+                        levels,
+                        level1,
+                        levelStats,
+                        levelSkills,
+                        settings,
+                        armor,
+                        shield,
+                        equippedWeapons,
+                        inventoryWeapons,
+                        health,
+                        endurance,
+                        luck,
                         version: 1
                     }
 
