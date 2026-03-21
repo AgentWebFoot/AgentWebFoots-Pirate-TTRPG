@@ -320,8 +320,7 @@
                 </div>
                 ))}
                 </div>
-
-                <div style={{marginBottom:"15px"}}>
+                <div style={{marginBottom:"15px", color: availableSkillPoints === 0 ? "grey" : "white"}} >
                     <strong>Available Skill Points:</strong> {availableSkillPoints}
                 </div>
 
@@ -980,7 +979,8 @@
                     setLevels,
                     level1,
                     setLevel1,
-                    classCounts
+                    classCounts,
+                    getAvailableStatPoints
                     }) {
                         function updateLevel(index,value){
                             const copy=[...levels]
@@ -1063,8 +1063,15 @@
                                     </div>
                                     ))}
                                     </div>
-
-                            </div>             
+                                
+                                    <div style={{
+                                        color: getAvailableStatPoints(1, levelStats) === 0 ? "grey" : "white"
+                                    }}>
+                                    Available Stat Points: {getAvailableStatPoints(1, levelStats)}
+                                    </div>
+                            </div>
+                            
+                            
 
                             {/* Levels 2–20 */}
 
@@ -1129,7 +1136,14 @@
                                     </div>
                                     ))}
                                 </div>
+                                <div style={{
+                                    color: getAvailableStatPoints(level, levelStats) === 0 ? "grey" : "white"
+                                }}>
+                                Available Stat Points: {getAvailableStatPoints(level, levelStats)}
                                 </div>
+                                </div>
+                                
+
                                 )
                             })}
                             </div>
@@ -1175,7 +1189,7 @@
                 const skillTotal =
                 levelSkills.reduce((sum,lvl)=>sum + lvl[skill],0)
 
-                if(skillTotal >= 10) return   // max +10 skill bonus
+                if(skillTotal >= 10) return
 
                 const newSkills = [...levelSkills]
                 newSkills[idx][skill]++
@@ -1477,6 +1491,15 @@
 
                 }
 
+                function getAvailableStatPoints(level, levelStats){
+                    const idx = level - 1
+
+                    const spent = Object.values(levelStats[idx]).reduce((a,b)=>a+b,0)
+                    const max = LEVEL_POINTS(level)
+
+                    return max - spent
+                }
+
                 function exportData(){
                     const data = {
                         name,
@@ -1596,6 +1619,7 @@
                         luck={luck}
                         setLuck={setLuck}
                         settings={settings}
+                        
                     />
 
                     <LeftPanel
@@ -1607,6 +1631,7 @@
                         level1={level1}
                         setLevel1={setLevel1}
                         classCounts={classCounts}
+                        getAvailableStatPoints={getAvailableStatPoints}
                     />
 
                     <MainPage
