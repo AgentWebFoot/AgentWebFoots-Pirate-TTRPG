@@ -10,7 +10,8 @@ This original Roll20 Character sheet has been retired and archived. It has now b
 - [ ] Character sheet currently incorrectly rounds for Endurance
 - [ ] Skill Points sometimes become unable to be removed
 - [ ] Horizontally moves off the page on smaller screens
-
+- [ ] Provide required documentation for public release of 1.0
+      
 ## Current Project To Do List:
 - [ ] Shield Toughness requires a toggle system
 - [ ] Better character sheet saving system
