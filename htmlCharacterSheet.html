@@ -138,6 +138,7 @@
 
 
         <script type="text/babel">
+            // Map each stat and skill together
             const stats = {
                 Brawn:["Rigging","Lifting","Pinning","Swimming"],
                 Finesse:["Acrobatics","Skulduggery","Sneaking"],
@@ -147,6 +148,7 @@
                 Swagger:["Infamy","Influence","Negotiation"]
             }
 
+            // Allows for reverse lookup: skill -> stat
             const SKILL_TO_STAT = {}
                 Object.entries(stats).forEach(([stat,skills])=>{
                 skills.forEach(skill=>{
@@ -154,23 +156,9 @@
                 })
             })
 
-            const STAT_LIST = [
-                "Brawn",
-                "Finesse",
-                "Grit",
-                "Awareness",
-                "Brains",
-                "Swagger"
-            ]
-            const SKILL_LIST = {
-                Brawn:["Rigging","Lifting","Pinning","Swimming"],
-                Finesse:["Acrobatics","Skulduggery","Sneaking"],
-                Grit:["Nausea","Resilience","Tolerance"],
-                Awareness:["Fishing","Investigation","Intuition","Tracking"],
-                Brains:["History","Learning","Tinkering"],
-                Swagger:["Infamy","Influence","Negotiation"]
-            }
+            const STAT_LIST = Object.keys(stats)
 
+            // All types of weapons
             const WEAPON_TYPES = [
                 "Strike",
                 "Blunt",
@@ -182,6 +170,7 @@
                 "Grenade"
             ]
 
+            // Classes that give a bonus of rank to each weapon type
             const CLASS_WEAPON_BONUS = {
                 Basher: ["Blunt"],
                 Cleaver: ["Axe"],
@@ -192,12 +181,15 @@
                 Swordsman: ["Sword"]
             }
 
+            // Stat level up system. Players gain 10 points at level 1 and 1 point for each level after
+            // Max at level 1 is 5, max at all other levels is 10
             const LEVEL_POINTS = level => level === 1 ? 10 : 1
             const LEVEL_STAT_CAP = level => level === 1 ? 5 : 10
-
             
+            // Skill level up system. Players gain 10 points at level 1 and 2 points for each level after
             const LEVEL_SKILL_POINTS = level => level === 1 ? 10 : 2
 
+            // Armor Statistics
             const ARMOR_STATS = {
                 "No Armor": { 
                     baseEvasion:16, 
@@ -217,6 +209,7 @@
                 }
             }
 
+            // Shield Statistics
             const SHIELD_STATS = {
                 "No Shield":{
                 toughness:0,
@@ -286,7 +279,6 @@
                 value={Number.isFinite(finalStats[stat]) ? finalStats[stat] : 0}
                 readOnly
                 />
-
                 <ul>
                     {skills.map(skill=>(
                     <li key={skill}>
@@ -388,7 +380,7 @@
 
                 
                 )}
-
+                
                 {activeTab === "combat" && (
                     <div>
 
@@ -945,7 +937,7 @@
                     </div> 
                 )
             }
-
+            // All classes and their groupings
             const classGroups = [
                 {
                     title:"Fighters",
@@ -1208,9 +1200,8 @@
                 setLevelSkills(newSkills)
             }
 
-            
-
             function App(){
+                // All initial values
                 const [name,setName] = React.useState("")
                 const [country,setCountry] = React.useState("")
                 const [currentLevel,setCurrentLevel] = React.useState(1)
@@ -1286,6 +1277,7 @@
                     weaponTypeOverrides:{}
                 })
 
+                // Stat with Override system
                 const finalStats = {...statTotals}
 
                 Object.entries(settings.statOverrides || {}).forEach(([stat,val])=>{
@@ -1293,6 +1285,48 @@
                         finalStats[stat] = val
                     }
                 })
+
+                function getAvailableStatPoints(level, levelStats){
+                    const idx = level - 1
+
+                    const spent = Object.values(levelStats[idx]).reduce((a,b)=>a+b,0)
+                    const max = LEVEL_POINTS(level)
+
+                    return max - spent
+                }
+
+                // Skill with Override system
+                
+                let totalSkillPoints = 10 + (currentLevel - 1) * 2
+
+                const spentSkillPoints =
+                levelSkills
+                .slice(0,currentLevel)
+                .reduce((sum,level)=>{
+                return sum + Object.values(level).reduce((a,b)=>a+b,0)
+                },0)
+
+                const availableSkillPoints = settings.skillPointsOverride ?? (totalSkillPoints - spentSkillPoints)
+
+                const activeSkills = levelSkills.slice(0,currentLevel)
+
+                const skillTotals = {}
+                    Object.values(stats).flat().forEach(skill=>{
+                    skillTotals[skill] = 0
+                })
+
+                activeSkills.forEach(level=>{
+                    Object.keys(level).forEach(skill=>{
+                    skillTotals[skill] += level[skill]
+                    })
+                })
+
+                Object.keys(skillTotals).forEach(skill=>{
+                    const stat = SKILL_TO_STAT[skill]
+                    skillTotals[skill] += finalStats[stat]
+                })
+
+                // Health with override system
 
                 const baseMaxHealth = 15 + finalStats.Grit
 
@@ -1308,6 +1342,8 @@
                 setHealth(maxHealth)
                 },[maxHealth])
 
+
+                // Endurance with override system
                 const baseEndurance =
                 Math.floor((finalStats.Brawn + finalStats.Finesse + finalStats.Grit)/2) * currentLevel
 
@@ -1325,43 +1361,18 @@
                     )
                 },[maxEndurance, minEndurance])
 
+
+                // Speed with override system
                 const speed =
                 settings.speedOverride ?? 3
 
                 const dashSpeed =
                 settings.dashOverride ?? (3 + finalStats.Finesse)
 
+                // Luck with override system
                 const [luck,setLuck] = React.useState(3)
 
-                let totalSkillPoints = 10 + (currentLevel - 1) * 2
-
-                const spentSkillPoints =
-                levelSkills
-                .slice(0,currentLevel)
-                .reduce((sum,level)=>{
-                return sum + Object.values(level).reduce((a,b)=>a+b,0)
-                },0)
-
-                const availableSkillPoints = settings.skillPointsOverride ?? (totalSkillPoints - spentSkillPoints)
-
-                const activeSkills = levelSkills.slice(0,currentLevel)
-
-                const skillTotals = {}
-                    Object.values(SKILL_LIST).flat().forEach(skill=>{
-                    skillTotals[skill] = 0
-                })
-
-                activeSkills.forEach(level=>{
-                    Object.keys(level).forEach(skill=>{
-                    skillTotals[skill] += level[skill]
-                    })
-                })
-
-                Object.keys(skillTotals).forEach(skill=>{
-                    const stat = SKILL_TO_STAT[skill]
-                    skillTotals[skill] += finalStats[stat]
-                })
-
+                // Create list of all taken levels and calculate a count for each
                 const selectedClasses = [
                     ...level1,
                     ...levels.slice(0,currentLevel)
@@ -1372,7 +1383,8 @@
                     selectedClasses.forEach(cls=>{
                     classCounts[cls] = (classCounts[cls] || 0) + 1
                 })
-
+                
+                // Weapon bonus with override system
                 const weaponTypeBonuses = {}
 
                 Object.entries(classCounts).forEach(([cls, rank]) => {
@@ -1387,20 +1399,6 @@
                     })
                 })
 
-                const [armor,setArmor] = React.useState("No Armor")
-                const [shield,setShield] = React.useState("No Shield")
-
-                const armorStats = ARMOR_STATS[armor]
-                const shieldStats = SHIELD_STATS[shield]
-
-                const evasion =
-                settings.evasionOverride ??
-                (armorStats.baseEvasion + Math.floor(finalStats.Finesse/2))
-
-                const toughness =
-                settings.toughnessOverride ??
-                (armorStats.toughness + shieldStats.toughness)
-
                 const [weapons,setWeapons] = React.useState([])
 
                 const [equippedWeapons,setEquippedWeapons] = React.useState([])
@@ -1414,34 +1412,7 @@
                 .then(data=>setWeapons(data))
                 },[])
 
-                const [classAbilities,setClassAbilities] = React.useState([])
-
-                React.useEffect(()=>{
-                    fetch("classes.JSON")
-                    .then(res=>res.json())
-                    .then(data=>setClassAbilities(data))
-                },[])
-
-                const availableAbilities = classAbilities.filter(ability=>{
-
-                    if(ability.class === "General") return true
-
-                    const rank = classCounts[ability.class] || 0
-                    return ability.rank <= rank
-                })
-
-                const actionAbilities = availableAbilities.filter(a=>a.type === "action")
-                const passiveAbilities = availableAbilities.filter(a=>a.type !== "action")
-
-                const [sortBy,setSortBy] = React.useState("rank")
-
-                const sortedActionAbilities = [...actionAbilities].sort((a,b)=>{
-                    if(sortBy === "cost"){
-                        return a.actionCost - b.actionCost
-                    }
-                    return a.rank - b.rank
-                })
-
+                // Control weapons and list location in the Combat tab
                 function addWeaponToInventory(name){
 
                     const weapon = weapons.find(w=>w.name === name)
@@ -1491,15 +1462,52 @@
 
                 }
 
-                function getAvailableStatPoints(level, levelStats){
-                    const idx = level - 1
+                // Armor Calculations for evasion and shield
+                const [armor,setArmor] = React.useState("No Armor")
+                const [shield,setShield] = React.useState("No Shield")
 
-                    const spent = Object.values(levelStats[idx]).reduce((a,b)=>a+b,0)
-                    const max = LEVEL_POINTS(level)
+                const armorStats = ARMOR_STATS[armor]
+                const shieldStats = SHIELD_STATS[shield]
 
-                    return max - spent
-                }
+                const evasion =
+                settings.evasionOverride ??
+                (armorStats.baseEvasion + Math.floor(finalStats.Finesse/2))
 
+                const toughness =
+                settings.toughnessOverride ??
+                (armorStats.toughness + shieldStats.toughness) 
+
+                // All class abilities, taken from the classes.JSON file
+
+                const [classAbilities,setClassAbilities] = React.useState([])
+
+                React.useEffect(()=>{
+                    fetch("classes.JSON")
+                    .then(res=>res.json())
+                    .then(data=>setClassAbilities(data))
+                },[])
+
+                const availableAbilities = classAbilities.filter(ability=>{
+
+                    if(ability.class === "General") return true
+
+                    const rank = classCounts[ability.class] || 0
+                    return ability.rank <= rank
+                })
+
+                const actionAbilities = availableAbilities.filter(a=>a.type === "action")
+                const passiveAbilities = availableAbilities.filter(a=>a.type !== "action")
+
+                const [sortBy,setSortBy] = React.useState("rank")
+
+                const sortedActionAbilities = [...actionAbilities].sort((a,b)=>{
+                    if(sortBy === "cost"){
+                        return a.actionCost - b.actionCost
+                    }
+                    return a.rank - b.rank
+                })
+
+                // Export character sheet to a json file
                 function exportData(){
                     const data = {
                         name,
@@ -1533,6 +1541,7 @@
                     URL.revokeObjectURL(url)
                 }
 
+                // Import character sheet from a json file
                 function importData(){
                     const input = document.createElement("input")
                     input.type = "file"
@@ -1547,17 +1556,17 @@
                         reader.onload = event => {
                             try{
                                 const raw = JSON.parse(event.target.result)
-
+                                //Maintain safety by checking the file size
                                 if(file.size > 100000){
                                     alert("File too large")
                                     return
                                 }
-
+                                // Make sure there is no invalid
                                 if(typeof raw !== "object" || raw === null){
                                     alert("Invalid file")
                                     return
                                 }
-
+                                // Make sure character sheet is not too old
                                 if(raw.version !== 1){
                                     alert("Invalid version")
                                     return
