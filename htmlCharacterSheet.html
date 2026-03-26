@@ -1417,7 +1417,7 @@
                 const [classAbilities,setClassAbilities] = React.useState([])
 
                 React.useEffect(()=>{
-                    fetch("classes.json")
+                    fetch("classes.JSON")
                     .then(res=>res.json())
                     .then(data=>setClassAbilities(data))
                 },[])
@@ -1546,13 +1546,9 @@
 
                         reader.onload = event => {
                             try{
-                                delete raw.__proto__
-                                delete raw.constructor
-                                delete raw.prototype
-
                                 const raw = JSON.parse(event.target.result)
 
-                                if(file.size > 100000){ // ~100KB
+                                if(file.size > 100000){
                                     alert("File too large")
                                     return
                                 }
@@ -1566,24 +1562,29 @@
                                     alert("Invalid version")
                                     return
                                 }
-                                
-                                setName(data.name ?? "")
-                                setCountry(data.country ?? "")
-                                setCurrentLevel(data.currentLevel ?? 1)
-                                setLevels(data.levels ?? Array(20).fill(null))
-                                setLevel1(data.level1 ?? ["","",""])
-                                setLevelStats(data.levelStats ?? levelStats)
-                                setLevelSkills(data.levelSkills ?? levelSkills)
-                                setSettings(data.settings ?? settings)
-                                setArmor(data.armor ?? "No Armor")
-                                setShield(data.shield ?? "No Shield")
-                                setEquippedWeapons(data.equippedWeapons ?? [])
-                                setInventoryWeapons(data.inventoryWeapons ?? [])
-                                setHealth(data.health ?? 0)
-                                setEndurance(data.endurance ?? 0)
-                                setLuck(data.luck ?? 3)
+
+                                delete raw.__proto__
+                                delete raw.constructor
+                                delete raw.prototype
+
+                                setName(raw.name ?? "")
+                                setCountry(raw.country ?? "")
+                                setCurrentLevel(raw.currentLevel ?? 1)
+                                setLevels(raw.levels ?? Array(20).fill(null))
+                                setLevel1(raw.level1 ?? ["","",""])
+                                setLevelStats(raw.levelStats ?? levelStats)
+                                setLevelSkills(raw.levelSkills ?? levelSkills)
+                                setSettings(raw.settings ?? settings)
+                                setArmor(raw.armor ?? "No Armor")
+                                setShield(raw.shield ?? "No Shield")
+                                setEquippedWeapons(raw.equippedWeapons ?? [])
+                                setInventoryWeapons(raw.inventoryWeapons ?? [])
+                                setHealth(raw.health ?? 0)
+                                setEndurance(raw.endurance ?? 0)
+                                setLuck(raw.luck ?? 3)
 
                             } catch(err){
+                                console.error(err)
                                 alert("Invalid file")
                             }
                         }
