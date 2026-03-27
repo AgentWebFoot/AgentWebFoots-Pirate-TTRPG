@@ -58,7 +58,8 @@
             .app {
                 display: grid;
                 grid-template-rows: 90px 1fr;
-                grid-template-columns: 320px 1fr;
+                grid-template-columns: var(--left-width, 320px) 1fr;
+                transition: grid-template-columns 0.2s ease;
                 height: 100vh;
             }
 
@@ -77,7 +78,13 @@
                 padding: 10px;
                 overflow-y: auto;
                 border-right: 2px solid #ccc;
+                transition: width 0.2s ease;
                 
+            }
+
+            .leftpanel.closed {
+                width: 40px;
+                overflow: hidden;
             }
 
             .mainpage {
@@ -996,8 +1003,11 @@
                     level1,
                     setLevel1,
                     classCounts,
-                    getAvailableStatPoints
+                    getAvailableStatPoints,
+                    isOpen,
+                    toggleOpen
                     }) {
+                        
                         function updateLevel(index,value){
                             const copy=[...levels]
                             copy[index]=value
@@ -1011,7 +1021,15 @@
                         }
 
                         return(
-                            <div className="leftpanel">
+                            <div className={`leftpanel ${isOpen ? "" : "closed"}`}>
+                            <div>
+                                <button onClick={toggleOpen}>
+                                    {isOpen ? "Collapse <<" : ">> Expand"}
+                                </button>
+                            </div>
+
+                            {isOpen && (
+                            <>
 
                             {/* Level 1 */}
 
@@ -1162,6 +1180,8 @@
 
                                 )
                             })}
+                            </>
+                            )}
                             </div>
                         )
                 }
@@ -1300,6 +1320,8 @@
                     luckMax:3,
                     weaponTypeOverrides:{}
                 })
+
+                const [isLeftOpen, setIsLeftOpen] = React.useState(true)
 
                 // Stat with Override system
                 const finalStats = {...statTotals}
@@ -1629,8 +1651,12 @@
                 }
 
                 return(
-                    <div className="app">
-
+                    <div
+                        className="app"
+                        style={{
+                            "--left-width": isLeftOpen ? "320px" : "60px"
+                        }}
+                    >
                     <TopBar
                         name={name}
                         setName={setName}
@@ -1666,6 +1692,8 @@
                         setLevel1={setLevel1}
                         classCounts={classCounts}
                         getAvailableStatPoints={getAvailableStatPoints}
+                        isOpen={isLeftOpen}
+                        toggleOpen={()=>setIsLeftOpen(prev=>!prev)}
                     />
 
                     <MainPage
