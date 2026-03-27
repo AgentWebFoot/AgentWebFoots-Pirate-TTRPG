@@ -38,7 +38,7 @@
   { 
     "class": "General",
     "rank": 1,
-    "name": "Gapple",
+    "name": "Grapple",
     "actionCost": 2,
     "enduranceCost": 2,
     "description": "Perform a Brawn Contest. If your target fails they are grappled by you and gain the grappled condition. This condition ends if you choose to end it or unwillingly move away from them. You can only grapple one target at once.",
@@ -47,10 +47,19 @@
   { 
     "class": "General",
     "rank": 1,
-    "name": "Catch Breath",
-    "actionCost": 3,
+    "name": "Catch a Breather (2 Action)",
+    "actionCost": 2,
     "enduranceCost": 0,
     "description": "Roll 1d10 + Grit regain that much lost Endurance.",
+    "type": "action"
+  },
+  { 
+    "class": "General",
+    "rank": 1,
+    "name": "Catch a Breather (3 Action)",
+    "actionCost": 2,
+    "enduranceCost": 0,
+    "description": "Roll 1d10 + Grit + Level, regain that much lost Endurance.",
     "type": "action"
   },
   { 
@@ -1290,10 +1299,19 @@
   {
   "class": "Doctor",
     "rank": 2,
-    "name": "Bandage",
+    "name": "Bandage (2 Action)",
     "actionCost": 2,
     "enduranceCost": 0,
     "description": "You expend one use of a medical supply kit to heal a 1d6 Health on a target within your reach.",
+    "type": "action"
+  },
+  {
+  "class": "Doctor",
+    "rank": 2,
+    "name": "Bandage (3 Action)",
+    "actionCost": 3,
+    "enduranceCost": 0,
+    "description": "You expend one use of a medical supply kit to heal a 2d6 + Brains Health on a target within your reach.",
     "type": "action"
   },
   {
