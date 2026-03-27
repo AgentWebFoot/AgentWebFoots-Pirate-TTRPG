@@ -95,19 +95,23 @@
                 background: var(--bg-card);
                 padding: 8px;
                 border-radius: 6px;
+                margin-bottom: 12px;
             }
 
             .statBlock ul {
                 list-style: none;
                 padding-left: 0;
                 margin: 0;
+                
             }
 
             li {
                 background: var(--bg-panel);
-                margin-bottom: 6px;
+                margin-top: 12px;
+                margin-bottom: 12px;
                 padding: 6px;
                 border-radius: 4px;
+                
             }
 
             button {
@@ -119,8 +123,25 @@
                 color: white;
             }
 
+            .skills {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                
+            }
+
             button:hover {
                 opacity: 0.85;
+            }
+            
+            .statBlock h3 {
+                font-size: 24px;
+                margin: 0 0 4px 0;
+            }
+
+            .statBlock input {
+                width: 175px;
+                font-size: 14px;
             }
 
             input, select {
@@ -283,26 +304,30 @@
                     {skills.map(skill=>(
                     <li key={skill}>
 
-                    {skill}
+                    <div className="skills">
+                        {skill}
 
-                    <input
-                    type="number"
-                    value={Number.isFinite(skillTotals[skill]) ? skillTotals[skill] : 0}
-                    readOnly
-                    />
+                        <div>
+                            <input
+                            type="number"
+                            value={Number.isFinite(skillTotals[skill]) ? skillTotals[skill] : 0}
+                            readOnly
+                            />
+                        </div>
 
-                    <div>
+                        <div>
 
-                        <button onClick={()=>removeSkill(currentLevel,skill,levelSkills,setLevelSkills)}>-</button>
+                            <button onClick={()=>removeSkill(currentLevel,skill,levelSkills,setLevelSkills)}>-</button>
 
-                        <span>
-                        {levelSkills
-                            .slice(0,currentLevel)
-                            .reduce((sum,lvl)=>sum + lvl[skill],0)}
-                        </span>
+                            <span>
+                            {levelSkills
+                                .slice(0,currentLevel)
+                                .reduce((sum,lvl)=>sum + lvl[skill],0)}
+                            </span>
 
-                        <button onClick={()=>addSkill(currentLevel,skill,levelSkills,setLevelSkills,availableSkillPoints)}>+</button>
+                            <button onClick={()=>addSkill(currentLevel,skill,levelSkills,setLevelSkills,availableSkillPoints)}>+</button>
 
+                        </div>
                     </div>
 
                     </li>
@@ -377,7 +402,6 @@
                 </div>
 
                 </div>
-
                 
                 )}
                 
