@@ -12,9 +12,18 @@
     "class": "General",
     "rank": 1,
     "name": "Move",
-    "actionCost": 1,
+    "actionCost": 0,
     "enduranceCost": "Tiles moved",
-    "description": "Choose to either move your Base Movement Speed, Dash, or stand up to end the Toppled condition on yourself.",
+    "description": "Move a number of tiles equal to your base speed or stand up to end the Toppled condition on yourself.",
+    "type": "action"
+  },
+  { 
+    "class": "General",
+    "rank": 1,
+    "name": "Dash",
+    "actionCost": 1,
+    "enduranceCost": "1/2 Tiles",
+    "description": "Move a number of tiles equal to your dash speed.",
     "type": "action"
   },
   { 

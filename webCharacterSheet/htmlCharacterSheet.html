@@ -158,6 +158,36 @@
                 border-radius: 4px;
                 padding: 2px 4px;
             }
+            .background-section {
+                margin-bottom: 20px;
+            }
+
+            .background-section h4 {
+                margin-bottom: 10px;
+            }
+
+            .background-field {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                margin-bottom: 12px;
+            }
+
+            .background-field input {
+                padding: 4px 6px;
+                width: 100%;
+            }
+
+            .background-field textarea {
+                width: 100%;
+                min-height: 80px;
+                background: #1a1a1a;
+                color: white;
+                border: 1px solid #555;
+                border-radius: 4px;
+                padding: 6px;
+                resize: none;
+            }         
         </style>
 
         <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -273,6 +303,8 @@
                 setArmor,
                 shield,
                 setShield,
+                useShield,
+                setUseShield,
                 shieldStats,
                 weapons,
                 equippedWeapons,
@@ -282,13 +314,19 @@
                 weaponChoice,
                 setWeaponChoice,
                 addWeaponToInventory,
+                items,
+                addItem,
+                updateItem,
+                removeItem,
                 weaponTypeBonuses,
                 settings,
                 setSettings,
                 sortBy,
                 setSortBy,
                 sortedActionAbilities,
-                passiveAbilities
+                passiveAbilities,
+                background,
+                setBackground
                 }) {
 
                 const [activeTab,setActiveTab] = React.useState("class")
@@ -354,6 +392,8 @@
 
                 <button onClick={()=>setActiveTab("class")}>Class</button>
                 <button onClick={()=>setActiveTab("combat")}>Combat</button>
+                <button onClick={()=>setActiveTab("inventory")}>Inventory</button>
+                <button onClick={()=>setActiveTab("background")}>Background</button>
                 <button onClick={()=>setActiveTab("settings")}>Settings</button>
 
                 </div>
@@ -473,8 +513,17 @@
                     {shieldStats.properties.length
                     ? " " + shieldStats.properties.join(", ")
                     : " None"}
-
+                    
                     </div>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={useShield}
+                            onChange={e=>setUseShield(e.target.checked)}
+                        />
+                        Use Shield
+                    </label>
 
                     </div>
 
@@ -645,6 +694,276 @@
                 </div>
                 )}
 
+                {activeTab === "inventory" && (
+                <div>
+
+                <h3>Inventory</h3>
+
+                <button onClick={addItem}>Add Item</button>
+
+                <div style={{marginTop:"10px"}}>
+
+                <div style={{
+                    display:"grid",
+                    gridTemplateColumns:"200px 100px 100px 80px",
+                    fontWeight:"bold",
+                    borderBottom:"2px solid #ccc",
+                    paddingBottom:"4px"
+                }}>
+                    <div>Name</div>
+                    <div>Charges</div>
+                    <div>Amount</div>
+                    <div>Remove</div>
+                </div>
+
+                {items.map(item => (
+                <div
+                key={item.id}
+                style={{
+                    display:"grid",
+                    gridTemplateColumns:"200px 100px 100px 80px",
+                    padding:"4px 0",
+                    borderBottom:"1px solid #ddd"
+                }}
+                >
+
+                <input
+                value={item.name}
+                onChange={e=>updateItem(item.id,"name",e.target.value)}
+                />
+
+                <input
+                type="number"
+                value={item.charges}
+                onChange={e=>updateItem(item.id,"charges",Number(e.target.value))}
+                style={{width:"60px"}}
+                />
+
+                <input
+                type="number"
+                value={item.amount}
+                onChange={e=>updateItem(item.id,"amount",Number(e.target.value))}
+                style={{width:"60px"}}
+                />
+
+                <button onClick={()=>removeItem(item.id)}>Remove</button>
+
+                </div>
+                ))}
+
+                </div>
+
+                </div>
+                )}
+
+                {activeTab === "background" && (
+                <div className = "Background">
+
+                <h3>Character Profile</h3>
+
+                <div style={{display:"flex",flexDirection:"column",gap:"16px",maxWidth:"600px"}}>
+
+                {/* Identity */}
+                <div className="background-section">
+                <h4>Identity</h4>
+                <div className="background-field">
+                    Age: 
+                    <input placeholder="Age"
+                    value={background.age}
+                    onChange={e=>setBackground(p=>({...p, age:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Gender: 
+                    <input placeholder="Gender"
+                    value={background.gender}
+                    onChange={e=>setBackground(p=>({...p, gender:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Race: 
+                    <input placeholder="Race"
+                    value={background.race}
+                    onChange={e=>setBackground(p=>({...p, race:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Country: 
+                    <input placeholder="Country"
+                    value={background.country}
+                    onChange={e=>setBackground(p=>({...p, country:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Religion: 
+                    <input placeholder="Religion"
+                    value={background.religion}
+                    onChange={e=>setBackground(p=>({...p, religion:e.target.value}))}
+                    />
+                </div>
+
+                </div>
+
+                {/* Physical */}
+                <div className="background-section">
+                <h4>Physical</h4>
+
+                <div className="background-field">
+                    Height: 
+                    <input placeholder="Height"
+                    value={background.height}
+                    onChange={e=>setBackground(p=>({...p, height:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Weight: 
+                    <input placeholder="Weight"
+                    value={background.weight}
+                    onChange={e=>setBackground(p=>({...p, weight:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Eye Color: 
+                    <input placeholder="Eye Color"
+                    value={background.eyeColor}
+                    onChange={e=>setBackground(p=>({...p, eyeColor:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Hair Color: 
+                    <input placeholder="Hair Color"
+                    value={background.hairColor}
+                    onChange={e=>setBackground(p=>({...p, hairColor:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    <div>
+                        Distringuishing Features: 
+                    </div>
+                    <div>
+                        <textarea placeholder="Distinguishing Features"
+                        value={background.features}
+                        onChange={e=>setBackground(p=>({...p, features:e.target.value}))}
+                        />
+                    </div>
+                </div>
+
+                </div>
+
+                {/* Social */}
+                <div className="background-section">
+                <h4>Background</h4>
+
+                <div className="background-field">
+                    Former Crews: 
+                    <input placeholder="Former Crews"
+                    value={background.formerCrews}
+                    onChange={e=>setBackground(p=>({...p, formerCrews:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Occupation: 
+                    <input placeholder="Occupation"
+                    value={background.occupation}
+                    onChange={e=>setBackground(p=>({...p, occupation:e.target.value}))}
+                    />
+                </div>
+
+                <div className="background-field">
+                    Reputation: 
+                    <input placeholder="Reputation"
+                    value={background.reputation}
+                    onChange={e=>setBackground(p=>({...p, reputation:e.target.value}))}
+                    />
+                </div>
+
+                </div>
+
+                {/* Narrative */}
+                <div className="background-section">
+                <h4>Narrative</h4>
+
+                <div className="background-field">
+                    <div>
+                        Appearance Description:
+                    </div>
+
+                    <div>
+                    <textarea placeholder="Appearance Description"
+                    value={background.appearance}
+                    onChange={e=>setBackground(p=>({...p, appearance:e.target.value}))}
+                    />
+                    </div>
+                </div>
+
+                <div className="background-field">
+                    <div>
+                        Personality:
+                    </div>
+                    
+                    <div>
+                    <textarea placeholder="Personality"
+                    value={background.personality}
+                    onChange={e=>setBackground(p=>({...p, personality:e.target.value}))}
+                    />
+                    </div>
+                </div>
+
+                <div className="background-field">
+                    <div>
+                        Backstory:
+                    </div>
+                    
+                    <div>
+                    <textarea placeholder="Backstory"
+                    value={background.backstory}
+                    onChange={e=>setBackground(p=>({...p, backstory:e.target.value}))}
+                    />
+                    </div>
+                </div>
+
+                <div className="background-field">
+                    <div>
+                        Goals:
+                    </div>
+                    
+                    <div>
+                    <textarea placeholder="Goals"
+                    value={background.goals}
+                    onChange={e=>setBackground(p=>({...p, goals:e.target.value}))}
+                    />
+                    </div>
+                </div>
+
+                <div className="background-field">
+                    <div>
+                        Notes: 
+                    </div>
+                    
+                    <div>
+                    <textarea placeholder="Notes"
+                    value={background.notes}
+                    onChange={e=>setBackground(p=>({...p, notes:e.target.value}))}
+                    />
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+
+                </div>
+                )}
+
                 {activeTab === "settings" && (
                 <div>
 
@@ -710,21 +1029,7 @@
                 }))}
                 />
 
-                <h3>Health</h3>
-                <div></div>
-
-                <div>Min</div>
-                <input
-                type="number"
-                value={settings.healthMin}
-                placeholder="0"
-                onChange={e=>setSettings(prev=>({
-                ...prev,
-                healthMin:Number(e.target.value)
-                }))}
-                />
-
-                <div>Max</div>
+                <div>Max Health</div>
                 <input
                 type="number"
                 placeholder="Override"
@@ -735,21 +1040,8 @@
                 }))}
                 />
 
-                <h3>Endurance</h3>
-                <div></div>
+                <div>Max Endurance</div>
 
-                <div>Min</div>
-                <input
-                type="number"
-                placeholder="0"
-                value={settings.enduranceMin}
-                onChange={e=>setSettings(prev=>({
-                ...prev,
-                enduranceMin:Number(e.target.value)
-                }))}
-                />
-
-                <div>Max</div>
                 <input
                 type="number"
                 placeholder="Override"
@@ -757,6 +1049,17 @@
                 onChange={e=>setSettings(prev=>({
                 ...prev,
                 enduranceMax: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
+                <div>Max Luck</div>
+                <input
+                type="number"
+                placeholder="3"
+                value={settings.luckMax}
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                luckMax:e.target.value === "" ? null : Number(e.target.value)
                 }))}
                 />
 
@@ -782,20 +1085,6 @@
                 onChange={e=>setSettings(prev=>({
                 ...prev,
                 dashOverride: e.target.value === "" ? null : Number(e.target.value)
-                }))}
-                />
-
-                <h3>Luck</h3>
-                <div></div>
-
-                <div>Max Luck</div>
-                <input
-                type="number"
-                placeholder="3"
-                value={settings.luckMax}
-                onChange={e=>setSettings(prev=>({
-                ...prev,
-                luckMax:e.target.value === "" ? null : Number(e.target.value)
                 }))}
                 />
 
@@ -843,8 +1132,8 @@
             function TopBar({
                 name,
                 setName,
-                country,
-                setCountry,
+                crew,
+                setCrew,
                 currentLevel,
                 setCurrentLevel,
                 evasion,
@@ -878,8 +1167,8 @@
                             </div>
 
                             <div>
-                            Country of Origin:{" "} 
-                            <input value={country} onChange={e=>setCountry(e.target.value)} />
+                            Crew:{" "} 
+                            <input value={crew} onChange={e=>setCrew(e.target.value)} />
                             </div>
                         </div>
 
@@ -1246,8 +1535,9 @@
 
             function App(){
                 // All initial values
+                const [loaded, setLoaded] = React.useState(false)
                 const [name,setName] = React.useState("")
-                const [country,setCountry] = React.useState("")
+                const [crew,setCrew] = React.useState("")
                 const [currentLevel,setCurrentLevel] = React.useState(1)
 
                 const [levels,setLevels] = React.useState(Array(20).fill(null))
@@ -1385,13 +1675,28 @@
                 const [health,setHealth] = React.useState(0)
 
                 React.useEffect(()=>{
-                setHealth(maxHealth)
+                    setHealth(prev =>
+                        prev === 0 ? maxHealth : Math.min(prev, maxHealth)
+                    )
                 },[maxHealth])
 
 
                 // Endurance with override system
-                const baseEndurance =
-                Math.floor((finalStats.Brawn + finalStats.Finesse + finalStats.Grit)/2) * currentLevel
+                const nonGritStats = [
+                    finalStats.Brawn,
+                    finalStats.Finesse,
+                    finalStats.Awareness,
+                    finalStats.Brains,
+                    finalStats.Swagger
+                ]
+
+                const topTwo = nonGritStats
+                    .sort((a, b) => b - a)
+                    .slice(0, 2)
+
+                const baseEndurance = Math.round(
+                    (topTwo[0] + topTwo[1] + finalStats.Grit)/2 * currentLevel
+                )
 
                 const maxEndurance =
                 settings.enduranceMax ?? Math.max(10, baseEndurance)
@@ -1508,12 +1813,42 @@
 
                 }
 
+                // Inventory Items
+                const [items, setItems] = React.useState([])
+
+                function addItem(){
+                    setItems(prev => [
+                        ...prev,
+                        {
+                            id: Date.now(),
+                            name: "",
+                            charges: 0,
+                            amount: 1
+                        }
+                    ])
+                }
+
+                function updateItem(id, field, value){
+                    setItems(prev =>
+                        prev.map(item =>
+                            item.id === id
+                                ? { ...item, [field]: value }
+                                : item
+                        )
+                    )
+                }
+
+                function removeItem(id){
+                    setItems(prev => prev.filter(item => item.id !== id))
+                }
+
                 // Armor Calculations for evasion and shield
                 const [armor,setArmor] = React.useState("No Armor")
+                const [useShield, setUseShield] = React.useState(true)
                 const [shield,setShield] = React.useState("No Shield")
 
                 const armorStats = ARMOR_STATS[armor]
-                const shieldStats = SHIELD_STATS[shield]
+                const shieldStats = SHIELD_STATS[shield] || SHIELD_STATS["No Shield"]
 
                 const evasion =
                 settings.evasionOverride ??
@@ -1521,7 +1856,10 @@
 
                 const toughness =
                 settings.toughnessOverride ??
-                (armorStats.toughness + shieldStats.toughness) 
+                (
+                    armorStats.toughness +
+                    (useShield ? shieldStats.toughness : 0)
+                )
 
                 // All class abilities, taken from the classes.JSON file
 
@@ -1553,11 +1891,37 @@
                     return a.rank - b.rank
                 })
 
+
+                // Background information
+                const [background, setBackground] = React.useState({
+                    age: "",
+                    gender: "",
+                    race: "",
+                    country: "",
+                    religion: "",
+
+                    height: "",
+                    weight: "",
+                    eyeColor: "",
+                    hairColor: "",
+                    features: "",
+
+                    formerCrews: "",
+                    occupation: "",
+                    reputation: "",
+
+                    appearance: "",
+                    personality: "",
+                    backstory: "",
+                    goals: "",
+                    notes: ""
+                })
+
                 // Export character sheet to a json file
                 function exportData(){
                     const data = {
                         name,
-                        country,
+                        crew,
                         currentLevel,
                         levels,
                         level1,
@@ -1571,7 +1935,9 @@
                         health,
                         endurance,
                         luck,
-                        version: 1
+                        inventoryItems: items,
+                        background,
+                        version: 1.1
                     }
 
                     const json = JSON.stringify(data, null, 2)
@@ -1613,7 +1979,7 @@
                                     return
                                 }
                                 // Make sure character sheet is not too old
-                                if(raw.version !== 1){
+                                if(raw.version !== 1.1){
                                     alert("Invalid version")
                                     return
                                 }
@@ -1623,7 +1989,7 @@
                                 delete raw.prototype
 
                                 setName(raw.name ?? "")
-                                setCountry(raw.country ?? "")
+                                setCrew(raw.crew ?? "")
                                 setCurrentLevel(raw.currentLevel ?? 1)
                                 setLevels(raw.levels ?? Array(20).fill(null))
                                 setLevel1(raw.level1 ?? ["","",""])
@@ -1637,6 +2003,8 @@
                                 setHealth(raw.health ?? 0)
                                 setEndurance(raw.endurance ?? 0)
                                 setLuck(raw.luck ?? 3)
+                                setItems(raw.inventoryItems ?? [])
+                                setBackground(raw.background ?? DEFAULT_BACKGROUND)
 
                             } catch(err){
                                 console.error(err)
@@ -1650,6 +2018,127 @@
                     input.click()
                 }
 
+                // Local Save
+                const SAVE_SLOTS = ["slot1","slot2","slot3"]
+                const [activeSlot, setActiveSlot] = React.useState("slot1")
+                const [saveMessage, setSaveMessage] = React.useState("")
+
+                function buildSaveData(){
+                    return {
+                        name,
+                        crew,
+                        currentLevel,
+                        levels,
+                        level1,
+                        levelStats,
+                        levelSkills,
+                        settings,
+                        armor,
+                        shield,
+                        equippedWeapons,
+                        inventoryWeapons,
+                        health,
+                        endurance,
+                        luck,
+                        items,
+                        background,
+                        version: 1.1,
+                        timestamp: Date.now()
+                    }
+                }
+
+                function saveToSlot(slot = activeSlot){
+                    const data = buildSaveData()
+
+                    localStorage.setItem(
+                        `characterSheet_${slot}`,
+                        JSON.stringify(data)
+                    )
+
+                    console.log(`Saved to ${slot}`, data)
+                    setSaveMessage(`Saved to ${slot}`)
+                }
+
+                function loadFromSlot(slot = activeSlot){
+                    const saved = localStorage.getItem(`characterSheet_${slot}`)
+
+                    if(!saved){
+                        console.log(`No save in ${slot}`)
+                        setSaveMessage(`No save found in ${slot}`)
+                        return
+                    }
+
+                    try{
+                        const data = JSON.parse(saved)
+
+                        console.log(`Loaded from ${slot}`, data)
+                        setSaveMessage(`Loaded from ${slot}`)
+
+                        setName(data.name ?? "")
+                        setCrew(data.crew ?? "")
+                        setCurrentLevel(data.currentLevel ?? 1)
+                        setLevels(data.levels ?? Array(20).fill(null))
+                        setLevel1(data.level1 ?? ["","",""])
+                        setLevelStats(data.levelStats ?? levelStats)
+                        setLevelSkills(data.levelSkills ?? levelSkills)
+                        setSettings(data.settings ?? settings)
+                        setArmor(data.armor ?? "No Armor")
+                        setShield(data.shield ?? "No Shield")
+                        setEquippedWeapons(data.equippedWeapons ?? [])
+                        setInventoryWeapons(data.inventoryWeapons ?? [])
+                        setHealth(data.health ?? 0)
+                        setEndurance(data.endurance ?? 0)
+                        setLuck(data.luck ?? 3)
+                        setItems(data.items ?? [])
+                        setBackground(data.background ?? background)
+
+                    } catch(e){
+                        console.error("Failed to load", e)
+                        setSaveMessage("Failed to load save (invalid data)")
+                    }
+                }
+
+                function clearSlot(slot = activeSlot){
+                    const confirmDelete = window.confirm(
+                        `Are you sure you want to clear ${slot}? This cannot be undone.`
+                    )
+
+                    if(!confirmDelete) return
+
+                    localStorage.removeItem(`characterSheet_${slot}`)
+
+                    console.log(`Cleared ${slot}`)
+                    setSaveMessage(`Cleared ${slot}`)
+                }
+
+                React.useEffect(()=>{
+                    loadFromSlot(activeSlot)
+                }, [])
+
+                // 5 minutes autosave
+                React.useEffect(()=>{
+                    const interval = setInterval(()=>{
+                        saveToSlot(activeSlot)
+                        console.log("Autosaved")
+                    }, 300000) 
+
+                    return ()=>clearInterval(interval)
+                }, [activeSlot])
+
+                React.useEffect(()=>{
+                    if(!saveMessage) return
+
+                    const t = setTimeout(()=>{
+                        setSaveMessage("")
+                    }, 3000)
+
+                    return ()=>clearTimeout(t)
+                }, [saveMessage])
+
+                React.useEffect(()=>{
+                    loadFromSlot(activeSlot)
+                }, [activeSlot])
+
                 return(
                     <div
                         className="app"
@@ -1660,8 +2149,8 @@
                     <TopBar
                         name={name}
                         setName={setName}
-                        country={country}
-                        setCountry={setCountry}
+                        crew={crew}
+                        setCrew={setCrew}
                         currentLevel={currentLevel}
                         setCurrentLevel={setCurrentLevel}
                         evasion={evasion}
@@ -1708,6 +2197,8 @@
                         setArmor={setArmor}
                         shield={shield}
                         setShield={setShield}
+                        useShield={useShield}
+                        setUseShield={setUseShield}
                         shieldStats={shieldStats}
                         weapons={weapons}
                         equippedWeapons={equippedWeapons}
@@ -1718,12 +2209,18 @@
                         setWeaponChoice={setWeaponChoice}
                         addWeaponToInventory={addWeaponToInventory}
                         weaponTypeBonuses={weaponTypeBonuses}
+                        items={items}
+                        addItem={addItem}
+                        updateItem={updateItem}
+                        removeItem={removeItem}
                         settings={settings}
                         setSettings={setSettings}
                         sortBy={sortBy}
                         setSortBy={setSortBy}
                         sortedActionAbilities={sortedActionAbilities}
                         passiveAbilities={passiveAbilities}
+                        background={background}
+                        setBackground={setBackground}
                     />
 
                     <div style={{
@@ -1731,10 +2228,42 @@
                         bottom:"10px",
                         right:"10px",
                         display:"flex",
-                        gap:"10px"
+                        gap:"10px",
+                        alignItems:"center"
                     }}>
-                        <button onClick={exportData}>Export</button>
-                        <button onClick={importData}>Import</button>
+
+                    <select
+                        value={activeSlot}
+                        onChange={e=>{
+                            saveToSlot(activeSlot)
+                            setActiveSlot(e.target.value)
+                        }}
+                    >
+                        <option value="slot1">Slot 1</option>
+                        <option value="slot2">Slot 2</option>
+                        <option value="slot3">Slot 3</option>
+                    </select>
+
+                    <button onClick={()=>saveToSlot()}>Save</button>
+
+                    <button onClick={exportData}>Export</button>
+                    <button onClick={importData}>Import</button>
+
+                    <button onClick={()=>clearSlot()}>Clear Save Slot</button> 
+
+                    <div style={{
+                        position:"fixed",
+                        bottom:"45px",
+                        right:"10px",
+                        background:"#222",
+                        color:"white",
+                        padding:"6px 10px",
+                        borderRadius:"4px",
+                        fontSize:"12px"
+                    }}>
+                        {saveMessage}
+                    </div>
+
                     </div>
 
                     </div>
