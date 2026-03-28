@@ -1149,6 +1149,7 @@
                 speed,
                 dashSpeed,
                 luck,
+                maxLuck,
                 setLuck,
                 settings
                 }) {
@@ -1227,12 +1228,17 @@
                             <input
                             type="number"
                             value={luck}
-                            style={smallBox}
+                            min={0}
+                            max={maxLuck}
                             onChange={e=>{
-                            const v = e.target.value === "" ? null : Number(e.target.value)
-                            setLuck(Math.max(0, Math.min(v, settings.luckMax)))
+                                const raw = e.target.value
+                                if(raw === "") return
+
+                                const v = Number(raw)
+                                setLuck(Math.max(0, Math.min(v, maxLuck)))
                             }}
                             />
+                            / {maxLuck}
                             </div>
 
                             <div>
@@ -1723,6 +1729,16 @@
                 // Luck with override system
                 const [luck,setLuck] = React.useState(3)
 
+                const baseLuckMax = 3
+
+                const levelBonus = Math.floor((currentLevel) / 5)
+
+                const maxLuck = settings.luckMaxOverride ?? (baseLuckMax + levelBonus)
+
+                React.useEffect(()=>{
+                    setLuck(prev => Math.max(0, Math.min(prev, maxLuck)))
+                }, [maxLuck])
+
                 // Create list of all taken levels and calculate a count for each
                 const selectedClasses = [
                     ...level1,
@@ -2166,6 +2182,7 @@
                         speed={speed}
                         dashSpeed={dashSpeed}
                         luck={luck}
+                        maxLuck={maxLuck}
                         setLuck={setLuck}
                         settings={settings}
                         
