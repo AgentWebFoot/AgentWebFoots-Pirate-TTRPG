@@ -13,17 +13,22 @@
 
         <style>
             :root {
-                --bg-main: #1e1e1e;
-                --bg-panel: #2a2a2a;
-                --bg-card: #333;
-                --bg-highlight: #3f3f3f;
+                --bg-main: #0f1a22;
+                --bg-panel: rgba(18, 31, 41, 0.92);
+                --bg-card: rgba(248, 239, 217, 0.94);
+                --bg-card-muted: rgba(230, 216, 184, 0.9);
+                --bg-highlight: rgba(179, 137, 77, 0.18);
+                --bg-input: rgba(12, 21, 29, 0.82);
 
-                --text-main: #ffffff;
-                --text-muted: #bbbbbb;
+                --text-main: #f6edd7;
+                --text-muted: #d4c5a2;
+                --text-ink: #2f2417;
 
-                --accent: #4e4e4e;
+                --accent: #b3894d;
+                --accent-strong: #d9bb79;
+                --line: rgba(92, 69, 36, 0.35);
 
-                --font-main: "Segoe UI", sans-serif;
+                --font-main: "Trebuchet MS", sans-serif;
                 --font-header: "Georgia", serif;
 
                 --font-size-base: 14px;
@@ -33,7 +38,9 @@
 
             body {
                 margin: 0;
-                background: var(--bg-main);
+                background:
+                    radial-gradient(circle at top, rgba(93, 133, 165, 0.22), transparent 35%),
+                    linear-gradient(180deg, #132533 0%, #0f1a22 55%, #0c141a 100%);
                 color: var(--text-main);
                 font-family: var(--font-main);
                 font-size: var(--font-size-base);
@@ -57,29 +64,94 @@
 
             .app {
                 display: grid;
-                grid-template-rows: 90px 1fr;
+                grid-template-rows: auto 1fr;
                 grid-template-columns: var(--left-width, 320px) 1fr;
                 transition: grid-template-columns 0.2s ease;
-                height: 100vh;
+                min-height: 100vh;
             }
 
             .topbar {
                 grid-column: 1 / span 2;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 10px 20px;
-                border-bottom: 2px solid #ccc;
-                background: var(--bg-panel);
+                display: grid;
+                grid-template-columns: minmax(240px, 1fr) 1.7fr;
+                gap: 16px;
+                padding: 18px 22px;
+                border-bottom: 1px solid rgba(217, 187, 121, 0.35);
+                background:
+                    linear-gradient(135deg, rgba(255, 247, 226, 0.98), rgba(226, 208, 168, 0.96)),
+                    var(--bg-card);
+                color: var(--text-ink);
                 font-size: var(--font-size-large);
+                box-shadow: inset 0 -1px 0 rgba(92, 69, 36, 0.18);
+            }
+
+            .folioIdentity {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .folioKicker {
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                color: rgba(47, 36, 23, 0.68);
+            }
+
+            .folioTitle {
+                font-family: var(--font-header);
+                font-size: 34px;
+                line-height: 1;
+                margin: 0;
+            }
+
+            .folioIdentityGrid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(140px, 1fr));
+                gap: 10px;
+            }
+
+            .folioField {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .folioField label,
+            .resourceCard label,
+            .background-field label {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: rgba(47, 36, 23, 0.72);
+            }
+
+            .folioMeta {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .resourceCard {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 8px;
+                min-height: 84px;
+                padding: 12px;
+                border: 1px solid rgba(92, 69, 36, 0.24);
+                border-radius: 10px;
+                background: rgba(255, 251, 241, 0.65);
+                box-shadow: 0 4px 16px rgba(47, 36, 23, 0.08);
             }
 
             .leftpanel {
-                padding: 10px;
+                padding: 16px 14px 28px;
                 overflow-y: auto;
-                border-right: 2px solid #ccc;
+                border-right: 1px solid rgba(217, 187, 121, 0.2);
                 transition: width 0.2s ease;
-                
+                background: linear-gradient(180deg, rgba(14, 28, 37, 0.96), rgba(10, 20, 28, 0.98));
             }
 
             .leftpanel.closed {
@@ -87,54 +159,137 @@
                 overflow: hidden;
             }
 
+            .ledgerHeader {
+                margin: 14px 0 20px;
+                padding-bottom: 14px;
+                border-bottom: 1px solid rgba(217, 187, 121, 0.22);
+            }
+
+            .ledgerHeader h3 {
+                margin: 0 0 6px;
+                font-family: var(--font-header);
+                font-size: 24px;
+                color: var(--accent-strong);
+            }
+
+            .ledgerHeader p {
+                margin: 0;
+                color: var(--text-muted);
+                line-height: 1.4;
+            }
+
             .mainpage {
                 padding: 20px;
-                padding-bottom: 80px;
+                padding-bottom: 96px;
             }
 
-            .statRow{
-                display:flex;
-                gap:30px;
+            .folioHero,
+            .folioSection {
+                border: 1px solid var(--line);
+                border-radius: 20px;
+                background: linear-gradient(180deg, rgba(252, 246, 231, 0.98), rgba(233, 219, 188, 0.94));
+                color: var(--text-ink);
+                box-shadow: 0 16px 42px rgba(4, 11, 16, 0.24);
             }
 
-            .statBlock{
-                min-width:120px;
-                background: var(--bg-card);
-                padding: 8px;
-                border-radius: 6px;
-                margin-bottom: 12px;
+            .folioHero {
+                padding: 22px;
+            }
+
+            .folioHeroHeader,
+            .sectionHeader {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 16px;
+                margin-bottom: 20px;
+            }
+
+            .sectionHeader {
+                padding: 18px 18px 0;
+            }
+
+            .sectionTitle {
+                margin: 0;
+                font-family: var(--font-header);
+                font-size: 30px;
+            }
+
+            .sectionCopy {
+                margin: 6px 0 0;
+                max-width: 680px;
+                line-height: 1.5;
+                color: rgba(47, 36, 23, 0.78);
+            }
+
+            .skillPointBadge {
+                min-width: 148px;
+                padding: 10px 14px;
+                border-radius: 12px;
+                border: 1px solid rgba(92, 69, 36, 0.24);
+                background: rgba(255, 250, 240, 0.72);
+                text-align: right;
+            }
+
+            .skillPointBadge strong {
+                display: block;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: rgba(47, 36, 23, 0.65);
+            }
+
+            .skillPointBadge span {
+                display: block;
+                margin-top: 4px;
+                font-size: 26px;
+                font-family: var(--font-header);
+            }
+
+            .statRow {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(136px, 152px));
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .statBlock {
+                background: rgba(255, 252, 245, 0.68);
+                padding: 10px;
+                border-radius: 12px;
+                border: 1px solid rgba(92, 69, 36, 0.22);
+                margin-bottom: 0;
             }
 
             .statBlock ul {
                 list-style: none;
                 padding-left: 0;
                 margin: 0;
-                
             }
 
             li {
-                background: var(--bg-panel);
-                margin-top: 12px;
-                margin-bottom: 12px;
-                padding: 6px;
-                border-radius: 4px;
-                
+                background: rgba(230, 216, 184, 0.42);
+                margin-top: 8px;
+                margin-bottom: 0;
+                padding: 8px;
+                border-radius: 8px;
+                border: 1px solid rgba(92, 69, 36, 0.12);
             }
 
             button {
                 background: var(--accent);
                 border: none;
-                padding: 4px 8px;
-                border-radius: 4px;
+                padding: 7px 12px;
+                border-radius: 8px;
                 cursor: pointer;
-                color: white;
+                color: #fff8ea;
+                font-weight: 600;
             }
 
             .skills {
                 display: flex;
                 flex-direction: column;
-                gap: 5px;
-                
+                gap: 6px;
             }
 
             button:hover {
@@ -142,28 +297,67 @@
             }
             
             .statBlock h3 {
-                font-size: 24px;
-                margin: 0 0 4px 0;
+                font-size: 22px;
+                margin: 0 0 6px 0;
+                font-family: var(--font-header);
             }
 
-            .statBlock input {
-                width: 150px;
+            .statBlock > input {
+                width: 64px;
                 font-size: 14px;
+                text-align: center;
+            }
+
+            .skills input {
+                width: 64px;
+                text-align: center;
             }
 
             input, select {
-                background: #222;
-                color: white;
-                border: 1px solid #555;
-                border-radius: 4px;
-                padding: 2px 4px;
+                background: var(--bg-input);
+                color: var(--text-main);
+                border: 1px solid rgba(217, 187, 121, 0.35);
+                border-radius: 8px;
+                padding: 7px 9px;
             }
+
+            .topbar input,
+            .topbar select {
+                background: rgba(45, 33, 21, 0.92);
+            }
+
+            .tabBar {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 0 18px;
+                margin-bottom: 14px;
+            }
+
+            .tabContent {
+                padding: 0 18px 18px;
+            }
+
+            .journalGrid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 220px));
+                gap: 12px;
+                padding: 0 18px 18px;
+                justify-content: center;
+            }
+
             .background-section {
-                margin-bottom: 20px;
+                margin-bottom: 0;
+                padding: 12px;
+                border-radius: 12px;
+                border: 1px solid rgba(92, 69, 36, 0.16);
+                background: rgba(255, 251, 242, 0.62);
             }
 
             .background-section h4 {
-                margin-bottom: 10px;
+                margin: 0 0 10px;
+                font-family: var(--font-header);
+                font-size: 20px;
             }
 
             .background-field {
@@ -175,19 +369,49 @@
 
             .background-field input {
                 padding: 4px 6px;
-                width: 100%;
+                width: min(100%, 180px);
             }
 
             .background-field textarea {
-                width: 100%;
-                min-height: 80px;
-                background: #1a1a1a;
-                color: white;
-                border: 1px solid #555;
-                border-radius: 4px;
-                padding: 6px;
+                width: min(100%, 240px);
+                height: 92px;
+                background: rgba(45, 33, 21, 0.92);
+                color: var(--text-main);
+                border: 1px solid rgba(217, 187, 121, 0.35);
+                border-radius: 8px;
+                padding: 8px;
+                box-sizing: border-box;
                 resize: none;
-            }         
+            }
+
+            .sectionSpacer {
+                margin-top: 24px;
+            }
+
+            @media (max-width: 1100px) {
+                .app {
+                    grid-template-columns: 1fr;
+                }
+
+                .topbar {
+                    grid-template-columns: 1fr;
+                    padding: 16px 18px;
+                }
+
+                .leftpanel {
+                    border-right: none;
+                    border-bottom: 1px solid rgba(217, 187, 121, 0.2);
+                }
+
+                .mainpage {
+                    padding: 16px;
+                    padding-bottom: 88px;
+                }
+
+                .folioHero {
+                    padding: 18px;
+                }
+            }
         </style>
 
         <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -215,6 +439,30 @@
             })
 
             const STAT_LIST = Object.keys(stats)
+            const SKILL_LIST = Object.values(stats).flat()
+
+            const createEmptyStatLevel = ()=>({
+                Brawn:0,
+                Finesse:0,
+                Grit:0,
+                Awareness:0,
+                Brains:0,
+                Swagger:0
+            })
+
+            const createEmptySkillLevel = ()=>(
+                Object.fromEntries(SKILL_LIST.map(skill=>[skill,0]))
+            )
+
+            function trimFutureLevelData(levelData,nextLevel,createEmptyLevel){
+                const trimmed = [...levelData]
+
+                for(let i = nextLevel; i < trimmed.length; i++){
+                    trimmed[i] = createEmptyLevel()
+                }
+
+                return trimmed
+            }
 
             // All types of weapons
             const WEAPON_TYPES = [
@@ -331,8 +579,110 @@
 
                 const [activeTab,setActiveTab] = React.useState("class")
 
+                function renderBackgroundJournal(){
+                    return (
+                    <div className="journalGrid">
+                    <div className="background-section">
+                    <h4>Identity</h4>
+                    <div className="background-field">
+                        <label>Age</label>
+                        <input placeholder="Age" value={background.age} onChange={e=>setBackground(p=>({...p, age:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Gender</label>
+                        <input placeholder="Gender" value={background.gender} onChange={e=>setBackground(p=>({...p, gender:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Race</label>
+                        <input placeholder="Race" value={background.race} onChange={e=>setBackground(p=>({...p, race:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Country</label>
+                        <input placeholder="Country" value={background.country} onChange={e=>setBackground(p=>({...p, country:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Religion</label>
+                        <input placeholder="Religion" value={background.religion} onChange={e=>setBackground(p=>({...p, religion:e.target.value}))} />
+                    </div>
+                    </div>
+
+                    <div className="background-section">
+                    <h4>Physical</h4>
+                    <div className="background-field">
+                        <label>Height</label>
+                        <input placeholder="Height" value={background.height} onChange={e=>setBackground(p=>({...p, height:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Weight</label>
+                        <input placeholder="Weight" value={background.weight} onChange={e=>setBackground(p=>({...p, weight:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Eye Color</label>
+                        <input placeholder="Eye Color" value={background.eyeColor} onChange={e=>setBackground(p=>({...p, eyeColor:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Hair Color</label>
+                        <input placeholder="Hair Color" value={background.hairColor} onChange={e=>setBackground(p=>({...p, hairColor:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Distinguishing Features</label>
+                        <textarea placeholder="Distinguishing Features" value={background.features} onChange={e=>setBackground(p=>({...p, features:e.target.value}))} />
+                    </div>
+                    </div>
+
+                    <div className="background-section">
+                    <h4>Background</h4>
+                    <div className="background-field">
+                        <label>Former Crews</label>
+                        <input placeholder="Former Crews" value={background.formerCrews} onChange={e=>setBackground(p=>({...p, formerCrews:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Occupation</label>
+                        <input placeholder="Occupation" value={background.occupation} onChange={e=>setBackground(p=>({...p, occupation:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Reputation</label>
+                        <input placeholder="Reputation" value={background.reputation} onChange={e=>setBackground(p=>({...p, reputation:e.target.value}))} />
+                    </div>
+                    </div>
+
+                    <div className="background-section">
+                    <h4>Captain's Journal</h4>
+                    <div className="background-field">
+                        <label>Personality</label>
+                        <textarea placeholder="Personality" value={background.personality} onChange={e=>setBackground(p=>({...p, personality:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Backstory</label>
+                        <textarea placeholder="Backstory" value={background.backstory} onChange={e=>setBackground(p=>({...p, backstory:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Goals</label>
+                        <textarea placeholder="Goals" value={background.goals} onChange={e=>setBackground(p=>({...p, goals:e.target.value}))} />
+                    </div>
+                    <div className="background-field">
+                        <label>Notes</label>
+                        <textarea placeholder="Notes" value={background.notes} onChange={e=>setBackground(p=>({...p, notes:e.target.value}))} />
+                    </div>
+                    </div>
+                    </div>
+                    )
+                }
+
                 return (
                 <div className="mainpage">
+
+                <section className="folioHero">
+                <div className="folioHeroHeader">
+                    <div>
+                        <div className="folioKicker">Crew Record</div>
+                        <h2 className="sectionTitle">Stats and Skills</h2>
+                    </div>
+                    <div className="skillPointBadge">
+                        <strong>Available Skill Points</strong>
+                        <span style={{color: availableSkillPoints === 0 ? "#8b6e3b" : "#2f2417"}}>{availableSkillPoints}</span>
+                    </div>
+                </div>
 
                 <div className="statRow">
                 {Object.entries(stats).map(([stat,skills])=>(
@@ -382,13 +732,18 @@
                 </div>
                 ))}
                 </div>
-                <div style={{marginBottom:"15px", color: availableSkillPoints === 0 ? "grey" : "white"}} >
-                    <strong>Available Skill Points:</strong> {availableSkillPoints}
+                </section>
+
+                <section className="folioSection sectionSpacer">
+
+                <div className="sectionHeader">
+                    <div>
+                        <div className="folioKicker">Ship Operations</div>
+                        <h2 className="sectionTitle">Mechanical Records</h2>
+                    </div>
                 </div>
 
-                <div style={{marginTop:"30px"}}>
-
-                <div style={{display:"flex",gap:"10px",marginBottom:"10px"}}>
+                <div className="tabBar">
 
                 <button onClick={()=>setActiveTab("class")}>Class</button>
                 <button onClick={()=>setActiveTab("combat")}>Combat</button>
@@ -398,7 +753,7 @@
 
                 </div>
 
-                <div>
+                <div className="tabContent">
 
                 {activeTab === "class" && (
                 <div>
@@ -757,210 +1112,9 @@
                 )}
 
                 {activeTab === "background" && (
-                <div className = "Background">
-
-                <h3>Character Profile</h3>
-
-                <div style={{display:"flex",flexDirection:"column",gap:"16px",maxWidth:"600px"}}>
-
-                {/* Identity */}
-                <div className="background-section">
-                <h4>Identity</h4>
-                <div className="background-field">
-                    Age: 
-                    <input placeholder="Age"
-                    value={background.age}
-                    onChange={e=>setBackground(p=>({...p, age:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Gender: 
-                    <input placeholder="Gender"
-                    value={background.gender}
-                    onChange={e=>setBackground(p=>({...p, gender:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Race: 
-                    <input placeholder="Race"
-                    value={background.race}
-                    onChange={e=>setBackground(p=>({...p, race:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Country: 
-                    <input placeholder="Country"
-                    value={background.country}
-                    onChange={e=>setBackground(p=>({...p, country:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Religion: 
-                    <input placeholder="Religion"
-                    value={background.religion}
-                    onChange={e=>setBackground(p=>({...p, religion:e.target.value}))}
-                    />
-                </div>
-
-                </div>
-
-                {/* Physical */}
-                <div className="background-section">
-                <h4>Physical</h4>
-
-                <div className="background-field">
-                    Height: 
-                    <input placeholder="Height"
-                    value={background.height}
-                    onChange={e=>setBackground(p=>({...p, height:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Weight: 
-                    <input placeholder="Weight"
-                    value={background.weight}
-                    onChange={e=>setBackground(p=>({...p, weight:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Eye Color: 
-                    <input placeholder="Eye Color"
-                    value={background.eyeColor}
-                    onChange={e=>setBackground(p=>({...p, eyeColor:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Hair Color: 
-                    <input placeholder="Hair Color"
-                    value={background.hairColor}
-                    onChange={e=>setBackground(p=>({...p, hairColor:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    <div>
-                        Distringuishing Features: 
-                    </div>
-                    <div>
-                        <textarea placeholder="Distinguishing Features"
-                        value={background.features}
-                        onChange={e=>setBackground(p=>({...p, features:e.target.value}))}
-                        />
-                    </div>
-                </div>
-
-                </div>
-
-                {/* Social */}
-                <div className="background-section">
-                <h4>Background</h4>
-
-                <div className="background-field">
-                    Former Crews: 
-                    <input placeholder="Former Crews"
-                    value={background.formerCrews}
-                    onChange={e=>setBackground(p=>({...p, formerCrews:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Occupation: 
-                    <input placeholder="Occupation"
-                    value={background.occupation}
-                    onChange={e=>setBackground(p=>({...p, occupation:e.target.value}))}
-                    />
-                </div>
-
-                <div className="background-field">
-                    Reputation: 
-                    <input placeholder="Reputation"
-                    value={background.reputation}
-                    onChange={e=>setBackground(p=>({...p, reputation:e.target.value}))}
-                    />
-                </div>
-
-                </div>
-
-                {/* Narrative */}
-                <div className="background-section">
-                <h4>Narrative</h4>
-
-                <div className="background-field">
-                    <div>
-                        Appearance Description:
-                    </div>
-
-                    <div>
-                    <textarea placeholder="Appearance Description"
-                    value={background.appearance}
-                    onChange={e=>setBackground(p=>({...p, appearance:e.target.value}))}
-                    />
-                    </div>
-                </div>
-
-                <div className="background-field">
-                    <div>
-                        Personality:
-                    </div>
-                    
-                    <div>
-                    <textarea placeholder="Personality"
-                    value={background.personality}
-                    onChange={e=>setBackground(p=>({...p, personality:e.target.value}))}
-                    />
-                    </div>
-                </div>
-
-                <div className="background-field">
-                    <div>
-                        Backstory:
-                    </div>
-                    
-                    <div>
-                    <textarea placeholder="Backstory"
-                    value={background.backstory}
-                    onChange={e=>setBackground(p=>({...p, backstory:e.target.value}))}
-                    />
-                    </div>
-                </div>
-
-                <div className="background-field">
-                    <div>
-                        Goals:
-                    </div>
-                    
-                    <div>
-                    <textarea placeholder="Goals"
-                    value={background.goals}
-                    onChange={e=>setBackground(p=>({...p, goals:e.target.value}))}
-                    />
-                    </div>
-                </div>
-
-                <div className="background-field">
-                    <div>
-                        Notes: 
-                    </div>
-                    
-                    <div>
-                    <textarea placeholder="Notes"
-                    value={background.notes}
-                    onChange={e=>setBackground(p=>({...p, notes:e.target.value}))}
-                    />
-                    </div>
-                </div>
-
-                </div>
-
-                </div>
-
+                <div>
+                <h3>Character Journal</h3>
+                {renderBackgroundJournal()}
                 </div>
                 )}
 
@@ -1123,7 +1277,7 @@
 
                 </div>
 
-                </div>
+                </section>
 
                 </div>
                 )
@@ -1136,6 +1290,8 @@
                 setCrew,
                 currentLevel,
                 setCurrentLevel,
+                setLevelStats,
+                setLevelSkills,
                 evasion,
                 toughness,
                 health,
@@ -1161,31 +1317,35 @@
 
                 return (
                     <div className="topbar">
-                        <div>
-                            <div>
-                             Name:{" "}
-                            <input value={name} onChange={e=>setName(e.target.value)} />
-                            </div>
+                        <div className="folioIdentity">
+                            <div className="folioKicker"></div>
+                            <h1 className="folioTitle">Pirate Character Sheet</h1>
+                            <div className="folioIdentityGrid">
+                                <div className="folioField">
+                                <label>Name</label>
+                                <input value={name} onChange={e=>setName(e.target.value)} />
+                                </div>
 
-                            <div>
-                            Crew:{" "} 
-                            <input value={crew} onChange={e=>setCrew(e.target.value)} />
+                                <div className="folioField">
+                                <label>Crew</label>
+                                <input value={crew} onChange={e=>setCrew(e.target.value)} />
+                                </div>
                             </div>
                         </div>
 
-                        <div style={{display:"flex",gap:"20px",alignItems:"center"}}>
-                            <div>
-                            Evasion:
+                        <div className="folioMeta">
+                            <div className="resourceCard">
+                            <label>Evasion</label>
                             <input type="number" style={smallBox} value={evasion} readOnly />
                             </div>
 
-                            <div>
-                            Toughness:
+                            <div className="resourceCard">
+                            <label>Toughness</label>
                             <input type="number" style={smallBox} value={toughness} readOnly />
                             </div>
 
-                            <div>
-                            Health:
+                            <div className="resourceCard">
+                            <label>Health</label>
                             <input
                             type="number"
                             value={health}
@@ -1195,11 +1355,11 @@
                             setHealth(Math.max(minHealth, Math.min(v, maxHealth)))
                             }}
                             />
-                            / {maxHealth}
+                            <div>/ {maxHealth}</div>
                             </div>
 
-                            <div>
-                            Endurance:
+                            <div className="resourceCard">
+                            <label>Endurance</label>
                             <input
                             type="number"
                             value={endurance}
@@ -1212,19 +1372,23 @@
                                 setEndurance(Math.max(minEndurance, Math.min(v, maxEndurance)))
                             }}
                             />
-                            / {maxEndurance}
+                            <div>/ {maxEndurance}</div>
                             </div>
 
+                            <div className="resourceCard">
+                            <label>Movement</label>
                             <div>
                             Speed:
                             <input type="number" style={smallBox} value={speed} readOnly />
-                            <br/>
+                            </div>
+                            <div>
                             Dash:
                             <input type="number" style={smallBox} value={dashSpeed} readOnly />
                             </div>
+                            </div>
 
-                            <div>
-                            Luck:
+                            <div className="resourceCard">
+                            <label>Luck</label>
                             <input
                             type="number"
                             value={luck}
@@ -1238,15 +1402,23 @@
                                 setLuck(Math.max(0, Math.min(v, maxLuck)))
                             }}
                             />
-                            / {maxLuck}
+                            <div>/ {maxLuck}</div>
                             </div>
 
-                            <div>
-                            Level:
-
+                            <div className="resourceCard">
+                            <label>Level</label>
                             <select
                             value={currentLevel}
-                            onChange={e=>setCurrentLevel(Number(e.target.value))}
+                            onChange={e=>{
+                                const nextLevel = Number(e.target.value)
+
+                                if(nextLevel < currentLevel){
+                                    setLevelStats(prev=>trimFutureLevelData(prev,nextLevel,createEmptyStatLevel))
+                                    setLevelSkills(prev=>trimFutureLevelData(prev,nextLevel,createEmptySkillLevel))
+                                }
+
+                                setCurrentLevel(nextLevel)
+                            }}
                             >
 
                             {Array.from({length:20},(_,i)=>(
@@ -1254,9 +1426,7 @@
                             {i+1}
                             </option>
                             ))}
-
                             </select>
-
                             </div>
 
                         </div>
@@ -1315,7 +1485,7 @@
                             setLevel1(copy)
                         }
 
-                        return(
+                return(
                             <div className={`leftpanel ${isOpen ? "" : "closed"}`}>
                             <div>
                                 <button onClick={toggleOpen}>
@@ -1325,6 +1495,9 @@
 
                             {isOpen && (
                             <>
+                            <div className="ledgerHeader">
+                                <h3>Ship's Ledger</h3>
+                            </div>
 
                             {/* Level 1 */}
 
@@ -1518,7 +1691,9 @@
                 if(availableSkillPoints <= 0) return
 
                 const skillTotal =
-                levelSkills.reduce((sum,lvl)=>sum + lvl[skill],0)
+                levelSkills
+                .slice(0, level)
+                .reduce((sum,lvl)=>sum + lvl[skill],0)
 
                 if(skillTotal >= 10) return
 
@@ -1550,14 +1725,7 @@
                 const [level1,setLevel1] = React.useState(["","",""])
 
                 const [levelStats,setLevelStats] = React.useState(
-                Array.from({length:20},()=>({
-                Brawn:0,
-                Finesse:0,
-                Grit:0,
-                Awareness:0,
-                Brains:0,
-                Swagger:0
-                }))
+                Array.from({length:20},createEmptyStatLevel)
                 )
 
                 const activeStats = levelStats.slice(0,currentLevel)
@@ -1578,28 +1746,7 @@
                 })
 
                 const [levelSkills,setLevelSkills] = React.useState(
-                    Array.from({length:20},()=>({
-                    Rigging:0,
-                    Lifting:0,
-                    Pinning:0,
-                    Swimming:0,
-                    Acrobatics:0,
-                    Skulduggery:0,
-                    Sneaking:0,
-                    Nausea:0,
-                    Resilience:0,
-                    Tolerance:0,
-                    Fishing:0,
-                    Investigation:0,
-                    Intuition:0,
-                    Tracking:0,
-                    History:0,
-                    Learning:0,
-                    Tinkering:0,
-                    Infamy:0,
-                    Influence:0,
-                    Negotiation:0
-                    }))
+                    Array.from({length:20},createEmptySkillLevel)
                 )
 
                 const [settings,setSettings] = React.useState({
@@ -2169,6 +2316,8 @@
                         setCrew={setCrew}
                         currentLevel={currentLevel}
                         setCurrentLevel={setCurrentLevel}
+                        setLevelStats={setLevelStats}
+                        setLevelSkills={setLevelSkills}
                         evasion={evasion}
                         endurance={endurance}
                         setEndurance={setEndurance}
