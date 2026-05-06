@@ -1,0 +1,140 @@
+[
+  {
+    "name": "Alarmed",
+    "description": "You have a -1d6 to all rolls. This condition can stack with itself.",
+    "hasStack": true,
+    "hasSource": false
+  },
+  {
+    "name": "Bleeding",
+    "description": "You take an 1 bleeding damage for each stack of this condition whenever you are damaged with an attack. This condition can stack with itself.",
+    "hasStack": true,
+    "hasSource": false
+  },
+  {
+    "name": "Blinded",
+    "description": "You cannot see. You automatically fail all Awareness rolls involving sight and have disadvantage on all other Awareness rolls and attacks.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Burning",
+    "description": "At the start of your turn you are dealt 1 fire damage. This condition ends if you become soaked.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Calm",
+    "description": "You can add a +1d6 to any roll you choose. Once you use this benefit, you lose the Calm condition.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Concussed",
+    "description": "You automatically fail all Brains rolls.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Deafened",
+    "description": "You cannot hear. You automatically fail all Awareness rolls involving sound and have disadvantage on all other Awareness rolls.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Defenseless",
+    "description": "You cannot Dodge or Parry an attack made against you.",
+    "hasStack": true,
+    "hasSource": false
+  },
+  {
+    "name": "Difficulty",
+    "description": "Reduce a dice roll's result by 1. This condition can stack with itself.",
+    "hasStack": true,
+    "hasSource": false
+  },
+  {
+    "name": "Grappled",
+    "description": "You will move with the creature who is grappling you. Your movement speed is set to 0, and it cannot be increased in any way. Do not add your Finesse to your Evasion. You cannot end the Toppled condition. A grappled creature can use an action to make a Brawn Contest to end the condition.",
+    "hasStack": false,
+    "hasSource": true
+  },
+  {
+    "name": "Improvement",
+    "description": "Increase a dice roll's result by 1. This condition can stack with itself.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Intoxicated",
+    "description": "Your movement speed is halved, and you have disadvantage on all rolls.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Regneration",
+    "description": "You regain +1 Health at the start of your turn. This condition can stack with itself.",
+    "hasStack": true,
+    "hasSource": false
+  },
+  {
+    "name": "Restoration",
+    "description": "You regain +1 Endurance at the start of your turn. This condition can stack with itself.",
+    "hasStack": true,
+    "hasSource": false
+  },
+  {
+    "name": "Restrained",
+    "description": "You automatically fail all Finesse rolls. You cannot Dodge or Parry any attacks. You cannot perform any actions except freeing yourself by making a Brawn or Brains roll for 1 action against the Restraint DC (determined by the restraint source).",
+    "hasStack": false,
+    "hasSource": true
+  },
+  {
+    "name": "Poisoned",
+    "description": "You have disadvantage on all Grit rolls involving the Poisoned condition and taking Poison damage and automatically fail all other Grit rolls.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Soaked",
+    "description": "You are unable to light gunpowder of firearms or cannons.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Sprained",
+    "description": "Increase the Endurance cost of all actions with an Endurance cost for 1. This condition can stack with itself.",
+    "hasStack": true,
+    "hasSource": false
+  },
+  {
+    "name": "Staggered",
+    "description": "You have disadvantage on your first attack next turn.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Stunned",
+    "description": "You cannot take any actions, communicate, gain the Defenseless condition, and automatically fail all Finesse Contests.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Toppled",
+    "description": "You fall to the floor. All movement is halved. Melee attacks made against you have advantage.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Unconscious",
+    "description": "You are unable to take any actions. All attacks made against you have advantage. You cannot hear or see anything happening around you. Attacks made against you must always be made against your health.",
+    "hasStack": false,
+    "hasSource": false
+  },
+  {
+    "name": "Winded",
+    "description": "You lose one action point. This condition can stack with itself.",
+    "hasStack": true,
+    "hasSource": false
+  }
+]

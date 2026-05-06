@@ -644,6 +644,16 @@
             // Skill level up system. Players gain 10 points at level 1 and 2 points for each level after
             const LEVEL_SKILL_POINTS = level => level === 1 ? 10 : 2
 
+            const createConditionEntry = definition=>({
+                id: Date.now() + Math.random(),
+                name: definition.name,
+                description: definition.description,
+                hasStack: !!definition.hasStack,
+                hasSource: !!definition.hasSource,
+                stacks: definition.hasStack ? 1 : null,
+                source: definition.hasSource ? "" : ""
+            })
+
             // Armor Statistics
             const BASE_ARMOR_STATS = {
                 "No Armor": { 
@@ -705,6 +715,14 @@
                 armorStatsMap,
                 shieldStatsMap,
                 shieldStats,
+                conditions,
+                activeConditions,
+                conditionChoice,
+                setConditionChoice,
+                addCondition,
+                updateCondition,
+                removeCondition,
+                moveCondition,
                 weapons,
                 equippedWeapons,
                 removeWeapon,
@@ -739,6 +757,7 @@
                 }) {
 
                 const [activeTab,setActiveTab] = React.useState("class")
+                const initiative = settings.initiativeOverride ?? (finalStats.Brains + finalStats.Finesse)
 
                 function renderBackgroundJournal(){
                     return (
@@ -973,6 +992,19 @@
 
                     <h3>Combat</h3>
 
+                   <div style={{marginBottom:"12px"}}>
+                    <label>Initiative: </label>
+                    <input
+                    type="number"
+                    value={initiative}
+                    readOnly
+                    style={{width:"60px", marginLeft:"8px", textAlign:"center"}}
+                    />
+                    <div style={{marginTop:"6px"}}>
+                    Brains + Finesse
+                    </div>
+                    </div>
+
                    <div style={{display:"flex",gap:"40px"}}>
 
                     <div>
@@ -1045,6 +1077,87 @@
 
                     </div>
 
+                    </div>
+
+                    <h3>Conditions</h3>
+
+                    <div style={{marginBottom:"10px", display:"flex", gap:"8px", alignItems:"center", flexWrap:"wrap"}}>
+                    <select
+                    value={conditionChoice}
+                    onChange={e=>setConditionChoice(e.target.value)}
+                    >
+                    <option value="">Select Condition</option>
+                    {conditions.map(condition=>(
+                    <option key={condition.name} value={condition.name}>
+                    {condition.name}
+                    </option>
+                    ))}
+                    </select>
+
+                    <button onClick={()=>addCondition(conditionChoice)}>Add Condition</button>
+                    </div>
+
+                    <div style={{marginTop:"10px"}}>
+                    <div style={{
+                        display:"grid",
+                        gridTemplateColumns:"180px 120px 180px 80px 90px",
+                        fontWeight:"bold",
+                        borderBottom:"2px solid #ccc",
+                        paddingBottom:"4px"
+                    }}>
+                    <div>Name</div>
+                    <div>Stacks</div>
+                    <div>Source</div>
+                    <div>Remove</div>
+                    <div>Order</div>
+                    </div>
+
+                    {activeConditions.map((condition,index)=>(
+                    <div
+                    key={condition.id}
+                    style={{
+                        display:"grid",
+                        gridTemplateColumns:"180px 120px 180px 80px 90px",
+                        padding:"4px 0",
+                        borderBottom:"1px solid #ddd",
+                        alignItems:"center"
+                    }}
+                    >
+                    <div title={condition.description} style={{textDecoration:"underline dotted", cursor:"help"}}>
+                    {condition.name}
+                    </div>
+                    <div>
+                    {condition.hasStack ? (
+                    <input
+                    type="number"
+                    min="1"
+                    value={condition.stacks ?? 1}
+                    onChange={e=>updateCondition(condition.id,"stacks",Math.max(1, Number(e.target.value) || 1))}
+                    style={{width:"60px"}}
+                    />
+                    ) : (
+                    <span>-</span>
+                    )}
+                    </div>
+                    <div>
+                    {condition.hasSource ? (
+                    <input
+                    value={condition.source ?? ""}
+                    onChange={e=>updateCondition(condition.id,"source",e.target.value)}
+                    placeholder="Source"
+                    style={{width:"150px"}}
+                    />
+                    ) : (
+                    <span>-</span>
+                    )}
+                    </div>
+                    <div><button onClick={()=>removeCondition(condition.id)}>Remove</button></div>
+                    <div>
+                    <button onClick={()=>moveCondition(index,-1)}>↑</button>
+                    <button onClick={()=>moveCondition(index,1)}>↓</button>
+                    </div>
+                    </div>
+                    ))}
                     </div>
 
                     <h3>Weapons</h3>
@@ -1401,6 +1514,17 @@
                 }))}
                 />
 
+                <div>Initiative</div>
+                <input
+                type="number"
+                value={settings.initiativeOverride ?? ""}
+                placeholder="Override"
+                onChange={e=>setSettings(prev=>({
+                ...prev,
+                initiativeOverride: e.target.value === "" ? null : Number(e.target.value)
+                }))}
+                />
+
                 <div>Max Health</div>
                 <input
                 type="number"
@@ -1501,7 +1625,7 @@
 
                 <div style={{gridColumn:"1 / span 2"}}>
                 <div style={{marginTop:"8px", marginBottom:"8px", color:"rgba(47, 36, 23, 0.72)"}}>
-                Expansion JSON can include `classGroups`, `classAbilities`, `weapons`, `armors`, and `shields`.
+                Expansion JSON can include `classGroups`, `classAbilities`, `weapons`, `armors`, `shields`, and `conditions`.
                 </div>
                 {expansions.length === 0 ? (
                 <div>No expansion packs loaded.</div>
@@ -1519,7 +1643,7 @@
                 }}
                 >
                 <div>
-                    {expansion.name} ({expansion.classGroups.length} class groups, {expansion.classAbilities.length} abilities, {expansion.weapons.length} weapons, {expansion.armors.length} armors, {expansion.shields.length} shields)
+                    {expansion.name} ({expansion.classGroups.length} class groups, {expansion.classAbilities.length} abilities, {expansion.weapons.length} weapons, {expansion.armors.length} armors, {expansion.shields.length} shields, {expansion.conditions.length} conditions)
                 </div>
                 <button onClick={()=>removeExpansion(expansion.id)}>Remove</button>
                 </div>
@@ -1768,6 +1892,7 @@
                 const weapons = Array.isArray(raw.weapons) ? raw.weapons : []
                 const armors = Array.isArray(raw.armors) ? raw.armors : []
                 const shields = Array.isArray(raw.shields) ? raw.shields : []
+                const conditions = Array.isArray(raw.conditions) ? raw.conditions : []
 
                 return {
                     id: typeof raw.id === "string" && raw.id.trim()
@@ -1778,7 +1903,8 @@
                     classAbilities,
                     weapons,
                     armors,
-                    shields
+                    shields,
+                    conditions
                 }
             }
 
@@ -2078,6 +2204,7 @@
                     skillPointsOverride:null,
                     evasionOverride:null,
                     toughnessOverride:null,
+                    initiativeOverride:null,
                     healthMin:0,
                     healthMax:null,
                     enduranceMin:0,
@@ -2213,6 +2340,9 @@
                 const [expansions, setExpansions] = React.useState([])
                 const [baseWeapons,setBaseWeapons] = React.useState([])
                 const [baseClassAbilities,setBaseClassAbilities] = React.useState([])
+                const [baseConditions,setBaseConditions] = React.useState([])
+                const [activeConditions,setActiveConditions] = React.useState([])
+                const [conditionChoice,setConditionChoice] = React.useState("")
 
                 const classGroups = React.useMemo(
                     ()=>mergeClassGroups(
@@ -2236,6 +2366,14 @@
                         ...expansions.flatMap(expansion => expansion.classAbilities || [])
                     ],
                     [baseClassAbilities, expansions]
+                )
+
+                const conditions = React.useMemo(
+                    ()=>[
+                        ...baseConditions,
+                        ...expansions.flatMap(expansion => expansion.conditions || [])
+                    ],
+                    [baseConditions, expansions]
                 )
 
                 const armorStatsMap = React.useMemo(
@@ -2289,6 +2427,12 @@
                 fetch("weapons.JSON")
                 .then(res=>res.json())
                 .then(data=>setBaseWeapons(data))
+                },[])
+
+                React.useEffect(()=>{
+                fetch("conditions.JSON")
+                .then(res=>res.json())
+                .then(data=>setBaseConditions(Array.isArray(data) ? data : []))
                 },[])
 
                 React.useEffect(()=>{
@@ -2369,6 +2513,35 @@
                     if(from === "inventory"){
                         setInventoryWeapons(prev=>moveArrayItem(prev,index,direction))
                     }
+                }
+
+                function addCondition(name){
+                    const definition = conditions.find(condition=>condition.name === name)
+                    if(!definition) return
+
+                    setActiveConditions(prev=>[
+                        ...prev,
+                        createConditionEntry(definition)
+                    ])
+                    setConditionChoice("")
+                }
+
+                function updateCondition(id, field, value){
+                    setActiveConditions(prev=>
+                        prev.map(condition=>
+                            condition.id === id
+                                ? { ...condition, [field]: value }
+                                : condition
+                        )
+                    )
+                }
+
+                function removeCondition(id){
+                    setActiveConditions(prev=>prev.filter(condition=>condition.id !== id))
+                }
+
+                function moveCondition(index, direction){
+                    setActiveConditions(prev=>moveArrayItem(prev,index,direction))
                 }
 
                 // Inventory Items
@@ -2704,6 +2877,14 @@
                                 actionCost: 2,
                                 description: "Describe the class ability here."
                             }
+                        ],
+                        conditions: [
+                            {
+                                name: "Static Mark",
+                                description: "The target crackles with storm energy and is easier to track.",
+                                hasStack: false,
+                                hasSource: true
+                            }
                         ]
                     }
 
@@ -2734,6 +2915,7 @@
                         settings,
                         armor,
                         shield,
+                        activeConditions,
                         equippedWeapons,
                         inventoryWeapons,
                         health,
@@ -2743,7 +2925,7 @@
                         inventoryItems: items,
                         expansions,
                         background,
-                        version: 1.3
+                        version: 1.4
                     }
 
                     const json = JSON.stringify(data, null, 2)
@@ -2785,7 +2967,7 @@
                                     return
                                 }
                                 // Make sure character sheet is not too old
-                                if(raw.version !== 1.1 && raw.version !== 1.2){
+                                if(raw.version !== 1.1 && raw.version !== 1.2 && raw.version !== 1.3 && raw.version !== 1.4){
                                     alert("Invalid version")
                                     return
                                 }
@@ -2804,6 +2986,7 @@
                         setSettings(raw.settings ?? settings)
                         setArmor(raw.armor ?? "No Armor")
                         setShield(raw.shield ?? "No Shield")
+                        setActiveConditions(raw.activeConditions ?? [])
                         setEquippedWeapons((raw.equippedWeapons ?? []).filter(w=>w?.name !== UNARMED_WEAPON_NAME))
                         setInventoryWeapons((raw.inventoryWeapons ?? []).filter(w=>w?.name !== UNARMED_WEAPON_NAME))
                                 setHealth(raw.health ?? 0)
@@ -2849,6 +3032,7 @@
                         settings,
                         armor,
                         shield,
+                        activeConditions,
                         equippedWeapons,
                         inventoryWeapons,
                         health,
@@ -2858,7 +3042,7 @@
                         items,
                         expansions,
                         background,
-                        version: 1.2,
+                        version: 1.4,
                         timestamp: Date.now()
                     }
                 }
@@ -2900,6 +3084,7 @@
                         setSettings(data.settings ?? settings)
                         setArmor(data.armor ?? "No Armor")
                         setShield(data.shield ?? "No Shield")
+                        setActiveConditions(data.activeConditions ?? [])
                         setEquippedWeapons((data.equippedWeapons ?? []).filter(w=>w?.name !== UNARMED_WEAPON_NAME))
                         setInventoryWeapons((data.inventoryWeapons ?? []).filter(w=>w?.name !== UNARMED_WEAPON_NAME))
                         setHealth(data.health ?? 0)
@@ -3030,6 +3215,14 @@
                         armorStatsMap={armorStatsMap}
                         shieldStatsMap={shieldStatsMap}
                         shieldStats={shieldStats}
+                        conditions={conditions}
+                        activeConditions={activeConditions}
+                        conditionChoice={conditionChoice}
+                        setConditionChoice={setConditionChoice}
+                        addCondition={addCondition}
+                        updateCondition={updateCondition}
+                        removeCondition={removeCondition}
+                        moveCondition={moveCondition}
                         weapons={weapons}
                         equippedWeapons={equippedWeapons}
                         removeWeapon={removeWeapon}
