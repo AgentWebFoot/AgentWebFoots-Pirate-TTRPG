@@ -13,12 +13,12 @@
 
         <style>
             :root {
-                --bg-main: #0f1a22;
-                --bg-panel: rgba(18, 31, 41, 0.92);
+                --bg-main: rgb(47, 36, 23);
+                --bg-panel: rgba(47, 36, 23, 0.92);
                 --bg-card: rgba(248, 239, 217, 0.94);
                 --bg-card-muted: rgba(230, 216, 184, 0.9);
                 --bg-highlight: rgba(179, 137, 77, 0.18);
-                --bg-input: rgba(12, 21, 29, 0.82);
+                --bg-input: rgba(47, 36, 23, 0.82);
 
                 --text-main: #f6edd7;
                 --text-muted: #d4c5a2;
@@ -39,8 +39,8 @@
             body {
                 margin: 0;
                 background:
-                    radial-gradient(circle at top, rgba(93, 133, 165, 0.22), transparent 35%),
-                    linear-gradient(180deg, #132533 0%, #0f1a22 55%, #0c141a 100%);
+                    radial-gradient(circle at top, rgba(179, 137, 77, 0.26), transparent 35%),
+                    linear-gradient(180deg, #3a2918 0%, #2b1e12 55%, #1d140d 100%);
                 color: var(--text-main);
                 font-family: var(--font-main);
                 font-size: var(--font-size-base);
@@ -86,9 +86,35 @@
             }
 
             .folioIdentity {
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
+                isolation: isolate;
+                overflow: visible;
+            }
+
+            .folioIdentity::after {
+                content: "";
+                position: absolute;
+                top: 0px;
+                left: 500px;
+                width: 110px;
+                height: 110px;
+                background-image: url("SkullAndCrossbones.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                opacity: 0.18;
+                filter: blur(0.6px);
+                transform: rotate(14deg);
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .folioIdentity > * {
+                position: relative;
+                z-index: 1;
             }
 
             .folioKicker {
@@ -151,7 +177,7 @@
                 overflow-y: auto;
                 border-right: 1px solid rgba(217, 187, 121, 0.2);
                 transition: width 0.2s ease;
-                background: linear-gradient(180deg, rgba(14, 28, 37, 0.96), rgba(10, 20, 28, 0.98));
+                background: linear-gradient(180deg, rgba(58, 41, 24, 0.96), rgba(29, 20, 13, 0.98));
             }
 
             .leftpanel.closed {
@@ -194,6 +220,82 @@
 
             .folioHero {
                 padding: 22px;
+            }
+
+            .statsHero {
+                position: relative;
+                overflow: hidden;
+                isolation: isolate;
+            }
+
+            .statsHero::before {
+                content: "";
+                position: absolute;
+                top: 260px;
+                left: 160px;
+                width: 260px;
+                height: 260px;
+                background-image: url("CompassRose.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                opacity: 0.14;
+                filter: blur(2.5px);
+                transform: translate(-50%, -50%) rotate(-8deg);
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .statsHero::after {
+                content: "";
+                position: absolute;
+                right: 0px;
+                bottom: 0px;
+                width: 300px;
+                height: 300px;
+                background-image: url("InkStain.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                opacity: 0.16;
+                filter: blur(2.5px);
+                transform: rotate(-10deg);
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .statsHero > * {
+                position: relative;
+                z-index: 1;
+            }
+
+            .recordsSection {
+                position: relative;
+                overflow: hidden;
+                isolation: isolate;
+            }
+
+            .recordsSection::before {
+                content: "";
+                position: absolute;
+                top: 92px;
+                right: 36px;
+                width: 220px;
+                height: 220px;
+                background-image: url("Wheel.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                opacity: 0.14;
+                filter: blur(1.8px);
+                transform: rotate(16deg);
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .recordsSection > * {
+                position: relative;
+                z-index: 1;
             }
 
             .folioHeroHeader,
@@ -255,10 +357,14 @@
 
             .statBlock {
                 background: rgba(255, 252, 245, 0.68);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 padding: 10px;
                 border-radius: 12px;
                 border: 1px solid rgba(92, 69, 36, 0.22);
                 margin-bottom: 0;
+                text-align: center;
             }
 
             .statBlock ul {
@@ -286,10 +392,20 @@
                 font-weight: 600;
             }
 
+            .skills button {
+                padding: 5px 10px;
+            }
+
+            .statButtons button {
+                padding: 5px 10px;
+            }
+
             .skills {
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 gap: 6px;
+                text-align: center;
             }
 
             button:hover {
@@ -304,13 +420,31 @@
 
             .statBlock > input {
                 width: 64px;
+                margin: 0 auto;
                 font-size: 14px;
                 text-align: center;
             }
 
             .skills input {
                 width: 64px;
+                margin: 0 auto;
                 text-align: center;
+            }
+
+            .statBlock > input[type="number"],
+            .skills input[type="number"] {
+                appearance: textfield;
+                -moz-appearance: textfield;
+                padding-left: 9px;
+                padding-right: 9px;
+            }
+
+            .statBlock > input[type="number"]::-webkit-outer-spin-button,
+            .statBlock > input[type="number"]::-webkit-inner-spin-button,
+            .skills input[type="number"]::-webkit-outer-spin-button,
+            .skills input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
             }
 
             input, select {
@@ -464,6 +598,19 @@
                 return trimmed
             }
 
+            function moveArrayItem(list,index,direction){
+                const nextIndex = index + direction
+
+                if(index < 0 || nextIndex < 0 || index >= list.length || nextIndex >= list.length){
+                    return list
+                }
+
+                const next = [...list]
+                const [item] = next.splice(index,1)
+                next.splice(nextIndex,0,item)
+                return next
+            }
+
             // All types of weapons
             const WEAPON_TYPES = [
                 "Strike",
@@ -475,6 +622,8 @@
                 "Sniper Firearm",
                 "Grenade"
             ]
+
+            const UNARMED_WEAPON_NAME = "Unarmed Strike"
 
             // Classes that give a bonus of rank to each weapon type
             const CLASS_WEAPON_BONUS = {
@@ -496,7 +645,7 @@
             const LEVEL_SKILL_POINTS = level => level === 1 ? 10 : 2
 
             // Armor Statistics
-            const ARMOR_STATS = {
+            const BASE_ARMOR_STATS = {
                 "No Armor": { 
                     baseEvasion:16, 
                     toughness:0 
@@ -516,7 +665,7 @@
             }
 
             // Shield Statistics
-            const SHIELD_STATS = {
+            const BASE_SHIELD_STATS = {
                 "No Shield":{
                 toughness:0,
                 braceCost:0,
@@ -553,19 +702,25 @@
                 setShield,
                 useShield,
                 setUseShield,
+                armorStatsMap,
+                shieldStatsMap,
                 shieldStats,
                 weapons,
                 equippedWeapons,
                 removeWeapon,
                 inventoryWeapons,
                 swapWeapon,
+                moveWeapon,
                 weaponChoice,
                 setWeaponChoice,
                 addWeaponToInventory,
+                doubloons,
+                setDoubloons,
                 items,
                 addItem,
                 updateItem,
                 removeItem,
+                moveItem,
                 weaponTypeBonuses,
                 settings,
                 setSettings,
@@ -574,7 +729,13 @@
                 sortedActionAbilities,
                 passiveAbilities,
                 background,
-                setBackground
+                setBackground,
+                expansions,
+                importExpansionFile,
+                removeExpansion,
+                exportExpansions,
+                downloadGearTemplate,
+                downloadClassTemplate
                 }) {
 
                 const [activeTab,setActiveTab] = React.useState("class")
@@ -672,7 +833,7 @@
                 return (
                 <div className="mainpage">
 
-                <section className="folioHero">
+                <section className="folioHero statsHero">
                 <div className="folioHeroHeader">
                     <div>
                         <div className="folioKicker">Crew Record</div>
@@ -734,7 +895,7 @@
                 </div>
                 </section>
 
-                <section className="folioSection sectionSpacer">
+                <section className="folioSection sectionSpacer recordsSection">
 
                 <div className="sectionHeader">
                     <div>
@@ -823,17 +984,18 @@
                     onChange={e=>setArmor(e.target.value)}
                     >
 
-                    <option>No Armor</option>
-                    <option>Leather Armor</option>
-                    <option>Chain Mail</option>
-                    <option>Plate Armor</option>
+                    {Object.keys(armorStatsMap).map(armorName=>(
+                    <option key={armorName} value={armorName}>
+                    {armorName}
+                    </option>
+                    ))}
 
                     </select>
 
                     <div style={{marginTop:"8px"}}>
-                    Base Evasion: {ARMOR_STATS[armor].baseEvasion} + ½ Finesse
+                    Base Evasion: {armorStatsMap[armor].baseEvasion} + 1/2 Finesse
                     <br/>
-                    Toughness Bonus: +{ARMOR_STATS[armor].toughness}
+                    Toughness Bonus: +{armorStatsMap[armor].toughness}
                     </div>
 
                     </div>
@@ -848,10 +1010,11 @@
                         onChange={e=>setShield(e.target.value)}
                         >
 
-                        <option>No Shield</option>
-                        <option>Buckler</option>
-                        <option>Round Shield</option>
-                        <option>Tower Shield</option>
+                        {Object.keys(shieldStatsMap).map(shieldName=>(
+                        <option key={shieldName} value={shieldName}>
+                        {shieldName}
+                        </option>
+                        ))}
 
                     </select>
 
@@ -892,7 +1055,9 @@
 
                     <option value="">Select Weapon</option>
 
-                    {weapons.map(w=>(
+                    {weapons
+                    .filter(w=>w.name !== UNARMED_WEAPON_NAME)
+                    .map(w=>(
                     <option key={w.name} value={w.name}>
                     {w.name}
                     </option>
@@ -907,7 +1072,7 @@
                     <div style={{marginTop:"10px"}}>
                         <div style={{
                         display:"grid",
-                        gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px",
+                        gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px 90px",
                         fontWeight:"bold",
                         borderBottom:"2px solid #ccc",
                         paddingBottom:"4px"
@@ -922,6 +1087,7 @@
                         <div>Properties</div>
                         <div>Swap</div>
                         <div>Remove</div>
+                        <div>Order</div>
 
 
                         </div>
@@ -953,7 +1119,7 @@
                         key={i}
                         style={{
                         display:"grid",
-                        gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px",
+                        gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px 90px",
                         padding:"4px 0",
                         borderBottom:"1px solid #ddd"
                         }}
@@ -966,8 +1132,20 @@
                         <div>{w.damage.dice} {w.damage.type}</div>
                         <div>{w.enduranceCost}</div>
                         <div>{w.properties.join(", ")}</div>
+                        {w.name === UNARMED_WEAPON_NAME ? (
+                        <div>Always Equipped</div>
+                        ) : (
                         <button onClick={()=>swapWeapon(i,"equipped")}>Unequip</button>
-                        <div><button onClick={()=>removeWeapon(i,"equipped")}>Remove</button></div>
+                        )}
+                        <div>
+                        {w.name === UNARMED_WEAPON_NAME ? null : <button onClick={()=>removeWeapon(i,"equipped")}>Remove</button>}
+                        </div>
+                        <div>
+                        <>
+                        <button onClick={()=>moveWeapon(i,"equipped",-1)}>↑</button>
+                        <button onClick={()=>moveWeapon(i,"equipped",1)}>↓</button>
+                        </>
+                        </div>
                         </div>
 
                         )
@@ -975,10 +1153,10 @@
                         })}
                     </div>
 
-                    <h4>Inventory</h4>
+                    <h4>Backpack</h4>
                     <div style={{
                     display:"grid",
-                    gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px",
+                    gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px 90px",
                     fontWeight:"bold",
                     borderBottom:"2px solid #ccc",
                     paddingBottom:"4px"
@@ -993,10 +1171,14 @@
                     <div>Properties</div>
                     <div>Swap</div>
                     <div>Remove</div>
+                    <div>Order</div>
 
                     </div>
 
-                    {inventoryWeapons.map((w,i)=>{
+                    {inventoryWeapons
+                    .map((w,index)=>({w,index}))
+                    .filter(({w})=>w.name !== UNARMED_WEAPON_NAME)
+                    .map(({w,index})=>{
 
                     const statBonus =
                     Math.max(...w.attackStats.map(stat => finalStats[stat]))
@@ -1022,10 +1204,10 @@
                     return(
 
                     <div
-                    key={i}
+                    key={`${w.name}-${index}`}
                     style={{
                     display:"grid",
-                    gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px",
+                    gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px 90px",
                     borderBottom:"1px solid #ddd"
                     }}
                     >
@@ -1037,9 +1219,12 @@
                     <div>{w.damage.dice} {w.damage.type}</div>
                     <div>{w.enduranceCost}</div>
                     <div>{w.properties.join(", ")}</div>
-                    <div><button onClick={()=>swapWeapon(i,"inventory")}>Equip</button></div>
-                    <div><button onClick={()=>removeWeapon(i,"inventory")}>Remove</button></div>
-                    
+                    <div><button onClick={()=>swapWeapon(index,"inventory")}>Equip</button></div>
+                    <div><button onClick={()=>removeWeapon(index,"inventory")}>Remove</button></div>
+                    <div>
+                    <button onClick={()=>moveWeapon(index,"inventory",-1)}>↑</button>
+                    <button onClick={()=>moveWeapon(index,"inventory",1)}>↓</button>
+                    </div>
 
                     </div>
 
@@ -1054,29 +1239,41 @@
 
                 <h3>Inventory</h3>
 
+                <div style={{marginBottom:"12px"}}>
+                <label style={{display:"block", marginBottom:"4px"}}>Doubloons</label>
+                <input
+                type="number"
+                min="0"
+                value={doubloons}
+                onChange={e=>setDoubloons(Math.max(0, Number(e.target.value) || 0))}
+                />
+                </div>
+
                 <button onClick={addItem}>Add Item</button>
 
                 <div style={{marginTop:"10px"}}>
 
                 <div style={{
                     display:"grid",
-                    gridTemplateColumns:"200px 100px 100px 80px",
+                    gridTemplateColumns:"200px 140px 100px 100px 80px 90px",
                     fontWeight:"bold",
                     borderBottom:"2px solid #ccc",
                     paddingBottom:"4px"
                 }}>
                     <div>Name</div>
+                    <div>Notes</div>
                     <div>Charges</div>
                     <div>Amount</div>
                     <div>Remove</div>
+                    <div>Order</div>
                 </div>
 
-                {items.map(item => (
+                {items.map((item,index) => (
                 <div
                 key={item.id}
                 style={{
                     display:"grid",
-                    gridTemplateColumns:"200px 100px 100px 80px",
+                    gridTemplateColumns:"200px 140px 100px 100px 80px 90px",
                     padding:"4px 0",
                     borderBottom:"1px solid #ddd"
                 }}
@@ -1084,24 +1281,45 @@
 
                 <input
                 value={item.name}
+                readOnly={item.isCombatGear || item.isWeapon}
                 onChange={e=>updateItem(item.id,"name",e.target.value)}
                 />
 
+                <input
+                value={item.notes ?? ""}
+                readOnly={item.isCombatGear || item.isWeapon}
+                onChange={e=>updateItem(item.id,"notes",e.target.value)}
+                />
+
+                {item.isCombatGear || item.isWeapon ? (
+                <div></div>
+                ) : (
                 <input
                 type="number"
                 value={item.charges}
                 onChange={e=>updateItem(item.id,"charges",Number(e.target.value))}
                 style={{width:"60px"}}
                 />
+                )}
 
+                {item.isCombatGear || item.isWeapon ? (
+                <div></div>
+                ) : (
                 <input
                 type="number"
                 value={item.amount}
                 onChange={e=>updateItem(item.id,"amount",Number(e.target.value))}
                 style={{width:"60px"}}
                 />
+                )}
 
-                <button onClick={()=>removeItem(item.id)}>Remove</button>
+                {item.isCombatGear || item.isWeapon ? <div></div> : <button onClick={()=>removeItem(item.id)}>Remove</button>}
+                <div>
+                <>
+                <button onClick={()=>moveItem(index,-1)}>↑</button>
+                <button onClick={()=>moveItem(index,1)}>↓</button>
+                </>
+                </div>
 
                 </div>
                 ))}
@@ -1270,6 +1488,45 @@
                 </React.Fragment>
                 ))}
 
+                <h3>Expansions</h3>
+                <div></div>
+
+                <div>Expansion Packs</div>
+                <div style={{display:"grid", gridTemplateColumns:"repeat(2, minmax(180px, 1fr))", gap:"8px"}}>
+                <button onClick={importExpansionFile}>Import Expansion</button>
+                <button onClick={exportExpansions} disabled={expansions.length === 0}>Export Expansions</button>
+                <button onClick={downloadGearTemplate}>Download Gear Template</button>
+                <button onClick={downloadClassTemplate}>Download Class Template</button>
+                </div>
+
+                <div style={{gridColumn:"1 / span 2"}}>
+                <div style={{marginTop:"8px", marginBottom:"8px", color:"rgba(47, 36, 23, 0.72)"}}>
+                Expansion JSON can include `classGroups`, `classAbilities`, `weapons`, `armors`, and `shields`.
+                </div>
+                {expansions.length === 0 ? (
+                <div>No expansion packs loaded.</div>
+                ) : (
+                expansions.map(expansion=>(
+                <div
+                key={expansion.id}
+                style={{
+                    display:"flex",
+                    justifyContent:"space-between",
+                    alignItems:"center",
+                    gap:"12px",
+                    padding:"8px 0",
+                    borderBottom:"1px solid rgba(92, 69, 36, 0.16)"
+                }}
+                >
+                <div>
+                    {expansion.name} ({expansion.classGroups.length} class groups, {expansion.classAbilities.length} abilities, {expansion.weapons.length} weapons, {expansion.armors.length} armors, {expansion.shields.length} shields)
+                </div>
+                <button onClick={()=>removeExpansion(expansion.id)}>Remove</button>
+                </div>
+                ))
+                )}
+                </div>
+
                 </div>
 
                 </div>
@@ -1434,7 +1691,7 @@
                 )
             }
             // All classes and their groupings
-            const classGroups = [
+            const BASE_CLASS_GROUPS = [
                 {
                     title:"Fighters",
                     classes:[
@@ -1458,7 +1715,73 @@
                 }
             ]
 
-            const allClasses = classGroups.flatMap(g=>g.classes)
+            function mergeClassGroups(baseGroups, expansionGroups){
+                const groupMap = new Map(
+                    baseGroups.map(group => [group.title, [...group.classes]])
+                )
+
+                expansionGroups.forEach(group=>{
+                    if(!group || !group.title || !Array.isArray(group.classes)) return
+
+                    if(!groupMap.has(group.title)){
+                        groupMap.set(group.title, [])
+                    }
+
+                    const existing = groupMap.get(group.title)
+
+                    group.classes.forEach(cls=>{
+                        if(typeof cls === "string" && cls && !existing.includes(cls)){
+                            existing.push(cls)
+                        }
+                    })
+                })
+
+                return Array.from(groupMap.entries()).map(([title, classes])=>({
+                    title,
+                    classes
+                }))
+            }
+
+            function mergeNamedStats(baseStats, expansionEntries){
+                const merged = {...baseStats}
+
+                expansionEntries.forEach(entry=>{
+                    if(!entry || typeof entry.name !== "string" || !entry.name.trim()) return
+                    merged[entry.name] = {...entry}
+                    delete merged[entry.name].name
+                })
+
+                return merged
+            }
+
+            function normalizeExpansion(raw, fallbackName){
+                if(!raw || typeof raw !== "object"){
+                    throw new Error("Expansion file must be a JSON object.")
+                }
+
+                const name = typeof raw.name === "string" && raw.name.trim()
+                    ? raw.name.trim()
+                    : fallbackName
+
+                const classGroups = Array.isArray(raw.classGroups) ? raw.classGroups : []
+                const classAbilities = Array.isArray(raw.classAbilities) ? raw.classAbilities : []
+                const weapons = Array.isArray(raw.weapons) ? raw.weapons : []
+                const armors = Array.isArray(raw.armors) ? raw.armors : []
+                const shields = Array.isArray(raw.shields) ? raw.shields : []
+
+                return {
+                    id: typeof raw.id === "string" && raw.id.trim()
+                        ? raw.id.trim()
+                        : `${name}-${Date.now()}`,
+                    name,
+                    classGroups,
+                    classAbilities,
+                    weapons,
+                    armors,
+                    shields
+                }
+            }
+
                 function LeftPanel({
                     finalStats,
                     levelStats,
@@ -1467,6 +1790,7 @@
                     setLevels,
                     level1,
                     setLevel1,
+                    classGroups,
                     classCounts,
                     getAvailableStatPoints,
                     isOpen,
@@ -1886,6 +2210,50 @@
                     setLuck(prev => Math.max(0, Math.min(prev, maxLuck)))
                 }, [maxLuck])
 
+                const [expansions, setExpansions] = React.useState([])
+                const [baseWeapons,setBaseWeapons] = React.useState([])
+                const [baseClassAbilities,setBaseClassAbilities] = React.useState([])
+
+                const classGroups = React.useMemo(
+                    ()=>mergeClassGroups(
+                        BASE_CLASS_GROUPS,
+                        expansions.flatMap(expansion => expansion.classGroups || [])
+                    ),
+                    [expansions]
+                )
+
+                const weapons = React.useMemo(
+                    ()=>[
+                        ...baseWeapons,
+                        ...expansions.flatMap(expansion => expansion.weapons || [])
+                    ],
+                    [baseWeapons, expansions]
+                )
+
+                const classAbilities = React.useMemo(
+                    ()=>[
+                        ...baseClassAbilities,
+                        ...expansions.flatMap(expansion => expansion.classAbilities || [])
+                    ],
+                    [baseClassAbilities, expansions]
+                )
+
+                const armorStatsMap = React.useMemo(
+                    ()=>mergeNamedStats(
+                        BASE_ARMOR_STATS,
+                        expansions.flatMap(expansion => expansion.armors || [])
+                    ),
+                    [expansions]
+                )
+
+                const shieldStatsMap = React.useMemo(
+                    ()=>mergeNamedStats(
+                        BASE_SHIELD_STATS,
+                        expansions.flatMap(expansion => expansion.shields || [])
+                    ),
+                    [expansions]
+                )
+
                 // Create list of all taken levels and calculate a count for each
                 const selectedClasses = [
                     ...level1,
@@ -1912,9 +2280,6 @@
                         )
                     })
                 })
-
-                const [weapons,setWeapons] = React.useState([])
-
                 const [equippedWeapons,setEquippedWeapons] = React.useState([])
                 const [weaponChoice,setWeaponChoice] = React.useState("")
 
@@ -1923,11 +2288,27 @@
                 React.useEffect(()=>{
                 fetch("weapons.JSON")
                 .then(res=>res.json())
-                .then(data=>setWeapons(data))
+                .then(data=>setBaseWeapons(data))
                 },[])
+
+                React.useEffect(()=>{
+                    const unarmedWeapon = weapons.find(w=>w.name === UNARMED_WEAPON_NAME)
+                    if(!unarmedWeapon) return
+
+                    setEquippedWeapons(prev=>{
+                        if(prev.some(w=>w.name === UNARMED_WEAPON_NAME)){
+                            return prev
+                        }
+
+                        return [unarmedWeapon, ...prev]
+                    })
+
+                    setInventoryWeapons(prev=>prev.filter(w=>w.name !== UNARMED_WEAPON_NAME))
+                }, [weapons])
 
                 // Control weapons and list location in the Combat tab
                 function addWeaponToInventory(name){
+                    if(name === UNARMED_WEAPON_NAME) return
 
                     const weapon = weapons.find(w=>w.name === name)
                     if(!weapon) return
@@ -1940,6 +2321,7 @@
                     if(from === "inventory"){
 
                     const weapon = inventoryWeapons[index]
+                    if(!weapon || weapon.name === UNARMED_WEAPON_NAME) return
 
                     setInventoryWeapons(inventoryWeapons.filter((_,i)=>i!==index))
                     setEquippedWeapons([...equippedWeapons,weapon])
@@ -1949,6 +2331,7 @@
                     else{
 
                     const weapon = equippedWeapons[index]
+                    if(!weapon || weapon.name === UNARMED_WEAPON_NAME) return
 
                     setEquippedWeapons(equippedWeapons.filter((_,i)=>i!==index))
                     setInventoryWeapons([...inventoryWeapons,weapon])
@@ -1959,6 +2342,7 @@
 
                 function removeWeapon(index, from){
                     if(from === "equipped"){
+                    if(equippedWeapons[index]?.name === UNARMED_WEAPON_NAME) return
 
                     setEquippedWeapons(
                     equippedWeapons.filter((_,i)=>i !== index)
@@ -1967,6 +2351,7 @@
                     }
 
                     if(from === "inventory"){
+                    if(inventoryWeapons[index]?.name === UNARMED_WEAPON_NAME) return
 
                     setInventoryWeapons(
                     inventoryWeapons.filter((_,i)=>i !== index)
@@ -1976,8 +2361,31 @@
 
                 }
 
+                function moveWeapon(index, from, direction){
+                    if(from === "equipped"){
+                        setEquippedWeapons(prev=>moveArrayItem(prev,index,direction))
+                    }
+
+                    if(from === "inventory"){
+                        setInventoryWeapons(prev=>moveArrayItem(prev,index,direction))
+                    }
+                }
+
                 // Inventory Items
+                const [doubloons, setDoubloons] = React.useState(0)
                 const [items, setItems] = React.useState([])
+
+                function createCombatInventoryItem(name, notes, combatKey){
+                    return {
+                        id: Date.now() + Math.random(),
+                        name,
+                        notes,
+                        charges: 0,
+                        amount: 1,
+                        isCombatGear: true,
+                        combatKey
+                    }
+                }
 
                 function addItem(){
                     setItems(prev => [
@@ -1985,6 +2393,7 @@
                         {
                             id: Date.now(),
                             name: "",
+                            notes: "",
                             charges: 0,
                             amount: 1
                         }
@@ -2005,13 +2414,25 @@
                     setItems(prev => prev.filter(item => item.id !== id))
                 }
 
+                function moveItem(index, direction){
+                    setItems(prev=>{
+                        const currentItem = prev[index]
+                        if(!currentItem) return prev
+
+                        const nextIndex = index + direction
+                        if(nextIndex < 0 || nextIndex >= prev.length) return prev
+
+                        return moveArrayItem(prev,index,direction)
+                    })
+                }
+
                 // Armor Calculations for evasion and shield
                 const [armor,setArmor] = React.useState("No Armor")
                 const [useShield, setUseShield] = React.useState(true)
                 const [shield,setShield] = React.useState("No Shield")
 
-                const armorStats = ARMOR_STATS[armor]
-                const shieldStats = SHIELD_STATS[shield] || SHIELD_STATS["No Shield"]
+                const armorStats = armorStatsMap[armor] || armorStatsMap["No Armor"]
+                const shieldStats = shieldStatsMap[shield] || shieldStatsMap["No Shield"]
 
                 const evasion =
                 settings.evasionOverride ??
@@ -2024,14 +2445,83 @@
                     (useShield ? shieldStats.toughness : 0)
                 )
 
-                // All class abilities, taken from the classes.JSON file
+                React.useEffect(()=>{
+                    const trackedCombatItems = [
+                        ...equippedWeapons
+                        .filter(weapon=>weapon.name !== UNARMED_WEAPON_NAME)
+                        .map(weapon=>({
+                            name: weapon.name,
+                            notes: "Weapon",
+                            combatKey: `weapon:${weapon.name}:equipped`
+                        })),
+                        ...inventoryWeapons
+                        .filter(weapon=>weapon.name !== UNARMED_WEAPON_NAME)
+                        .map((weapon,index)=>({
+                            name: weapon.name,
+                            notes: "Weapon",
+                            combatKey: `weapon:${weapon.name}:inventory:${index}`
+                        })),
+                        ...(armor !== "No Armor" ? [{
+                            name: armor,
+                            notes: "Armor",
+                            combatKey: `armor:${armor}`
+                        }] : []),
+                        ...(shield !== "No Shield" ? [{
+                            name: shield,
+                            notes: "Shield",
+                            combatKey: `shield:${shield}`
+                        }] : [])
+                    ]
 
-                const [classAbilities,setClassAbilities] = React.useState([])
+                    setItems(prev=>{
+                        const trackedMap = new Map(
+                            trackedCombatItems.map(combatItem => [combatItem.combatKey, combatItem])
+                        )
+
+                        const nextItems = []
+
+                        prev.forEach(item=>{
+                            if(item.isCombatGear || item.isWeapon){
+                                const combatItem = trackedMap.get(item.combatKey)
+                                if(!combatItem) return
+
+                                nextItems.push({
+                                    ...item,
+                                    name: combatItem.name,
+                                    notes: combatItem.notes,
+                                    charges: 0,
+                                    amount: 1,
+                                    isCombatGear: true,
+                                    combatKey: combatItem.combatKey
+                                })
+
+                                trackedMap.delete(item.combatKey)
+                                return
+                            }
+
+                            nextItems.push(item)
+                        })
+
+                        trackedMap.forEach(combatItem=>{
+                            nextItems.push(
+                                createCombatInventoryItem(
+                                    combatItem.name,
+                                    combatItem.notes,
+                                    combatItem.combatKey
+                                )
+                            )
+                        })
+
+                        return nextItems
+                    })
+                }, [equippedWeapons, inventoryWeapons, armor, shield])
+
+                // All class abilities, taken from the classes.JSON file
 
                 React.useEffect(()=>{
                     fetch("classes.JSON")
                     .then(res=>res.json())
-                    .then(data=>setClassAbilities(data))
+                    .then(data=>setBaseClassAbilities(data))
                 },[])
 
                 const availableAbilities = classAbilities.filter(ability=>{
@@ -2080,6 +2570,157 @@
                     notes: ""
                 })
 
+                React.useEffect(()=>{
+                    const savedExpansions = localStorage.getItem("characterSheet_expansions")
+                    if(!savedExpansions) return
+
+                    try{
+                        const parsed = JSON.parse(savedExpansions)
+                        if(Array.isArray(parsed)){
+                            setExpansions(parsed.map((expansion, index)=>
+                                normalizeExpansion(expansion, expansion?.name || `Expansion ${index + 1}`)
+                            ))
+                        }
+                    } catch(err){
+                        console.error("Failed to load expansions", err)
+                    }
+                }, [])
+
+                React.useEffect(()=>{
+                    localStorage.setItem("characterSheet_expansions", JSON.stringify(expansions))
+                }, [expansions])
+
+                function importExpansionFile(){
+                    const input = document.createElement("input")
+                    input.type = "file"
+                    input.accept = "application/json"
+
+                    input.onchange = e => {
+                        const file = e.target.files[0]
+                        if(!file) return
+
+                        const reader = new FileReader()
+
+                        reader.onload = event => {
+                            try{
+                                const raw = JSON.parse(event.target.result)
+                                const imported = Array.isArray(raw) ? raw : [raw]
+                                const normalizedList = imported.map((expansion, index)=>
+                                    normalizeExpansion(
+                                        expansion,
+                                        imported.length === 1
+                                            ? file.name.replace(/\.json$/i, "")
+                                            : `${file.name.replace(/\.json$/i, "")} ${index + 1}`
+                                    )
+                                )
+
+                                setExpansions(prev=>{
+                                    const remaining = prev.filter(existing =>
+                                        !normalizedList.some(expansion => expansion.id === existing.id)
+                                    )
+                                    return [...remaining, ...normalizedList]
+                                })
+                            } catch(err){
+                                console.error(err)
+                                alert("Invalid expansion file")
+                            }
+                        }
+
+                        reader.readAsText(file)
+                    }
+
+                    input.click()
+                }
+
+                function exportExpansions(){
+                    const json = JSON.stringify(expansions, null, 2)
+                    const blob = new Blob([json], {type:"application/json"})
+                    const url = URL.createObjectURL(blob)
+                    const a = document.createElement("a")
+                    a.href = url
+                    a.download = "character-expansions.json"
+                    a.click()
+                    URL.revokeObjectURL(url)
+                }
+
+                function downloadGearTemplate(){
+                    const template = {
+                        name: "Gear Expansion",
+                        weapons: [
+                            {
+                                name: "Boarding Pike",
+                                type: ["Polearm"],
+                                attackStats: ["Brawn"],
+                                damage: {
+                                    dice: "1d8",
+                                    type: "Piercing"
+                                },
+                                enduranceCost: 2,
+                                properties: ["Reach"]
+                            }
+                        ],
+                        armors: [
+                            {
+                                name: "Captain's Coat",
+                                baseEvasion: 15,
+                                toughness: 1
+                            }
+                        ],
+                        shields: [
+                            {
+                                name: "Reinforced Buckler",
+                                toughness: 2,
+                                braceCost: 2,
+                                properties: ["Attachable","Parry"]
+                            }
+                        ]
+                    }
+
+                    const json = JSON.stringify(template, null, 2)
+                    const blob = new Blob([json], {type:"application/json"})
+                    const url = URL.createObjectURL(blob)
+                    const a = document.createElement("a")
+                    a.href = url
+                    a.download = "gear-expansion-template.json"
+                    a.click()
+                    URL.revokeObjectURL(url)
+                }
+
+                function downloadClassTemplate(){
+                    const template = {
+                        name: "Class Expansion",
+                        classGroups: [
+                            {
+                                title: "Corsairs",
+                                classes: ["Stormcaller"]
+                            }
+                        ],
+                        classAbilities: [
+                            {
+                                class: "Stormcaller",
+                                rank: 1,
+                                name: "Thunder Wake",
+                                type: "action",
+                                actionCost: 2,
+                                description: "Describe the class ability here."
+                            }
+                        ]
+                    }
+
+                    const json = JSON.stringify(template, null, 2)
+                    const blob = new Blob([json], {type:"application/json"})
+                    const url = URL.createObjectURL(blob)
+                    const a = document.createElement("a")
+                    a.href = url
+                    a.download = "class-expansion-template.json"
+                    a.click()
+                    URL.revokeObjectURL(url)
+                }
+
+                function removeExpansion(id){
+                    setExpansions(prev=>prev.filter(expansion=>expansion.id !== id))
+                }
+
                 // Export character sheet to a json file
                 function exportData(){
                     const data = {
@@ -2098,9 +2739,11 @@
                         health,
                         endurance,
                         luck,
+                        doubloons,
                         inventoryItems: items,
+                        expansions,
                         background,
-                        version: 1.1
+                        version: 1.3
                     }
 
                     const json = JSON.stringify(data, null, 2)
@@ -2142,7 +2785,7 @@
                                     return
                                 }
                                 // Make sure character sheet is not too old
-                                if(raw.version !== 1.1){
+                                if(raw.version !== 1.1 && raw.version !== 1.2){
                                     alert("Invalid version")
                                     return
                                 }
@@ -2158,14 +2801,22 @@
                                 setLevel1(raw.level1 ?? ["","",""])
                                 setLevelStats(raw.levelStats ?? levelStats)
                                 setLevelSkills(raw.levelSkills ?? levelSkills)
-                                setSettings(raw.settings ?? settings)
-                                setArmor(raw.armor ?? "No Armor")
-                                setShield(raw.shield ?? "No Shield")
-                                setEquippedWeapons(raw.equippedWeapons ?? [])
-                                setInventoryWeapons(raw.inventoryWeapons ?? [])
+                        setSettings(raw.settings ?? settings)
+                        setArmor(raw.armor ?? "No Armor")
+                        setShield(raw.shield ?? "No Shield")
+                        setEquippedWeapons((raw.equippedWeapons ?? []).filter(w=>w?.name !== UNARMED_WEAPON_NAME))
+                        setInventoryWeapons((raw.inventoryWeapons ?? []).filter(w=>w?.name !== UNARMED_WEAPON_NAME))
                                 setHealth(raw.health ?? 0)
                                 setEndurance(raw.endurance ?? 0)
                                 setLuck(raw.luck ?? 3)
+                                setDoubloons(raw.doubloons ?? 0)
+                                if(Array.isArray(raw.expansions)){
+                                    setExpansions(
+                                        raw.expansions.map((expansion, index)=>
+                                            normalizeExpansion(expansion, expansion?.name || `Expansion ${index + 1}`)
+                                        )
+                                    )
+                                }
                                 setItems(raw.inventoryItems ?? [])
                                 setBackground(raw.background ?? DEFAULT_BACKGROUND)
 
@@ -2203,9 +2854,11 @@
                         health,
                         endurance,
                         luck,
+                        doubloons,
                         items,
+                        expansions,
                         background,
-                        version: 1.1,
+                        version: 1.2,
                         timestamp: Date.now()
                     }
                 }
@@ -2247,11 +2900,19 @@
                         setSettings(data.settings ?? settings)
                         setArmor(data.armor ?? "No Armor")
                         setShield(data.shield ?? "No Shield")
-                        setEquippedWeapons(data.equippedWeapons ?? [])
-                        setInventoryWeapons(data.inventoryWeapons ?? [])
+                        setEquippedWeapons((data.equippedWeapons ?? []).filter(w=>w?.name !== UNARMED_WEAPON_NAME))
+                        setInventoryWeapons((data.inventoryWeapons ?? []).filter(w=>w?.name !== UNARMED_WEAPON_NAME))
                         setHealth(data.health ?? 0)
                         setEndurance(data.endurance ?? 0)
                         setLuck(data.luck ?? 3)
+                        setDoubloons(data.doubloons ?? 0)
+                        if(Array.isArray(data.expansions)){
+                            setExpansions(
+                                data.expansions.map((expansion, index)=>
+                                    normalizeExpansion(expansion, expansion?.name || `Expansion ${index + 1}`)
+                                )
+                            )
+                        }
                         setItems(data.items ?? [])
                         setBackground(data.background ?? background)
 
@@ -2345,6 +3006,7 @@
                         setLevels={setLevels}
                         level1={level1}
                         setLevel1={setLevel1}
+                        classGroups={classGroups}
                         classCounts={classCounts}
                         getAvailableStatPoints={getAvailableStatPoints}
                         isOpen={isLeftOpen}
@@ -2365,20 +3027,26 @@
                         setShield={setShield}
                         useShield={useShield}
                         setUseShield={setUseShield}
+                        armorStatsMap={armorStatsMap}
+                        shieldStatsMap={shieldStatsMap}
                         shieldStats={shieldStats}
                         weapons={weapons}
                         equippedWeapons={equippedWeapons}
                         removeWeapon={removeWeapon}
                         inventoryWeapons={inventoryWeapons}
                         swapWeapon={swapWeapon}
+                        moveWeapon={moveWeapon}
                         weaponChoice={weaponChoice}
                         setWeaponChoice={setWeaponChoice}
                         addWeaponToInventory={addWeaponToInventory}
                         weaponTypeBonuses={weaponTypeBonuses}
+                        doubloons={doubloons}
+                        setDoubloons={setDoubloons}
                         items={items}
                         addItem={addItem}
                         updateItem={updateItem}
                         removeItem={removeItem}
+                        moveItem={moveItem}
                         settings={settings}
                         setSettings={setSettings}
                         sortBy={sortBy}
@@ -2387,6 +3055,12 @@
                         passiveAbilities={passiveAbilities}
                         background={background}
                         setBackground={setBackground}
+                        expansions={expansions}
+                        importExpansionFile={importExpansionFile}
+                        removeExpansion={removeExpansion}
+                        exportExpansions={exportExpansions}
+                        downloadGearTemplate={downloadGearTemplate}
+                        downloadClassTemplate={downloadClassTemplate}
                     />
 
                     <div style={{
