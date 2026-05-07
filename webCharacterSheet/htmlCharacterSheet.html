@@ -505,6 +505,21 @@
                 text-align: center;
             }
 
+            .skillAdjuster {
+                display: grid;
+                grid-template-columns: 34px minmax(24px, auto) 34px;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 2px;
+            }
+
+            .skillAdjuster span {
+                min-width: 24px;
+                text-align: center;
+                font-weight: 700;
+            }
+
             button:hover {
                 opacity: 0.85;
             }
@@ -619,6 +634,36 @@
                 margin-top: 24px;
             }
 
+            .saveBar {
+                position: fixed;
+                right: 10px;
+                bottom: 10px;
+                left: auto;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: nowrap;
+                max-width: calc(100vw - 20px);
+                padding: 8px 10px;
+                border: 1px solid rgba(217, 187, 121, 0.28);
+                border-radius: 12px;
+                background: rgba(29, 20, 13, 0.94);
+                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+                z-index: 20;
+            }
+
+            .saveToast {
+                position: fixed;
+                right: 10px;
+                bottom: 64px;
+                background: #222;
+                color: white;
+                padding: 6px 10px;
+                border-radius: 4px;
+                font-size: 12px;
+                z-index: 21;
+            }
+
             @media (max-width: 800px) {
                 .topbar {
                     grid-template-columns: 1fr;
@@ -657,11 +702,33 @@
                     grid-column: 1;
                     grid-row: 3;
                     padding: 16px;
-                    padding-bottom: 88px;
+                    padding-bottom: 152px;
                 }
 
                 .folioHero {
                     padding: 18px;
+                }
+
+                .saveBar {
+                    left: 12px;
+                    right: 12px;
+                    bottom: 12px;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                }
+
+                .saveBar select,
+                .saveBar button {
+                    flex: 1 1 120px;
+                    min-width: 0;
+                }
+
+                .saveToast {
+                    right: 12px;
+                    left: 12px;
+                    bottom: 128px;
+                    text-align: center;
                 }
             }
 
@@ -1035,7 +1102,7 @@
                             />
                         </div>
 
-                        <div>
+                        <div className="skillAdjuster">
 
                             <button onClick={()=>removeSkill(currentLevel,skill,levelSkills,setLevelSkills)}>-</button>
 
@@ -3419,14 +3486,7 @@
                         downloadClassTemplate={downloadClassTemplate}
                     />
 
-                    <div style={{
-                        position:"fixed",
-                        bottom:"10px",
-                        right:"10px",
-                        display:"flex",
-                        gap:"10px",
-                        alignItems:"center"
-                    }}>
+                    <div className="saveBar">
 
                     <select
                         value={activeSlot}
@@ -3448,16 +3508,7 @@
                     <button onClick={()=>clearSlot()}>Clear Save Slot</button> 
 
                     {saveMessage && (
-                    <div style={{
-                        position:"fixed",
-                        bottom:"45px",
-                        right:"10px",
-                        background:"#222",
-                        color:"white",
-                        padding:"6px 10px",
-                        borderRadius:"4px",
-                        fontSize:"12px"
-                    }}>
+                    <div className="saveToast">
                         {saveMessage}
                     </div>
                     )}
