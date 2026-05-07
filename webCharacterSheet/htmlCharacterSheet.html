@@ -3447,6 +3447,7 @@
 
                     <button onClick={()=>clearSlot()}>Clear Save Slot</button> 
 
+                    {saveMessage && (
                     <div style={{
                         position:"fixed",
                         bottom:"45px",
@@ -3459,6 +3460,7 @@
                     }}>
                         {saveMessage}
                     </div>
+                    )}
 
                     </div>
 
