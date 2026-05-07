@@ -162,7 +162,7 @@
             .resourceCard {
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: flex-start;
                 gap: 8px;
                 min-height: 84px;
                 padding: 12px;
@@ -172,17 +172,97 @@
                 box-shadow: 0 4px 16px rgba(47, 36, 23, 0.08);
             }
 
+            .resourceCard > label {
+                font-size: 12px;
+                text-align: center;
+            }
+
+            .resourceCard > input,
+            .resourceCard > select,
+            .resourceCardValue,
+            .resourceCardLine {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+
+            .compactResourceCard {
+                min-height: 72px;
+                padding: 10px 8px;
+            }
+
+            .resourceCardValue {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                white-space: nowrap;
+            }
+
+            .resourceCard > input {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .resourceCard > select {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .resourceCardLine {
+                display: grid;
+                grid-template-columns: 52px auto;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .resourceCardLine span {
+                font-family: var(--font-main);
+                font-size: 14px;
+                line-height: 1.1;
+                font-weight: 400;
+                text-transform: none;
+                letter-spacing: 0;
+            }
+
+            .compactResourceCard input {
+                width: 34px !important;
+                padding-left: 4px;
+                padding-right: 4px;
+            }
+
+            .movementValueInput {
+                width: 30px !important;
+                padding-left: 3px;
+                padding-right: 3px;
+                justify-self: center;
+            }
+
+            .resourceCardTotal {
+                font-size: 14px;
+            }
+
             .leftpanel {
                 padding: 16px 14px 28px;
                 overflow-y: auto;
                 border-right: 1px solid rgba(217, 187, 121, 0.2);
                 transition: width 0.2s ease;
                 background: linear-gradient(180deg, rgba(58, 41, 24, 0.96), rgba(29, 20, 13, 0.98));
+                min-width: 0;
             }
 
             .leftpanel.closed {
                 width: 40px;
                 overflow: hidden;
+            }
+
+            .leftpanel select,
+            .leftpanel button {
+                max-width: 100%;
+            }
+
+            .leftpanel select {
+                width: 100%;
+                box-sizing: border-box;
             }
 
             .ledgerHeader {
@@ -400,6 +480,23 @@
                 padding: 5px 10px;
             }
 
+            .statButtons {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .statButtons > div {
+                display: grid;
+                grid-template-columns: 40px 1fr 40px;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .statButtons span {
+                text-align: center;
+            }
+
             .skills {
                 display: flex;
                 flex-direction: column;
@@ -522,28 +619,76 @@
                 margin-top: 24px;
             }
 
-            @media (max-width: 1100px) {
-                .app {
-                    grid-template-columns: 1fr;
-                }
-
+            @media (max-width: 800px) {
                 .topbar {
                     grid-template-columns: 1fr;
                     padding: 16px 18px;
                 }
+            }
+
+            @media (max-width: 800px) {
+                .app {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: auto auto 1fr;
+                }
+
+                .topbar {
+                    grid-column: 1;
+                    grid-row: 1;
+                }
 
                 .leftpanel {
+                    grid-column: 1;
+                    grid-row: 2;
+                    width: auto;
+                    overflow: visible;
+                    padding: 14px 16px 22px;
                     border-right: none;
                     border-bottom: 1px solid rgba(217, 187, 121, 0.2);
                 }
 
+                .leftpanel.closed {
+                    width: auto;
+                    overflow: visible;
+                    padding: 14px 16px 22px;
+                }
+
                 .mainpage {
+                    grid-column: 1;
+                    grid-row: 3;
                     padding: 16px;
                     padding-bottom: 88px;
                 }
 
                 .folioHero {
                     padding: 18px;
+                }
+            }
+
+            @media (max-width: 700px) {
+                .leftpanel {
+                    padding: 12px 12px 18px;
+                }
+
+                .leftpanel.closed {
+                    padding: 12px 12px 18px;
+                }
+
+                .leftpanel button {
+                    width: 100%;
+                }
+
+                .statButtons > div {
+                    grid-template-columns: 34px minmax(0, 1fr) 34px;
+                    gap: 6px;
+                }
+
+                .statButtons button {
+                    padding: 5px 0;
+                }
+
+                .statButtons span {
+                    overflow-wrap: anywhere;
                 }
             }
         </style>
@@ -1725,65 +1870,72 @@
                             <input type="number" style={smallBox} value={toughness} readOnly />
                             </div>
 
-                            <div className="resourceCard">
+                            <div className="resourceCard compactResourceCard">
                             <label>Health</label>
-                            <input
-                            type="number"
-                            value={health}
-                            style={smallBox}
-                            onChange={e=>{
-                            const v = e.target.value === "" ? null : Number(e.target.value)
-                            setHealth(Math.max(minHealth, Math.min(v, maxHealth)))
-                            }}
-                            />
-                            <div>/ {maxHealth}</div>
+                            <div className="resourceCardValue">
+                                <input
+                                type="number"
+                                value={health}
+                                style={smallBox}
+                                onChange={e=>{
+                                const v = e.target.value === "" ? null : Number(e.target.value)
+                                setHealth(Math.max(minHealth, Math.min(v, maxHealth)))
+                                }}
+                                />
+                                <div className="resourceCardTotal">/ {maxHealth}</div>
+                            </div>
                             </div>
 
-                            <div className="resourceCard">
+                            <div className="resourceCard compactResourceCard">
                             <label>Endurance</label>
-                            <input
-                            type="number"
-                            value={endurance}
-                            style={smallBox}
-                            onChange={e=>{
-                                const raw = e.target.value
-                                if(raw === "") return
+                            <div className="resourceCardValue">
+                                <input
+                                type="number"
+                                value={endurance}
+                                style={smallBox}
+                                onChange={e=>{
+                                    const raw = e.target.value
+                                    if(raw === "") return
 
-                                const v = Number(raw)
-                                setEndurance(Math.max(minEndurance, Math.min(v, maxEndurance)))
-                            }}
-                            />
-                            <div>/ {maxEndurance}</div>
+                                    const v = Number(raw)
+                                    setEndurance(Math.max(minEndurance, Math.min(v, maxEndurance)))
+                                }}
+                                />
+                                <div className="resourceCardTotal">/ {maxEndurance}</div>
+                            </div>
                             </div>
 
                             <div className="resourceCard">
                             <label>Movement</label>
-                            <div>
-                            Speed:
-                            <input type="number" style={smallBox} value={speed} readOnly />
+                            <div className="resourceCardLine">
+                            <span>Speed:</span>
+                            <input className="movementValueInput" type="number" style={smallBox} value={speed} readOnly />
                             </div>
-                            <div>
-                            Dash:
-                            <input type="number" style={smallBox} value={dashSpeed} readOnly />
+                            <div className="resourceCardLine">
+                            <span>Dash:</span>
+                            <input className="movementValueInput" type="number" style={smallBox} value={dashSpeed} readOnly />
                             </div>
                             </div>
 
-                            <div className="resourceCard">
+                            <div className="resourceCard compactResourceCard">
                             <label>Luck</label>
-                            <input
-                            type="number"
-                            value={luck}
-                            min={0}
-                            max={maxLuck}
-                            onChange={e=>{
-                                const raw = e.target.value
-                                if(raw === "") return
+                            <div className="resourceCardValue">
+                                <input
+                                type="number"
+                                value={luck}
+                                style={smallBox}
+                                min={0}
+                                max={maxLuck}
+                                onChange={e=>{
+                                    const raw = e.target.value
+                                    if(raw === "") return
 
-                                const v = Number(raw)
-                                setLuck(Math.max(0, Math.min(v, maxLuck)))
-                            }}
-                            />
-                            <div>/ {maxLuck}</div>
+                                    const v = Number(raw)
+                                    setLuck(Math.max(0, Math.min(v, maxLuck)))
+                                }}
+                                />
+                                <div className="resourceCardTotal">/ {maxLuck}</div>
+                            </div>
                             </div>
 
                             <div className="resourceCard">
@@ -3147,6 +3299,17 @@
                 React.useEffect(()=>{
                     loadFromSlot(activeSlot)
                 }, [activeSlot])
+
+                React.useEffect(()=>{
+                    function logViewportSize(){
+                        console.log(`Viewport: ${window.innerWidth}x${window.innerHeight}`)
+                    }
+
+                    logViewportSize()
+                    window.addEventListener("resize", logViewportSize)
+
+                    return ()=>window.removeEventListener("resize", logViewportSize)
+                }, [])
 
                 return(
                     <div
