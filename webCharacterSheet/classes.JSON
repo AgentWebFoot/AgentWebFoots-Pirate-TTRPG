@@ -85,8 +85,6 @@
     "class": "Basher",
     "rank": 1,
     "name": "Improved Blunt Attacks",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain an additional +1 to attack for each rank in this class on all Blunt Weapons attacks.",
     "type": "passive"
   },
@@ -112,8 +110,6 @@
     "class": "Basher",
     "rank": 3,
     "name": "Crusher",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "All attacks made with a blunt weapon against a stone or metal object that isn't worn or carried automatically crits.",
     "type": "passive"
   },
@@ -121,8 +117,6 @@
     "class": "Basher",
     "rank": 3,
     "name": "Joint Damage",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you score a critical hit the target becomes Sprained for the next minute.",
     "type": "passive"
   },
@@ -168,8 +162,6 @@
     "class": "Brute",
     "rank": 1,
     "name": "Natural Defense",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain +1 Physical Toughness when wielding an armor or shield.",
     "type": "passive"
   },
@@ -177,8 +169,6 @@
     "class": "Brute",
     "rank": 2,
     "name": "Unstoppable",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have trained to stay on your footing both in and out of combat. You have advantage on all checks that would topple you.",
     "type": "passive"
   },
@@ -186,8 +176,6 @@
     "class": "Brute",
     "rank": 2,
     "name": "Relentless Adrenaline",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "If your health has been reduced since the end of your last turn, you can allow adrenaline to heal your wounds. You can spend 2 Endurance and regain 1d4 health up to the amount of damage taken.",
     "type": "passive"
   },
@@ -204,8 +192,6 @@
     "class": "Brute",
     "rank": 3,
     "name": "Superior Defense",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "It no longer costs Endurance to Brace with the shield.",
     "type": "passive"
   },
@@ -213,8 +199,6 @@
     "class": "Brute",
     "rank": 4,
     "name": "Iron Body",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You are immune to the Concussed, Staggered, or Winded conditions. ",
     "type": "passive"
   },
@@ -222,8 +206,6 @@
     "class": "Brute",
     "rank": 4,
     "name": "Improved Natural Defense",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your Physical Toughness now applies to all damage types.",
     "type": "passive"
   },
@@ -241,8 +223,6 @@
     "class": "Cleaver",
     "rank": 1,
     "name": "Improved Axe Attacks",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain an additional +1 to attack for each rank in this class on all Axe Attacks.",
     "type": "passive"
   },
@@ -250,8 +230,6 @@
     "class": "Cleaver",
     "rank": 2,
     "name": "Hatchet",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "All attacks made with an axe against wooden objects deal double damage",
     "type": "passive"
   },
@@ -277,8 +255,6 @@
     "class": "Cleaver",
     "rank": 4,
     "name": "Destructive Nature",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you score a critical hit, the target gains the Bleeding condition until healed.",
     "type": "passive"
   },
@@ -305,8 +281,6 @@
     "class": "Marksman",
     "rank": 1,
     "name": "Improved Firearm Attacks",
-    "actionCost": 0,
-    "enduranceCost": "",
     "description": "Gain an additional +1 to attack for each rank in this class on all Hand-Firearm attacks",
     "type": "passive"
   },
@@ -314,8 +288,6 @@
     "class": "Marksman",
     "rank": 2,
     "name": "Trick Shot",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "When you make a ranged weapon attack, you can use a trick shot to ricochet your attack off and ignore a target's cover. When you do so, the damage from your weapon is halved.",
     "type": "passive"
   },
@@ -323,8 +295,6 @@
     "class": "Marksman",
     "rank": 2,
     "name": "Wide Eye",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have an eye for detail while in close quarters. You have advantage on all Awareness checks.",
     "type": "passive"
   },
@@ -341,8 +311,6 @@
     "class": "Marksman",
     "rank": 3,
     "name": "Dodge Roll",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Once per round, whenever you Dodge, you can move 1 meter.",
     "type": "passive"
   },
@@ -350,8 +318,6 @@
     "class": "Marksman",
     "rank": 4,
     "name": "Improved Reload",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you use the reload action, you can reload two firearms instead of one.",
     "type": "passive"
   },
@@ -369,8 +335,6 @@
   "class": "Martial Artist",
     "rank": 1,
     "name": "Improved Unarmed Attacks",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain an additional +1 to attack for each rank in this class on all strike weapons.",
     "type": "passive"
   },
@@ -414,8 +378,6 @@
   "class": "Martial Artist",
     "rank": 3,
     "name": "Silent Step",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your footprints are silent. When you are walking you don't make a noise.",
     "type": "passive"
   },
@@ -451,8 +413,6 @@
   "class": "Sharpshooter",
     "rank": 1,
     "name": "Improved Firearm Attacks",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain an additional +1 to attack for each rank in this class on all Sniper-Firearm attacks.",
     "type": "passive"
   },
@@ -460,8 +420,6 @@
   "class": "Sharpshooter",
     "rank": 2,
     "name": "Eagle Eye",
-    "actionCost": 0,
-    "enduranceCost": "",
     "description": "You have better eyesight, allowing you to make out details from further away. You can make out land masses and other ships from 20 meters away. Additionally, your range with sniper firearms increases by 2 meters for each rank in this class.",
     "type": "passive"
   },
@@ -478,8 +436,6 @@
   "class": "Sharpshooter",
     "rank": 3,
     "name": "Defensive Range",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your knowledge of attacking from a great distance also helps you stay hidden. Whenever you have half cover, you gain an additional +1 to toughness against all non-melee attacks.",
     "type": "passive"
   },
@@ -487,8 +443,6 @@
   "class": "Sharpshooter",
     "rank": 4,
     "name": "Perfect Precision",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you score a critical hit, you always deal the maximum damage.",
     "type": "passive"
   },
@@ -506,8 +460,6 @@
   "class": "Spearman",
     "rank": 1,
     "name": "Improved Polearm Attack",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain an additional +1 to attack for each rank in this class on all Polearm attacks.",
     "type": "passive"
   },
@@ -515,8 +467,6 @@
   "class": "Spearman",
     "rank": 2,
     "name": "Keeping Distance",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "On your first successful attack with a polearm on your turn, you can forgo damage to reduce a target's Speed by 2 for their first move action on their next turn.",
     "type": "passive"
   },
@@ -533,8 +483,6 @@
   "class": "Spearman",
     "rank": 3,
     "name": "Firm Ground",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "When you use this ability, until the start of your next turn whenever a creature willingly enters your attack range for the first time on their turn, you can make an attack on them. After each consecutive attack with this ability you gain an additional -5 to hit, until the start of your next turn.",
     "type": "passive"
   },
@@ -542,8 +490,6 @@
   "class": "Spearman",
     "rank": 4,
     "name": "Extended Reach",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "All weapons (excluding strike weapons and ranged weapons) now have the reach property if they did not already.",
     "type": "passive"
   },
@@ -551,8 +497,6 @@
   "class": "Spearman",
     "rank": 4,
     "name": "Improved Keeping Distance",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you use your “Keeping Distance” ability it now reduces the target's Speed to 0 for their next Move action on their turn.",
     "type": "passive"
   },
@@ -570,8 +514,6 @@
   "class": "Swordsman",
     "rank": 1,
     "name": "Improved Sword Attacks",
-    "actionCost": 1,
-    "enduranceCost": 0,
     "description": "Gain an additional +1 to attack for each rank in this class on all Sword attacks.",
     "type": "passive"
   },
@@ -588,8 +530,6 @@
   "class": "Swordsman",
     "rank": 2,
     "name": "Duelist",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you are fighting against a creature, and you and the creature do not have any allies within 5 feet, you deal an additional +2 damage on all Sword attacks.",
     "type": "passive"
   },
@@ -597,8 +537,6 @@
   "class": "Swordsman",
     "rank": 2,
     "name": "Improved Parry",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you use Parry an attack, it only costs you normal endurance cost, instead of double the endurance cost.",
     "type": "passive"
   },
@@ -615,8 +553,6 @@
   "class": "Swordsman",
     "rank": 4,
     "name": "Perfect Parry",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Once per round, you can parry without spending the weapons Endurance Cost.",
     "type": "passive"
   },
@@ -627,24 +563,21 @@
     "actionCost": 3,
     "enduranceCost": 0,
     "description": "You change your footing to one of pure aggression. For the next 3 rounds you can parry without spending the weapons Endurance Cost. Additionally any of your attacks which are Parried do not have an additional Endurance Cost to attack again.",
-    "type": ""
+    "type": "action"
   },
 
 {
   "class": "Alchemist",
     "rank": 1,
     "name": "Recipes",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "For each rank you have in this class you learn one alcohol recipe or compound recipe from the list below.",
-    "type": "passive"
+    "type": "passive",
+    "selectionBonus": "+"
   },
   {
   "class": "Alchemist",
     "rank": 1,
     "name": "Brew Concoctions",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You can use ingredients to create a batch of an alcohol or compound. These compounds can either be enhancements or poisons. Your Poison DC is equal to 10 + your rank in this class. ",
     "type": "passive"
   },
@@ -661,8 +594,6 @@
   "class": "Alchemist",
     "rank": 3,
     "name": "Chemist's Resistance",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have advantage on all rolls from poisons or compounds.",
     "type": "passive"
   },
@@ -679,8 +610,6 @@
   "class": "Alchemist",
     "rank": 4,
     "name": "Defensive Coating",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your natural poison resistance allows you to apply a poison to your skin without it affecting you. Whenever a creature hits you with an attack within 1 meter of you, they become inflicted with this poison. ",
     "type": "passive"
   },
@@ -688,8 +617,6 @@
   "class": "Alchemist",
     "rank": 5,
     "name": "Toxic Blood",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": " You are immune to the poison condition and take half damage from all poison damage. ",
     "type": "passive"
   },
@@ -697,18 +624,111 @@
   "class": "Alchemist",
     "rank": 5,
     "name": "Improved Toxicity",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You can now coat your weapon with multiple poisons at the same time. It takes 1 action per poison applied.",
     "type": "passive"
   },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Acidic Poison",
+    "cost": "2 Charges (3 Vials)",
+    "description": "Make a Grit check against your poison DC, on a failure you take 1d4 poison damage.",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Nauseous Poison",
+    "cost": "1 Charges (4 Vials)",
+    "description": "Make a Grit check against your poison DC, on a fail you gain the Poisoned condition for the next minute. You can remake this save at the end of your turn, you do not automatically fail this roll.",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Intoxication Poison",
+    "cost": "6 Charges (6 Vials)",
+    "description": "Make a Grit check against your poison DC, on a fail you gain +2 your alcohol level.",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Paralysis Poison",
+    "cost": "4 Charges (1 Vials)",
+    "description": "Make a Grit check against your poison DC, on a fail you are winded for the next minute. You can remake this save at the end of your turn, you do not automatically fail this roll.",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Steroid",
+    "cost": "3 Charges (1 Vials)",
+    "description": "After consuming this compound, your Brawn statistic increases by 2 for 1 hour. After the 1 hour has passed, your Grit is decreased by 2 until you take a Full Days Rest.",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Quicksilver",
+    "cost": "4 Charges (1 Vials)",
+    "description": "After consuming this compound, your evasion increases by 5 and you gain the Winded condition for 1 minute. ",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Owl's Calm",
+    "cost": "2 Charges (2 Vials)",
+    "description": "After consuming this compound, your body is awakened to the world around you for 30 seconds. You have advantage on all Awareness rolls and gain the calm condition. After the 30 seconds are over you gain the Concussed condition for 1 hour.",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Mead",
+    "cost": "1 Charges",
+    "description": "Alcohol Level: 1",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Wine",
+    "cost": "1 Charges",
+    "description": "Alcohol Level: 1",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Gin",
+    "cost": "2 Charges",
+    "description": "Alcohol Level: 2",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Whiskey",
+    "cost": "3 Charges",
+    "description": "Alcohol Level: 3",
+    "type": "selection"
+  },
+  {
+  "class": "Alchemist",
+    "rank": 1,
+    "name": "Rum",
+    "cost": "3 Charges",
+    "description": "Alcohol Level: 4",
+    "type": "selection"
+  },
+  
 
   {
   "class": "Blacksmith",
     "rank": 1,
     "name": "Forge",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you are working a forge you can craft a metal item whose worth is equal to the worth of the material it is made from.",
     "type": "passive"
   },
@@ -716,8 +736,6 @@
   "class": "Blacksmith",
     "rank": 1,
     "name": "Smith",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You gain the ability to use smith's tools.",
     "type": "passive"
   },
@@ -725,8 +743,6 @@
   "class": "Blacksmith",
     "rank": 1,
     "name": "Polish",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You are well versed in all forms of metal work. You can polish an old or rusted piece of equipment in order to remove any negative physical effects caused by the item's age.",
     "type": "passive"
   },
@@ -743,8 +759,6 @@
   "class": "Blacksmith",
     "rank": 2,
     "name": "Makeshift Forge",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You can use your blacksmith tools to create and use a makeshift forge as if it was a normal forge. Making items in this way takes twice as long.",
     "type": "passive"
   },
@@ -752,8 +766,6 @@
   "class": "Blacksmith",
     "rank": 3,
     "name": "",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have built up a resilience to extreme heats. You have advantage on all Weather Tolerance checks against heat and have a Toughness 1 against Fire damage.",
     "type": "passive"
   },
@@ -770,8 +782,6 @@
   "class": "Blacksmith",
     "rank": 5,
     "name": "Improved Forging",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you are working a forge you can craft a metal item whose worth is equal to double the worth of the material it is made from.",
     "type": "passive"
   },
@@ -780,17 +790,13 @@
   "class": "Carpenter",
     "rank": 1,
     "name": "Investigate Planks",
-    "actionCost": 0,
-    "enduranceCost": 0,
-    "description": "You can inspect the wood of the ship for damage, allowing you to repair 2d10 of a ship’s hit points while not at a port.",
+    "description": "You can inspect the wood of the ship for damage, allowing you to repair 2d10 of a ship's hit points while not at a port.",
     "type": "passive"
   },
   {
   "class": "Carpenter",
     "rank": 1,
     "name": "Carpentry",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You gain the ability to use carpenter's tools. You can carve trinkets from wood. The value of the trinket is equal to the value of the material it is made from.",
     "type": "passive"
   },
@@ -828,14 +834,12 @@
     "actionCost": 2,
     "enduranceCost": 3,
     "description": "You pull out a large amount of sawdust from your bag and create a puff of obscuring fog in a 3 meter radius around you. All creatures within the area become Blinded and gain Full Cover. This has an Endurance cost of 3.",
-    "type": "passive"
+    "type": "action"
   },
   {
   "class": "Carpenter",
     "rank": 5,
     "name": "Perfect Carvings",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "The value of your carvings after you finish working on them is now double the cost of the material it is made from.",
     "type": "passive"
   },
@@ -843,8 +847,6 @@
   "class": "Carpenter",
     "rank": 5,
     "name": "Splinter",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you cause a stack of the Bleed condition, the target is affected for one additional round.",
     "type": "passive"
   },
@@ -853,8 +855,6 @@
   "class": "Chef",
     "rank": 1,
     "name": "Cook",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Using 2 charges from cooking supplies, you craft a meal for the crew. Each member who eats this food regains 3d4 hit points per rank in this class. A person can only receive these benefits once per day.",
     "type": "passive"
   },
@@ -862,8 +862,6 @@
   "class": "Chef",
     "rank": 1,
     "name": "Cooking",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You gain the ability to use cooking tools.",
     "type": "passive"
   },
@@ -871,8 +869,6 @@
   "class": "Chef",
     "rank": 2,
     "name": "Knife Training",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You gain the ability to use a knife as a Finesse based sword or strike weapon that deals 1d4 slashing damage with the concealed and thrown properties.",
     "type": "passive"
   },
@@ -880,8 +876,6 @@
   "class": "Chef",
     "rank": 3,
     "name": "Stomach Resilient",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your iron gut makes you immune to the poison condition.",
     "type": "passive"
   },
@@ -907,8 +901,6 @@
   "class": "Chef",
     "rank": 5,
     "name": "Devilishly Delicious",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "The healing received from eating your food is always the maximum possible roll and a creature's endurance is spent Endurance. A person can only receive these benefits once per day.",
     "type": "passive"
   },
@@ -917,8 +909,6 @@
   "class": "Farmer",
     "rank": 1,
     "name": "Laborer Resilience",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your affinity for strenuous labor has helped you toughen up against the world. You have advantage on all Brawn Contests. ",
     "type": "passive"
   },
@@ -926,8 +916,6 @@
   "class": "Farmer",
     "rank": 1,
     "name": "Textile Crafting",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You gain knowledge on how to use textile tools.",
     "type": "passive"
   },
@@ -935,8 +923,6 @@
   "class": "Farmer",
     "rank": 2,
     "name": "Planter Box",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You can construct and tend to a number of planter boxes equal to your rank with this class, which must be tended to daily. After 2 weeks, you will receive 1d4 units of your planted ingredient daily.",
     "type": "passive"
   },
@@ -944,8 +930,6 @@
   "class": "Farmer",
     "rank": 2,
     "name": "Hem",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have the knowledge necessary to make and mend cloth of all nature.",
     "type": "passive"
   },
@@ -953,8 +937,6 @@
   "class": "Farmer",
     "rank": 3,
     "name": "Hard Worker",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Reduce the Endurance cost of all actions you take by 1.",
     "type": "passive"
   },
@@ -980,8 +962,6 @@
   "class": "Farmer",
     "rank": 5,
     "name": "Master Worker",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": " Reduce the Endurance cost of all actions you take by 2. This does stack with Hard Worker.",
     "type": "passive"
   },
@@ -990,8 +970,6 @@
   "class": "Fisherman",
     "rank": 1,
     "name": "",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have advantage on all fishing checks.",
     "type": "passive"
   },
@@ -999,8 +977,6 @@
   "class": "Fisherman",
     "rank": 1,
     "name": "Boating",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have advantage on all Nausea checks involving sea sickness.",
     "type": "passive"
   },
@@ -1017,8 +993,6 @@
   "class": "Fisherman",
     "rank": 2,
     "name": "Fishing Rod",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You gain the ability to use a fishing rod as a Brawn-based polearm weapon that deals 1d6 bludgeoning damage with the two-handed, hooked, and reach property.",
     "type": "passive"
   },
@@ -1035,8 +1009,6 @@
   "class": "Fisherman",
     "rank": 3,
     "name": "Bait",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You know how to craft bait that lures fish to you using an additional charge. Whenever you throw this bait in the water, all creatures gain a +5 on Fishing check nearby for up to 1 hour.",
     "type": "passive"
   },
@@ -1044,8 +1016,6 @@
   "class": "Fisherman",
     "rank": 3,
     "name": "Weathered",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have advantage on all Weather Tolerance roll.",
     "type": "passive"
   },
@@ -1053,8 +1023,6 @@
   "class": "Fisherman",
     "rank": 4,
     "name": "Knot Expertise",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your knowledge of knots is even stronger than before. Whenever you restrain a creature they have disadvantage to break free.",
     "type": "passive"
   },
@@ -1062,8 +1030,6 @@
   "class": "Fisherman",
     "rank": 4,
     "name": "Perfect Cast",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You automatically succeed on all fishing checks whose difficulty is less than your total character level.",
     "type": "passive"
   },
@@ -1080,8 +1046,6 @@
   "class": "Fisherman",
     "rank": 5,
     "name": "Catching Ships",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you perform the Tender Ship Action, reduce the cost by 2 SAP.",
     "type": "passive"
   },
@@ -1090,17 +1054,14 @@
   "class": "Grenadier",
     "rank": 1,
     "name": "Craft Grenade",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "During your freetime you gain the ability to craft grenades. You learn one grenade recipe per rank in this class. ",
-    "type": "passive"
+    "type": "passive",
+    "selectionBonus": "+"
   },
   {
   "class": "Grenadier",
     "rank": 1,
     "name": "Improved Explosions",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Increase the DC of the explosion ability by your rank in this class.",
     "type": "passive"
   },
@@ -1108,8 +1069,6 @@
   "class": "Grenadier",
     "rank": 2,
     "name": "Explosion Resistance",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain 2 toughness against grenades",
     "type": "passive"
   },
@@ -1117,8 +1076,6 @@
   "class": "Grenadier",
     "rank": 3,
     "name": "Improved Fuse",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have better control over the fuses you time your grenades. Whenever you use the fuse ability on a grenade, choose a creature. The fuse will go off at the start of their next turn.",
     "type": "passive"
   },
@@ -1126,8 +1083,6 @@
   "class": "Grenadier",
     "rank": 3,
     "name": "Explosive Response",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you make a Finesse roll against the Explosion ability, you take no damage on a successful roll and half damage on a fail.",
     "type": "passive"
   },
@@ -1135,8 +1090,6 @@
   "class": "Grenadier",
     "rank": 4,
     "name": "Improved Grenade Crafting",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you use the Craft Grenades Freetime ability, you can craft 2 grenades for the same amount of charges and the same time.",
     "type": "passive"
   },
@@ -1153,20 +1106,81 @@
   "class": "Grenadier",
     "rank": 5,
     "name": "Explosive Weaponry",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you perform the Fire Weapon Ship Action, reduce the cost by 2 SAP.",
     "type": "passive"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Alcohol",
+    "cost": "1 Charges",
+    "description": "Radius: 1 Meter, Damage: 1d6 Fire. Properties: Consumable, Explosion (10), Fuse, Minimal, Thrown",
+    "type": "selection"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Black Powder",
+    "cost": "2 Charges",
+    "description": "Radius: 2 Meter, Damage: 2d6 Fire. Properties: Consumable, Explosion (12), Fuse, Minimal, Thrown",
+    "type": "selection"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Shrapnel",
+    "cost": "2 Charges",
+    "description": "Radius: 1 Meter, Damage: 1d4 Fire + 1d4 Piercing. Properties: Consumable, Explosion (8), Fuse, Minimal, Thrown",
+    "type": "selection"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Wildfire",
+    "cost": "1 Charges",
+    "description": "Radius: 1 Meter, Effect: Each creature in this radius must make a Finesse roll or gain the burning condition for 1 minute. Properties: Consumable, Explosion (10), Fuse, Minimal, Thrown",
+    "type": "selection"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Flash",
+    "cost": "2 Charges",
+    "description": "Radius: 2 Meter, Effect: This grenade creates a blinding light. Each creature in that radius must make an Awareness roll or become blinded for until the end of your next turn. Properties: Consumable, Explosion (10), Fuse, Minimal, Thrown",
+    "type": "selection"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Thunder",
+    "cost": "2 Charges",
+    "description": "Radius: 3 Meter, Effect: This grenade creates a loud bang. Each creature in that radius must make an Awareness roll or become deafened for 1 minute. Properties: Consumable, Explosion (14), Fuse, Minimal, Thrown",
+    "type": "selection"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Smoke",
+    "cost": "1 Charges",
+    "description": "Radius: 4 Meter, Effect: This grenade billows smoke. While a creature is within the smoke they are blinded and cannot be targeted by ranged attacks. The smoke clears after 3 rounds. Properties: Consumable, Explosion (N/A), Fuse, Minimal, Thrown",
+    "type": "selection"
+  },
+  {
+  "class": "Grenadier",
+    "rank": 1,
+    "name": "Water",
+    "cost": "1 Charges",
+    "description": "Radius: 3 Meter, Effect: This grenade splatters water on all creatures. Each creature in that radius must make a Finesse Roll or become soaked for 10 minutes. Properties: Consumable, Explosion (16), Fuse, Minimal, Thrown",
+    "type": "selection"
   },
 
   {
   "class": "Trapper",
     "rank": 1,
     "name": "Create Trap",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You can expend a number of charges to create a type of trap you are familiar with. You learn one trap type from the list below for each rank in this class. Whenever someone triggers your trap, they must make a save against your Trap DC, equal to 10 + Brains.",
-    "type": "passive"
+    "type": "passive",
+    "selectionBonus": "+"
   },
   {
   "class": "Trapper",
@@ -1181,8 +1195,6 @@
   "class": "Trapper",
     "rank": 2,
     "name": "Tracker",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You know how to track the movements of creatures while on land. You have advantage on all checks to track or determine a creature's direction",
     "type": "passive"
   },
@@ -1199,8 +1211,6 @@
   "class": "Trapper",
     "rank": 4,
     "name": "Improved Craft Traps",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you use the Craft Trap ability, you can craft 2 traps for the same amount of charges. ",
     "type": "passive"
   },
@@ -1208,18 +1218,62 @@
   "class": "Trapper",
     "rank": 5,
     "name": "Responsive Deployment",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you start combat, you can place up to 3 traps instantly within 5 meters of yourself.",
     "type": "passive"
+  },
+  {
+  "class": "Trapper",
+    "rank": 1,
+    "name": "Snare",
+    "cost": "1 Charges",
+    "description": "Whenever a creature moves into that square, they must make a Finesse roll against your Trap DC, they become restrained. The restrain DC is your Trap DC. Once this trap is triggered it must be reactivated before it can be reused.",
+    "type": "selection"
+  },
+  {
+  "class": "Trapper",
+    "rank": 1,
+    "name": "Trip Rope",
+    "cost": "1 Charges",
+    "description": "Whenever you place this trap, choose another square within 2 meters of this. Create a line connecting these two squares. Whenever a creature crosses that line, they must make a Finesse roll against your Trap DC or fall prone. They are using a Move action when they fail, their Move action automatically ends.",
+    "type": "selection"
+  },
+  {
+  "class": "Trapper",
+    "rank": 1,
+    "name": "Sticky",
+    "cost": "1 Charges",
+    "description": "Moving through that square costs an extra 2 meters of movement.",
+    "type": "selection"
+  },
+  {
+  "class": "Trapper",
+    "rank": 1,
+    "name": "Spike",
+    "cost": "1 Charges",
+    "description": "Whenever a creature moves into that square they must make a Finesse roll against your Trap DC or take 1d10 piercing damage. On a success, the character takes no damage. Once this trap is triggered it must be reactivated before it can be reused.",
+    "type": "selection"
+  },
+  {
+  "class": "Trapper",
+    "rank": 1,
+    "name": "Concussive",
+    "cost": "1 Charges",
+    "description": "Whenever a creature moves into that square, they must make a Finesse roll against your Trap DC or take 1d4 piercing damage and gain the Concussed condition for 10 minutes. At the end of their turn they can make an Awareness roll against your Trap DC to end the condition early. Once this trap is triggered it must be reactivated before it can be reused.",
+    "type": "selection"
+  },
+  {
+  "class": "Trapper",
+    "rank": 1,
+    "name": "Big Game",
+    "cost": "1 Charges",
+    "description": "Whenever a creature moves into that square they must make a Finesse roll against your Trap DC or take 1d6 piercing damage and become restrained. The restrain DC is your Trap DC. Once this trap is triggered it must be reactivated before it can be reused.",
+    "type": "selection"
   },
 
   {
   "class": "Clergyman",
     "rank": 1,
     "name": "Religious Study",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have a strong understanding of different religions and what they believe. When you choose this class you and your GM must choose a Religion for you to follow.",
     "type": "passive"
   },
@@ -1227,10 +1281,9 @@
   "class": "Clergyman",
     "rank": 1,
     "name": "Omen of Blessing",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain a Blessing from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it. You can apply a Blessing or Curse to a person you are with while not in combat. You can have up to 1 Blessing active at once.",
-    "type": "passive"
+    "type": "passive",
+    "selectionBonus": 1
   },
   {
   "class": "Clergyman",
@@ -1245,16 +1298,15 @@
   "class": "Clergyman",
     "rank": 3,
     "name": "Omen of Blessing 2",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain a second Blessing or Curse from the list of Blessings below. Additionally you may now have up to 2 Blessings or Curses active at once.",
-    "type": "passive"
+    "type": "passive",
+    "selectionBonus": 1
   },
   {
   "class": "Clergyman",
     "rank": 3,
     "name": "Give Praise",
-    "actionCost": 0,
+    "actionCost": 2,
     "enduranceCost": 0,
     "description": "Choose an ally to give praise to. This ally must follow your religion. They gain a +3 bonus to their first attack roll made on their next turn.",
     "type": "action"
@@ -1262,9 +1314,7 @@
   {
   "class": "Clergyman",
     "rank": 4,
-    "name": "",
-    "actionCost": 0,
-    "enduranceCost": 0,
+    "name": "Denounce Omen",
     "description": "You can give a sermon to denounce the powers of a non-religious Omen to all crew members following your religion. Make a Brains roll against the Omen DC. If you pass, the Omen will no longer affect your crew's Camaraderie.",
     "type": "passive"
   },
@@ -1272,8 +1322,6 @@
   "class": "Clergyman",
     "rank": 5,
     "name": "Religious Confidence",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You are immune to the Conversion and Preach abilities of Clergyman who do not follow your religion.",
     "type": "passive"
   },
@@ -1281,18 +1329,265 @@
   "class": "Clergyman",
     "rank": 5,
     "name": "Omen of Blessing 3",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Gain a third Blessing or Curse from the list of Blessings below. Additionally you may now have up to 3 Blessings or Curses active at once.",
-    "type": "passive"
+    "type": "passive",
+    "selectionBonus": 1
+  },
+  {
+  "class": "Clergyman",
+    "rank": 1,
+    "name": "Religion",
+    "cost": "1 Charges",
+    "categoryKey": "religion",
+    "label": "Religion",
+    "type": "selection-category",
+    "options":["Church of Light", "Spirits of the Land", "Spirits of Battle", "Spirits of the Sea"]
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of Protection",
+  "type": "selection",
+  "cost": "-",
+  "description": "You bless someone with divine protection. They will receive a subtle warning when danger is nearby."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of Constitution",
+  "type": "selection",
+  "cost": "-",
+  "description": "You bless someone to have an improved constitution, they gain a +5 on all Tolerance rolls for the next 24 hours."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of Healing",
+  "type": "selection",
+  "cost": "-",
+  "description": "You bless someone to heal them from whatever plagues them. They gain a +5 on all Grit rolls against all poisons, diseases, or injuries currently inflicting them."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of Weakness",
+  "type": "selection",
+  "cost": "-",
+  "description": "You curse someone to weaken their spirits. They gain a -5 on all Grit rolls against all poisons, diseases, or injuries currently inflicting them."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of Folly",
+  "type": "selection",
+  "cost": "-",
+  "description": "You curse someone with a clouded mind. They have a -5 on all Brains skill rolls."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of Light",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Church of Light",
+  "cost": "-",
+  "description": "You bless someone with an improved insight. They gain a +5 to all Investigation and Intuition rolls."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of Fortune",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Church of Light",
+  "cost": "-",
+  "description": "You bless someone with great luck. They gain 1 additional maximum luck point."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of the Dawn",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Church of Light",
+  "cost": "-",
+  "description": "You bless an object with the light of the sun. While someone is holding this object they have a +5 on all Awareness skill rolls and a -5 on all Skulduggery and Sneaking rolls."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of the Pure",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Church of Light",
+  "cost": "-",
+  "description": "You curse someone with purity. They have a -5 on all Swagger rolls involving lies or deceit."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of the Dusk",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Church of Light",
+  "cost": "-",
+  "description": "You curse an object with the darkness of night. While someone is holding this object they have a -5 on all Awareness skill rolls and a +5 on all Skulduggery and Sneaking rolls."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of the Mountain",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Land",
+  "cost": "-",
+  "description": "You bless someone to have the mental fortitude of a mountain. You gain a +5 on Swagger rolls involving standing your ground."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of the Sand",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Land",
+  "cost": "-",
+  "description": "You bless someone with the fluidity of sand. They gain a +5 on all Finesse rolls involving escaping or slipping away."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of Fertility",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Land",
+  "cost": "-",
+  "description": "You bless the land around you, improving its fertility allowing for improved crop growth. This blessing does not count towards your total active blessings."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of Unmoving",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Land",
+  "cost": "-",
+  "description": "You curse your target to become slow and unmoving. They gain a -5 on all Finesse rolls involving escaping or slipping away."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of the Unsanctified Ground",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Land",
+  "cost": "-",
+  "description": "You curse the land around you, preventing crops from growing, spreading weeds, and sickening animals who attempt to graze there. This blessing does not count towards your total active blessings."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of the Beast",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of Battle",
+  "cost": "-",
+  "description": "You bless someone with powers of the animal kingdom. They have a +5 bonus to all Lifting, Swimming, Acrobatics, and Tracking rolls."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of the Cunning",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of Battle",
+  "cost": "-",
+  "description": "You bless someone with a strong mental wit. They gain a +5 on all Brains rolls within the heat of combat."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of History",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of Battle",
+  "cost": "-",
+  "description": "You bless an old relic with the spirit of a warrior who used it before. If this relic is wearable you gain +1 to your evasion while wearing it. If this relic is a weapon you gain +1 to attack rolls made using it. Otherwise, you gain a +5 on all History rolls for this object."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of Cowardice",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of Battle",
+  "cost": "-",
+  "description": "You curse someone with fear in their hearts. All Infamy and Influence rolls made against this person have a +5."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of Frost",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of Battle",
+  "cost": "-",
+  "description": "You curse the land around you with a great chill. Winters within the land are more likely to become hard and bitter. This blessing does not count towards your total active blessings."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of the Tempest",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Sea",
+  "cost": "-",
+  "description": "You bless a ship with control in dangerous waters. Whoever is driving has a +5 to all rolls to control it in rough or stormy conditions."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of the Tide",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Sea",
+  "cost": "-",
+  "description": "You bless a ship with the speed of the sea, allowing the waves themselves to push it towards its destination."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 1,
+  "name": "Blessing of Calm Waters",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Sea",
+  "cost": "-",
+  "description": "You bless the sea to quiet the storms and rough waves. The sea is more likely to be calm going forward."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of Lightning",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Sea",
+  "cost": "-",
+  "description": "You bless the weather itself, making storms more likely to appear in the sky."
+  },
+  {
+  "class": "Clergyman",
+  "rank": 3,
+  "name": "Curse of the Monsoon",
+  "type": "selection",
+  "selectionCategory": "religion",
+  "selectionOption": "Spirits of the Sea",
+  "cost": "-",
+  "description": "You curse a ship to cause the sea itself to fight it every movement, the ship will move slower towards its destination."
   },
 
   {
   "class": "Doctor",
     "rank": 1,
     "name": "Quicken Heal",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You regain 2 hit points for every hour they rest.",
     "type": "passive"
   },
@@ -1300,8 +1595,6 @@
   "class": "Doctor",
     "rank": 1,
     "name": "Medical Knowledge",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have an extensive understanding of the human body.",
     "type": "passive"
   },
@@ -1327,8 +1620,6 @@
   "class": "Doctor",
     "rank": 2,
     "name": "Sanitation",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "All creatures have advantage on rolls to prevent sickness or disease while you are on the crew.",
     "type": "passive"
   },
@@ -1336,8 +1627,6 @@
   "class": "Doctor",
     "rank": 3,
     "name": "Mend",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You can help mend a resting sailor's broken bones, they regain 2 hit points for every hour they rest until they are at full health or are damaged. ",
     "type": "passive"
   },
@@ -1345,8 +1634,6 @@
   "class": "Doctor",
     "rank": 3,
     "name": "Nursing",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You help nurse a sick sailor's health. They have advantage on the roll to help them end the sickness.",
     "type": "passive"
   },
@@ -1354,8 +1641,6 @@
   "class": "Doctor",
     "rank": 4,
     "name": "Surgical Precision",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your medical knowledge can be used for more than just healing people. Whenever you deal piercing damage with a melee weapon, you also inflict your target with the Bleeding condition until the start of your next turn.",
     "type": "passive"
   },
@@ -1373,8 +1658,6 @@
   "class": "Ecologist",
     "rank": 1,
     "name": "Natural Reach",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have a deep understanding of different flora and fauna around you.",
     "type": "passive"
   },
@@ -1382,8 +1665,6 @@
   "class": "Ecologist",
     "rank": 1,
     "name": "Forage",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "While on land, you can forage for different herbs that might be useful to you. Make a Brains roll, the DC based on the rarity of the herbs you are looking for.",
     "type": "passive"
   },
@@ -1391,8 +1672,6 @@
   "class": "Ecologist",
     "rank": 2,
     "name": "Tame Animal",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your knowledge of animals allows you to understand what is necessary to tame a beast. You and your Sea Master agree on a creature to act as your pet. Some suggested animals are a bird, a cat, a dog, or a fish.",
     "type": "passive"
   },
@@ -1418,8 +1697,6 @@
   "class": "Ecologist",
     "rank": 4,
     "name": "Veterinary Studies",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You understand the medical needs of beasts which you have tamed. ",
     "type": "passive"
   },
@@ -1427,8 +1704,6 @@
   "class": "Ecologist",
     "rank": 4,
     "name": "Improved Beast Command",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you take the Command Beast action, you can command the orders you command last for 2 rounds. You can control it in combat after your next turn is over as well without an additional action.",
     "type": "passive"
   },
@@ -1446,8 +1721,6 @@
   "class": "Musician",
     "rank": 1,
     "name": "Perfect Practice",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You gain the ability to play a musical instrument, sing, or learn a new dance of your choice each time you gain a rank in this class.",
     "type": "passive"
   },
@@ -1455,8 +1728,6 @@
   "class": "Musician",
     "rank": 1,
     "name": "Musical Theory",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have a lucrative understanding of music theory and know how to write songs.",
     "type": "passive"
   },
@@ -1491,8 +1762,6 @@
   "class": "Musician",
     "rank": 4,
     "name": "Fancy Footwork",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Dodging costs you 2 less Endurance. ",
     "type": "passive"
   },
@@ -1518,8 +1787,6 @@
   "class": "Musician",
     "rank": 5,
     "name": "Party Hard",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Each night you can host a party with your crew. Your crew gains 1 Camaraderie for each crew member that participates in your party.",
     "type": "passive"
   },
@@ -1528,8 +1795,6 @@
   "class": "Navigator",
     "rank": 1,
     "name": "Superior Movement",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You are immune to any ability that lowers your movement through a square.",
     "type": "passive"
   },
@@ -1537,8 +1802,6 @@
   "class": "Navigator",
     "rank": 1,
     "name": "Nautical Knowledge",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have a considerable understanding of how to read all types of nautical charts.",
     "type": "passive"
   },
@@ -1546,8 +1809,6 @@
   "class": "Navigator",
     "rank": 2,
     "name": "Calculate Location",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You are able to analyze the stars, sun, and nearby islands to determine your precise location on a nautical map.",
     "type": "passive"
   },
@@ -1555,8 +1816,6 @@
   "class": "Navigator",
     "rank": 2,
     "name": "Chart a Course",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your knowledge of nautical charts allows you to follow a map to a location",
     "type": "passive"
   },
@@ -1567,14 +1826,12 @@
     "actionCost": 1,
     "enduranceCost": "1/2 Movement",
     "description": "Whenever you use the move action, you can create a moment of opportunity, allowing one of your ally's to move up to their base movement on your turn as well.",
-    "type": "passive"
+    "type": "action"
   },
   {
   "class": "Navigator",
     "rank": 3,
     "name": "Improved Speed",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": " You gain an additional 2 meters of base movement on the first Move action of your turn.",
     "type": "passive"
   },
@@ -1582,8 +1839,6 @@
   "class": "Navigator",
     "rank": 4,
     "name": "Cartographer",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your knowledge of nautical charts now extends to making maps as well. You can now make a nautical map of your current location, allowing other navigators to chart a course here.",
     "type": "passive"
   },
@@ -1591,8 +1846,6 @@
   "class": "Navigator",
     "rank": 5,
     "name": "Ship Control",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you perform the Turn or Adjust Rigging Ship Action, reduce the cost by 2 SAP.",
     "type": "passive"
   },
@@ -1601,8 +1854,6 @@
   "class": "Noble",
     "rank": 1,
     "name": "Linguist's Education",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You know and understand the art of language very well. Each time you gain a rank in this class you learn a new language.",
     "type": "passive"
   },
@@ -1610,8 +1861,6 @@
   "class": "Noble",
     "rank": 1,
     "name": "Good Negotiator",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "You have advantage on all negotiation checks.",
     "type": "passive"
   },
@@ -1622,14 +1871,13 @@
     "actionCost": 2,
     "enduranceCost": 0,
     "description": "You can give a command to your allies, improving their coordination and their ability to work together until the end of your next turn. You learn one command for each rank in this class from the list below.",
-    "type": "action"
+    "type": "action",
+    "selectionBonus": "+"
   },
   {
   "class": "Noble",
     "rank": 2,
     "name": "Take Charge",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Improve your rolls for Ship Action Points by 1.",
     "type": "passive"
   },
@@ -1637,8 +1885,6 @@
   "class": "Noble",
     "rank": 3,
     "name": "Historic Bloodline",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your noble heritage did not just come with an education. Your name carries a reputation based on the circles you travel in. ",
     "type": "passive"
   },
@@ -1646,8 +1892,6 @@
   "class": "Noble",
     "rank": 4,
     "name": "Inspiring",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Improve your rolls for Ship Action Points by an additional 1.",
     "type": "passive"
   },
@@ -1655,8 +1899,6 @@
   "class": "Noble",
     "rank": 5,
     "name": "True Captain",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Whenever you roll for Ship Action Points, if your roll is 4 or less, change the roll to be 5.",
     "type": "passive"
   },
@@ -1664,10 +1906,48 @@
   "class": "Noble",
     "rank": 5,
     "name": "Strong Leader",
-    "actionCost": 0,
-    "enduranceCost": 0,
     "description": "Your Ship's Camaraderie cannot fall lower than 0 - the number of total crew members.",
     "type": "passive"
+  },
+  {
+  "class": "Noble",
+    "rank": 1,
+    "name": "Charge Forward",
+    "cost": "-",
+    "description": "Once per turn, as part of the move action, allies can make an attack.",
+    "type": "selection"
+  },
+  {
+  "class": "Noble",
+    "rank": 1,
+    "name": "Go for the Eyes",
+    "cost": "-",
+    "description": "Once per turn, allies can make two attacks as one attack action.",
+    "type": "selection"
+  },
+  {
+  "class": "Noble",
+    "rank": 1,
+    "name": "Parry It",
+    "cost": "-",
+    "description": "Once per turn, allies under this effect do not spend the Weapon Endurance Cost to Parry an attack. ",
+    "type": "selection"
+  },
+  {
+  "class": "Noble",
+    "rank": 1,
+    "name": "Fall Back Men",
+    "cost": "-",
+    "description": "Allies movement speed is doubled when moving away from all enemies.",
+    "type": "selection"
+  },
+  {
+  "class": "Noble",
+    "rank": 1,
+    "name": "It's Faster to Swap",
+    "cost": "-",
+    "description": "Once per turn, allies can also switch weapons when reloading.",
+    "type": "selection"
   }
 
 ]

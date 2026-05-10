@@ -287,6 +287,7 @@
             .mainpage {
                 padding: 20px;
                 padding-bottom: 96px;
+                min-width: 0;
             }
 
             .folioHero,
@@ -353,6 +354,7 @@
                 position: relative;
                 overflow: hidden;
                 isolation: isolate;
+                min-width: 0;
             }
 
             .recordsSection::before {
@@ -582,6 +584,39 @@
 
             .tabContent {
                 padding: 0 18px 18px;
+                min-width: 0;
+                max-width: 100%;
+                overflow-x: auto;
+                box-sizing: border-box;
+            }
+
+            .combatSplit {
+                display: flex;
+                gap: 40px;
+                flex-wrap: wrap;
+            }
+
+            .combatDataTable {
+                margin-top: 10px;
+            }
+
+            .combatDataHeader,
+            .combatDataRow {
+                display: grid;
+                gap: 0;
+            }
+
+            .combatDataCell {
+                min-width: 0;
+            }
+
+            .combatDataCellLabel {
+                display: none;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: rgba(47, 36, 23, 0.66);
+                margin-bottom: 4px;
             }
 
             .journalGrid {
@@ -757,6 +792,92 @@
                 .statButtons span {
                     overflow-wrap: anywhere;
                 }
+
+                .combatSplit {
+                    flex-direction: column;
+                    gap: 18px;
+                }
+
+                .combatDataTable {
+                    overflow: visible;
+                }
+
+                .combatDataHeader {
+                    display: none !important;
+                }
+
+                .combatDataRow {
+                    display: grid !important;
+                    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                    gap: 10px 12px !important;
+                    padding: 10px !important;
+                    margin-bottom: 10px;
+                    border: 1px solid rgba(92, 69, 36, 0.18);
+                    border-radius: 12px;
+                    background: rgba(255, 251, 242, 0.62);
+                }
+
+                .combatDataCell {
+                    display: block;
+                }
+
+                .combatDataCellLabel {
+                    display: none;
+                }
+
+                .combatDataTable--conditions .combatDataRow > div:nth-child(1)::before,
+                .combatDataTable--conditions .combatDataRow > div:nth-child(2)::before,
+                .combatDataTable--conditions .combatDataRow > div:nth-child(3)::before,
+                .combatDataTable--conditions .combatDataRow > div:nth-child(4)::before,
+                .combatDataTable--conditions .combatDataRow > div:nth-child(5)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(1)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(2)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(3)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(4)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(5)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(6)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(7)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(8)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(9)::before,
+                .combatDataTable--weapons .combatDataRow > div:nth-child(10)::before {
+                    display: block;
+                    font-size: 11px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.08em;
+                    color: rgba(47, 36, 23, 0.66);
+                    margin-bottom: 4px;
+                }
+
+                .combatDataTable--conditions .combatDataRow > div:nth-child(1)::before { content: "Name"; }
+                .combatDataTable--conditions .combatDataRow > div:nth-child(2)::before { content: "Stacks"; }
+                .combatDataTable--conditions .combatDataRow > div:nth-child(3)::before { content: "Source"; }
+                .combatDataTable--conditions .combatDataRow > div:nth-child(4)::before { content: "Remove"; }
+                .combatDataTable--conditions .combatDataRow > div:nth-child(5)::before { content: "Order"; }
+
+                .combatDataTable--weapons .combatDataRow > div:nth-child(1)::before { content: "Name"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(2)::before { content: "Type"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(3)::before { content: "Attack Stat"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(4)::before { content: "Attack Bonus"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(5)::before { content: "Damage"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(6)::before { content: "Endurance"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(7)::before { content: "Properties"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(8)::before { content: "Swap"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(9)::before { content: "Remove"; }
+                .combatDataTable--weapons .combatDataRow > div:nth-child(10)::before { content: "Order"; }
+
+                .combatDataCell--full {
+                    grid-column: 1 / -1;
+                }
+            }
+
+            @media (max-width: 520px) {
+                .combatDataRow {
+                    grid-template-columns: 1fr !important;
+                }
+
+                .combatDataCell--full {
+                    grid-column: auto;
+                }
             }
         </style>
 
@@ -866,6 +987,14 @@
                 source: definition.hasSource ? "" : ""
             })
 
+            function getSelectionAbilityKey(ability){
+                return `${ability.class}::${ability.rank}::${ability.name}`
+            }
+
+            function getSelectionCategoryStateKey(className, categoryKey){
+                return `${className}::${categoryKey}`
+            }
+
             // Armor Statistics
             const BASE_ARMOR_STATS = {
                 "No Armor": { 
@@ -958,6 +1087,13 @@
                 setSortBy,
                 sortedActionAbilities,
                 passiveAbilities,
+                selectionAbilities,
+                selectionAbilitiesByClass,
+                selectionCategoryDefinitionsByClass,
+                knownSelectionAbilities,
+                selectedSelectionCategories,
+                toggleKnownSelectionAbility,
+                updateSelectionCategory,
                 background,
                 setBackground,
                 expansions,
@@ -969,6 +1105,7 @@
                 }) {
 
                 const [activeTab,setActiveTab] = React.useState("class")
+                const [hideUnselectedSelectionAbilities,setHideUnselectedSelectionAbilities] = React.useState(false)
                 const initiative = settings.initiativeOverride ?? (finalStats.Brains + finalStats.Finesse)
 
                 function renderBackgroundJournal(){
@@ -1066,7 +1203,8 @@
 
                 <section className="folioHero statsHero">
                 <div className="folioHeroHeader">
-                    <div>
+                    <div className="combatDataCell">
+                    <div className="combatDataCellLabel">Order</div>
                         <div className="folioKicker">Crew Record</div>
                         <h2 className="sectionTitle">Stats and Skills</h2>
                     </div>
@@ -1129,7 +1267,8 @@
                 <section className="folioSection sectionSpacer recordsSection">
 
                 <div className="sectionHeader">
-                    <div>
+                    <div className="combatDataCell">
+                    <div className="combatDataCellLabel">Order</div>
                         <div className="folioKicker">Ship Operations</div>
                         <h2 className="sectionTitle">Mechanical Records</h2>
                     </div>
@@ -1168,7 +1307,7 @@
                 Sort:{" "}
                 <select value={sortBy} onChange={e=>setSortBy(e.target.value)}>
                 <option value="rank">By Rank</option>
-                <option value="cost">By Action Cost</option>
+                <option value="cost">By Cost</option>
                 </select>
                 </div>
 
@@ -1192,6 +1331,92 @@
                 {a.description}
                 </div>
                 ))}
+
+                {selectionAbilities.length > 0 && (
+                <div style={{marginTop:"14px"}}>
+                <h4>Selection Abilities</h4>
+
+                <label style={{display:"inline-flex", alignItems:"center", gap:"6px", marginBottom:"10px"}}>
+                <input
+                type="checkbox"
+                checked={hideUnselectedSelectionAbilities}
+                onChange={e=>setHideUnselectedSelectionAbilities(e.target.checked)}
+                />
+                Hide unselected
+                </label>
+
+                {selectionAbilitiesByClass.map(({className, availableCount, abilities})=>{
+                const categoryDefinitions = selectionCategoryDefinitionsByClass[className] || []
+                const filteredAbilities = abilities.filter(ability=>{
+                    const categoryKey = ability.selectionCategory
+                    const categoryOption = ability.selectionOption
+
+                    if(!categoryKey || !categoryOption) return true
+
+                    return selectedSelectionCategories[getSelectionCategoryStateKey(className, categoryKey)] === categoryOption
+                })
+                const selectedCount = filteredAbilities.filter(ability=>knownSelectionAbilities[getSelectionAbilityKey(ability)]).length
+
+                return (
+                <div key={className} style={{marginBottom:"12px"}}>
+                <div style={{fontWeight:"bold", marginBottom:"6px"}}>
+                {className} Selections Available: {availableCount - selectedCount}
+                </div>
+
+                {categoryDefinitions.map(category=>(
+                <div key={getSelectionCategoryStateKey(className, category.categoryKey)} style={{marginBottom:"8px"}}>
+                <label style={{display:"block", marginBottom:"4px"}}>
+                {category.label || category.name}
+                </label>
+                <select
+                value={selectedSelectionCategories[getSelectionCategoryStateKey(className, category.categoryKey)] ?? ""}
+                onChange={e=>updateSelectionCategory(className, category.categoryKey, e.target.value)}
+                >
+                <option value="">Select {category.label || category.name}</option>
+                {(category.options || []).map(option=>(
+                <option key={option} value={option}>{option}</option>
+                ))}
+                </select>
+                </div>
+                ))}
+
+                {filteredAbilities
+                .filter(ability=>!hideUnselectedSelectionAbilities || knownSelectionAbilities[getSelectionAbilityKey(ability)])
+                .map((a,i)=>{
+                const isKnown = Boolean(knownSelectionAbilities[getSelectionAbilityKey(a)])
+                const isUnavailable = !isKnown && selectedCount >= availableCount
+
+                return (
+                <div
+                key={`${getSelectionAbilityKey(a)}-${i}`}
+                style={{
+                    borderBottom:"1px solid #ccc",
+                    marginBottom:"6px",
+                    paddingBottom:"4px",
+                    opacity: isUnavailable ? 0.45 : 1
+                }}
+                >
+                <label style={{display:"inline-flex", alignItems:"center", gap:"8px", marginBottom:"4px", color: isUnavailable ? "#777" : "inherit"}}>
+                <input
+                type="checkbox"
+                checked={isKnown}
+                disabled={isUnavailable}
+                onChange={()=>toggleKnownSelectionAbility(a)}
+                />
+                <strong>{a.name}</strong> (Rank {a.rank})
+                </label>
+                <br/>
+                Class: {a.class}<br/>
+                Cost: {a.cost ?? a.actionCost ?? 0}<br/>
+                {a.description}
+                </div>
+                )
+                })}
+                </div>
+                )
+                })}
+                </div>
+                )}
 
                 </div>
 
@@ -1217,7 +1442,7 @@
                     </div>
                     </div>
 
-                   <div style={{display:"flex",gap:"40px"}}>
+                   <div className="combatSplit">
 
                     <div>
 
@@ -1309,8 +1534,8 @@
                     <button onClick={()=>addCondition(conditionChoice)}>Add Condition</button>
                     </div>
 
-                    <div style={{marginTop:"10px"}}>
-                    <div style={{
+                    <div className="combatDataTable combatDataTable--conditions">
+                    <div className="combatDataHeader" style={{
                         display:"grid",
                         gridTemplateColumns:"180px 120px 180px 80px 90px",
                         fontWeight:"bold",
@@ -1327,6 +1552,7 @@
                     {activeConditions.map((condition,index)=>(
                     <div
                     key={condition.id}
+                    className="combatDataRow"
                     style={{
                         display:"grid",
                         gridTemplateColumns:"180px 120px 180px 80px 90px",
@@ -1335,10 +1561,12 @@
                         alignItems:"center"
                     }}
                     >
-                    <div title={condition.description} style={{textDecoration:"underline dotted", cursor:"help"}}>
+                    <div className="combatDataCell" title={condition.description} style={{textDecoration:"underline dotted", cursor:"help"}}>
+                    <div className="combatDataCellLabel">Name</div>
                     {condition.name}
                     </div>
-                    <div>
+                    <div className="combatDataCell">
+                    <div className="combatDataCellLabel">Stacks</div>
                     {condition.hasStack ? (
                     <input
                     type="number"
@@ -1351,7 +1579,8 @@
                     <span>-</span>
                     )}
                     </div>
-                    <div>
+                    <div className="combatDataCell combatDataCell--full">
+                    <div className="combatDataCellLabel">Source</div>
                     {condition.hasSource ? (
                     <input
                     value={condition.source ?? ""}
@@ -1363,7 +1592,10 @@
                     <span>-</span>
                     )}
                     </div>
-                    <div><button onClick={()=>removeCondition(condition.id)}>Remove</button></div>
+                    <div className="combatDataCell">
+                    <div className="combatDataCellLabel">Remove</div>
+                    <button onClick={()=>removeCondition(condition.id)}>Remove</button>
+                    </div>
                     <div>
                     <button onClick={()=>moveCondition(index,-1)}>↑</button>
                     <button onClick={()=>moveCondition(index,1)}>↓</button>
@@ -1394,8 +1626,8 @@
 
                     <h4>Equipped Weapons</h4>
 
-                    <div style={{marginTop:"10px"}}>
-                        <div style={{
+                    <div className="combatDataTable combatDataTable--weapons">
+                        <div className="combatDataHeader" style={{
                         display:"grid",
                         gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px 90px",
                         fontWeight:"bold",
@@ -1442,6 +1674,7 @@
 
                         <div
                         key={i}
+                        className="combatDataRow"
                         style={{
                         display:"grid",
                         gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px 90px",
@@ -1460,7 +1693,7 @@
                         {w.name === UNARMED_WEAPON_NAME ? (
                         <div>Always Equipped</div>
                         ) : (
-                        <button onClick={()=>swapWeapon(i,"equipped")}>Unequip</button>
+                        <div><button onClick={()=>swapWeapon(i,"equipped")}>Unequip</button></div>
                         )}
                         <div>
                         {w.name === UNARMED_WEAPON_NAME ? null : <button onClick={()=>removeWeapon(i,"equipped")}>Remove</button>}
@@ -1479,7 +1712,8 @@
                     </div>
 
                     <h4>Backpack</h4>
-                    <div style={{
+                    <div className="combatDataTable combatDataTable--weapons">
+                    <div className="combatDataHeader" style={{
                     display:"grid",
                     gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px 90px",
                     fontWeight:"bold",
@@ -1530,6 +1764,7 @@
 
                     <div
                     key={`${w.name}-${index}`}
+                    className="combatDataRow"
                     style={{
                     display:"grid",
                     gridTemplateColumns:"120px 120px 120px 120px 150px 120px 1fr 80px 80px 90px",
@@ -1556,6 +1791,76 @@
                     )
 
                     })}
+                    </div>
+                </div>
+                )}
+
+                {false && activeTab === "crafting" && (
+                <div>
+
+                <h3>Crafting</h3>
+
+                <button onClick={addCraftingProject}>Add Project</button>
+
+                <div style={{marginTop:"10px"}}>
+                <div style={{
+                    display:"grid",
+                    gridTemplateColumns:"180px 180px 100px 1fr 80px 90px",
+                    fontWeight:"bold",
+                    borderBottom:"2px solid #ccc",
+                    paddingBottom:"4px"
+                }}>
+                    <div>Project</div>
+                    <div>Materials</div>
+                    <div>Charges</div>
+                    <div>Notes</div>
+                    <div>Remove</div>
+                    <div>Order</div>
+                </div>
+
+                {craftingProjects.map((project,index)=>(
+                <div
+                key={project.id}
+                style={{
+                    display:"grid",
+                    gridTemplateColumns:"180px 180px 100px 1fr 80px 90px",
+                    padding:"4px 0",
+                    borderBottom:"1px solid #ddd"
+                }}
+                >
+                <input
+                value={project.name}
+                onChange={e=>updateCraftingProject(project.id,"name",e.target.value)}
+                />
+
+                <input
+                value={project.materials}
+                onChange={e=>updateCraftingProject(project.id,"materials",e.target.value)}
+                />
+
+                <input
+                type="number"
+                value={project.charges}
+                onChange={e=>updateCraftingProject(project.id,"charges",Number(e.target.value) || 0)}
+                style={{width:"60px"}}
+                />
+
+                <input
+                value={project.notes}
+                onChange={e=>updateCraftingProject(project.id,"notes",e.target.value)}
+                />
+
+                <button onClick={()=>removeCraftingProject(project.id)}>Remove</button>
+                <div>
+                <>
+                <button onClick={()=>moveCraftingProject(index,-1)}>â†‘</button>
+                <button onClick={()=>moveCraftingProject(index,1)}>â†“</button>
+                </>
+                </div>
+                </div>
+                ))}
+                </div>
+
                 </div>
                 )}
 
@@ -2389,6 +2694,8 @@
                 const [name,setName] = React.useState("")
                 const [crew,setCrew] = React.useState("")
                 const [currentLevel,setCurrentLevel] = React.useState(1)
+                const [knownSelectionAbilities,setKnownSelectionAbilities] = React.useState({})
+                const [selectedSelectionCategories,setSelectedSelectionCategories] = React.useState({})
 
                 const [levels,setLevels] = React.useState(Array(20).fill(null))
                 const [level1,setLevel1] = React.useState(["","",""])
@@ -2916,7 +3223,10 @@
                     .then(data=>setBaseClassAbilities(data))
                 },[])
 
+                const getAbilityType = ability=>(ability.type || "").toString().trim().toLowerCase()
+
                 const availableAbilities = classAbilities.filter(ability=>{
+                    const type = getAbilityType(ability)
 
                     if(ability.class === "General") return true
 
@@ -2924,10 +3234,81 @@
                     return ability.rank <= rank
                 })
 
-                const actionAbilities = availableAbilities.filter(a=>a.type === "action")
-                const passiveAbilities = availableAbilities.filter(a=>a.type !== "action")
-
                 const [sortBy,setSortBy] = React.useState("rank")
+
+                const actionAbilities = availableAbilities.filter(a=>getAbilityType(a) === "action")
+                const passiveAbilities = availableAbilities.filter(a=>{
+                    const type = getAbilityType(a)
+                    return type !== "action" && type !== "selection" && type !== "selection ability" && type !== "selection-category"
+                })
+                const selectionCategoryDefinitions = availableAbilities
+                .filter(a=>getAbilityType(a) === "selection-category")
+                .sort((a,b)=>{
+                    if(a.class !== b.class){
+                        return a.class.localeCompare(b.class)
+                    }
+
+                    if(a.rank !== b.rank){
+                        return a.rank - b.rank
+                    }
+
+                    return (a.label || a.name || a.categoryKey || "").localeCompare(b.label || b.name || b.categoryKey || "")
+                })
+                const selectionAbilities = availableAbilities
+                .filter(a=>{
+                    const type = getAbilityType(a)
+                    return type === "selection" || type === "selection ability"
+                })
+                .sort((a,b)=>{
+                    if(sortBy === "cost"){
+                        return (a.cost ?? a.actionCost ?? 0) - (b.cost ?? b.actionCost ?? 0)
+                    }
+
+                    if(a.rank !== b.rank){
+                        return a.rank - b.rank
+                    }
+
+                    return a.name.localeCompare(b.name)
+                })
+                const selectionClasses = [...new Set(selectionAbilities.map(ability=>ability.class))]
+                const selectionAvailabilityByClass = selectionClasses.reduce((totals, className)=>{
+                    totals[className] = 0
+                    return totals
+                }, {})
+
+                availableAbilities.forEach(ability=>{
+                    const bonus = ability.selectionBonus
+                    const className = ability.class
+                    const type = getAbilityType(ability)
+                    const numericBonus = typeof bonus === "string" ? Number(bonus) : bonus
+
+                    if(type === "selection" || type === "selection ability") return
+
+                    if(!selectionAvailabilityByClass.hasOwnProperty(className)) return
+
+                    if(bonus === "+"){
+                        selectionAvailabilityByClass[className] += classCounts[className] || 0
+                        return
+                    }
+
+                    if(Number.isFinite(numericBonus)){
+                        selectionAvailabilityByClass[className] += numericBonus
+                    }
+                })
+                const selectionCategoryDefinitionsByClass = selectionCategoryDefinitions.reduce((groups, category)=>{
+                    if(!groups[category.class]){
+                        groups[category.class] = []
+                    }
+
+                    groups[category.class].push(category)
+                    return groups
+                }, {})
+
+                const selectionAbilitiesByClass = selectionClasses.map(className=>({
+                    className,
+                    availableCount: selectionAvailabilityByClass[className] || 0,
+                    abilities: selectionAbilities.filter(ability=>ability.class === className)
+                }))
 
                 const sortedActionAbilities = [...actionAbilities].sort((a,b)=>{
                     if(sortBy === "cost"){
@@ -2935,6 +3316,58 @@
                     }
                     return a.rank - b.rank
                 })
+
+                function toggleKnownSelectionAbility(ability){
+                    const key = getSelectionAbilityKey(ability)
+                    const className = ability.class
+                    const selectedCount = selectionAbilities
+                    .filter(selectionAbility=>
+                        selectionAbility.class === className &&
+                        (
+                            !selectionAbility.selectionCategory ||
+                            !selectionAbility.selectionOption ||
+                            selectedSelectionCategories[getSelectionCategoryStateKey(className, selectionAbility.selectionCategory)] === selectionAbility.selectionOption
+                        ) &&
+                        knownSelectionAbilities[getSelectionAbilityKey(selectionAbility)]
+                    )
+                    .length
+                    const availableCount = selectionAvailabilityByClass[className] || 0
+                    const isKnown = Boolean(knownSelectionAbilities[key])
+
+                    if(!isKnown && selectedCount >= availableCount){
+                        return
+                    }
+
+                    setKnownSelectionAbilities(prev=>({
+                        ...prev,
+                        [key]: !prev[key]
+                    }))
+                }
+
+                function updateSelectionCategory(className, categoryKey, value){
+                    const stateKey = getSelectionCategoryStateKey(className, categoryKey)
+
+                    setSelectedSelectionCategories(prev=>({
+                        ...prev,
+                        [stateKey]: value
+                    }))
+
+                    setKnownSelectionAbilities(prev=>{
+                        const next = { ...prev }
+
+                        selectionAbilities.forEach(ability=>{
+                            if(ability.class !== className) return
+                            if(ability.selectionCategory !== categoryKey) return
+
+                            const abilityKey = getSelectionAbilityKey(ability)
+                            if(ability.selectionOption !== value){
+                                delete next[abilityKey]
+                            }
+                        })
+
+                        return next
+                    })
+                }
 
 
                 // Background information
@@ -3095,6 +3528,33 @@
                                 type: "action",
                                 actionCost: 2,
                                 description: "Describe the class ability here."
+                            },
+                            {
+                                class: "Stormcaller",
+                                rank: 2,
+                                name: "Storm Lessons",
+                                type: "passive",
+                                selectionBonus: "+",
+                                description: "This passive grants one additional Stormcaller selection per rank in Stormcaller."
+                            },
+                            {
+                                class: "Stormcaller",
+                                rank: 1,
+                                name: "Storm Tradition",
+                                type: "selection-category",
+                                categoryKey: "tradition",
+                                label: "Tradition",
+                                options: ["Tempest", "Mist", "Tide"]
+                            },
+                            {
+                                class: "Stormcaller",
+                                rank: 1,
+                                name: "Tempest Trick",
+                                type: "selection",
+                                selectionCategory: "tradition",
+                                selectionOption: "Tempest",
+                                cost: 1,
+                                description: "Describe the selection ability here."
                             }
                         ],
                         conditions: [
@@ -3131,6 +3591,8 @@
                         level1,
                         levelStats,
                         levelSkills,
+                        knownSelectionAbilities,
+                        selectedSelectionCategories,
                         settings,
                         armor,
                         shield,
@@ -3144,7 +3606,7 @@
                         inventoryItems: items,
                         expansions,
                         background,
-                        version: 1.4
+                        version: 1.7
                     }
 
                     const json = JSON.stringify(data, null, 2)
@@ -3186,7 +3648,7 @@
                                     return
                                 }
                                 // Make sure character sheet is not too old
-                                if(raw.version !== 1.1 && raw.version !== 1.2 && raw.version !== 1.3 && raw.version !== 1.4){
+                                if(raw.version !== 1.1 && raw.version !== 1.2 && raw.version !== 1.3 && raw.version !== 1.4 && raw.version !== 1.5 && raw.version !== 1.6 && raw.version !== 1.7){
                                     alert("Invalid version")
                                     return
                                 }
@@ -3202,6 +3664,8 @@
                                 setLevel1(raw.level1 ?? ["","",""])
                                 setLevelStats(raw.levelStats ?? levelStats)
                                 setLevelSkills(raw.levelSkills ?? levelSkills)
+                        setKnownSelectionAbilities(raw.knownSelectionAbilities ?? {})
+                        setSelectedSelectionCategories(raw.selectedSelectionCategories ?? {})
                         setSettings(raw.settings ?? settings)
                         setArmor(raw.armor ?? "No Armor")
                         setShield(raw.shield ?? "No Shield")
@@ -3248,6 +3712,8 @@
                         level1,
                         levelStats,
                         levelSkills,
+                        knownSelectionAbilities,
+                        selectedSelectionCategories,
                         settings,
                         armor,
                         shield,
@@ -3261,7 +3727,7 @@
                         items,
                         expansions,
                         background,
-                        version: 1.4,
+                        version: 1.7,
                         timestamp: Date.now()
                     }
                 }
@@ -3300,6 +3766,8 @@
                         setLevel1(data.level1 ?? ["","",""])
                         setLevelStats(data.levelStats ?? levelStats)
                         setLevelSkills(data.levelSkills ?? levelSkills)
+                        setKnownSelectionAbilities(data.knownSelectionAbilities ?? {})
+                        setSelectedSelectionCategories(data.selectedSelectionCategories ?? {})
                         setSettings(data.settings ?? settings)
                         setArmor(data.armor ?? "No Armor")
                         setShield(data.shield ?? "No Shield")
@@ -3476,6 +3944,13 @@
                         setSortBy={setSortBy}
                         sortedActionAbilities={sortedActionAbilities}
                         passiveAbilities={passiveAbilities}
+                        selectionAbilities={selectionAbilities}
+                        selectionAbilitiesByClass={selectionAbilitiesByClass}
+                        selectionCategoryDefinitionsByClass={selectionCategoryDefinitionsByClass}
+                        knownSelectionAbilities={knownSelectionAbilities}
+                        selectedSelectionCategories={selectedSelectionCategories}
+                        toggleKnownSelectionAbility={toggleKnownSelectionAbility}
+                        updateSelectionCategory={updateSelectionCategory}
                         background={background}
                         setBackground={setBackground}
                         expansions={expansions}
