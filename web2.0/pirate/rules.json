@@ -1,0 +1,2975 @@
+{
+  "classAbilities": [
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Attack",
+      "actionCost": 1,
+      "enduranceCost": "Weapon",
+      "description": "Make an attack with a weapon in one of your hands.",
+      "type": "Action"
+    },
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Move",
+      "actionCost": 0,
+      "enduranceCost": "0",
+      "description": "Move a number of tiles equal to your base speed or stand up to end the Toppled condition on yourself.",
+      "type": "Action"
+    },
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Dash",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Tiles Moved",
+      "description": "Move a number of tiles equal to your dash speed.",
+      "type": "Action"
+    },
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Switch",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "Exchange the weapons in your hand for another on your person or next to you that isn't being worn or carried.",
+      "type": "Action"
+    },
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Hold Action",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You may choose to hold one Action point until a condition is met on the battlefield. You must declare what you are spending the Action on and what the when you use the Hold Action. For example, you may wait until the enemy pops out from behind a barrel, or wait to run until an obstacle has cleared your path.",
+      "type": "Action"
+    },
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Grapple",
+      "actionCost": 2,
+      "enduranceCost": 2,
+      "description": "Perform a Brawn Contest. If your target fails they are grappled by you and gain the grappled condition. This condition ends if you choose to end it or unwillingly move away from them. You can only grapple one target at once.",
+      "type": "Action"
+    },
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Catch a Breather (2 Action)",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "Roll 1d10 + Grit regain that much lost Endurance.",
+      "type": "Action"
+    },
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Catch a Breather (3 Action)",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "Roll 1d10 + Grit + Level, regain that much lost Endurance.",
+      "type": "Action"
+    },
+    {
+      "class": "General",
+      "rank": 1,
+      "name": "Reload",
+      "actionCost": 3,
+      "enduranceCost": 0,
+      "description": "Reload the ammunition of a Firearm.",
+      "type": "Action"
+    },
+    {
+      "class": "Basher",
+      "rank": 1,
+      "name": "Improved Blunt Attacks",
+      "description": "Gain an additional +1 to attack for each rank in this class on all Blunt Weapons attacks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Basher",
+      "rank": 2,
+      "name": "Full Spin",
+      "actionCost": 2,
+      "enduranceCost": "x2 Weapon",
+      "description": "While using a weapon with the Two-Handed property, you can make a 360-degree swing. Make an attack against each creature within your range. This Action costs double the weapon's Endurance cost.",
+      "type": "Action"
+    },
+    {
+      "class": "Basher",
+      "rank": 2,
+      "name": "COMBO: Backhand Hit",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After you make a successful attack, you can perform an additional attack to the same target. If this Backhanded hit is successful, perform a Brawn Contest and on a fail the target is staggered.",
+      "type": "Action"
+    },
+    {
+      "class": "Basher",
+      "rank": 3,
+      "name": "Crusher",
+      "description": "All attacks made with a blunt weapon against a stone or metal object that isn't worn or carried automatically crits.",
+      "type": "Passive"
+    },
+    {
+      "class": "Basher",
+      "rank": 3,
+      "name": "Joint Damage",
+      "description": "Whenever you score a critical hit the target becomes Sprained for the next minute.",
+      "type": "Passive"
+    },
+    {
+      "class": "Basher",
+      "rank": 4,
+      "name": "Power Slam",
+      "actionCost": 3,
+      "enduranceCost": "Weapon",
+      "description": "Make an attack against an opponent. If you hit, perform a Brawn Contest. If they fail, they are staggered, and all attacks against them are critical hits until the start of your next turn. ",
+      "type": "Action"
+    },
+    {
+      "class": "Basher",
+      "rank": 4,
+      "name": "COMBO: Ground Pound",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After you make a Full Swing attack, use can use this ability to slam the ground. Any creature you missed with your attack must make a Brawn Contest against you. All creatures that fail become toppled.",
+      "type": "Action"
+    },
+    {
+      "class": "Basher",
+      "rank": 5,
+      "name": "FINISHER: Bone Bash",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You make a powerful strike strong enough to break bones. On a successful hit the target gains 3 stacks of the Sprained condition until they regain Health.",
+      "type": "Action"
+    },
+    {
+      "class": "Basher",
+      "rank": 5,
+      "name": "COMBO: Head Strike",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After you successfully hit a Backhand Hit attack, you can use this ability to make a mighty blow against a target's head. When doing so you gain advantage on your attack and the target becomes toppled.",
+      "type": "Action"
+    },
+    {
+      "class": "Brute",
+      "rank": 1,
+      "name": "Natural Defense",
+      "description": "Gain +1 Physical Toughness when wielding an armor or shield.",
+      "type": "Passive"
+    },
+    {
+      "class": "Brute",
+      "rank": 2,
+      "name": "Unstoppable",
+      "description": "You have trained to stay on your footing both in and out of combat. You have advantage on all checks that would topple you.",
+      "type": "Passive"
+    },
+    {
+      "class": "Brute",
+      "rank": 2,
+      "name": "Relentless Adrenaline",
+      "description": "If your health has been reduced since the end of your last turn, you can allow adrenaline to heal your wounds. You can spend 2 Endurance and regain 1d4 health up to the amount of damage taken.",
+      "type": "Passive"
+    },
+    {
+      "class": "Brute",
+      "rank": 3,
+      "name": "Stand Ground",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "Until the start of your next turn, all attacks against you have disadvantage.",
+      "type": "Action"
+    },
+    {
+      "class": "Brute",
+      "rank": 3,
+      "name": "Superior Defense",
+      "description": "It no longer costs Endurance to Brace with the shield.",
+      "type": "Passive"
+    },
+    {
+      "class": "Brute",
+      "rank": 4,
+      "name": "Iron Body",
+      "description": "You are immune to the Concussed, Staggered, or Winded conditions. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Brute",
+      "rank": 4,
+      "name": "Improved Natural Defense",
+      "description": "Your Physical Toughness now applies to all damage types.",
+      "type": "Passive"
+    },
+    {
+      "class": "Brute",
+      "rank": 5,
+      "name": "FINISHER: Overrun",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "With a burst of adrenaline you push past your limits, charging forward and moving up to 12 meters in a straight line, moving up to your movement, and can make one free attack against each creature within your reach.",
+      "type": "Action"
+    },
+    {
+      "class": "Cleaver",
+      "rank": 1,
+      "name": "Improved Axe Attacks",
+      "description": "Gain an additional +1 to attack for each rank in this class on all Axe Attacks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Cleaver",
+      "rank": 2,
+      "name": "Hatchet",
+      "description": "All attacks made with an axe against wooden objects deal double damage",
+      "type": "Passive"
+    },
+    {
+      "class": "Cleaver",
+      "rank": 2,
+      "name": "COMBO: Cross Attack",
+      "actionCost": 2,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After you make an attack Action on your turn and miss, you can perform a Cross Attack, making a second attack that follows along your initial slash but in the opposite direction. On a hit, you inflict the bleed condition until the start of your next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Cleaver",
+      "rank": 3,
+      "name": "Downward Strike",
+      "actionCost": 2,
+      "enduranceCost": "Weapon",
+      "description": "While using a weapon in both hands, you can make a large strike on a target's head, giving you an additional +1 to damage for each rank in this class.",
+      "type": "Action"
+    },
+    {
+      "class": "Cleaver",
+      "rank": 4,
+      "name": "Destructive Nature",
+      "description": "Whenever you score a critical hit, the target gains the Bleeding condition until healed.",
+      "type": "Passive"
+    },
+    {
+      "class": "Cleaver",
+      "rank": 5,
+      "name": "FINISHER: Executioner's Cleave",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You swing with one massive slash. Make an attack roll with this weapon and on a hit, your target's toughness is halved and the armor gains the Damaged property. You become staggered after using this ability. ",
+      "type": "Action"
+    },
+    {
+      "class": "Cleaver",
+      "rank": 5,
+      "name": "COMBO: Dismemberment",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After you perform an attack that inflicted Bleed, you can perform another powerful chop, opening the wound further. On a successful hit, the target must make a DC 15 Grit roll or gain 2 additional stacks of the Bleed condition for 1 minute on a fail and 1 additional stack of the Bleed condition for 1 minute on a success.",
+      "type": "Action"
+    },
+    {
+      "class": "Marksman",
+      "rank": 1,
+      "name": "Improved Firearm Attacks",
+      "description": "Gain an additional +1 to attack for each rank in this class on all Hand-Firearm attacks",
+      "type": "Passive"
+    },
+    {
+      "class": "Marksman",
+      "rank": 2,
+      "name": "Trick Shot",
+      "description": "When you make a ranged weapon attack, you can use a trick shot to ricochet your attack off and ignore a target's cover. When you do so, the damage from your weapon is halved.",
+      "type": "Passive"
+    },
+    {
+      "class": "Marksman",
+      "rank": 2,
+      "name": "Wide Eye",
+      "description": "You have an eye for detail while in close quarters. You have advantage on all Awareness checks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Marksman",
+      "rank": 3,
+      "name": "Quick Draw",
+      "actionCost": 1,
+      "enduranceCost": "Weapon",
+      "description": "Once per turn, when you switch weapons into a loaded firearm, you can make an attack for free.",
+      "type": "Action"
+    },
+    {
+      "class": "Marksman",
+      "rank": 3,
+      "name": "Dodge Roll",
+      "description": "Once per round, whenever you Dodge, you can move 1 meter.",
+      "type": "Passive"
+    },
+    {
+      "class": "Marksman",
+      "rank": 4,
+      "name": "Improved Reload",
+      "description": "Whenever you use the reload Action, you can reload two firearms instead of one.",
+      "type": "Passive"
+    },
+    {
+      "class": "Marksman",
+      "rank": 5,
+      "name": "FINISHER: Rapid Fire",
+      "actionCost": 0,
+      "enduranceCost": 0,
+      "description": "You quickly and rapidly load and fire your Hand-Firearm easily. Use this ability to spend up to 3 Action points on this turn. For each Action point spent, you can attack it with advantage and reload instantly.",
+      "type": "Action"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 1,
+      "name": "Improved Unarmed Attacks",
+      "description": "Gain an additional +1 to attack for each rank in this class on all strike weapons.",
+      "type": "Passive"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 1,
+      "name": "Meditation",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "While training in martial arts, you also learned how to meditate to rapidly recover your Endurance. You regain an amount of Endurance equal to your rank in this class.",
+      "type": "Action"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 2,
+      "name": "Trip",
+      "actionCost": 1,
+      "enduranceCost": "Weapon",
+      "description": "You know the art of quickly knocking creatures that are one size larger than you or smaller to their feet. Make an attack against a creature with legs, they gain the Toppled condition in addition to dealing damage.",
+      "type": "Action"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 2,
+      "name": "COMBO: Knee Jab",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After successfully landing an attack on a target within your reach, you can make an additional attack as an Unarmed Strike on the same target. On a successful attack, in addition to dealing damage, perform a Grit Contest and if the target fails they gain the Winded condition until the end of your next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 3,
+      "name": "COMBO: Pin",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After you successfully make a Trip attack, you can perform this combo to pin the target giving them the Grappled Condition.",
+      "type": "Action"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 3,
+      "name": "Silent Step",
+      "description": "Your footprints are silent. When you are walking you don't make a noise.",
+      "type": "Passive"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 4,
+      "name": "Flury",
+      "actionCost": 1,
+      "enduranceCost": "Weapon",
+      "description": "Once per turn, you can use this ability to attack with increased agility. Choose a target within your weapon's range; you can make 2 attacks against them.",
+      "type": "Action"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 4,
+      "name": "COMBO: Central Blow",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "If the target of your attack has the Winded condition from a previous attack, you can make a central Strike attack on them. On a successful hit, in addition to dealing damage the target becomes Defenseless until the start of your next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Martial Artist",
+      "rank": 5,
+      "name": "FINISHER: Nerve Attack",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "Whenever you perform a successful Pin attack, you can strike their Nerves. The target gains the Stunned Condition for one minute. At the end of the Target's turn they can make a Grit Contest to end the condition early.",
+      "type": "Action"
+    },
+    {
+      "class": "Sharpshooter",
+      "rank": 1,
+      "name": "Improved Firearm Attacks",
+      "description": "Gain an additional +1 to attack for each rank in this class on all Sniper-Firearm attacks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Sharpshooter",
+      "rank": 2,
+      "name": "Eagle Eye",
+      "description": "You have better eyesight, allowing you to make out details from further away. You can make out land masses and other ships from 20 meters away. Additionally, your range with sniper firearms increases by 2 meters for each rank in this class.",
+      "type": "Passive"
+    },
+    {
+      "class": "Sharpshooter",
+      "rank": 2,
+      "name": "Aim",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "You can line up your shot with your ranged attacks to improve your accuracy. Your next attack made with a ranged weapon has advantage.",
+      "type": "Action"
+    },
+    {
+      "class": "Sharpshooter",
+      "rank": 3,
+      "name": "Defensive Range",
+      "description": "Your knowledge of attacking from a great distance also helps you stay hidden. Whenever you have half cover, you gain an additional +1 to toughness against all non-melee attacks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Sharpshooter",
+      "rank": 4,
+      "name": "Perfect Precision",
+      "description": "Whenever you score a critical hit, you always deal the maximum damage.",
+      "type": "Passive"
+    },
+    {
+      "class": "Sharpshooter",
+      "rank": 5,
+      "name": "FINISHER: Deadshot",
+      "actionCost": 3,
+      "enduranceCost": 0,
+      "description": "You can spend your turn to line up the perfect shot with your Sniper-Firearm. You can hold an attack without setting a condition. When you make your attack roll with this ability, roll three times and take the highest and lowest attack rolls on your target, dealing damage from both as if they were separate attacks if they hit.",
+      "type": "Action"
+    },
+    {
+      "class": "Spearman",
+      "rank": 1,
+      "name": "Improved Polearm Attack",
+      "description": "Gain an additional +1 to attack for each rank in this class on all Polearm attacks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Spearman",
+      "rank": 2,
+      "name": "Keeping Distance",
+      "description": "On your first successful attack with a polearm on your turn, you can forgo damage to reduce a target's Speed by 2 for their first move Action on their next turn.",
+      "type": "Passive"
+    },
+    {
+      "class": "Spearman",
+      "rank": 2,
+      "name": "COMBO: Thrust",
+      "actionCost": 2,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After you make a move Action, you can make a powerful thrusting attack. Make an attack roll against your target. On a hit, in addition to taking damage they must make a Brawn Contest against you and on a fail will be knocked back 1 meter.",
+      "type": "Action"
+    },
+    {
+      "class": "Spearman",
+      "rank": 3,
+      "name": "Firm Ground",
+      "description": "When you use this ability, until the start of your next turn whenever a creature willingly enters your attack range for the first time on their turn, you can make an attack on them. After each consecutive attack with this ability you gain an additional -5 to hit, until the start of your next turn.",
+      "type": "Passive"
+    },
+    {
+      "class": "Spearman",
+      "rank": 4,
+      "name": "Extended Reach",
+      "description": "All weapons (excluding strike weapons and ranged weapons) now have the reach property if they did not already.",
+      "type": "Passive"
+    },
+    {
+      "class": "Spearman",
+      "rank": 4,
+      "name": "Improved Keeping Distance",
+      "description": "Whenever you use your “Keeping Distance” ability it now reduces the target's Speed to 0 for their next Move Action on their turn.",
+      "type": "Passive"
+    },
+    {
+      "class": "Spearman",
+      "rank": 5,
+      "name": "FINISHER: Gaping Wound",
+      "actionCost": 3,
+      "enduranceCost": 0,
+      "description": "Make 3 attacks rolls on up to 3 targets. On a hit, you create a large gaping wound, causing their Speed to be set to 0 until the end of your next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Swordsman",
+      "rank": 1,
+      "name": "Improved Sword Attacks",
+      "description": "Gain an additional +1 to attack for each rank in this class on all Sword attacks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Swordsman",
+      "rank": 1,
+      "name": "Sword's Intuition",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "Knowledge of the weapons helps you perform perfect slices. Your melee attacks this round have advantage.",
+      "type": "Action"
+    },
+    {
+      "class": "Swordsman",
+      "rank": 2,
+      "name": "Duelist",
+      "description": "Whenever you are fighting against a creature, and you and the creature do not have any allies within 5 feet, you deal an additional +2 damage on all Sword attacks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Swordsman",
+      "rank": 2,
+      "name": "Improved Parry",
+      "description": "Whenever you use Parry an attack, it only costs you normal endurance cost, instead of double the endurance cost.",
+      "type": "Passive"
+    },
+    {
+      "class": "Swordsman",
+      "rank": 3,
+      "name": "COMBO: X Slice",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After you make an attack with a sword and you have a second melee weapon in your hand, you can make a second attack crossing the first to the same target. On a successful hit you can add the damage from Duelist even if you have allies around the target. If there are no allies around the target you deal the damage from Duelist twice.",
+      "type": "Action"
+    },
+    {
+      "class": "Swordsman",
+      "rank": 4,
+      "name": "Perfect Parry",
+      "description": "Once per round, you can parry without spending the weapons Endurance Cost.",
+      "type": "Passive"
+    },
+    {
+      "class": "Swordsman",
+      "rank": 5,
+      "name": "FINISHER: Edge Alignment",
+      "actionCost": 3,
+      "enduranceCost": 0,
+      "description": "You change your footing to one of pure aggression. For the next 3 rounds you can parry without spending the weapons Endurance Cost. Additionally any of your attacks which are Parried do not have an additional Endurance Cost to attack again.",
+      "type": "Action"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Recipes",
+      "description": "For each rank you have in this class you learn one alcohol recipe or compound recipe from the list below.",
+      "type": "Passive",
+      "selectionBonus": "+"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Brew Concoctions",
+      "description": "You can use ingredients to create a batch of an alcohol or compound. These compounds can either be enhancements or poisons. Your Poison DC is equal to 10 + your rank in this class. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 2,
+      "name": "Weapon Coating",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "You know how to coat weapons with poison. Take a poison you have in your inventory and dip this weapon or ammunition into the poison. On a hit, the poison is applied to the target.",
+      "type": "Action"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 3,
+      "name": "Chemist's Resistance",
+      "description": "You have advantage on all rolls from poisons or compounds.",
+      "type": "Passive"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 3,
+      "name": "Toxic Cloud",
+      "actionCost": 3,
+      "enduranceCost": 3,
+      "description": "Your knowledge of toxic fumes allows you to make any of your poisons airborne as well. You can throw a vial of poison and scatter it in the air, releasing a puff of toxic smoke in a 1 meter radius. All creatures in this area become inflicted with this poison.",
+      "type": "Action"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 4,
+      "name": "Defensive Coating",
+      "description": "Your natural poison resistance allows you to apply a poison to your skin without it affecting you. Whenever a creature hits you with an attack within 1 meter of you, they become inflicted with this poison. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 5,
+      "name": "Toxic Blood",
+      "description": " You are immune to the poison condition and take half damage from all poison damage. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 5,
+      "name": "Improved Toxicity",
+      "description": "You can now coat your weapon with multiple poisons at the same time. It takes 1 Action per poison applied.",
+      "type": "Passive"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Acidic Poison",
+      "cost": "2 Charges (3 Vials)",
+      "description": "Make a Grit check against your poison DC, on a failure you take 1d4 poison damage.",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Nauseous Poison",
+      "cost": "1 Charges (4 Vials)",
+      "description": "Make a Grit check against your poison DC, on a fail you gain the Poisoned condition for the next minute. You can remake this save at the end of your turn, you do not automatically fail this roll.",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Intoxication Poison",
+      "cost": "6 Charges (6 Vials)",
+      "description": "Make a Grit check against your poison DC, on a fail you gain +2 your alcohol level.",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Paralysis Poison",
+      "cost": "4 Charges (1 Vials)",
+      "description": "Make a Grit check against your poison DC, on a fail you are winded for the next minute. You can remake this save at the end of your turn, you do not automatically fail this roll.",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Steroid",
+      "cost": "3 Charges (1 Vials)",
+      "description": "After consuming this compound, your Brawn statistic increases by 2 for 1 hour. After the 1 hour has passed, your Grit is decreased by 2 until you take a Full Days Rest.",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Quicksilver",
+      "cost": "4 Charges (1 Vials)",
+      "description": "After consuming this compound, your evasion increases by 5 and you gain the Winded condition for 1 minute. ",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Owl's Calm",
+      "cost": "2 Charges (2 Vials)",
+      "description": "After consuming this compound, your body is awakened to the world around you for 30 seconds. You have advantage on all Awareness rolls and gain the calm condition. After the 30 seconds are over you gain the Concussed condition for 1 hour.",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Mead",
+      "cost": "1 Charges",
+      "description": "Alcohol Level: 1",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Wine",
+      "cost": "1 Charges",
+      "description": "Alcohol Level: 1",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Gin",
+      "cost": "2 Charges",
+      "description": "Alcohol Level: 2",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Whiskey",
+      "cost": "3 Charges",
+      "description": "Alcohol Level: 3",
+      "type": "Selection"
+    },
+    {
+      "class": "Alchemist",
+      "rank": 1,
+      "name": "Rum",
+      "cost": "3 Charges",
+      "description": "Alcohol Level: 4",
+      "type": "Selection"
+    },
+    {
+      "class": "Blacksmith",
+      "rank": 1,
+      "name": "Forge",
+      "description": "Whenever you are working a forge you can craft a metal item whose worth is equal to the worth of the material it is made from.",
+      "type": "Passive"
+    },
+    {
+      "class": "Blacksmith",
+      "rank": 1,
+      "name": "Smith",
+      "description": "You gain the ability to use smith's tools.",
+      "type": "Passive"
+    },
+    {
+      "class": "Blacksmith",
+      "rank": 1,
+      "name": "Polish",
+      "description": "You are well versed in all forms of metal work. You can polish an old or rusted piece of equipment in order to remove any negative physical effects caused by the item's age.",
+      "type": "Passive"
+    },
+    {
+      "class": "Blacksmith",
+      "rank": 2,
+      "name": "Armor Analysis",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "If an opponent is wearing armor made, you can analyze its weaknesses. All weapons with Armor Breaker and Armor Piercing have advantage against that target until the end of your next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Blacksmith",
+      "rank": 2,
+      "name": "Makeshift Forge",
+      "description": "You can use your blacksmith tools to create and use a makeshift forge as if it was a normal forge. Making items in this way takes twice as long.",
+      "type": "Passive"
+    },
+    {
+      "class": "Blacksmith",
+      "rank": 3,
+      "name": "",
+      "description": "You have built up a resilience to extreme heats. You have advantage on all Weather Tolerance checks against heat and have a Toughness 1 against Fire damage.",
+      "type": "Passive"
+    },
+    {
+      "class": "Blacksmith",
+      "rank": 4,
+      "name": "COMB: Hammered Rhythm",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Weapon",
+      "description": "After making a successful attack against a target, you can make an additional attack against the same target with the same weapon. This additional attack does not have an endurance cost.",
+      "type": "Action"
+    },
+    {
+      "class": "Blacksmith",
+      "rank": 5,
+      "name": "Improved Forging",
+      "description": "Whenever you are working a forge you can craft a metal item whose worth is equal to double the worth of the material it is made from.",
+      "type": "Passive"
+    },
+    {
+      "class": "Carpenter",
+      "rank": 1,
+      "name": "Investigate Planks",
+      "description": "You can inspect the wood of the ship for damage, allowing you to repair 2d10 of a ship's hit points while not at a port.",
+      "type": "Passive"
+    },
+    {
+      "class": "Carpenter",
+      "rank": 1,
+      "name": "Carpentry",
+      "description": "You gain the ability to use carpenter's tools. You can carve trinkets from wood. The value of the trinket is equal to the value of the material it is made from.",
+      "type": "Passive"
+    },
+    {
+      "class": "Carpenter",
+      "rank": 2,
+      "name": "Rapid Cover",
+      "actionCost": 3,
+      "enduranceCost": 10,
+      "description": "You can use some of your scrap wood to create a barricade of half cover at a space in front of you.",
+      "type": "Action"
+    },
+    {
+      "class": "Carpenter",
+      "rank": 2,
+      "name": "Good Eye",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "You can analyze the planks in a 2 meter radius around you for weak spots. If you find one you can attack it as an additional Action to do critical damage to a ship.",
+      "type": "Action"
+    },
+    {
+      "class": "Carpenter",
+      "rank": 3,
+      "name": "COMBO: Quick Repair",
+      "actionCost": 2,
+      "enduranceCost": 2,
+      "description": "After you have successfully found a weak spot using the Good Eye ability, you can repair it. You must have two free hands to use this feature. Whenever you fix a spot it can no longer be used to do critical damage to a ship.",
+      "type": "Action"
+    },
+    {
+      "class": "Carpenter",
+      "rank": 4,
+      "name": "Sawdust Cloud",
+      "actionCost": 2,
+      "enduranceCost": 3,
+      "description": "You pull out a large amount of sawdust from your bag and create a puff of obscuring fog in a 3 meter radius around you. All creatures within the area become Blinded and gain Full Cover. This has an Endurance cost of 3.",
+      "type": "Action"
+    },
+    {
+      "class": "Carpenter",
+      "rank": 5,
+      "name": "Perfect Carvings",
+      "description": "The value of your carvings after you finish working on them is now double the cost of the material it is made from.",
+      "type": "Passive"
+    },
+    {
+      "class": "Carpenter",
+      "rank": 5,
+      "name": "Splinter",
+      "description": "Whenever you cause a stack of the Bleed condition, the target is affected for one additional round.",
+      "type": "Passive"
+    },
+    {
+      "class": "Chef",
+      "rank": 1,
+      "name": "Cook",
+      "description": "Using 2 charges from cooking supplies, you craft a meal for the crew. Each member who eats this food regains 3d4 hit points per rank in this class. A person can only receive these benefits once per day.",
+      "type": "Passive"
+    },
+    {
+      "class": "Chef",
+      "rank": 1,
+      "name": "Cooking",
+      "description": "You gain the ability to use cooking tools.",
+      "type": "Passive"
+    },
+    {
+      "class": "Chef",
+      "rank": 2,
+      "name": "Knife Training",
+      "description": "You gain the ability to use a knife as a Finesse based sword or strike weapon that deals 1d4 slashing damage with the concealed and thrown properties.",
+      "type": "Passive"
+    },
+    {
+      "class": "Chef",
+      "rank": 3,
+      "name": "Stomach Resilient",
+      "description": "Your iron gut makes you immune to the poison condition.",
+      "type": "Passive"
+    },
+    {
+      "class": "Chef",
+      "rank": 3,
+      "name": "Firebreath",
+      "actionCost": 2,
+      "enduranceCost": 5,
+      "description": "You take a swig of alcohol and take a torch to breath fire on all creatures in a 3 meter cone in front of you. They must make a Finesse Contest against you or take 2d6 Fire damage.",
+      "type": "Action"
+    },
+    {
+      "class": "Chef",
+      "rank": 4,
+      "name": "Experimental Cooking",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You rapidly create a dish and feed it to all allies you can see within 4 meters. Roll a d6. On a 1, all targets become Intoxicated. On a 2-5, all creatures regain 1d4 Health. On a 6, all creatures regain 1d4 Health and 2d6 Endurance.",
+      "type": "Action"
+    },
+    {
+      "class": "Chef",
+      "rank": 5,
+      "name": "Devilishly Delicious",
+      "description": "The healing received from eating your food is always the maximum possible roll and a creature's endurance is spent Endurance. A person can only receive these benefits once per day.",
+      "type": "Passive"
+    },
+    {
+      "class": "Farmer",
+      "rank": 1,
+      "name": "Laborer Resilience",
+      "description": "Your affinity for strenuous labor has helped you toughen up against the world. You have advantage on all Brawn Contests. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Farmer",
+      "rank": 1,
+      "name": "Textile Crafting",
+      "description": "You gain knowledge on how to use textile tools.",
+      "type": "Passive"
+    },
+    {
+      "class": "Farmer",
+      "rank": 2,
+      "name": "Planter Box",
+      "description": "You can construct and tend to a number of planter boxes equal to your rank with this class, which must be tended to daily. After 2 weeks, you will receive 1d4 units of your planted ingredient daily.",
+      "type": "Passive"
+    },
+    {
+      "class": "Farmer",
+      "rank": 2,
+      "name": "Hem",
+      "description": "You have the knowledge necessary to make and mend cloth of all nature.",
+      "type": "Passive"
+    },
+    {
+      "class": "Farmer",
+      "rank": 3,
+      "name": "Hard Worker",
+      "description": "Reduce the Endurance cost of all actions you take by 1.",
+      "type": "Passive"
+    },
+    {
+      "class": "Farmer",
+      "rank": 4,
+      "name": "COMBO: Harvest",
+      "actionCost": 1,
+      "enduranceCost": 3,
+      "description": "After you perform an attack, perform a Brawn Contest. On a success, reduce the Endurance cost of all attacks made on the target by 1 until the end of your next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Farmer",
+      "rank": 5,
+      "name": "FINISHER- Haymaker",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You perform a fast sideways unarmed strike at the head of your target. On a successful hit, they are unable to Parry or Dodge until the end of your next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Farmer",
+      "rank": 5,
+      "name": "Master Worker",
+      "description": " Reduce the Endurance cost of all actions you take by 2. This does stack with Hard Worker.",
+      "type": "Passive"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 1,
+      "name": "Improved Fishing",
+      "description": "You have advantage on all fishing checks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 1,
+      "name": "Boating",
+      "description": "You have advantage on all Nausea checks involving sea sickness.",
+      "type": "Passive"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 1,
+      "name": "Knot Knowledge",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You have a vast understanding of knots. While next to a target you can perform a Brawn Contest. If the target fails they are restrained. The restraint DC is equal to 10+your rank in this class.",
+      "type": "Action"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 2,
+      "name": "Fishing Rod",
+      "description": "You gain the ability to use a fishing rod as a Brawn-based polearm weapon that deals 1d6 bludgeoning damage with the two-handed, hooked, and reach property.",
+      "type": "Passive"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 2,
+      "name": "Hook",
+      "actionCost": 1,
+      "enduranceCost": 2,
+      "description": "While wielding a fishing pole in combat, you cast a line onto an enemy you can see within 6 meters of you. Perform a Brawn Contest. If a target is restrained they automatically fail this Contest. If the target fails, they are moved 2 meters in a direction of your choice.",
+      "type": "Action"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 3,
+      "name": "Bait",
+      "description": "You know how to craft bait that lures fish to you using an additional charge. Whenever you throw this bait in the water, all creatures gain a +5 on Fishing check nearby for up to 1 hour.",
+      "type": "Passive"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 3,
+      "name": "Weathered",
+      "description": "You have advantage on all Weather Tolerance roll.",
+      "type": "Passive"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 4,
+      "name": "Knot Expertise",
+      "description": "Your knowledge of knots is even stronger than before. Whenever you restrain a creature they have disadvantage to break free.",
+      "type": "Passive"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 4,
+      "name": "Perfect Cast",
+      "description": "You automatically succeed on all fishing checks whose difficulty is less than your total character level.",
+      "type": "Passive"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 5,
+      "name": "Net",
+      "actionCost": 2,
+      "enduranceCost": 3,
+      "description": "You can use a net as a single-use weapon. The net covers a 2 meter by 2 meter square. When you use this finish you toss the net up to 4 meters away and all creatures become restrained. The restrain DC is 15 and they have disadvantage to break free.",
+      "type": "Action"
+    },
+    {
+      "class": "Fisherman",
+      "rank": 5,
+      "name": "Catching Ships",
+      "description": "Whenever you perform the Tender Ship Action, reduce the cost by 2 SAP.",
+      "type": "Passive"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Craft Grenade",
+      "description": "During your freetime you gain the ability to craft grenades. You learn one grenade recipe per rank in this class. ",
+      "type": "Passive",
+      "selectionBonus": "+"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Improved Explosions",
+      "description": "Increase the DC of the explosion ability by your rank in this class.",
+      "type": "Passive"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 2,
+      "name": "Explosion Resistance",
+      "description": "Gain 2 toughness against grenades",
+      "type": "Passive"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 3,
+      "name": "Improved Fuse",
+      "description": "You have better control over the fuses you time your grenades. Whenever you use the fuse ability on a grenade, choose a creature. The fuse will go off at the start of their next turn.",
+      "type": "Passive"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 3,
+      "name": "Explosive Response",
+      "description": "Whenever you make a Finesse roll against the Explosion ability, you take no damage on a successful roll and half damage on a fail.",
+      "type": "Passive"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 4,
+      "name": "Improved Grenade Crafting",
+      "description": "Whenever you use the Craft Grenades Freetime ability, you can craft 2 grenades for the same amount of charges and the same time.",
+      "type": "Passive"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 5,
+      "name": "FINISHER: Self Destruction",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "Using the scraps of supplies on you, you create an instantaneous explosion centered on yourself. All creatures in a 2 meter radius, including yourself, are hit with an Explosion (14) that deals 4d4 fire damage.",
+      "type": "Action"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 5,
+      "name": "Explosive Weaponry",
+      "description": "Whenever you perform the Fire Weapon Ship Action, reduce the cost by 2 SAP.",
+      "type": "Passive"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Alcohol",
+      "cost": "1 Charges",
+      "description": "Radius: 1 Meter, Damage: 1d6 Fire. Properties: Consumable, Explosion (10), Fuse, Minimal, Thrown",
+      "type": "Selection"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Black Powder",
+      "cost": "2 Charges",
+      "description": "Radius: 2 Meter, Damage: 2d6 Fire. Properties: Consumable, Explosion (12), Fuse, Minimal, Thrown",
+      "type": "Selection"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Shrapnel",
+      "cost": "2 Charges",
+      "description": "Radius: 1 Meter, Damage: 1d4 Fire + 1d4 Piercing. Properties: Consumable, Explosion (8), Fuse, Minimal, Thrown",
+      "type": "Selection"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Wildfire",
+      "cost": "1 Charges",
+      "description": "Radius: 1 Meter, Effect: Each creature in this radius must make a Finesse roll or gain the burning condition for 1 minute. Properties: Consumable, Explosion (10), Fuse, Minimal, Thrown",
+      "type": "Selection"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Flash",
+      "cost": "2 Charges",
+      "description": "Radius: 2 Meter, Effect: This grenade creates a blinding light. Each creature in that radius must make an Awareness roll or become blinded for until the end of your next turn. Properties: Consumable, Explosion (10), Fuse, Minimal, Thrown",
+      "type": "Selection"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Thunder",
+      "cost": "2 Charges",
+      "description": "Radius: 3 Meter, Effect: This grenade creates a loud bang. Each creature in that radius must make an Awareness roll or become deafened for 1 minute. Properties: Consumable, Explosion (14), Fuse, Minimal, Thrown",
+      "type": "Selection"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Smoke",
+      "cost": "1 Charges",
+      "description": "Radius: 4 Meter, Effect: This grenade billows smoke. While a creature is within the smoke they are blinded and cannot be targeted by ranged attacks. The smoke clears after 3 rounds. Properties: Consumable, Explosion (N/A), Fuse, Minimal, Thrown",
+      "type": "Selection"
+    },
+    {
+      "class": "Grenadier",
+      "rank": 1,
+      "name": "Water",
+      "cost": "1 Charges",
+      "description": "Radius: 3 Meter, Effect: This grenade splatters water on all creatures. Each creature in that radius must make a Finesse Roll or become soaked for 10 minutes. Properties: Consumable, Explosion (16), Fuse, Minimal, Thrown",
+      "type": "Selection"
+    },
+    {
+      "class": "Trapper",
+      "rank": 1,
+      "name": "Create Trap",
+      "description": "You can expend a number of charges to create a type of trap you are familiar with. You learn one trap type from the list below for each rank in this class. Whenever someone triggers your trap, they must make a save against your Trap DC, equal to 10 + Brains.",
+      "type": "Passive",
+      "selectionBonus": "+"
+    },
+    {
+      "class": "Trapper",
+      "rank": 1,
+      "name": "",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "Choose a square within 1 meter of you. Choose a trap from your inventory and place it down. You can pick up a trap to move it as an additional Action.",
+      "type": "Action"
+    },
+    {
+      "class": "Trapper",
+      "rank": 2,
+      "name": "Tracker",
+      "description": "You know how to track the movements of creatures while on land. You have advantage on all checks to track or determine a creature's direction",
+      "type": "Passive"
+    },
+    {
+      "class": "Trapper",
+      "rank": 3,
+      "name": "COMBO: False Trigger",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "After using the Place Trap ability, you can trigger the trap on a creature if you are both within 1 meter of the trap. ",
+      "type": "Action"
+    },
+    {
+      "class": "Trapper",
+      "rank": 4,
+      "name": "Improved Craft Traps",
+      "description": "Whenever you use the Craft Trap ability, you can craft 2 traps for the same amount of charges. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Trapper",
+      "rank": 5,
+      "name": "Responsive Deployment",
+      "description": "Whenever you start combat, you can place up to 3 traps instantly within 5 meters of yourself.",
+      "type": "Passive"
+    },
+    {
+      "class": "Trapper",
+      "rank": 1,
+      "name": "Snare",
+      "cost": "1 Charges",
+      "description": "Whenever a creature moves into that square, they must make a Finesse roll against your Trap DC, they become restrained. The restrain DC is your Trap DC. Once this trap is triggered it must be reactivated before it can be reused.",
+      "type": "Selection"
+    },
+    {
+      "class": "Trapper",
+      "rank": 1,
+      "name": "Trip Rope",
+      "cost": "1 Charges",
+      "description": "Whenever you place this trap, choose another square within 2 meters of this. Create a line connecting these two squares. Whenever a creature crosses that line, they must make a Finesse roll against your Trap DC or fall prone. They are using a Move Action when they fail, their Move Action automatically ends.",
+      "type": "Selection"
+    },
+    {
+      "class": "Trapper",
+      "rank": 1,
+      "name": "Sticky",
+      "cost": "1 Charges",
+      "description": "Moving through that square costs an extra 2 meters of movement.",
+      "type": "Selection"
+    },
+    {
+      "class": "Trapper",
+      "rank": 1,
+      "name": "Spike",
+      "cost": "1 Charges",
+      "description": "Whenever a creature moves into that square they must make a Finesse roll against your Trap DC or take 1d10 piercing damage. On a success, the character takes no damage. Once this trap is triggered it must be reactivated before it can be reused.",
+      "type": "Selection"
+    },
+    {
+      "class": "Trapper",
+      "rank": 1,
+      "name": "Concussive",
+      "cost": "1 Charges",
+      "description": "Whenever a creature moves into that square, they must make a Finesse roll against your Trap DC or take 1d4 piercing damage and gain the Concussed condition for 10 minutes. At the end of their turn they can make an Awareness roll against your Trap DC to end the condition early. Once this trap is triggered it must be reactivated before it can be reused.",
+      "type": "Selection"
+    },
+    {
+      "class": "Trapper",
+      "rank": 1,
+      "name": "Big Game",
+      "cost": "1 Charges",
+      "description": "Whenever a creature moves into that square they must make a Finesse roll against your Trap DC or take 1d6 piercing damage and become restrained. The restrain DC is your Trap DC. Once this trap is triggered it must be reactivated before it can be reused.",
+      "type": "Selection"
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Religious Study",
+      "description": "You have a strong understanding of different religions and what they believe. When you choose this class you and your GM must choose a Religion for you to follow.",
+      "type": "Passive"
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Omen of Blessing",
+      "description": "Gain a Blessing from the list of Blessings below. Some Blessings require you to follow a specific Religion or Doctrine in order to select it. You can apply a Blessing or Curse to a person you are with while not in combat. You can have up to 1 Blessing active at once.",
+      "type": "Passive",
+      "selectionBonus": 1
+    },
+    {
+      "class": "Clergyman",
+      "rank": 2,
+      "name": "Preach",
+      "actionCost": 3,
+      "enduranceCost": 0,
+      "description": "Choose an enemy to condemn for their sins. Perform a Brains Contest. If they fail, they cannot target you with an attack for 1 minute. Whenever you deal damage to them they get to make this Contest again.",
+      "type": "Action"
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Omen of Blessing 2",
+      "description": "Gain a second Blessing or Curse from the list of Blessings below. Additionally you may now have up to 2 Blessings or Curses active at once.",
+      "type": "Passive",
+      "selectionBonus": 1
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Give Praise",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "Choose an ally to give praise to. This ally must follow your Religion. They gain a +3 bonus to their first attack roll made on their next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Clergyman",
+      "rank": 4,
+      "name": "Denounce Omen",
+      "description": "You can give a sermon to denounce the powers of a non-religious Omen to all crew members following your Religion. Make a Brains roll against the Omen DC. If you pass, the Omen will no longer affect your crew's Camaraderie.",
+      "type": "Passive"
+    },
+    {
+      "class": "Clergyman",
+      "rank": 5,
+      "name": "Religious Confidence",
+      "description": "You are immune to the Conversion and Preach abilities of Clergyman who do not follow your Religion.",
+      "type": "Passive"
+    },
+    {
+      "class": "Clergyman",
+      "rank": 5,
+      "name": "Omen of Blessing 3",
+      "description": "Gain a third Blessing or Curse from the list of Blessings below. Additionally you may now have up to 3 Blessings or Curses active at once.",
+      "type": "Passive",
+      "selectionBonus": 1
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Religion",
+      "cost": "1 Charges",
+      "categoryKey": "Religion",
+      "label": "Religion",
+      "type": "Selection-category",
+      "options": [
+        "Church of Light",
+        "Spirits of the Land",
+        "Spirits of Battle",
+        "Spirits of the Sea"
+      ]
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of Protection",
+      "type": "Selection",
+      "cost": "-",
+      "description": "You bless someone with divine protection. They will receive a subtle warning when danger is nearby."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of Constitution",
+      "type": "Selection",
+      "cost": "-",
+      "description": "You bless someone to have an improved constitution, they gain a +5 on all Tolerance rolls for the next 24 hours."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of Healing",
+      "type": "Selection",
+      "cost": "-",
+      "description": "You bless someone to heal them from whatever plagues them. They gain a +5 on all Grit rolls against all poisons, diseases, or injuries currently inflicting them."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of Weakness",
+      "type": "Selection",
+      "cost": "-",
+      "description": "You curse someone to weaken their spirits. They gain a -5 on all Grit rolls against all poisons, diseases, or injuries currently inflicting them."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of Folly",
+      "type": "Selection",
+      "cost": "-",
+      "description": "You curse someone with a clouded mind. They have a -5 on all Brains skill rolls."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of Light",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Church of Light",
+      "cost": "-",
+      "description": "You bless someone with an improved insight. They gain a +5 to all Investigation and Intuition rolls."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of Fortune",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Church of Light",
+      "cost": "-",
+      "description": "You bless someone with great luck. They gain 1 additional maximum luck point."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of the Dawn",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Church of Light",
+      "cost": "-",
+      "description": "You bless an object with the light of the sun. While someone is holding this object they have a +5 on all Awareness skill rolls and a -5 on all Skulduggery and Sneaking rolls."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of the Pure",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Church of Light",
+      "cost": "-",
+      "description": "You curse someone with purity. They have a -5 on all Swagger rolls involving lies or deceit."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of the Dusk",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Church of Light",
+      "cost": "-",
+      "description": "You curse an object with the darkness of night. While someone is holding this object they have a -5 on all Awareness skill rolls and a +5 on all Skulduggery and Sneaking rolls."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of the Mountain",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Land",
+      "cost": "-",
+      "description": "You bless someone to have the mental fortitude of a mountain. You gain a +5 on Swagger rolls involving standing your ground."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of the Sand",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Land",
+      "cost": "-",
+      "description": "You bless someone with the fluidity of sand. They gain a +5 on all Finesse rolls involving escaping or slipping away."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of Fertility",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Land",
+      "cost": "-",
+      "description": "You bless the land around you, improving its fertility allowing for improved crop growth. This blessing does not count towards your total active blessings."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of Unmoving",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Land",
+      "cost": "-",
+      "description": "You curse your target to become slow and unmoving. They gain a -5 on all Finesse rolls involving escaping or slipping away."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of the Unsanctified Ground",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Land",
+      "cost": "-",
+      "description": "You curse the land around you, preventing crops from growing, spreading weeds, and sickening animals who attempt to graze there. This blessing does not count towards your total active blessings."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of the Beast",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of Battle",
+      "cost": "-",
+      "description": "You bless someone with powers of the animal kingdom. They have a +5 bonus to all Lifting, Swimming, Acrobatics, and Tracking rolls."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of the Cunning",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of Battle",
+      "cost": "-",
+      "description": "You bless someone with a strong mental wit. They gain a +5 on all Brains rolls within the heat of combat."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of History",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of Battle",
+      "cost": "-",
+      "description": "You bless an old relic with the spirit of a warrior who used it before. If this relic is wearable you gain +1 to your evasion while wearing it. If this relic is a weapon you gain +1 to attack rolls made using it. Otherwise, you gain a +5 on all History rolls for this object."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of Cowardice",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of Battle",
+      "cost": "-",
+      "description": "You curse someone with fear in their hearts. All Infamy and Influence rolls made against this person have a +5."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of Frost",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of Battle",
+      "cost": "-",
+      "description": "You curse the land around you with a great chill. Winters within the land are more likely to become hard and bitter. This blessing does not count towards your total active blessings."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of the Tempest",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Sea",
+      "cost": "-",
+      "description": "You bless a ship with control in dangerous waters. Whoever is driving has a +5 to all rolls to control it in rough or stormy conditions."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of the Tide",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Sea",
+      "cost": "-",
+      "description": "You bless a ship with the speed of the sea, allowing the waves themselves to push it towards its destination."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 1,
+      "name": "Blessing of Calm Waters",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Sea",
+      "cost": "-",
+      "description": "You bless the sea to quiet the storms and rough waves. The sea is more likely to be calm going forward."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of Lightning",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Sea",
+      "cost": "-",
+      "description": "You bless the weather itself, making storms more likely to appear in the sky."
+    },
+    {
+      "class": "Clergyman",
+      "rank": 3,
+      "name": "Curse of the Monsoon",
+      "type": "Selection",
+      "selectionCategory": "Religion",
+      "selectionOption": "Spirits of the Sea",
+      "cost": "-",
+      "description": "You curse a ship to cause the sea itself to fight it every movement, the ship will move slower towards its destination."
+    },
+    {
+      "class": "Doctor",
+      "rank": 1,
+      "name": "Quicken Heal",
+      "description": "You regain 2 hit points for every hour they rest.",
+      "type": "Passive"
+    },
+    {
+      "class": "Doctor",
+      "rank": 1,
+      "name": "Medical Knowledge",
+      "description": "You have an extensive understanding of the human body.",
+      "type": "Passive"
+    },
+    {
+      "class": "Doctor",
+      "rank": 2,
+      "name": "Bandage (2 Action)",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You expend one use of a medical supply kit to heal a 1d6 Health on a target within your reach.",
+      "type": "Action"
+    },
+    {
+      "class": "Doctor",
+      "rank": 2,
+      "name": "Bandage (3 Action)",
+      "actionCost": 3,
+      "enduranceCost": 0,
+      "description": "You expend one use of a medical supply kit to heal a 2d6 + Brains Health on a target within your reach.",
+      "type": "Action"
+    },
+    {
+      "class": "Doctor",
+      "rank": 2,
+      "name": "Sanitation",
+      "description": "All creatures have advantage on rolls to prevent sickness or disease while you are on the crew.",
+      "type": "Passive"
+    },
+    {
+      "class": "Doctor",
+      "rank": 3,
+      "name": "Mend",
+      "description": "You can help mend a resting sailor's broken bones, they regain 2 hit points for every hour they rest until they are at full health or are damaged. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Doctor",
+      "rank": 3,
+      "name": "Nursing",
+      "description": "You help nurse a sick sailor's health. They have advantage on the roll to help them end the sickness.",
+      "type": "Passive"
+    },
+    {
+      "class": "Doctor",
+      "rank": 4,
+      "name": "Surgical Precision",
+      "description": "Your medical knowledge can be used for more than just healing people. Whenever you deal piercing damage with a melee weapon, you also inflict your target with the Bleeding condition until the start of your next turn.",
+      "type": "Passive"
+    },
+    {
+      "class": "Doctor",
+      "rank": 5,
+      "name": "Masters of Death",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You can blur the line between being alive and dead. If a creature within your reach has been reduced to 0 Health since the end of your last time, you can use this Action to bring them back to life to an unconscious state. Once you use this ability on a creature, they must become fully healed before you are able to use this ability on them again.",
+      "type": "Action"
+    },
+    {
+      "class": "Ecologist",
+      "rank": 1,
+      "name": "Natural Reach",
+      "description": "You have a deep understanding of different flora and fauna around you.",
+      "type": "Passive"
+    },
+    {
+      "class": "Ecologist",
+      "rank": 1,
+      "name": "Forage",
+      "description": "While on land, you can forage for different herbs that might be useful to you. Make a Brains roll, the DC based on the rarity of the herbs you are looking for.",
+      "type": "Passive"
+    },
+    {
+      "class": "Ecologist",
+      "rank": 2,
+      "name": "Tame Animal",
+      "description": "Your knowledge of animals allows you to understand what is necessary to tame a beast. You and your Sea Master agree on a creature to act as your pet. Some suggested animals are a bird, a cat, a dog, or a fish.",
+      "type": "Passive"
+    },
+    {
+      "class": "Ecologist",
+      "rank": 2,
+      "name": "Command Beast",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "You can command a beast you have previously tamed on your turn, allowing you to control it in combat after your turn is over. ",
+      "type": "Action"
+    },
+    {
+      "class": "Ecologist",
+      "rank": 3,
+      "name": "Animal Identification",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "You can quickly identify any beast you see, allowing you to identify any weaknesses it might have. ",
+      "type": "Action"
+    },
+    {
+      "class": "Ecologist",
+      "rank": 4,
+      "name": "Veterinary Studies",
+      "description": "You understand the medical needs of beasts which you have tamed. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Ecologist",
+      "rank": 4,
+      "name": "Improved Beast Command",
+      "description": "Whenever you take the Command Beast Action, you can command the orders you command last for 2 rounds. You can control it in combat after your next turn is over as well without an additional Action.",
+      "type": "Passive"
+    },
+    {
+      "class": "Ecologist",
+      "rank": 5,
+      "name": "Nature's Wrath",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "You can command any beast that is not currently hostile against you, allowing you to control it in combat after your turn is over. ",
+      "type": "Action"
+    },
+    {
+      "class": "Musician",
+      "rank": 1,
+      "name": "Perfect Practice",
+      "description": "You gain the ability to play a musical instrument, sing, or learn a new dance of your choice each time you gain a rank in this class.",
+      "type": "Passive"
+    },
+    {
+      "class": "Musician",
+      "rank": 1,
+      "name": "Musical Theory",
+      "description": "You have a lucrative understanding of music theory and know how to write songs.",
+      "type": "Passive"
+    },
+    {
+      "class": "Musician",
+      "rank": 2,
+      "name": "Distractive Presence",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "Choose a creature that can hear and see you. Perform a Brains Contest. If they fail, they gain the alarmed condition until the end of their next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Musician",
+      "rank": 2,
+      "name": "Calming Melody",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "Choose a creature that can hear and see you. They gain the calm condition until the end of their next turn.",
+      "type": "Action"
+    },
+    {
+      "class": "Musician",
+      "rank": 3,
+      "name": "Rally Anthem",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "Choose a number of creatures equal to your Brains score that can hear and see you. Reduce the Endurance cost of their next Action by 3.",
+      "type": "Action"
+    },
+    {
+      "class": "Musician",
+      "rank": 4,
+      "name": "Fancy Footwork",
+      "description": "Dodging costs you 2 less Endurance. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Musician",
+      "rank": 4,
+      "name": "Demeaning Anthem",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "Choose a creature that can hear and see you. Perform a Brains Contest. If they fail, increase the Endurance cost of their next Action by 3.",
+      "type": "Action"
+    },
+    {
+      "class": "Musician",
+      "rank": 5,
+      "name": "Sweet Lullabies",
+      "actionCost": 3,
+      "enduranceCost": 0,
+      "description": "You play a sweet melody capable of putting even the largest of beasts to sleep. Any creature that can hear you and is below a quarter of their health must perform a Brains Contest. If they fail, they gain the winded condition until you stop playing. If they already have the winded condition from a different ability, they instead fall unconscious for 1 hour or until they are awoken or take damage.",
+      "type": "Action"
+    },
+    {
+      "class": "Musician",
+      "rank": 5,
+      "name": "Party Hard",
+      "description": "Each night you can host a party with your crew. Your crew gains 1 Camaraderie for each crew member that participates in your party.",
+      "type": "Passive"
+    },
+    {
+      "class": "Navigator",
+      "rank": 1,
+      "name": "Superior Movement",
+      "description": "You are immune to any ability that lowers your movement through a square.",
+      "type": "Passive"
+    },
+    {
+      "class": "Navigator",
+      "rank": 1,
+      "name": "Nautical Knowledge",
+      "description": "You have a considerable understanding of how to read all types of nautical charts.",
+      "type": "Passive"
+    },
+    {
+      "class": "Navigator",
+      "rank": 2,
+      "name": "Calculate Location",
+      "description": "You are able to analyze the stars, sun, and nearby islands to determine your precise location on a nautical map.",
+      "type": "Passive"
+    },
+    {
+      "class": "Navigator",
+      "rank": 2,
+      "name": "Chart a Course",
+      "description": "Your knowledge of nautical charts allows you to follow a map to a location",
+      "type": "Passive"
+    },
+    {
+      "class": "Navigator",
+      "rank": 3,
+      "name": "COMBO: Exploted Opportunity",
+      "actionCost": 1,
+      "enduranceCost": "1/2 Movement",
+      "description": "Whenever you use the move Action, you can create a moment of opportunity, allowing one of your ally's to move up to their base movement on your turn as well.",
+      "type": "Action"
+    },
+    {
+      "class": "Navigator",
+      "rank": 3,
+      "name": "Improved Speed",
+      "description": " You gain an additional 2 meters of base movement on the first Move Action of your turn.",
+      "type": "Passive"
+    },
+    {
+      "class": "Navigator",
+      "rank": 4,
+      "name": "Cartographer",
+      "description": "Your knowledge of nautical charts now extends to making maps as well. You can now make a nautical map of your current location, allowing other navigators to chart a course here.",
+      "type": "Passive"
+    },
+    {
+      "class": "Navigator",
+      "rank": 5,
+      "name": "Ship Control",
+      "description": "Whenever you perform the Turn or Adjust Rigging Ship Action, reduce the cost by 2 SAP.",
+      "type": "Passive"
+    },
+    {
+      "class": "Noble",
+      "rank": 1,
+      "name": "Linguist's Education",
+      "description": "You know and understand the art of language very well. Each time you gain a rank in this class you learn a new language.",
+      "type": "Passive"
+    },
+    {
+      "class": "Noble",
+      "rank": 1,
+      "name": "Good Negotiator",
+      "description": "You have advantage on all negotiation checks.",
+      "type": "Passive"
+    },
+    {
+      "class": "Noble",
+      "rank": 2,
+      "name": "Natural Leader",
+      "actionCost": 2,
+      "enduranceCost": 0,
+      "description": "You can give a command to your allies, improving their coordination and their ability to work together until the end of your next turn. You learn one command for each rank in this class from the list below.",
+      "type": "Action",
+      "selectionBonus": "+"
+    },
+    {
+      "class": "Noble",
+      "rank": 2,
+      "name": "Take Charge",
+      "description": "Improve your rolls for Ship Action Points by 1.",
+      "type": "Passive"
+    },
+    {
+      "class": "Noble",
+      "rank": 3,
+      "name": "Historic Bloodline",
+      "description": "Your noble heritage did not just come with an education. Your name carries a reputation based on the circles you travel in. ",
+      "type": "Passive"
+    },
+    {
+      "class": "Noble",
+      "rank": 4,
+      "name": "Inspiring",
+      "description": "Improve your rolls for Ship Action Points by an additional 1.",
+      "type": "Passive"
+    },
+    {
+      "class": "Noble",
+      "rank": 5,
+      "name": "True Captain",
+      "description": "Whenever you roll for Ship Action Points, if your roll is 4 or less, change the roll to be 5.",
+      "type": "Passive"
+    },
+    {
+      "class": "Noble",
+      "rank": 5,
+      "name": "Strong Leader",
+      "description": "Your Ship's Camaraderie cannot fall lower than 0 - the number of total crew members.",
+      "type": "Passive"
+    },
+    {
+      "class": "Noble",
+      "rank": 1,
+      "name": "Charge Forward",
+      "cost": "-",
+      "description": "Once per turn, as part of the move Action, allies can make an attack.",
+      "type": "Selection"
+    },
+    {
+      "class": "Noble",
+      "rank": 1,
+      "name": "Go for the Eyes",
+      "cost": "-",
+      "description": "Once per turn, allies can make two attacks as one attack Action.",
+      "type": "Selection"
+    },
+    {
+      "class": "Noble",
+      "rank": 1,
+      "name": "Parry It",
+      "cost": "-",
+      "description": "Once per turn, allies under this effect do not spend the Weapon Endurance Cost to Parry an attack. ",
+      "type": "Selection"
+    },
+    {
+      "class": "Noble",
+      "rank": 1,
+      "name": "Fall Back Men",
+      "cost": "-",
+      "description": "Allies movement speed is doubled when moving away from all enemies.",
+      "type": "Selection"
+    },
+    {
+      "class": "Noble",
+      "rank": 1,
+      "name": "It's Faster to Swap",
+      "cost": "-",
+      "description": "Once per turn, allies can also switch weapons when reloading.",
+      "type": "Selection"
+    }
+  ],
+  "weapons": [
+    {
+      "name": "Unarmed Strike",
+      "type": [
+        "Strike"
+      ],
+      "attackStats": [
+        "Brawn",
+        "Finesse"
+      ],
+      "damage": {
+        "dice": "1d4",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 1,
+      "properties": [
+        "Conceal",
+        "Defenseless"
+      ]
+    },
+    {
+      "name": "Improvised Weapons",
+      "type": [
+        "Strike"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d4",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Breakable",
+        "Conceal"
+      ]
+    },
+    {
+      "name": "Brass Knuckles",
+      "type": [
+        "Strike"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d6",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 1,
+      "properties": [
+        "Conceal",
+        "Defenseless",
+        "Versatile (Piercing)"
+      ]
+    },
+    {
+      "name": "Clawed Gloves",
+      "type": [
+        "Strike"
+      ],
+      "attackStats": [
+        "Finesse"
+      ],
+      "damage": {
+        "dice": "1d6",
+        "type": "Slashing"
+      },
+      "enduranceCost": 1,
+      "properties": [
+        "Conceal",
+        "Defenseless",
+        "Versatile (Piercing)"
+      ]
+    },
+    {
+      "name": "Siege Gauntlets",
+      "type": [
+        "Blunt",
+        "Strike"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d10",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 3,
+      "properties": [
+        "Armor Breaker",
+        "Defenseless",
+        "Joint Breaker",
+        "Powerful",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Dagger",
+      "type": [
+        "Sword"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d6",
+        "type": "Slashing"
+      },
+      "enduranceCost": 1,
+      "properties": [
+        "Conceal",
+        "Thrown",
+        "Versatile (Piercing)"
+      ]
+    },
+    {
+      "name": "Cutlass",
+      "type": [
+        "Sword"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Versatile (Piercing)"
+      ]
+    },
+    {
+      "name": "Rapier",
+      "type": [
+        "Sword"
+      ],
+      "attackStats": [
+        "Finesse"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Piercing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Versatile (Slashing)"
+      ]
+    },
+    {
+      "name": "Shortsword",
+      "type": [
+        "Sword"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Versatile (Piercing)"
+      ]
+    },
+    {
+      "name": "Sickle",
+      "type": [
+        "Sword"
+      ],
+      "attackStats": [
+        "Finesse"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Hooked",
+        "Versatile (Piercing)"
+      ]
+    },
+    {
+      "name": "Longsword",
+      "type": [
+        "Sword"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d10",
+        "type": "Slashing"
+      },
+      "enduranceCost": 3,
+      "properties": [
+        "Versatile (Piercing)"
+      ]
+    },
+    {
+      "name": "Greatsword",
+      "type": [
+        "Sword"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d12",
+        "type": "Slashing"
+      },
+      "enduranceCost": 3,
+      "properties": [
+        "Powerful",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Spear",
+      "type": [
+        "Polearm"
+      ],
+      "attackStats": [
+        "Finesse"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Piercing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Reach (1m)",
+        "Thrown",
+        "Versatile (Slashing)"
+      ]
+    },
+    {
+      "name": "Hand-Axe",
+      "type": [
+        "Axe"
+      ],
+      "attackStats": [
+        "Finesse"
+      ],
+      "damage": {
+        "dice": "1d6",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Thrown"
+      ]
+    },
+    {
+      "name": "Broadaxe",
+      "type": [
+        "Axe"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Thrown",
+        "Versatile (Bludgeoning)"
+      ]
+    },
+    {
+      "name": "Battle-Axe",
+      "type": [
+        "Axe",
+        "Polearm"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Armor Breaker",
+        "Versatile (Bludgeoning)"
+      ]
+    },
+    {
+      "name": "Hamaxe",
+      "type": [
+        "Axe",
+        "Blunt"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d10",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Two-Handed",
+        "Versatile (Bludgeoning)"
+      ]
+    },
+    {
+      "name": "Greataxe",
+      "type": [
+        "Axe",
+        "Polearm"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d12",
+        "type": "Slashing"
+      },
+      "enduranceCost": 3,
+      "properties": [
+        "Powerful",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Mace",
+      "type": [
+        "Blunt"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Joint Breaker"
+      ]
+    },
+    {
+      "name": "Morning Star",
+      "type": [
+        "Blunt"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Joint Breaker"
+      ]
+    },
+    {
+      "name": "Hammer",
+      "type": [
+        "Blunt"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Armor Breaker",
+        "Joint Breaker"
+      ]
+    },
+    {
+      "name": "Pickaxe",
+      "type": [
+        "Blunt",
+        "Polearm"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d8",
+        "type": "Piercing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Scythe",
+      "type": [
+        "Polearm"
+      ],
+      "attackStats": [
+        "Finesse"
+      ],
+      "damage": {
+        "dice": "1d10",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Hooked",
+        "Reach (1m)",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Halbert",
+      "type": [
+        "Axe",
+        "Polearm"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d10",
+        "type": "Slashing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Reach (1m)",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Glaive",
+      "type": [
+        "Polearm",
+        "Sword"
+      ],
+      "attackStats": [
+        "Finesse"
+      ],
+      "damage": {
+        "dice": "1d12",
+        "type": "Piercing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Powerful",
+        "Reach (1m)",
+        "Two-Handed",
+        "Versatile (Slashing)"
+      ]
+    },
+    {
+      "name": "Warhammer",
+      "type": [
+        "Blunt",
+        "Polearm"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d10",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 3,
+      "properties": [
+        "Armor Breaker",
+        "Joint Breaker",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Greathammer",
+      "type": [
+        "Blunt",
+        "Polearm"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d12",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 3,
+      "properties": [
+        "Armor Breaker",
+        "Joint Breaker",
+        "Powerful",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Club",
+      "type": [
+        "Blunt"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d6",
+        "type": "Bludgeoning"
+      },
+      "enduranceCost": 1,
+      "properties": [
+        "Conceal",
+        "Thrown"
+      ]
+    },
+    {
+      "name": "Bow",
+      "type": [
+        "Sniper Firearm"
+      ],
+      "attackStats": [
+        "Awareness"
+      ],
+      "damage": {
+        "dice": "1d12",
+        "type": "Piercing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Ammunition",
+        "Range (70m)",
+        "Two-Handed",
+        "Quick Reload"
+      ]
+    },
+    {
+      "name": "Crossbow",
+      "type": [
+        "Sniper Firearm"
+      ],
+      "attackStats": [
+        "Awareness"
+      ],
+      "damage": {
+        "dice": "1d12",
+        "type": "Piercing"
+      },
+      "enduranceCost": 2,
+      "properties": [
+        "Ammunition",
+        "Range (24m)",
+        "Quick Reload"
+      ]
+    },
+    {
+      "name": "Musket",
+      "type": [
+        "Sniper Firearm"
+      ],
+      "attackStats": [
+        "Awareness"
+      ],
+      "damage": {
+        "dice": "4d6",
+        "type": "Piercing"
+      },
+      "enduranceCost": 4,
+      "properties": [
+        "Ammunition",
+        "Armor Piercing",
+        "Range (70m)",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Blunderbuss",
+      "type": [
+        "Hand Firearm"
+      ],
+      "attackStats": [
+        "Awareness"
+      ],
+      "damage": {
+        "dice": "3d10",
+        "type": "Piercing"
+      },
+      "enduranceCost": 4,
+      "properties": [
+        "Ammunition",
+        "Armor Piercing",
+        "Range (10m)",
+        "Two-Handed"
+      ]
+    },
+    {
+      "name": "Pistol",
+      "type": [
+        "Hand Firearm"
+      ],
+      "attackStats": [
+        "Awareness"
+      ],
+      "damage": {
+        "dice": "3d6",
+        "type": "Piercing"
+      },
+      "enduranceCost": 4,
+      "properties": [
+        "Ammunition",
+        "Armor Piercing",
+        "Range (16m)"
+      ]
+    },
+    {
+      "name": "Alcohol Grenade",
+      "type": [
+        "Grenade"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "1d6",
+        "type": "Fire"
+      },
+      "enduranceCost": 5,
+      "properties": [
+        "Consumable",
+        "Explosive (10)",
+        "Fuse",
+        "Thrown",
+        "Radius (1m)"
+      ]
+    },
+    {
+      "name": "Black Powder Grenade",
+      "type": [
+        "Grenade"
+      ],
+      "attackStats": [
+        "Brawn"
+      ],
+      "damage": {
+        "dice": "2d6",
+        "type": "Fire"
+      },
+      "enduranceCost": 6,
+      "properties": [
+        "Consumable",
+        "Explosive (12)",
+        "Fuse",
+        "Thrown",
+        "Radius (2m)"
+      ]
+    }
+  ],
+  "armors": [
+    {
+      "name": "No Armor",
+      "baseEvasion": 16,
+      "toughness": 0,
+      "dashPenalty": 0,
+      "properties": []
+    },
+    {
+      "name": "Leather Armor",
+      "baseEvasion": 14,
+      "toughness": 2,
+      "dashPenalty": -1,
+      "properties": [
+        "Conceal"
+      ]
+    },
+    {
+      "name": "Chain Mail",
+      "baseEvasion": 12,
+      "toughness": 3,
+      "dashPenalty": -2,
+      "properties": []
+    },
+    {
+      "name": "Plate Armor",
+      "baseEvasion": 10,
+      "toughness": 4,
+      "dashPenalty": -5,
+      "properties": []
+    }
+  ],
+  "shields": [
+    {
+      "name": "No Shield",
+      "toughness": 0,
+      "braceCost": 0,
+      "dashPenalty": 0,
+      "properties": []
+    },
+    {
+      "name": "Buckler",
+      "toughness": 1,
+      "braceCost": 2,
+      "dashPenalty": 0,
+      "properties": [
+        "Attachable",
+        "Parry"
+      ]
+    },
+    {
+      "name": "Round Shield",
+      "toughness": 2,
+      "braceCost": 3,
+      "dashPenalty": -2,
+      "properties": []
+    },
+    {
+      "name": "Tower Shield",
+      "toughness": 4,
+      "braceCost": 4,
+      "dashPenalty": -3,
+      "properties": []
+    }
+  ],
+  "equipmentProperties": [
+    {
+      "name": "Ammunition",
+      "description": "Must be reloaded after firing."
+    },
+    {
+      "name": "Armor Breaker",
+      "description": "Critical attacks with this weapon reduce an armor's toughness against that damage type by 1, to a minimum of 0."
+    },
+    {
+      "name": "Armor Piercing",
+      "description": "Ignores half of the toughness of armor. Round down."
+    },
+    {
+      "name": "Attachable",
+      "description": "This can be attached to another weapon or your hand directly, allowing you to use it while having something in that hand such as dual wielding or using two-handed weapons."
+    },
+    {
+      "name": "Breakable",
+      "description": "Whenever score a critical failure with this weapon or a critical hit on this armor, it breaks and gains the Damaged Property. You can no longer attack with this if it is a weapon, and the armor's toughness is set to 0. "
+    },
+    {
+      "name": "Conceal",
+      "description": "This equipment is too small to be noticed. If you conceal a weapon you have equipped this way you do not need to use an Action to switch to it. If you conceal armor in this way, it will be noticed you are wearing armor until you are attacked."
+    },
+    {
+      "name": "Consumable",
+      "description": "After this weapon is used it is destroyed."
+    },
+    {
+      "name": "Damaged",
+      "description": "This equipment is considered broken and will not function to its full capacity. How it is broken is determined when it gains the damaged property."
+    },
+    {
+      "name": "Defenseless",
+      "description": "You cannot Parry with this weapon."
+    },
+    {
+      "name": "Dull (X)",
+      "description": "This equipment has the Damaged Property. If it is a weapon it deals 1 less damage on all attacks for each level this weapon is dulled. If it is armor it has 1 less toughness for each level this armor is dulled."
+    },
+    {
+      "name": "Explosive (X)",
+      "description": "This weapon deals damage to a large area. All characters in its radius must make a Finesse roll or take damage (if the object does damage). On a success, the character takes half the damage. If a weapon with this property takes fire damage, it also explodes with half the radius, adding a +1 to the damage for each explosive."
+    },
+    {
+      "name": "Hooked",
+      "description": "Your weapon cannot be parried by a weapon."
+    },
+    {
+      "name": "Fuse",
+      "description": "Can be activated at the start on a character's turn instead of instantly."
+    },
+    {
+      "name": "Joint Breaker",
+      "description": "After a successful hit with this weapon, a target must spend an additional 5 Endurance to dodge an attack."
+    },
+    {
+      "name": "Parry",
+      "description": "This shield can Parry as if it was a weapon. Use the Brace Endurance cost as the Endurance Cost and reduce the damage by this shields toughness."
+    },
+    {
+      "name": "Powerful",
+      "description": "Weapons with this property automatically crit on a 19 or 20 on the dice."
+    },
+    {
+      "name": "Range (X)",
+      "description": "Can be used to attack at a great distance."
+    },
+    {
+      "name": "Radius (X)",
+      "description": "This weapon or item affects creatures and objects within the listed radius."
+    },
+    {
+      "name": "Reach (X)",
+      "description": "Weapons with this property have a range in which one can make a melee attack by 1 meter for each level of reach."
+    },
+    {
+      "name": "Thrown",
+      "description": "Can be thrown a number of meters up to the attack roll."
+    },
+    {
+      "name": "Two-Handed",
+      "description": "Requires you to wield it with two hands."
+    },
+    {
+      "name": "Quick Reload",
+      "description": "Requires two Action points to reload instead of three."
+    },
+    {
+      "name": "Versatile (X)",
+      "description": "You can replace the damage type of this weapon with the X damage type."
+    }
+  ],
+  "conditions": [
+    {
+      "name": "Alarmed",
+      "description": "You have a -1d6 to all rolls. This condition can stack with itself.",
+      "hasStack": true,
+      "hasSource": false
+    },
+    {
+      "name": "Bleeding",
+      "description": "You take an 1 bleeding damage for each stack of this condition whenever you are damaged with an attack. This condition can stack with itself.",
+      "hasStack": true,
+      "hasSource": false
+    },
+    {
+      "name": "Blinded",
+      "description": "You cannot see. You automatically fail all Awareness rolls involving sight and have disadvantage on all other Awareness rolls and attacks.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Burning",
+      "description": "At the start of your turn you are dealt 1 fire damage. This condition ends if you become soaked.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Calm",
+      "description": "You can add a +1d6 to any roll you choose. Once you use this benefit, you lose the Calm condition.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Concussed",
+      "description": "You automatically fail all Brains rolls.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Deafened",
+      "description": "You cannot hear. You automatically fail all Awareness rolls involving sound and have disadvantage on all other Awareness rolls.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Defenseless",
+      "description": "You cannot Dodge or Parry an attack made against you.",
+      "hasStack": true,
+      "hasSource": false
+    },
+    {
+      "name": "Difficulty",
+      "description": "Reduce a dice roll's result by 1. This condition can stack with itself.",
+      "hasStack": true,
+      "hasSource": false
+    },
+    {
+      "name": "Grappled",
+      "description": "You will move with the creature who is grappling you. Your movement speed is set to 0, and it cannot be increased in any way. Do not add your Finesse to your Evasion. You cannot end the Toppled condition. A grappled creature can use an Action to make a Brawn Contest to end the condition.",
+      "hasStack": false,
+      "hasSource": true
+    },
+    {
+      "name": "Improvement",
+      "description": "Increase a dice roll's result by 1. This condition can stack with itself.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Intoxicated",
+      "description": "Your movement speed is halved, and you have disadvantage on all rolls.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Regneration",
+      "description": "You regain +1 Health at the start of your turn. This condition can stack with itself.",
+      "hasStack": true,
+      "hasSource": false
+    },
+    {
+      "name": "Restoration",
+      "description": "You regain +1 Endurance at the start of your turn. This condition can stack with itself.",
+      "hasStack": true,
+      "hasSource": false
+    },
+    {
+      "name": "Restrained",
+      "description": "You automatically fail all Finesse rolls. You cannot Dodge or Parry any attacks. You cannot perform any actions except freeing yourself by making a Brawn or Brains roll for 1 Action against the Restraint DC (determined by the restraint source).",
+      "hasStack": false,
+      "hasSource": true
+    },
+    {
+      "name": "Poisoned",
+      "description": "You have disadvantage on all Grit rolls involving the Poisoned condition and taking Poison damage and automatically fail all other Grit rolls.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Soaked",
+      "description": "You are unable to light gunpowder of firearms or cannons.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Sprained",
+      "description": "Increase the Endurance cost of all actions with an Endurance cost for 1. This condition can stack with itself.",
+      "hasStack": true,
+      "hasSource": false
+    },
+    {
+      "name": "Staggered",
+      "description": "You have disadvantage on your first attack next turn.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Stunned",
+      "description": "You cannot take any actions, communicate, gain the Defenseless condition, and automatically fail all Finesse Contests.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Toppled",
+      "description": "You fall to the floor. All movement is halved. Melee attacks made against you have advantage.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Unconscious",
+      "description": "You are unable to take any actions. All attacks made against you have advantage. You cannot hear or see anything happening around you. Attacks made against you must always be made against your health.",
+      "hasStack": false,
+      "hasSource": false
+    },
+    {
+      "name": "Winded",
+      "description": "You lose one Action point. This condition can stack with itself.",
+      "hasStack": true,
+      "hasSource": false
+    }
+  ],
+  "classPageStructure": {
+    "groups": [
+      {
+        "key": "General",
+        "classes": [
+          "General"
+        ]
+      },
+      {
+        "key": "Fighters",
+        "classes": [
+          "Basher",
+          "Brute",
+          "Cleaver",
+          "Marksman",
+          "Martial Artist",
+          "Sharpshooter",
+          "Spearman",
+          "Swordsman"
+        ]
+      },
+      {
+        "key": "Artisans",
+        "classes": [
+          "Alchemist",
+          "Blacksmith",
+          "Carpenter",
+          "Chef",
+          "Farmer",
+          "Fisherman",
+          "Grenadier",
+          "Trapper"
+        ]
+      },
+      {
+        "key": "Scholars",
+        "classes": [
+          "Clergyman",
+          "Doctor",
+          "Ecologist",
+          "Musician",
+          "Navigator",
+          "Noble"
+        ]
+      }
+    ]
+  },
+  "classPageLabels": {
+    "groupLabels": {
+      "General": "General",
+      "Fighters": "Fighter",
+      "Artisans": "Artisan",
+      "Scholars": "Scholar"
+    },
+    "classLabels": {
+      "General": "General",
+      "Basher": "Basher",
+      "Brute": "Brute",
+      "Cleaver": "Cleaver",
+      "Marksman": "Marksman",
+      "Martial Artist": "Martial Artist",
+      "Sharpshooter": "Sharpshooter",
+      "Spearman": "Spearman",
+      "Swordsman": "Swordsman",
+      "Alchemist": "Alchemist",
+      "Blacksmith": "Blacksmith",
+      "Carpenter": "Carpenter",
+      "Chef": "Chef",
+      "Farmer": "Farmer",
+      "Fisherman": "Fisherman",
+      "Grenadier": "Grenadier",
+      "Trapper": "Trapper",
+      "Clergyman": "Clergyman",
+      "Doctor": "Doctor",
+      "Ecologist": "Ecologist",
+      "Musician": "Musician",
+      "Navigator": "Navigator",
+      "Noble": "Noble"
+    }
+  }
+}

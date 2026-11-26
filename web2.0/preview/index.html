@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pirate TTRPG Preview</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="simulator">
+    <details open>
+      <summary aria-label="Mock account controls" title="Toggle mock account controls"></summary>
+      <div class="account-controls">
+        <div class="account-editor">
+          <form id="account-form">
+            <label>Username <input name="username" value="Test Player" required maxlength="80" autocomplete="off"></label>
+            <label>Site role
+              <select name="role">
+                <option value="user">User</option>
+                <option value="traveler">Traveler</option>
+                <option value="manager">Manager</option>
+                <option value="owner">Owner</option>
+              </select>
+            </label>
+            <button type="submit">Apply</button>
+          </form>
+          <div id="active-account"><strong></strong><span></span></div>
+        </div>
+        <div class="saved-accounts" role="group" aria-label="Saved mock accounts">
+          <button type="submit" form="account-form" id="save-account">Save</button>
+          <label>Saved accounts <select id="saved-accounts"></select></label>
+          <button type="button" id="load-account" disabled>Load</button>
+          <button type="button" id="delete-account" disabled>Delete</button>
+          <label id="membership-control" hidden>Compendium role
+            <select id="membership">
+              <option value="viewer">Viewer</option>
+              <option value="participant">Participant</option>
+              <option value="writer">Writer</option>
+              <option value="admin">Admin</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <p id="account-status" role="status"></p>
+      <p id="account-error" role="alert"></p>
+    </details>
+  </header>
+  <div class="preview-content">
+    <a class="pirate-back" href="/projects/Pirate" aria-label="Back to Pirate TTRPG" hidden>&lt; Back</a>
+    <main id="compendium-preview">Loading compendium…</main>
+  </div>
+  <template id="pirate-home">
+    <section class="pirate-home">
+      <button type="button" class="pirate-settings" aria-label="Open Pirate settings" hidden>⚙</button>
+      <h1>Pirate TTRPG</h1>
+      <div class="pirate-links">
+        <a href="/projects/PirateCompendium">Compendium</a>
+        <a href="/projects/PirateCharacterSheet">Character Sheet</a>
+        <a href="/projects/PirateNpcBuilder">NPC Builder</a>
+        <a href="/projects/PirateCustom">Homebrew Builder</a>
+      </div>
+      <dialog aria-labelledby="pirate-settings-title">
+        <div class="pirate-dialog-header">
+          <h2 id="pirate-settings-title">Pirate Settings</h2>
+          <form method="dialog"><button type="submit">Close</button></form>
+        </div>
+        <p>Traveler, Admin, Writer, and Owner roles can use Pirate cloud sharing.</p>
+        <p class="pirate-role-status" role="status"></p>
+        <div class="pirate-role-list"></div>
+      </dialog>
+    </section>
+  </template>
+</body>
+</html>
