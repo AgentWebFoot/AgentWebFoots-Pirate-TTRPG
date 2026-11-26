@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <script src="/pirate-frame.js"></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pirate NPC Builder</title>
+        <style>
+            :root {
+                --bg-page: #1d140d;
+                --bg-panel: rgba(47, 36, 23, 0.92);
+                --bg-card: rgba(35, 23, 13, 0.62);
+                --text-main: #f6edd7;
+                --text-muted: rgba(246, 237, 215, 0.72);
+                --accent: #d9bb79;
+                --border: rgba(217, 187, 121, 0.35);
+                --font-main: "Trebuchet MS", sans-serif;
+                --font-header: Georgia, serif;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+                color: var(--text-main);
+                font-family: var(--font-main);
+                background:
+                    radial-gradient(circle at top, rgba(179, 137, 77, 0.26), transparent 35%),
+                    linear-gradient(180deg, #3a2918 0%, #2b1e12 55%, var(--bg-page) 100%);
+            }
+
+            input,
+            select,
+            textarea {
+                font-family: var(--font-main);
+            }
+
+            input[type="number"] {
+                appearance: textfield;
+                -moz-appearance: textfield;
+                text-align: center;
+            }
+
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            .npcPage {
+                min-height: 100vh;
+                padding: 72px 24px 32px;
+            }
+
+            .npcLibraryDock {
+                position: fixed;
+                left: 12px;
+                top: 78px;
+                bottom: 24px;
+                z-index: 120;
+                width: min(320px, calc(100vw - 84px));
+                pointer-events: none;
+            }
+
+            .npcLibraryToggle,
+            .npcLibraryPanel,
+            .npcLibraryFilterOverlay,
+            .npcLibraryFilterPanel {
+                pointer-events: auto;
+            }
+
+            .npcLibraryToggle {
+                position: absolute;
+                top: 28px;
+                left: 0;
+                min-height: 42px;
+                padding: 10px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 0 10px 10px 0;
+                background: rgba(33, 22, 13, 0.96);
+                color: var(--text-main);
+                font-size: 0.78rem;
+                font-weight: 700;
+                cursor: pointer;
+                box-shadow: 0 14px 28px rgba(29, 20, 13, 0.28);
+            }
+
+            .npcLibraryPanel {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                padding: 18px;
+                border: 1px solid var(--border);
+                border-radius: 0 12px 12px 0;
+                background: rgba(33, 22, 13, 0.98);
+                box-shadow: 0 20px 48px rgba(29, 20, 13, 0.38);
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                transform: translateX(calc(-100% - 24px));
+                transition: transform 180ms ease;
+                overflow: visible;
+            }
+
+            .npcLibraryDock.isOpen .npcLibraryPanel {
+                transform: translateX(0);
+            }
+
+            .npcLibraryList {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                min-height: 0;
+                overflow-y: auto;
+                padding-right: 4px;
+            }
+
+            .npcLibraryItem {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                width: 100%;
+                padding: 10px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.2);
+                border-radius: 8px;
+                background: rgba(24, 16, 9, 0.62);
+                color: var(--text-main);
+                text-align: left;
+                cursor: pointer;
+            }
+
+            .npcLibraryItemName {
+                font-weight: 700;
+                font-size: 0.86rem;
+            }
+
+            .npcLibraryItemMeta,
+            .npcLibraryMessage {
+                color: var(--text-muted);
+                font-size: 0.76rem;
+                line-height: 1.45;
+            }
+
+            .npcLibraryFilterBar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .npcLibraryFilterCount,
+            .npcLibraryTypeHeading {
+                color: var(--text-muted);
+                font-size: 0.76rem;
+                line-height: 1.4;
+            }
+
+            .npcLibraryFilterOverlay {
+                position: fixed;
+                inset: 0;
+                z-index: 220;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                background: rgba(14, 9, 5, 0.56);
+            }
+
+            .npcLibraryFilterPanel {
+                width: min(540px, calc(100vw - 120px));
+                max-height: min(70vh, 640px);
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 12px 64px;
+                border: 1px solid rgba(217, 187, 121, 0.2);
+                border-radius: 10px;
+                background: rgba(24, 16, 9, 0.96);
+                box-shadow: 0 20px 48px rgba(29, 20, 13, 0.38);
+            }
+
+            .npcLibraryFilterActions {
+                position: sticky;
+                left: 0;
+                bottom: 0;
+                z-index: 2;
+                display: flex;
+                justify-content: flex-start;
+                padding-top: 6px;
+                margin-top: auto;
+            }
+
+            .npcLibraryFilterActions .npcSecondaryButton {
+                box-shadow: 0 10px 24px rgba(29, 20, 13, 0.32);
+            }
+
+            .npcLibraryFilterGrid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .npcLibraryTypeGroup {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .npcLibraryItemFilterSections {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .npcLibraryItemFilterSection {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .npcLibraryItemFilterHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .npcItemFilterModeSelect {
+                min-height: 32px;
+                padding: 4px 8px;
+                border: 1px solid rgba(217, 187, 121, 0.24);
+                border-radius: 6px;
+                background: rgba(35, 23, 13, 0.94);
+                color: var(--text-main);
+                font-size: 0.76rem;
+            }
+
+            .npcLibraryStatRanges {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .npcLibraryStatRangeGrid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .npcLibraryStatRangeCard {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                padding: 10px;
+                border: 1px solid rgba(217, 187, 121, 0.16);
+                border-radius: 8px;
+                background: rgba(35, 23, 13, 0.38);
+            }
+
+            .npcLibraryStatRangeTitle {
+                color: var(--text-main);
+                font-size: 0.82rem;
+                font-weight: 700;
+            }
+
+            .npcLibraryStatRangeValue {
+                color: var(--text-muted);
+                font-size: 0.76rem;
+                line-height: 1.4;
+            }
+
+            .npcSpeedSliderField {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .npcSingleSliderInput {
+                width: 100%;
+                accent-color: var(--accent);
+            }
+
+            .npcRangeSliderRow {
+                display: grid;
+                grid-template-columns: 52px minmax(0, 1fr) 52px;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .npcRangeNumberInput {
+                width: 100%;
+                min-height: 30px;
+                padding: 4px 6px;
+                border: 1px solid rgba(217, 187, 121, 0.24);
+                border-radius: 6px;
+                background: rgba(35, 23, 13, 0.94);
+                color: var(--text-main);
+                font-size: 0.74rem;
+                text-align: center;
+            }
+
+            .npcDualSliderTrack {
+                position: relative;
+                min-height: 28px;
+            }
+
+            .npcSliderTrack,
+            .npcSliderRangeFill {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 50%;
+                height: 6px;
+                border-radius: 999px;
+                transform: translateY(-50%);
+            }
+
+            .npcSliderTrack {
+                background: rgba(246, 237, 215, 0.18);
+            }
+
+            .npcSliderRangeFill {
+                right: auto;
+                background: var(--accent);
+            }
+
+            .npcSliderInput {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                appearance: none;
+                -webkit-appearance: none;
+                background: transparent;
+                margin: 0;
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            .npcSliderInputMin {
+                z-index: 3;
+            }
+
+            .npcSliderInputMax {
+                z-index: 2;
+            }
+
+            .npcSliderInput::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 14px;
+                height: 14px;
+                border: 2px solid rgba(246, 237, 215, 0.9);
+                border-radius: 50%;
+                background: rgba(35, 23, 13, 0.98);
+                box-shadow: 0 0 0 1px rgba(29, 20, 13, 0.45);
+                pointer-events: auto;
+                cursor: pointer;
+            }
+
+            .npcSliderInput::-moz-range-thumb {
+                width: 14px;
+                height: 14px;
+                border: 2px solid rgba(246, 237, 215, 0.9);
+                border-radius: 50%;
+                background: rgba(35, 23, 13, 0.98);
+                box-shadow: 0 0 0 1px rgba(29, 20, 13, 0.45);
+                pointer-events: auto;
+                cursor: pointer;
+            }
+
+            .npcSliderInput::-webkit-slider-runnable-track {
+                height: 6px;
+                background: transparent;
+            }
+
+            .npcSliderInput::-moz-range-track {
+                height: 6px;
+                background: transparent;
+            }
+
+            .npcLibraryTypeOptions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .npcLibraryTypeChip {
+                min-height: 32px;
+                padding: 6px 10px;
+                border: 1px solid rgba(217, 187, 121, 0.28);
+                border-radius: 999px;
+                background: rgba(35, 23, 13, 0.94);
+                color: var(--text-main);
+                cursor: pointer;
+                font-size: 0.78rem;
+            }
+
+            .npcLibraryTypeChip.isSelected,
+            .npcSecondaryButton.isActive {
+                background: rgba(217, 187, 121, 0.2);
+                border-color: rgba(217, 187, 121, 0.48);
+            }
+
+            .npcShell {
+                width: min(1120px, 100%);
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .npcTitle {
+                margin: 0;
+                font-family: var(--font-header);
+                font-size: 2rem;
+            }
+
+            .npcIdentityGrid {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 180px 180px;
+                gap: 16px;
+            }
+
+            .npcBuilderLayout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 180px;
+                gap: 16px;
+                align-items: start;
+            }
+
+            .npcMainColumn,
+            .npcSideRail {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                min-width: 0;
+            }
+
+            .npcSideRail {
+                gap: 10px;
+            }
+
+            .npcPanel,
+            .npcSideBox {
+                padding: 18px;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                background: var(--bg-panel);
+                box-shadow: 0 16px 40px rgba(29, 20, 13, 0.32);
+            }
+
+            .npcSideBox {
+                min-height: 104px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 10px;
+                padding: 12px;
+                box-shadow: 0 10px 24px rgba(29, 20, 13, 0.22);
+            }
+
+            .npcLabel,
+            .npcSpeedLabel {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                color: var(--text-muted);
+                font-size: 0.78rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+            }
+
+            .npcSpeedLabel {
+                gap: 4px;
+                font-size: 0.72rem;
+                letter-spacing: 0;
+                text-transform: none;
+            }
+
+            .npcInput,
+            .npcSelect,
+            .npcTextarea {
+                width: 100%;
+                min-height: 42px;
+                padding: 9px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: rgba(35, 23, 13, 0.94);
+                color: var(--text-main);
+                font-size: 0.88rem;
+            }
+
+            input.npcLeftAlignedNumberInput {
+                text-align: left;
+            }
+
+            .npcIdentityDarkInput {
+                background: rgba(24, 16, 9, 0.95);
+            }
+
+            .npcIdentityDarkInput:disabled {
+                background: rgba(24, 16, 9, 0.95);
+                color: var(--text-main);
+                opacity: 1;
+                -webkit-text-fill-color: var(--text-main);
+            }
+
+            option {
+                background: #2b1e12;
+                color: var(--text-main);
+            }
+
+            .npcStatGrid {
+                display: grid;
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .npcStatBox,
+            .npcEquipmentCard {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                min-width: 0;
+                padding: 12px;
+                border: 1px solid rgba(217, 187, 121, 0.24);
+                border-radius: 8px;
+                background: var(--bg-card);
+            }
+
+            .npcStatBox {
+                min-height: 112px;
+                justify-content: space-between;
+            }
+
+            .npcEquipmentCard {
+                min-height: 0;
+            }
+
+            .npcStatName {
+                color: var(--text-muted);
+                font-size: 0.75rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .npcStatInput,
+            .npcSmallStatInput,
+            .npcActionPointInput {
+                width: 100%;
+                min-height: 46px;
+                padding: 6px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: rgba(24, 16, 9, 0.95);
+                color: var(--text-main);
+                font-size: 1.35rem;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            .npcSmallStatInput,
+            .npcActionPointInput {
+                min-height: 34px;
+                font-size: 1rem;
+            }
+
+            .npcActionPointInput {
+                width: 64px;
+            }
+
+            .npcSectionHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                margin-bottom: 12px;
+            }
+
+            .npcSectionTitle {
+                margin: 0;
+                font-family: var(--font-header);
+                font-size: 1.35rem;
+            }
+
+            .npcActionPointLabel {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--text-muted);
+                font-size: 0.78rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .npcEquipmentGrid,
+            .npcSpeedGrid {
+                display: grid;
+                grid-template-columns: 1fr;
+                min-width: 0;
+                gap: 12px;
+            }
+
+            .npcSpeedGrid {
+                gap: 8px;
+            }
+
+            .npcEquipmentTitle {
+                margin: 0;
+                font-family: var(--font-header);
+                font-size: 0.9rem;
+            }
+
+            .npcInstanceHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .npcEquipmentForm {
+                display: grid;
+                min-width: 0;
+                gap: 10px;
+            }
+
+            .npcInlineActions {
+                display: flex;
+                gap: 8px;
+            }
+
+            .npcStackedActions {
+                display: grid;
+                gap: 8px;
+            }
+
+            .npcFullWidthButton {
+                width: 100%;
+            }
+
+            .npcCompactInput {
+                min-height: 34px;
+                padding: 6px 10px;
+            }
+
+            .npcEditButton,
+            .npcSecondaryButton {
+                min-width: 32px;
+                min-height: 32px;
+                padding: 6px 10px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: rgba(35, 23, 13, 0.94);
+                color: var(--text-main);
+                cursor: pointer;
+                font-size: 0.76rem;
+                line-height: 1;
+            }
+
+            .npcEditButton {
+                padding: 6px;
+            }
+
+            .npcDetails {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                color: rgba(246, 237, 215, 0.82);
+                font-size: 0.78rem;
+                line-height: 1.35;
+            }
+
+            .npcMuted {
+                color: rgba(246, 237, 215, 0.68);
+                font-size: 0.76rem;
+                line-height: 1.45;
+            }
+
+            .npcReadOnlyValue {
+                min-height: 42px;
+                padding: 10px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.18);
+                border-radius: 6px;
+                background: rgba(24, 16, 9, 0.48);
+                color: rgba(246, 237, 215, 0.84);
+                font-size: 0.86rem;
+                line-height: 1.4;
+            }
+
+            .npcHiddenInput {
+                display: none;
+            }
+
+            .npcFooterDock {
+                position: fixed;
+                right: 18px;
+                bottom: 18px;
+                z-index: 100;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
+            }
+
+            .npcFooterMessage {
+                max-width: 220px;
+                padding: 8px 10px;
+                border: 1px solid rgba(217, 187, 121, 0.24);
+                border-radius: 8px;
+                background: rgba(33, 22, 13, 0.96);
+                color: var(--text-main);
+                font-size: 0.72rem;
+                text-align: right;
+            }
+
+            .npcFooterActions {
+                display: flex;
+                gap: 8px;
+                padding: 10px;
+                border: 1px solid rgba(217, 187, 121, 0.24);
+                border-radius: 10px;
+                background: rgba(33, 22, 13, 0.94);
+                box-shadow: 0 14px 28px rgba(29, 20, 13, 0.28);
+            }
+
+            .npcFooterButton {
+                min-height: 34px;
+                padding: 8px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.3);
+                border-radius: 8px;
+                background: rgba(47, 36, 23, 0.96);
+                color: var(--text-main);
+                font-size: 0.8rem;
+                cursor: pointer;
+            }
+
+            .npcFooterButton--active {
+                background: rgba(217, 187, 121, 0.18);
+                border-color: rgba(217, 187, 121, 0.46);
+            }
+
+            .npcFooterButton--disabled {
+                cursor: not-allowed;
+                opacity: 0.55;
+            }
+
+            .compendiumPropertyList {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .compendiumPropertyTag {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                padding: 3px 7px;
+                border: 1px solid rgba(217, 187, 121, 0.22);
+                border-radius: 999px;
+                background: rgba(35, 23, 13, 0.34);
+                color: var(--text-main);
+                font-size: 12px;
+                line-height: 1.3;
+                white-space: nowrap;
+            }
+
+            .compendiumPropertyTag.hasTooltip {
+                cursor: help;
+            }
+
+            .compendiumPropertyTooltip {
+                position: fixed;
+                left: var(--tooltip-left, 50%);
+                top: var(--tooltip-top, 0);
+                z-index: 1002;
+                display: none;
+                width: 220px;
+                padding: 9px 10px;
+                border: 1px solid rgba(217, 187, 121, 0.28);
+                border-radius: 8px;
+                background: rgba(33, 22, 13, 0.98);
+                color: var(--text-main);
+                box-shadow: 0 18px 42px rgba(4, 11, 16, 0.36);
+                transform: translateX(-50%);
+                white-space: normal;
+                text-align: left;
+            }
+
+            .compendiumPropertyTooltip.isAbove {
+                top: var(--tooltip-top, 0);
+                bottom: auto;
+            }
+
+            .compendiumPropertyTooltip strong {
+                display: block;
+                margin-bottom: 4px;
+                color: var(--accent);
+                font-family: var(--font-header);
+                font-size: 15px;
+            }
+
+            .compendiumPropertyTooltip span {
+                display: block;
+                line-height: 1.45;
+            }
+
+            .compendiumPropertyTag.hasTooltip:hover .compendiumPropertyTooltip,
+            .compendiumPropertyTag.hasTooltip:focus-within .compendiumPropertyTooltip {
+                display: block;
+            }
+
+            .npcWeaponTableWrap {
+                max-width: 100%;
+                min-width: 0;
+                overflow-x: auto;
+                border: 1px solid rgba(217, 187, 121, 0.2);
+                border-radius: 8px;
+                background: rgba(24, 16, 9, 0.58);
+            }
+
+            .npcWeaponInfoTable {
+                width: 100%;
+                border-collapse: collapse;
+                min-width: 620px;
+            }
+
+            .npcWeaponInfoTable th,
+            .npcWeaponInfoTable td {
+                padding: 5px 6px;
+                border-bottom: 1px solid rgba(217, 187, 121, 0.16);
+                text-align: left;
+                vertical-align: top;
+            }
+
+            .npcWeaponInfoTable th {
+                color: var(--text-muted);
+                font-size: 0.6rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+
+            .npcWeaponInfoTable thead th:first-child,
+            .npcWeaponInfoTable tbody th {
+                min-width: 150px;
+            }
+
+            .npcWeaponInfoTable td {
+                min-width: 100px;
+                color: rgba(246, 237, 215, 0.86);
+                font-size: 0.74rem;
+                line-height: 1.35;
+            }
+
+            .npcWeaponInfoTable thead th:last-child,
+            .npcWeaponInfoTable td:last-child {
+                width: 84px;
+                min-width: 84px;
+            }
+
+            .npcActionAbilityInfoTable,
+            .npcPassiveAbilityInfoTable {
+                table-layout: fixed;
+            }
+
+            .npcActionAbilityInfoTable thead th:first-child,
+            .npcActionAbilityInfoTable tbody th {
+                width: 110px;
+                min-width: 110px;
+            }
+
+            .npcActionAbilityInfoTable thead th:nth-child(2),
+            .npcActionAbilityInfoTable td:nth-child(2) {
+                width: 72px;
+                min-width: 72px;
+            }
+
+            .npcActionAbilityInfoTable thead th:nth-child(3),
+            .npcActionAbilityInfoTable td:nth-child(3) {
+                width: 92px;
+                min-width: 92px;
+            }
+
+            .npcActionAbilityInfoTable thead th:nth-child(4),
+            .npcActionAbilityInfoTable td:nth-child(4) {
+                width: auto;
+                min-width: 0;
+            }
+
+            .npcPassiveAbilityInfoTable thead th:first-child,
+            .npcPassiveAbilityInfoTable tbody th {
+                width: 110px;
+                min-width: 110px;
+            }
+
+            .npcPassiveAbilityInfoTable thead th:nth-child(2),
+            .npcPassiveAbilityInfoTable td:nth-child(2) {
+                width: auto;
+                min-width: 0;
+            }
+
+            .npcActionAbilityInfoTable td,
+            .npcPassiveAbilityInfoTable td {
+                min-width: 0;
+            }
+
+            .npcActionAbilityInfoTable td:nth-child(4),
+            .npcPassiveAbilityInfoTable td:nth-child(2) {
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            .npcWeaponHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+                color: var(--text-main);
+                text-transform: none;
+                letter-spacing: 0;
+                font-size: 0.74rem;
+            }
+
+            .npcRemoveButton {
+                width: 32px;
+                height: 32px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: rgba(35, 23, 13, 0.94);
+                color: var(--text-main);
+                font-weight: 700;
+                cursor: pointer;
+                font-size: 0.72rem;
+            }
+
+            .npcTextarea {
+                min-height: 170px;
+                line-height: 1.5;
+                resize: vertical;
+            }
+
+            .npcAbilityList,
+            .npcAbilityForm {
+                display: grid;
+                gap: 10px;
+            }
+
+            .npcAbilityList {
+                margin-bottom: 14px;
+            }
+
+            .npcAbilityCard {
+                padding: 10px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.2);
+                border-radius: 8px;
+                background: rgba(24, 16, 9, 0.58);
+            }
+
+            .npcAbilityName {
+                margin-bottom: 6px;
+                font-weight: 700;
+            }
+
+            .npcAbilityMeta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px 16px;
+                margin-bottom: 6px;
+                color: var(--text-muted);
+                font-size: 0.84rem;
+            }
+
+            .npcAbilityDescription {
+                color: rgba(246, 237, 215, 0.82);
+                font-size: 0.92rem;
+                line-height: 1.45;
+                white-space: pre-wrap;
+            }
+
+            .npcAbilityForm {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                padding-top: 12px;
+                border-top: 1px solid rgba(217, 187, 121, 0.18);
+            }
+
+            .npcCheckboxLabel {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--text-main);
+                font-size: 0.85rem;
+                line-height: 1.35;
+            }
+
+            .npcCheckboxLabel input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+                margin: 0;
+                accent-color: var(--accent);
+            }
+
+            .npcPassiveAbilityForm {
+                grid-template-columns: minmax(180px, 0.35fr) minmax(0, 1fr);
+            }
+
+            .npcWideField {
+                grid-column: 1 / -1;
+            }
+
+            .npcSaveButton {
+                min-height: 42px;
+                padding: 9px 14px;
+                border: 1px solid rgba(217, 187, 121, 0.42);
+                border-radius: 6px;
+                background: rgba(217, 187, 121, 0.18);
+                color: var(--text-main);
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            @media (max-width: 960px) {
+                .npcIdentityGrid,
+                .npcBuilderLayout,
+                .npcStatGrid,
+                .npcAbilityForm,
+                .npcPassiveAbilityForm,
+                .npcLibraryFilterGrid,
+                .npcLibraryStatRangeGrid {
+                    grid-template-columns: 1fr;
+                }
+
+                .npcLibraryDock {
+                    top: 66px;
+                    bottom: 12px;
+                }
+
+                .npcLibraryFilterOverlay {
+                    padding: 16px;
+                }
+
+                .npcLibraryFilterPanel {
+                    width: min(420px, calc(100vw - 48px));
+                    max-height: min(62vh, 520px);
+                }
+
+                .npcPage {
+                    padding-left: 20px;
+                    padding-right: 20px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="root"></div>
+        <script src="/vendor/react.js"></script>
+        <script src="/vendor/react-dom.js"></script>
+        <script src="PirateNpcBuilder.bundle.js"></script>
+    </body>
+
+</html>

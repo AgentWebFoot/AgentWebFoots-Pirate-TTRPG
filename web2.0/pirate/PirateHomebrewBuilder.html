@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <script src="/pirate-frame.js"></script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pirate Homebrew Builder</title>
+        <style>
+            :root {
+                --bg-page: #1d140d;
+                --bg-panel: rgba(47, 36, 23, 0.92);
+                --bg-card: rgba(35, 23, 13, 0.62);
+                --bg-input: rgba(24, 16, 9, 0.95);
+                --text-main: #f6edd7;
+                --text-muted: rgba(246, 237, 215, 0.72);
+                --accent: #d9bb79;
+                --border: rgba(217, 187, 121, 0.35);
+                --font-main: "Trebuchet MS", sans-serif;
+                --font-header: Georgia, serif;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+                color: var(--text-main);
+                font-family: var(--font-main);
+                background:
+                    radial-gradient(circle at top, rgba(179, 137, 77, 0.26), transparent 35%),
+                    linear-gradient(180deg, #3a2918 0%, #2b1e12 55%, var(--bg-page) 100%);
+            }
+
+            input,
+            select,
+            textarea,
+            button {
+                font-family: var(--font-main);
+            }
+
+            input[type="number"] {
+                appearance: textfield;
+                -moz-appearance: textfield;
+                text-align: center;
+            }
+
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            option {
+                background: #2b1e12;
+                color: var(--text-main);
+            }
+
+            .homebrewPage {
+                min-height: 100vh;
+                padding: 72px 24px 112px;
+            }
+
+            .homebrewShell {
+                width: min(1120px, 100%);
+                margin: 0 auto;
+                display: grid;
+                gap: 16px;
+            }
+
+            .homebrewHeader,
+            .homebrewPanel,
+            .homebrewListPanel {
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                background: var(--bg-panel);
+                box-shadow: 0 16px 40px rgba(29, 20, 13, 0.32);
+            }
+
+            .homebrewHeader {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 20px;
+            }
+
+            .homebrewKicker {
+                margin: 0 0 6px;
+                color: var(--text-muted);
+                font-size: 0.78rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+            }
+
+            .homebrewTitle {
+                margin: 0;
+                font-family: var(--font-header);
+                font-size: 2rem;
+                line-height: 1.1;
+            }
+
+            .homebrewModeTabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .homebrewSaveControls {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
+            }
+
+            .homebrewModeButton,
+            .homebrewButton,
+            .homebrewFooterButton,
+            .homebrewItemButton,
+            .homebrewSaveModeButton {
+                min-height: 38px;
+                padding: 8px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: rgba(35, 23, 13, 0.94);
+                color: var(--text-main);
+                font-size: 0.82rem;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .homebrewModeButton.isActive,
+            .homebrewSaveModeButton.isActive,
+            .homebrewButtonPrimary,
+            .homebrewFooterButton:hover,
+            .homebrewItemButton:hover {
+                background: rgba(217, 187, 121, 0.18);
+                border-color: rgba(217, 187, 121, 0.5);
+            }
+
+            .homebrewSaveModeButton:disabled {
+                cursor: not-allowed;
+                opacity: 0.52;
+            }
+
+            .homebrewSaveStatus {
+                color: var(--text-muted);
+                font-size: 0.78rem;
+                line-height: 1.4;
+                text-align: right;
+            }
+
+            .homebrewLayout {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 320px;
+                gap: 16px;
+                align-items: start;
+            }
+
+            .homebrewPanel,
+            .homebrewListPanel {
+                padding: 18px;
+            }
+
+            .homebrewSectionHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                margin-bottom: 14px;
+            }
+
+            .homebrewSectionTitle {
+                margin: 0;
+                font-family: var(--font-header);
+                font-size: 1.35rem;
+            }
+
+            .homebrewFormGrid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .homebrewField {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                color: var(--text-muted);
+                font-size: 0.76rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+
+            .homebrewWideField {
+                grid-column: 1 / -1;
+            }
+
+            .homebrewInput,
+            .homebrewSelect,
+            .homebrewTextarea {
+                width: 100%;
+                min-height: 42px;
+                padding: 9px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: var(--bg-input);
+                color: var(--text-main);
+                font-size: 0.88rem;
+            }
+
+            .homebrewTextarea {
+                min-height: 116px;
+                line-height: 1.45;
+                resize: vertical;
+            }
+
+            .homebrewCheckGrid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+                padding: 10px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: var(--bg-input);
+            }
+
+            .homebrewCheckLabel {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                color: var(--text-main);
+                font-size: 0.82rem;
+                font-weight: 600;
+                letter-spacing: 0;
+                text-transform: none;
+            }
+
+            .homebrewCheckLabel input {
+                width: 16px;
+                height: 16px;
+                margin: 0;
+                accent-color: var(--accent);
+            }
+
+            .homebrewMultiSelect {
+                position: relative;
+                width: 100%;
+                display: grid;
+                gap: 8px;
+            }
+
+            .homebrewMultiSelectButton {
+                width: 100%;
+                min-height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                padding: 9px 12px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: var(--bg-input);
+                color: var(--text-main);
+                font-size: 0.88rem;
+                text-align: left;
+                cursor: pointer;
+            }
+
+            .homebrewMultiSelectButton::after {
+                content: "v";
+                color: var(--accent);
+                font-size: 0.74rem;
+            }
+
+            .homebrewMultiSelectPanel {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: calc(100% + 6px);
+                z-index: 30;
+                display: none;
+                max-height: 260px;
+                overflow-y: auto;
+                padding: 8px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 8px;
+                background: rgba(24, 16, 9, 0.98);
+                box-shadow: 0 18px 38px rgba(29, 20, 13, 0.38);
+            }
+
+            .homebrewMultiSelect.isOpen .homebrewMultiSelectPanel {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+
+            .homebrewMultiSelectOption {
+                position: relative;
+                display: flex;
+                align-items: center;
+                min-height: 32px;
+                padding: 6px 10px;
+                border: 1px solid rgba(217, 187, 121, 0.28);
+                border-radius: 6px;
+                background: rgba(35, 23, 13, 0.94);
+                color: var(--text-main);
+                font-size: 0.78rem;
+                font-weight: 700;
+                letter-spacing: 0;
+                text-transform: none;
+                cursor: pointer;
+            }
+
+            .homebrewMultiSelectOption:hover,
+            .homebrewMultiSelectOption:focus {
+                background: rgba(217, 187, 121, 0.14);
+            }
+
+            .homebrewMultiSelectOption.isSelected {
+                background: rgba(217, 187, 121, 0.2);
+                border-color: rgba(217, 187, 121, 0.48);
+            }
+
+            .homebrewMultiSelectTooltip {
+                position: fixed;
+                left: var(--tooltip-left, 50%);
+                top: var(--tooltip-top, 0);
+                z-index: 200;
+                display: none;
+                width: min(280px, calc(100vw - 32px));
+                padding: 9px 10px;
+                border: 1px solid rgba(217, 187, 121, 0.3);
+                border-radius: 8px;
+                background: rgba(33, 22, 13, 0.98);
+                color: var(--text-main);
+                box-shadow: 0 18px 42px rgba(4, 11, 16, 0.36);
+                transform: translateX(-50%);
+                white-space: normal;
+                line-height: 1.4;
+                pointer-events: none;
+            }
+
+            .homebrewMultiSelectOption:hover .homebrewMultiSelectTooltip,
+            .homebrewMultiSelectOption:focus .homebrewMultiSelectTooltip {
+                display: block;
+            }
+
+            .homebrewMultiSelectTooltip strong {
+                display: block;
+                margin-bottom: 4px;
+                color: var(--accent);
+                font-family: var(--font-header);
+                font-size: 0.95rem;
+            }
+
+            .homebrewSelectedChips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                min-height: 0;
+            }
+
+            .homebrewSelectedChip {
+                display: inline-flex;
+                align-items: center;
+                min-height: 28px;
+                padding: 5px 9px;
+                border: 1px solid rgba(217, 187, 121, 0.28);
+                border-radius: 999px;
+                background: rgba(217, 187, 121, 0.16);
+                color: var(--text-main);
+                font-size: 0.76rem;
+                font-weight: 700;
+                letter-spacing: 0;
+                text-transform: none;
+            }
+
+            .homebrewXValueGrid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .homebrewXValueField {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                color: var(--text-muted);
+                font-size: 0.72rem;
+                font-weight: 700;
+                letter-spacing: 0;
+                text-transform: none;
+            }
+
+            .homebrewXValueInput {
+                width: 100%;
+                min-height: 34px;
+                padding: 6px 9px;
+                border: 1px solid rgba(217, 187, 121, 0.32);
+                border-radius: 6px;
+                background: var(--bg-input);
+                color: var(--text-main);
+                font-size: 0.82rem;
+            }
+
+            .homebrewAttackSection {
+                grid-column: 1 / -1;
+                display: grid;
+                gap: 12px;
+                padding: 14px;
+                border: 1px solid rgba(217, 187, 121, 0.24);
+                border-radius: 8px;
+                background: rgba(35, 23, 13, 0.38);
+            }
+
+            .homebrewAttackHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
+            .homebrewAttackTitle {
+                margin: 0;
+                font-family: var(--font-header);
+                font-size: 1.12rem;
+                color: var(--text-main);
+            }
+
+            .homebrewAttackList {
+                display: grid;
+                gap: 12px;
+            }
+
+            .homebrewAttackProfile {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 12px;
+                padding: 12px;
+                border: 1px solid rgba(217, 187, 121, 0.2);
+                border-radius: 8px;
+                background: rgba(24, 16, 9, 0.54);
+            }
+
+            .homebrewAttackProfileHeader {
+                grid-column: 1 / -1;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+            }
+
+            .homebrewAttackProfileTitle {
+                color: var(--text-main);
+                font-size: 0.9rem;
+                font-weight: 700;
+                letter-spacing: 0;
+                text-transform: none;
+            }
+
+            .homebrewActions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 14px;
+            }
+
+            .homebrewList {
+                display: grid;
+                gap: 10px;
+                max-height: 66vh;
+                overflow-y: auto;
+                padding-right: 4px;
+            }
+
+            .homebrewItem {
+                display: grid;
+                gap: 8px;
+                padding: 12px;
+                border: 1px solid rgba(217, 187, 121, 0.2);
+                border-radius: 8px;
+                background: var(--bg-card);
+            }
+
+            .homebrewItemHeader {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .homebrewItemName {
+                font-weight: 700;
+            }
+
+            .homebrewItemMeta,
+            .homebrewEmpty,
+            .homebrewMessage {
+                color: var(--text-muted);
+                font-size: 0.78rem;
+                line-height: 1.45;
+            }
+
+            .homebrewItemActions {
+                display: flex;
+                gap: 8px;
+            }
+
+            .homebrewFooterDock {
+                position: fixed;
+                right: 18px;
+                bottom: 18px;
+                z-index: 100;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
+            }
+
+            .homebrewMessage {
+                max-width: 260px;
+                padding: 8px 10px;
+                border: 1px solid rgba(217, 187, 121, 0.24);
+                border-radius: 8px;
+                background: rgba(33, 22, 13, 0.96);
+                text-align: right;
+            }
+
+            .homebrewFooterRibbon {
+                display: flex;
+                gap: 8px;
+                padding: 10px;
+                border: 1px solid rgba(217, 187, 121, 0.24);
+                border-radius: 10px;
+                background: rgba(33, 22, 13, 0.94);
+                box-shadow: 0 14px 28px rgba(29, 20, 13, 0.28);
+            }
+
+            .homebrewHiddenInput {
+                display: none;
+            }
+
+            @media (max-width: 900px) {
+                .homebrewHeader,
+                .homebrewLayout {
+                    grid-template-columns: 1fr;
+                }
+
+                .homebrewHeader {
+                    align-items: flex-start;
+                    flex-direction: column;
+                }
+
+                .homebrewSaveControls {
+                    align-items: flex-start;
+                }
+
+                .homebrewSaveStatus {
+                    text-align: left;
+                }
+
+                .homebrewFormGrid {
+                    grid-template-columns: 1fr;
+                }
+
+                .homebrewAttackProfile {
+                    grid-template-columns: 1fr;
+                }
+
+                .homebrewCheckGrid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+
+                .homebrewList {
+                    max-height: none;
+                }
+            }
+
+            @media (max-width: 560px) {
+                .homebrewPage {
+                    padding: 66px 14px 138px;
+                }
+
+                .homebrewFooterDock {
+                    left: 12px;
+                    right: 12px;
+                    align-items: stretch;
+                }
+
+                .homebrewFooterRibbon {
+                    justify-content: center;
+                }
+
+                .homebrewFooterButton {
+                    flex: 1 1 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <main class="homebrewPage">
+            <div class="homebrewShell">
+                <header class="homebrewHeader">
+                    <div>
+                        <p class="homebrewKicker">Pirate TTRPG</p>
+                        <h1 class="homebrewTitle">Homebrew Builder</h1>
+                    </div>
+                    <div class="homebrewSaveControls">
+                        <div class="homebrewModeTabs" role="tablist" aria-label="Homebrew type">
+                            <button class="homebrewModeButton isActive" type="button" data-mode="weapon">Weapon</button>
+                            <button class="homebrewModeButton" type="button" data-mode="armor">Armor</button>
+                            <button class="homebrewModeButton" type="button" data-mode="class">Class</button>
+                        </div>
+                        <div class="homebrewModeTabs" role="group" aria-label="Save location">
+                            <button class="homebrewSaveModeButton isActive" type="button" data-save-mode="local">Local Saves</button>
+                            <button class="homebrewSaveModeButton" type="button" data-save-mode="cloud" id="cloudSaveButton">Cloud Saves</button>
+                        </div>
+                        <div class="homebrewSaveStatus" id="saveStatus">Local saves are stored in this browser.</div>
+                    </div>
+                </header>
+
+                <div class="homebrewLayout">
+                    <section class="homebrewPanel">
+                        <div class="homebrewSectionHeader">
+                            <h2 class="homebrewSectionTitle" id="formTitle">Custom Weapon</h2>
+                        </div>
+                        <form id="homebrewForm">
+                            <div class="homebrewFormGrid" id="formFields"></div>
+                            <div class="homebrewActions">
+                                <button class="homebrewButton homebrewButtonPrimary" type="submit" id="saveButton">Save Weapon</button>
+                                <button class="homebrewButton" type="button" id="clearButton">Clear</button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <aside class="homebrewListPanel">
+                        <div class="homebrewSectionHeader">
+                            <h2 class="homebrewSectionTitle">Saved Homebrew</h2>
+                        </div>
+                        <div class="homebrewList" id="homebrewList"></div>
+                    </aside>
+                </div>
+            </div>
+        </main>
+
+        <div class="homebrewFooterDock">
+            <div class="homebrewMessage" id="message" hidden></div>
+            <div class="homebrewFooterRibbon">
+                <button class="homebrewFooterButton" type="button" id="importButton">Import</button>
+                <button class="homebrewFooterButton" type="button" id="exportButton">Export</button>
+                <input class="homebrewHiddenInput" id="importFile" type="file" accept="application/json,.json" />
+            </div>
+        </div>
+
+        <script>
+            const storageKey = "pirate-homebrew-builder-v1";
+            const PIRATE_STATS = ["Brawn", "Finesse", "Grit", "Awareness", "Brains", "Swagger"];
+            const PIRATE_DAMAGE_TYPES = ["Bludgeoning", "Piercing", "Slashing", "Holy", "Unholy", "Bleeding", "Fire", "Poison"];
+            const PIRATE_TOUGHNESS_TYPES = ["Physical", "Bludgeoning", "Piercing", "Slashing", "Holy", "Unholy", "Bleeding", "Fire", "Poison"];
+            const modes = {
+                weapon: {
+                    label: "Weapon",
+                    fields: [
+                        { name: "name", label: "Name", type: "text", required: true, placeholder: "Boarding Axe" },
+                        { name: "type", label: "Type", type: "multiSelect", optionSource: "weaponTypes", wide: true },
+                        { name: "attacks", label: "Attack", type: "attackProfiles", wide: true },
+                        { name: "abilities", label: "Abilities", type: "classAbilities", wide: true },
+                        { name: "description", label: "Description", type: "textarea", wide: true }
+                    ]
+                },
+                armor: {
+                    label: "Armor",
+                    fields: [
+                        { name: "name", label: "Name", type: "text", required: true, placeholder: "Captain's Coat" },
+                        { name: "equipmentKind", label: "Compendium Section", type: "select", options: ["Armor", "Shield"] },
+                        { name: "baseEvasion", label: "Base Evasion", type: "number", value: "16", armorOnly: true },
+                        { name: "toughnessEntries", label: "Toughness", type: "toughnessEntries", wide: true },
+                        { name: "braceCost", label: "Brace Endurance Cost", type: "number", value: "0", shieldOnly: true },
+                        { name: "dashPenalty", label: "Dash Penalty", type: "number", value: "0" },
+                        { name: "cost", label: "Cost", type: "text", placeholder: "25" },
+                        { name: "properties", label: "Properties", type: "multiSelect", optionSource: "properties", wide: true },
+                        { name: "description", label: "Description", type: "textarea", wide: true }
+                    ]
+                },
+                class: {
+                    label: "Class",
+                    fields: [
+                        { name: "name", label: "Name", type: "text", required: true, placeholder: "Corsair" },
+                        { name: "group", label: "Category", type: "select", optionSource: "classGroups" },
+                        { name: "abilities", label: "Abilities", type: "classAbilities", wide: true },
+                        { name: "description", label: "Description", type: "textarea", wide: true }
+                    ]
+                }
+            };
+
+            const params = new URLSearchParams(window.location.search);
+            const API_URL = params.get("apiUrl") || (
+                ["localhost", "127.0.0.1", "0.0.0.0"].includes(window.location.hostname)
+                    ? `${window.location.protocol}//${window.location.hostname}:5000`
+                    : window.location.origin
+            );
+            const resolvedRole = params.get("role") || "viewer";
+            const cloudSaveEnabled = ["traveler", "admin", "writer", "owner"].includes(resolvedRole);
+
+            let saveMode = "local";
+            let state = readLocalState();
+            let activeMode = "weapon";
+            let editingId = null;
+            let equipmentProperties = [];
+            let weaponTypes = [];
+            let classGroups = [];
+
+            const formTitle = document.getElementById("formTitle");
+            const formFields = document.getElementById("formFields");
+            const homebrewForm = document.getElementById("homebrewForm");
+            const saveButton = document.getElementById("saveButton");
+            const clearButton = document.getElementById("clearButton");
+            const list = document.getElementById("homebrewList");
+            const message = document.getElementById("message");
+            const importButton = document.getElementById("importButton");
+            const exportButton = document.getElementById("exportButton");
+            const importFile = document.getElementById("importFile");
+            const saveStatus = document.getElementById("saveStatus");
+            const cloudSaveButton = document.getElementById("cloudSaveButton");
+
+            document.querySelectorAll("[data-mode]").forEach((button) => {
+                button.addEventListener("click", () => setMode(button.dataset.mode));
+            });
+
+            document.querySelectorAll("[data-save-mode]").forEach((button) => {
+                button.addEventListener("click", () => setSaveMode(button.dataset.saveMode));
+            });
+
+            document.addEventListener("click", (event) => {
+                if (event.target.closest(".homebrewMultiSelect")) return;
+                document.querySelectorAll(".homebrewMultiSelect.isOpen").forEach((openSelect) => {
+                    openSelect.classList.remove("isOpen");
+                });
+            });
+
+            homebrewForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                await saveEntry();
+            });
+
+            clearButton.addEventListener("click", () => resetForm());
+            importButton.addEventListener("click", () => importFile.click());
+            exportButton.addEventListener("click", exportHomebrew);
+            importFile.addEventListener("change", importHomebrew);
+
+            cloudSaveButton.disabled = !cloudSaveEnabled;
+            cloudSaveButton.title = cloudSaveEnabled
+                ? "Use your individual Pirate cloud homebrew."
+                : "Traveler, admin, writer, or owner access is required for cloud saves.";
+            render();
+            loadEquipmentProperties();
+
+            function emptyState() {
+                return { weapon: [], armor: [], class: [], ability: [] };
+            }
+
+            function normalizeState(value) {
+                const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
+                return {
+                    weapon: Array.isArray(source.weapon) ? source.weapon : [],
+                    armor: Array.isArray(source.armor) ? source.armor : [],
+                    class: Array.isArray(source.class) ? source.class : [],
+                    ability: Array.isArray(source.ability) ? source.ability : []
+                };
+            }
+
+            function readLocalState() {
+                try {
+                    return normalizeState(JSON.parse(localStorage.getItem(storageKey)));
+                } catch (_error) {
+                    return emptyState();
+                }
+            }
+
+            async function writeState() {
+                if (saveMode === "cloud") {
+                    await saveCloudState();
+                    return;
+                }
+
+                localStorage.setItem(storageKey, JSON.stringify(state));
+            }
+
+            function setMode(mode) {
+                activeMode = mode;
+                editingId = null;
+                render();
+            }
+
+            async function setSaveMode(mode) {
+                if (mode === "cloud" && !cloudSaveEnabled) {
+                    showMessage("Traveler access is required for cloud saves.");
+                    return;
+                }
+
+                saveMode = mode;
+                editingId = null;
+
+                if (saveMode === "cloud") {
+                    await loadCloudState();
+                } else {
+                    state = readLocalState();
+                }
+
+                render();
+            }
+
+            function render() {
+                document.querySelectorAll("[data-mode]").forEach((button) => {
+                    button.classList.toggle("isActive", button.dataset.mode === activeMode);
+                });
+                document.querySelectorAll("[data-save-mode]").forEach((button) => {
+                    button.classList.toggle("isActive", button.dataset.saveMode === saveMode);
+                });
+                saveStatus.textContent = saveMode === "cloud"
+                    ? "Cloud saves are private to your signed-in Pirate account."
+                    : cloudSaveEnabled
+                        ? "Local saves are stored in this browser. Cloud saves are available."
+                        : "Local saves are stored in this browser. Traveler access unlocks cloud saves.";
+                renderForm();
+                renderList();
+            }
+
+            async function fetchPirateJson(path, options = {}) {
+                const response = await fetch(`${API_URL}${path}`, {
+                    credentials: "include",
+                    ...options,
+                    headers: {
+                        "Content-Type": "application/json",
+                        ...(options.headers || {})
+                    }
+                });
+                let payload = {};
+
+                try {
+                    payload = await response.json();
+                } catch (_error) {
+                    payload = {};
+                }
+
+                return { response, payload };
+            }
+
+            async function loadEquipmentProperties() {
+                try {
+                    let compendium = null;
+                    const apiResult = await fetchPirateJson("/pirate-system/rules", {
+                        method: "GET"
+                    });
+
+                    if (apiResult.response.ok) {
+                        compendium = apiResult.payload;
+                    } else {
+                        const localResponse = await fetch("rules.json", { cache: "no-store" });
+                        if (localResponse.ok) {
+                            compendium = await localResponse.json();
+                        }
+                    }
+
+                    equipmentProperties = normalizeEquipmentProperties(compendium?.equipmentProperties);
+                    weaponTypes = normalizeWeaponTypes(compendium?.weapons);
+                    classGroups = normalizeClassGroups(compendium?.classPageStructure, compendium?.classPageLabels);
+                    renderForm(editingId ? state[activeMode].find((item) => item.id === editingId) : null);
+                } catch (_error) {
+                    equipmentProperties = [];
+                    weaponTypes = normalizeWeaponTypes([]);
+                    classGroups = normalizeClassGroups();
+                }
+            }
+
+            function normalizeEquipmentProperties(properties) {
+                return (Array.isArray(properties) ? properties : [])
+                    .map((property) => ({
+                        value: String(property?.name || "").trim(),
+                        label: String(property?.name || "").trim(),
+                        description: String(property?.description || "").trim()
+                    }))
+                    .filter((property) => property.value)
+                    .sort((a, b) => a.label.localeCompare(b.label));
+            }
+
+            function normalizeWeaponTypes(weapons) {
+                const typeNames = new Set();
+                (Array.isArray(weapons) ? weapons : []).forEach((weapon) => {
+                    (Array.isArray(weapon?.type) ? weapon.type : [weapon?.type]).forEach((typeName) => {
+                        const trimmedType = String(typeName || "").trim();
+                        if (trimmedType) typeNames.add(trimmedType);
+                    });
+                });
+
+                const sourceTypes = typeNames.size ? Array.from(typeNames) : getFallbackWeaponTypes();
+                return sourceTypes
+                    .map((typeName) => ({
+                        value: typeName,
+                        label: typeName,
+                        description: ""
+                    }))
+                    .sort((a, b) => a.label.localeCompare(b.label));
+            }
+
+            function getFallbackWeaponTypes() {
+                return ["Axe", "Blunt", "Grenade", "Hand Firearm", "Polearm", "Sniper Firearm", "Strike", "Sword"];
+            }
+
+            function normalizeClassGroups(classPageStructure = null, classPageLabels = null) {
+                const groupLabels = classPageLabels?.groupLabels && typeof classPageLabels.groupLabels === "object"
+                    ? classPageLabels.groupLabels
+                    : {};
+                const groups = Array.isArray(classPageStructure?.groups) ? classPageStructure.groups : [];
+                const groupNames = groups.map((group) => String(group?.key || "").trim()).filter(Boolean);
+                const sourceGroups = groupNames.length ? groupNames : ["General", "Fighters", "Artisans", "Scholars"];
+
+                return sourceGroups.map((groupName) => ({
+                    value: groupName,
+                    label: groupLabels[groupName] || groupName,
+                    description: ""
+                }));
+            }
+
+            async function loadCloudState() {
+                try {
+                    const { response, payload } = await fetchPirateJson("/pirate-homebrew/saves", {
+                        method: "GET"
+                    });
+
+                    if (!response.ok) {
+                        saveMode = "local";
+                        state = readLocalState();
+                        showMessage(payload.message || "Unable to load cloud homebrew.");
+                        return;
+                    }
+
+                    state = normalizeState(payload.homebrew);
+                    showMessage("Cloud homebrew loaded.");
+                } catch (_error) {
+                    saveMode = "local";
+                    state = readLocalState();
+                    showMessage("Cloud homebrew is unavailable.");
+                }
+            }
+
+            async function saveCloudState() {
+                const { response, payload } = await fetchPirateJson("/pirate-homebrew/saves", {
+                    method: "POST",
+                    body: JSON.stringify({ homebrew: state })
+                });
+
+                if (!response.ok) {
+                    throw new Error(payload.message || "Unable to save cloud homebrew.");
+                }
+            }
+
+            function renderForm(entry = null) {
+                const config = modes[activeMode];
+                formTitle.textContent = `Custom ${config.label}`;
+                saveButton.textContent = editingId ? `Update ${config.label}` : `Save ${config.label}`;
+                formFields.innerHTML = "";
+
+                config.fields.forEach((field) => {
+                    const label = document.createElement("label");
+                    label.className = field.wide ? "homebrewField homebrewWideField" : "homebrewField";
+                    if (field.armorOnly) label.dataset.armorOnly = "true";
+                    if (field.shieldOnly) label.dataset.shieldOnly = "true";
+                    label.textContent = field.label;
+
+                    const value = getEntryFieldValue(entry, field);
+                    if (field.type === "attackProfiles") {
+                        const weaponAbilitiesField = activeMode === "weapon"
+                            ? config.fields.find((configField) => configField.name === "abilities")
+                            : null;
+                        const weaponAbilitiesValue = weaponAbilitiesField
+                            ? getEntryFieldValue(entry, weaponAbilitiesField)
+                            : null;
+                        formFields.appendChild(createAttackProfilesSection(value, weaponAbilitiesValue));
+                        return;
+                    }
+
+                    if (field.type === "classAbilities") {
+                        if (activeMode === "weapon") {
+                            return;
+                        }
+                        formFields.appendChild(createClassAbilitiesSection(value));
+                        return;
+                    }
+
+                    if (field.type === "toughnessEntries") {
+                        formFields.appendChild(createToughnessEntriesSection(value));
+                        return;
+                    }
+
+                    if (field.type === "multiSelect") {
+                        label.appendChild(createMultiSelect(field, value));
+                        formFields.appendChild(label);
+                        return;
+                    }
+
+                    const control = field.type === "textarea"
+                        ? document.createElement("textarea")
+                        : field.type === "select"
+                            ? document.createElement("select")
+                            : document.createElement("input");
+
+                    control.name = field.name;
+                    control.className = field.type === "textarea"
+                        ? "homebrewTextarea"
+                        : field.type === "select"
+                            ? "homebrewSelect"
+                            : "homebrewInput";
+
+                    if (field.type === "select") {
+                        getSelectOptions(field).forEach((optionItem) => {
+                            const option = document.createElement("option");
+                            option.value = optionItem.value;
+                            option.textContent = optionItem.label;
+                            control.appendChild(option);
+                        });
+                    } else if (field.type !== "textarea") {
+                        control.type = field.type;
+                    }
+
+                    if (field.required) control.required = true;
+                    if (field.placeholder) control.placeholder = field.placeholder;
+                    control.value = value;
+                    if (field.name === "equipmentKind") {
+                        control.addEventListener("change", updateArmorKindFields);
+                    }
+                    label.appendChild(control);
+                    formFields.appendChild(label);
+                });
+
+                updateArmorKindFields();
+            }
+
+            function getSelectOptions(field) {
+                if (field.optionSource === "classGroups") return classGroups;
+                return (field.options || []).map((option) => ({
+                    value: String(option),
+                    label: String(option)
+                }));
+            }
+
+            function updateArmorKindFields() {
+                const equipmentKind = homebrewForm.elements.equipmentKind?.value || "Armor";
+                homebrewForm.querySelectorAll("[data-armor-only]").forEach((field) => {
+                    field.style.display = equipmentKind === "Armor" ? "" : "none";
+                });
+                homebrewForm.querySelectorAll("[data-shield-only]").forEach((field) => {
+                    field.style.display = equipmentKind === "Shield" ? "" : "none";
+                });
+            }
+
+            function createMultiSelect(field, value) {
+                const options = getMultiSelectOptions(field);
+                const selectedValues = new Set(getSelectedOptionValues(field, value, options));
+                const initialXValues = getInitialXValues(value, options);
+                const wrapper = document.createElement("div");
+                wrapper.className = "homebrewMultiSelect";
+                wrapper.dataset.fieldName = field.name;
+
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "homebrewMultiSelectButton";
+
+                const panel = document.createElement("div");
+                panel.className = "homebrewMultiSelectPanel";
+                const selectedChips = document.createElement("div");
+                selectedChips.className = "homebrewSelectedChips";
+                const xValueGrid = document.createElement("div");
+                xValueGrid.className = "homebrewXValueGrid";
+
+                button.addEventListener("click", () => {
+                    document.querySelectorAll(".homebrewMultiSelect.isOpen").forEach((openSelect) => {
+                        if (openSelect !== wrapper) openSelect.classList.remove("isOpen");
+                    });
+                    wrapper.classList.toggle("isOpen");
+                });
+
+                options.forEach((option) => {
+                    const optionButton = document.createElement("button");
+                    optionButton.type = "button";
+                    optionButton.className = `homebrewMultiSelectOption${selectedValues.has(option.value) ? " isSelected" : ""}`;
+                    optionButton.dataset.multiselectField = field.name;
+                    optionButton.dataset.value = option.value;
+                    optionButton.textContent = option.label;
+                    optionButton.addEventListener("click", () => {
+                        optionButton.classList.toggle("isSelected");
+                        updateMultiSelectButton(wrapper, field);
+                    });
+
+                    if (option.description) {
+                        const tooltip = document.createElement("span");
+                        tooltip.className = "homebrewMultiSelectTooltip";
+                        tooltip.innerHTML = `<strong>${escapeHtml(option.label)}</strong><span>${escapeHtml(option.description)}</span>`;
+                        optionButton.addEventListener("mouseenter", () => positionTooltip(optionButton, tooltip));
+                        optionButton.addEventListener("focus", () => positionTooltip(optionButton, tooltip));
+                        optionButton.appendChild(tooltip);
+                    }
+
+                    panel.appendChild(optionButton);
+                });
+
+                if (!options.length) {
+                    const emptyOption = document.createElement("div");
+                    emptyOption.className = "homebrewEmpty";
+                    emptyOption.textContent = field.optionSource === "properties"
+                        ? "Loading compendium properties..."
+                        : "No options available.";
+                    panel.appendChild(emptyOption);
+                }
+
+                wrapper.appendChild(button);
+                wrapper.appendChild(selectedChips);
+                wrapper.appendChild(xValueGrid);
+                wrapper.appendChild(panel);
+                updateMultiSelectButton(wrapper, field, initialXValues);
+                return wrapper;
+            }
+
+            function createAttackProfilesSection(value, abilityValue = null) {
+                const section = document.createElement("section");
+                section.className = "homebrewAttackSection";
+                section.dataset.attackProfiles = "true";
+
+                const header = document.createElement("div");
+                header.className = "homebrewAttackHeader";
+
+                const title = document.createElement("h3");
+                title.className = "homebrewAttackTitle";
+                title.textContent = "Attack";
+
+                const addButton = document.createElement("button");
+                addButton.type = "button";
+                addButton.className = "homebrewButton";
+                addButton.textContent = "Add Attack";
+                const addAbilityButton = document.createElement("button");
+                addAbilityButton.type = "button";
+                addAbilityButton.className = "homebrewButton";
+                addAbilityButton.textContent = "Add Ability";
+
+                const list = document.createElement("div");
+                list.className = "homebrewAttackList";
+                list.dataset.attackProfileList = "true";
+
+                addButton.addEventListener("click", () => {
+                    list.appendChild(createAttackProfileCard({}, list.children.length));
+                    renumberAttackProfiles(list);
+                });
+                addAbilityButton.addEventListener("click", () => {
+                    const abilityList = homebrewForm.querySelector("[data-class-abilities] .homebrewAttackList");
+                    if (!abilityList) return;
+                    abilityList.appendChild(createClassAbilityCard({}, abilityList.children.length));
+                    renumberClassAbilities(abilityList);
+                });
+
+                header.appendChild(title);
+                header.appendChild(addButton);
+                if (activeMode === "weapon") {
+                    header.appendChild(addAbilityButton);
+                }
+                section.appendChild(header);
+                section.appendChild(list);
+
+                normalizeAttackProfiles(value).forEach((attack, index) => {
+                    list.appendChild(createAttackProfileCard(attack, index));
+                });
+
+                if (activeMode === "weapon") {
+                    section.appendChild(createWeaponAbilitiesBlock(abilityValue));
+                }
+
+                return section;
+            }
+
+            function createWeaponAbilitiesBlock(value) {
+                const wrapper = document.createElement("div");
+                wrapper.dataset.classAbilities = "true";
+
+                const title = document.createElement("h3");
+                title.className = "homebrewAttackTitle";
+                title.textContent = "Abilities";
+
+                const list = document.createElement("div");
+                list.className = "homebrewAttackList";
+
+                normalizeClassAbilities(value, { allowEmpty: true }).forEach((ability, index) => {
+                    list.appendChild(createClassAbilityCard(ability, index));
+                });
+
+                wrapper.appendChild(title);
+                wrapper.appendChild(list);
+                return wrapper;
+            }
+
+            function createAttackProfileCard(attack, index) {
+                const card = document.createElement("article");
+                card.className = "homebrewAttackProfile";
+                card.dataset.attackProfileCard = "true";
+
+                const header = document.createElement("div");
+                header.className = "homebrewAttackProfileHeader";
+
+                const title = document.createElement("div");
+                title.className = "homebrewAttackProfileTitle";
+                title.textContent = `Attack Profile ${index + 1}`;
+
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.className = "homebrewItemButton";
+                removeButton.textContent = "Remove";
+                removeButton.addEventListener("click", () => {
+                    const list = card.closest(".homebrewAttackList");
+                    if (list.children.length <= 1) {
+                        showMessage("A weapon needs at least one attack profile.");
+                        return;
+                    }
+
+                    card.remove();
+                    renumberAttackProfiles(list);
+                });
+
+                header.appendChild(title);
+                header.appendChild(removeButton);
+                card.appendChild(header);
+
+                card.appendChild(createAttackField("Name", createAttackInput("attackName", "text", attack.name || "", "Heavy Swing")));
+                const attackStatsSelect = createMultiSelect({ name: `attackStats-${index}`, label: "Attack Stats", type: "multiSelect", optionSource: "stats" }, attack.attackStats);
+                attackStatsSelect.dataset.multiselectRole = "attack-stats";
+                card.appendChild(createAttackField("Attack Stats", attackStatsSelect));
+                card.appendChild(createAttackField("Additional Attack Bonus", createAttackInput("attackBonus", "number", attack.attackBonus ?? "0")));
+                card.appendChild(createDamageEntriesSection(attack.damageEntries, index));
+                card.appendChild(createAttackField("Endurance Cost", createAttackInput("enduranceCost", "number", attack.enduranceCost ?? "0")));
+                const propertiesSelect = createMultiSelect({ name: `properties-${index}`, label: "Properties", type: "multiSelect", optionSource: "properties" }, attack.properties);
+                propertiesSelect.dataset.multiselectRole = "attack-properties";
+                card.appendChild(createAttackField("Properties", propertiesSelect));
+
+                return card;
+            }
+
+            function createAttackField(labelText, control) {
+                const label = document.createElement("label");
+                label.className = "homebrewField homebrewWideField";
+                label.textContent = labelText;
+                label.appendChild(control);
+                return label;
+            }
+
+            function createAttackInput(name, type, value, placeholder = "") {
+                const input = document.createElement("input");
+                input.className = type === "number" ? "homebrewInput" : "homebrewInput";
+                input.name = name;
+                input.type = type;
+                input.value = value;
+                if (placeholder) input.placeholder = placeholder;
+                return input;
+            }
+
+            function renumberAttackProfiles(list) {
+                Array.from(list.children).forEach((card, index) => {
+                    card.querySelector(".homebrewAttackProfileTitle").textContent = `Attack Profile ${index + 1}`;
+                    const attackStatsSelect = card.querySelector('.homebrewMultiSelect[data-multiselect-role="attack-stats"]');
+                    if (attackStatsSelect) {
+                        syncMultiSelectFieldName(attackStatsSelect, `attackStats-${index}`);
+                    }
+                    const propertiesSelect = card.querySelector('.homebrewMultiSelect[data-multiselect-role="attack-properties"]');
+                    if (propertiesSelect) {
+                        syncMultiSelectFieldName(propertiesSelect, `properties-${index}`);
+                    }
+                    renumberDamageEntries(card, index);
+                });
+            }
+
+            function createDamageEntriesSection(value, attackIndex) {
+                const section = document.createElement("section");
+                section.className = "homebrewAttackSection";
+                section.dataset.damageEntries = "true";
+
+                const header = document.createElement("div");
+                header.className = "homebrewAttackHeader";
+
+                const title = document.createElement("h3");
+                title.className = "homebrewAttackTitle";
+                title.textContent = "Damage Entries";
+
+                const addButton = document.createElement("button");
+                addButton.type = "button";
+                addButton.className = "homebrewButton";
+                addButton.textContent = "Add Damage";
+
+                const list = document.createElement("div");
+                list.className = "homebrewAttackList";
+                list.dataset.damageEntryList = "true";
+
+                addButton.addEventListener("click", () => {
+                    const attackCard = section.closest('[data-attack-profile-card="true"]');
+                    const attackList = attackCard?.closest('[data-attack-profile-list="true"]');
+                    const currentAttackIndex = attackList ? Array.from(attackList.children).indexOf(attackCard) : attackIndex;
+                    list.appendChild(createDamageEntryCard({}, currentAttackIndex, list.children.length));
+                    renumberDamageEntries(attackCard, currentAttackIndex);
+                });
+
+                header.appendChild(title);
+                header.appendChild(addButton);
+                section.appendChild(header);
+                section.appendChild(list);
+
+                normalizeDamageEntries(value).forEach((damageEntry, damageIndex) => {
+                    list.appendChild(createDamageEntryCard(damageEntry, attackIndex, damageIndex));
+                });
+
+                return section;
+            }
+
+            function createDamageEntryCard(damageEntry, attackIndex, damageIndex) {
+                const card = document.createElement("article");
+                card.className = "homebrewAttackProfile";
+                card.dataset.damageEntryCard = "true";
+
+                const header = document.createElement("div");
+                header.className = "homebrewAttackProfileHeader";
+
+                const title = document.createElement("div");
+                title.className = "homebrewAttackProfileTitle";
+                title.textContent = `Damage ${damageIndex + 1}`;
+
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.className = "homebrewItemButton";
+                removeButton.textContent = "Remove";
+                removeButton.addEventListener("click", () => {
+                    const list = card.closest('[data-damage-entry-list="true"]');
+                    if (!list) return;
+                    if (list.children.length <= 1) {
+                        showMessage("An attack needs at least one damage entry.");
+                        return;
+                    }
+
+                    card.remove();
+                    const attackCard = list.closest('[data-attack-profile-card="true"]');
+                    const attackList = attackCard?.closest('[data-attack-profile-list="true"]');
+                    const attackIndex = attackList ? Array.from(attackList.children).indexOf(attackCard) : 0;
+                    renumberDamageEntries(attackCard, attackIndex);
+                });
+
+                header.appendChild(title);
+                header.appendChild(removeButton);
+                card.appendChild(header);
+
+                card.appendChild(createAttackField("Amount", createAttackInput("damageAmount", "text", damageEntry.amount || "", "1d8")));
+                const damageTypesSelect = createMultiSelect({ name: `damageTypes-${attackIndex}-${damageIndex}`, label: "Damage Type", type: "multiSelect", optionSource: "damageTypes" }, damageEntry.damageTypes);
+                damageTypesSelect.dataset.multiselectRole = "damage-types";
+                card.appendChild(createAttackField("Damage Type", damageTypesSelect));
+
+                return card;
+            }
+
+            function renumberDamageEntries(attackCard, attackIndex) {
+                if (!attackCard) return;
+                const list = attackCard.querySelector('[data-damage-entry-list="true"]');
+                if (!list) return;
+
+                Array.from(list.children).forEach((card, damageIndex) => {
+                    card.querySelector(".homebrewAttackProfileTitle").textContent = `Damage ${damageIndex + 1}`;
+                    const damageTypesSelect = card.querySelector('.homebrewMultiSelect[data-multiselect-role="damage-types"]');
+                    if (damageTypesSelect) {
+                        syncMultiSelectFieldName(damageTypesSelect, `damageTypes-${attackIndex}-${damageIndex}`);
+                    }
+                });
+            }
+
+            function syncMultiSelectFieldName(multiSelect, nextFieldName) {
+                multiSelect.dataset.fieldName = nextFieldName;
+                multiSelect.querySelectorAll(".homebrewMultiSelectOption").forEach((option) => {
+                    option.dataset.multiselectField = nextFieldName;
+                });
+            }
+
+            function createClassAbilitiesSection(value) {
+                const section = document.createElement("section");
+                section.className = "homebrewAttackSection";
+                section.dataset.classAbilities = "true";
+
+                const header = document.createElement("div");
+                header.className = "homebrewAttackHeader";
+
+                const title = document.createElement("h3");
+                title.className = "homebrewAttackTitle";
+                title.textContent = "Abilities";
+
+                const addButton = document.createElement("button");
+                addButton.type = "button";
+                addButton.className = "homebrewButton";
+                addButton.textContent = "Add Ability";
+                const isWeaponAbilitySection = activeMode === "weapon";
+
+                const list = document.createElement("div");
+                list.className = "homebrewAttackList";
+
+                addButton.addEventListener("click", () => {
+                    list.appendChild(createClassAbilityCard({}, list.children.length));
+                    renumberClassAbilities(list);
+                });
+
+                header.appendChild(title);
+                if (!isWeaponAbilitySection) {
+                    header.appendChild(addButton);
+                }
+                section.appendChild(header);
+                section.appendChild(list);
+
+                normalizeClassAbilities(value, { allowEmpty: isWeaponAbilitySection }).forEach((ability, index) => {
+                    list.appendChild(createClassAbilityCard(ability, index));
+                });
+
+                return section;
+            }
+
+            function createClassAbilityCard(ability, index) {
+                const card = document.createElement("article");
+                card.className = "homebrewAttackProfile";
+
+                const header = document.createElement("div");
+                header.className = "homebrewAttackProfileHeader";
+
+                const title = document.createElement("div");
+                title.className = "homebrewAttackProfileTitle";
+                title.textContent = `Ability ${index + 1}`;
+
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.className = "homebrewItemButton";
+                removeButton.textContent = "Remove";
+                removeButton.addEventListener("click", () => {
+                    const list = card.closest(".homebrewAttackList");
+                    if (list.children.length <= 1 && activeMode !== "weapon") {
+                        showMessage(getAbilityRequirementMessage());
+                        return;
+                    }
+
+                    card.remove();
+                    renumberClassAbilities(list);
+                });
+
+                header.appendChild(title);
+                header.appendChild(removeButton);
+                card.appendChild(header);
+
+                card.appendChild(createAttackField("Name", createAttackInput("abilityName", "text", ability.name || "")));
+                if (activeMode !== "weapon") {
+                    card.appendChild(createAttackField("Rank", createAttackInput("rank", "number", ability.rank ?? "1")));
+                }
+                const typeSelect = createAbilityTypeSelect(ability.type || "Passive", { weaponMode: activeMode === "weapon" });
+                card.appendChild(createAttackField("Type", typeSelect));
+                const actionCostField = createAttackField("Action Cost", createAttackInput("actionCost", "text", ability.actionCost ?? ""));
+                actionCostField.dataset.weaponActionCostField = "true";
+                card.appendChild(actionCostField);
+                const enduranceCostField = createAttackField("Endurance Cost", createAttackInput("enduranceCost", "text", ability.enduranceCost ?? ""));
+                enduranceCostField.dataset.weaponEnduranceCostField = "true";
+                card.appendChild(enduranceCostField);
+                card.appendChild(createAttackField("Description", createAttackTextarea("description", ability.description || "")));
+
+                if (activeMode === "weapon") {
+                    typeSelect.addEventListener("change", () => updateWeaponAbilityCostFields(card));
+                    updateWeaponAbilityCostFields(card);
+                }
+
+                return card;
+            }
+
+            function createAbilityTypeSelect(value, options = {}) {
+                const weaponMode = options.weaponMode === true;
+                const select = document.createElement("select");
+                select.name = "abilityType";
+                select.className = "homebrewSelect";
+                (weaponMode ? ["Action", "Passive"] : ["Action", "Passive", "Selection"]).forEach((optionText) => {
+                    const option = document.createElement("option");
+                    option.value = optionText;
+                    option.textContent = optionText;
+                    select.appendChild(option);
+                });
+                select.value = value;
+                return select;
+            }
+
+            function createAttackTextarea(name, value) {
+                const textarea = document.createElement("textarea");
+                textarea.name = name;
+                textarea.className = "homebrewTextarea";
+                textarea.value = value;
+                return textarea;
+            }
+
+            function getAbilityRequirementMessage() {
+                return activeMode === "weapon"
+                    ? "A weapon needs at least one ability."
+                    : "A class needs at least one ability.";
+            }
+
+            function updateWeaponAbilityCostFields(card) {
+                const type = card.querySelector('select[name="abilityType"]')?.value || "Passive";
+                const showCosts = type === "Action";
+                const actionCostField = card.querySelector('[data-weapon-action-cost-field="true"]');
+                const enduranceCostField = card.querySelector('[data-weapon-endurance-cost-field="true"]');
+                if (actionCostField) actionCostField.style.display = showCosts ? "" : "none";
+                if (enduranceCostField) enduranceCostField.style.display = showCosts ? "" : "none";
+            }
+
+            function renumberClassAbilities(list) {
+                Array.from(list.children).forEach((card, index) => {
+                    card.querySelector(".homebrewAttackProfileTitle").textContent = `Ability ${index + 1}`;
+                });
+            }
+
+            function createToughnessEntriesSection(value) {
+                const section = document.createElement("section");
+                section.className = "homebrewAttackSection";
+                section.dataset.toughnessEntries = "true";
+
+                const header = document.createElement("div");
+                header.className = "homebrewAttackHeader";
+
+                const title = document.createElement("h3");
+                title.className = "homebrewAttackTitle";
+                title.textContent = "Toughness";
+
+                const addButton = document.createElement("button");
+                addButton.type = "button";
+                addButton.className = "homebrewButton";
+                addButton.textContent = "Add Toughness";
+
+                const list = document.createElement("div");
+                list.className = "homebrewAttackList";
+                list.dataset.toughnessEntryList = "true";
+
+                addButton.addEventListener("click", () => {
+                    list.appendChild(createToughnessEntryCard({}, list.children.length));
+                    renumberToughnessEntries(list);
+                });
+
+                header.appendChild(title);
+                header.appendChild(addButton);
+                section.appendChild(header);
+                section.appendChild(list);
+
+                normalizeToughnessEntries(value).forEach((toughnessEntry, index) => {
+                    list.appendChild(createToughnessEntryCard(toughnessEntry, index));
+                });
+
+                return section;
+            }
+
+            function createToughnessEntryCard(toughnessEntry, index) {
+                const card = document.createElement("article");
+                card.className = "homebrewAttackProfile";
+                card.dataset.toughnessEntryCard = "true";
+
+                const header = document.createElement("div");
+                header.className = "homebrewAttackProfileHeader";
+
+                const title = document.createElement("div");
+                title.className = "homebrewAttackProfileTitle";
+                title.textContent = `Toughness ${index + 1}`;
+
+                const removeButton = document.createElement("button");
+                removeButton.type = "button";
+                removeButton.className = "homebrewItemButton";
+                removeButton.textContent = "Remove";
+                removeButton.addEventListener("click", () => {
+                    const list = card.closest('[data-toughness-entry-list="true"]');
+                    if (!list) return;
+                    if (list.children.length <= 1) {
+                        showMessage("Armor needs at least one toughness entry.");
+                        return;
+                    }
+
+                    card.remove();
+                    renumberToughnessEntries(list);
+                });
+
+                header.appendChild(title);
+                header.appendChild(removeButton);
+                card.appendChild(header);
+
+                card.appendChild(createAttackField("Amount", createAttackInput("toughnessAmount", "number", toughnessEntry.amount ?? "0")));
+                const toughnessTypeSelect = createToughnessTypeSelect(toughnessEntry.type || "Physical");
+                toughnessTypeSelect.name = "toughnessType";
+                card.appendChild(createAttackField("Type", toughnessTypeSelect));
+
+                return card;
+            }
+
+            function createToughnessTypeSelect(value) {
+                const select = document.createElement("select");
+                select.className = "homebrewSelect";
+                PIRATE_TOUGHNESS_TYPES.forEach((optionText) => {
+                    const option = document.createElement("option");
+                    option.value = optionText;
+                    option.textContent = optionText;
+                    select.appendChild(option);
+                });
+                select.value = value;
+                return select;
+            }
+
+            function renumberToughnessEntries(list) {
+                Array.from(list.children).forEach((card, index) => {
+                    card.querySelector(".homebrewAttackProfileTitle").textContent = `Toughness ${index + 1}`;
+                });
+            }
+
+            function getMultiSelectOptions(field) {
+                if (field.optionSource === "stats") {
+                    return PIRATE_STATS.map((statName) => ({
+                        value: statName,
+                        label: statName,
+                        description: ""
+                    }));
+                }
+
+                if (field.optionSource === "properties") {
+                    return equipmentProperties;
+                }
+
+                if (field.optionSource === "damageTypes") {
+                    return PIRATE_DAMAGE_TYPES.map((damageType) => ({
+                        value: damageType,
+                        label: damageType,
+                        description: ""
+                    }));
+                }
+
+                if (field.optionSource === "weaponTypes") {
+                    return weaponTypes;
+                }
+
+                return (field.options || []).map((option) => ({
+                    value: String(option),
+                    label: String(option),
+                    description: ""
+                }));
+            }
+
+            function updateMultiSelectButton(wrapper, field, preferredXValues = {}) {
+                const button = wrapper.querySelector(".homebrewMultiSelectButton");
+                const selectedChips = wrapper.querySelector(".homebrewSelectedChips");
+                const xValueGrid = wrapper.querySelector(".homebrewXValueGrid");
+                const fieldName = wrapper.dataset.fieldName || field.name;
+                const previousXValues = { ...readXValueInputs(wrapper), ...preferredXValues };
+                const optionsByValue = new Map(getMultiSelectOptions(field).map((option) => [option.value, option]));
+                const selected = getSelectedMultiSelectValues(wrapper, fieldName);
+                button.textContent = `Select ${field.label}`;
+                selectedChips.innerHTML = "";
+                xValueGrid.innerHTML = "";
+                selected.forEach((value) => {
+                    const chip = document.createElement("span");
+                    chip.className = "homebrewSelectedChip";
+                    chip.textContent = value;
+                    selectedChips.appendChild(chip);
+
+                    if (field.optionSource === "properties" && hasXComponent(value)) {
+                        const option = optionsByValue.get(value);
+                        const xField = document.createElement("label");
+                        xField.className = "homebrewXValueField";
+                        xField.textContent = `${getXPropertyLabel(value)} value`;
+
+                        const input = document.createElement("input");
+                        input.className = "homebrewXValueInput";
+                        input.type = "text";
+                        input.dataset.xProperty = value;
+                        input.placeholder = "X";
+                        input.required = true;
+                        input.value = previousXValues[value] || "";
+                        if (option?.description) input.title = option.description;
+
+                        xField.appendChild(input);
+                        xValueGrid.appendChild(xField);
+                    }
+                });
+            }
+
+            function getSelectedMultiSelectValues(root, fieldName) {
+                return Array.from(root.querySelectorAll(`.homebrewMultiSelectOption[data-multiselect-field="${fieldName}"].isSelected`))
+                    .map((button) => button.dataset.value)
+                    .filter(Boolean);
+            }
+
+            function normalizeMultiValue(value) {
+                if (Array.isArray(value)) return value.map((item) => String(item || "").trim()).filter(Boolean);
+                return String(value || "").split(",").map((item) => item.trim()).filter(Boolean);
+            }
+
+            function hasXComponent(value) {
+                return /\(\s*X\s*\)/i.test(String(value || ""));
+            }
+
+            function getXPropertyLabel(value) {
+                return String(value || "").replace(/\s*\(\s*X\s*\)\s*/i, "").trim();
+            }
+
+            function getXPropertyPattern(value) {
+                const escapedLabel = getXPropertyLabel(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+                return new RegExp(`^${escapedLabel}\\s*\\((.+)\\)$`, "i");
+            }
+
+            function getSelectedOptionValues(field, value, options) {
+                const rawValues = normalizeMultiValue(value);
+                if (field.optionSource !== "properties") return rawValues;
+
+                return rawValues.map((rawValue) => {
+                    const exactOption = options.find((option) => option.value === rawValue);
+                    if (exactOption) return exactOption.value;
+
+                    const xOption = options.find((option) => hasXComponent(option.value) && getXPropertyPattern(option.value).test(rawValue));
+                    return xOption ? xOption.value : rawValue;
+                });
+            }
+
+            function getInitialXValues(value, options) {
+                return normalizeMultiValue(value).reduce((xValues, rawValue) => {
+                    const xOption = options.find((option) => hasXComponent(option.value) && getXPropertyPattern(option.value).test(rawValue));
+                    if (xOption) {
+                        const match = rawValue.match(getXPropertyPattern(xOption.value));
+                        xValues[xOption.value] = match?.[1]?.trim() || "";
+                    }
+                    return xValues;
+                }, {});
+            }
+
+            function readXValueInputs(root) {
+                return Array.from(root.querySelectorAll(".homebrewXValueInput")).reduce((values, input) => {
+                    values[input.dataset.xProperty] = input.value;
+                    return values;
+                }, {});
+            }
+
+            function resolveXPropertyValue(value, xValue) {
+                const replacement = String(xValue || "").trim();
+                return String(value || "").replace(/\(\s*X\s*\)/i, `(${replacement})`);
+            }
+
+            function positionTooltip(optionLabel, tooltip) {
+                const rect = optionLabel.getBoundingClientRect();
+                tooltip.style.setProperty("--tooltip-left", `${Math.min(window.innerWidth - 150, Math.max(150, rect.left + rect.width / 2))}px`);
+                tooltip.style.setProperty("--tooltip-top", `${rect.bottom + 8}px`);
+            }
+
+            function escapeHtml(value) {
+                return String(value || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            function normalizeFieldValue(value) {
+                if (Array.isArray(value)) return value;
+                if (value == null) return "";
+                return value;
+            }
+
+            function getEntryFieldValue(entry, field) {
+                if (entry?.values?.[field.name] != null) {
+                    return normalizeFieldValue(entry.values[field.name]);
+                }
+
+                if (field.name === "attacks") {
+                    return normalizeAttackProfiles(entry?.values || {});
+                }
+
+                if (field.name === "toughnessEntries") {
+                    return normalizeToughnessEntries(entry?.values || {});
+                }
+
+                if (field.name === "abilities") {
+                    return normalizeClassAbilities(
+                        entry?.values?.abilities || entry?.values?.classAbilities || entry?.values?.features,
+                        { allowEmpty: activeMode === "weapon" }
+                    );
+                }
+
+                if (field.name === "attackStats" && entry?.values?.attackStat) {
+                    return normalizeFieldValue(entry.values.attackStat);
+                }
+
+                if (field.name === "type" && entry?.values?.category) {
+                    return normalizeFieldValue(entry.values.category);
+                }
+
+                return normalizeFieldValue(field.value ?? "");
+            }
+
+            function normalizeAttackProfiles(value) {
+                if (Array.isArray(value)) {
+                    return value.length ? value.map(normalizeAttackProfile) : [normalizeAttackProfile({})];
+                }
+
+                if (Array.isArray(value?.attacks)) {
+                    return value.attacks.length ? value.attacks.map(normalizeAttackProfile) : [normalizeAttackProfile({})];
+                }
+
+                const hasLegacyAttack = value && (
+                    value.attackStats != null ||
+                    value.attackStat != null ||
+                    value.attackBonus != null ||
+                    value.damageEntries != null ||
+                    value.damageDice != null ||
+                    value.damageType != null ||
+                    value.damageTypes != null ||
+                    value.enduranceCost != null ||
+                    value.properties != null
+                );
+
+                return hasLegacyAttack ? [normalizeAttackProfile(value)] : [normalizeAttackProfile({})];
+            }
+
+            function normalizeAttackProfile(value) {
+                const damageEntries = normalizeDamageEntries(value?.damageEntries?.length ? value.damageEntries : value);
+                return {
+                    name: value?.name || "",
+                    attackStats: value?.attackStats || value?.attackStat || [],
+                    attackBonus: value?.attackBonus ?? "0",
+                    damageEntries,
+                    enduranceCost: value?.enduranceCost ?? "0",
+                    properties: value?.properties || [],
+                };
+            }
+
+            function normalizeDamageEntries(value) {
+                if (Array.isArray(value)) {
+                    return value.length ? value.map(normalizeDamageEntry) : [normalizeDamageEntry({})];
+                }
+
+                const damageTypes = Array.isArray(value?.damageTypes)
+                    ? value.damageTypes
+                    : value?.damageType != null
+                        ? normalizeMultiValue(value.damageType)
+                        : value?.damage?.type != null
+                            ? normalizeMultiValue(value.damage.type)
+                            : [];
+                const amount = value?.damageAmount || value?.damageDice || value?.damage?.dice || "";
+                const hasLegacyDamage = amount || damageTypes.length;
+
+                return hasLegacyDamage
+                    ? [normalizeDamageEntry({ amount, damageTypes })]
+                    : [normalizeDamageEntry({})];
+            }
+
+            function normalizeDamageEntry(value) {
+                return {
+                    amount: value?.amount || value?.damageAmount || value?.damageDice || value?.damage?.dice || "",
+                    damageTypes: Array.isArray(value?.damageTypes)
+                        ? value.damageTypes
+                        : value?.damageType != null
+                            ? normalizeMultiValue(value.damageType)
+                            : value?.damage?.type != null
+                                ? normalizeMultiValue(value.damage.type)
+                                : [],
+                };
+            }
+
+            function normalizeToughnessEntries(value) {
+                if (Array.isArray(value)) {
+                    return value.length ? value.map(normalizeToughnessEntry) : [normalizeToughnessEntry({})];
+                }
+
+                if (Array.isArray(value?.toughnessEntries)) {
+                    return value.toughnessEntries.length ? value.toughnessEntries.map(normalizeToughnessEntry) : [normalizeToughnessEntry({})];
+                }
+
+                const amount = value?.toughness ?? value?.toughnessAmount ?? "0";
+                const type = value?.toughnessType || "Physical";
+                const hasLegacyToughness = value && (value.toughness != null || value.toughnessAmount != null || value.toughnessType != null);
+
+                return hasLegacyToughness
+                    ? [normalizeToughnessEntry({ amount, type })]
+                    : [normalizeToughnessEntry({})];
+            }
+
+            function normalizeToughnessEntry(value) {
+                return {
+                    amount: value?.amount ?? value?.toughnessAmount ?? value?.toughness ?? "0",
+                    type: value?.type || value?.toughnessType || "Physical",
+                };
+            }
+
+            function normalizeClassAbilities(value, options = {}) {
+                const allowEmpty = options.allowEmpty === true;
+                if (Array.isArray(value)) {
+                    return value.length ? value.map(normalizeClassAbility) : allowEmpty ? [] : [normalizeClassAbility({})];
+                }
+
+                if (typeof value === "string" && value.trim()) {
+                    return [normalizeClassAbility({ description: value })];
+                }
+
+                return allowEmpty ? [] : [normalizeClassAbility({})];
+            }
+
+            function normalizeClassAbility(value) {
+                return {
+                    name: value?.name || "",
+                    rank: value?.rank ?? "",
+                    type: value?.type || "Passive",
+                    actionCost: value?.actionCost ?? "",
+                    enduranceCost: value?.enduranceCost ?? "",
+                    description: value?.description || "",
+                };
+            }
+
+            function renderList() {
+                const entries = state[activeMode];
+                list.innerHTML = "";
+
+                if (!entries.length) {
+                    const empty = document.createElement("div");
+                    empty.className = "homebrewEmpty";
+                    empty.textContent = `No custom ${modes[activeMode].label.toLowerCase()} entries saved yet.`;
+                    list.appendChild(empty);
+                    return;
+                }
+
+                entries.forEach((entry) => {
+                    const item = document.createElement("article");
+                    item.className = "homebrewItem";
+
+                    const header = document.createElement("div");
+                    header.className = "homebrewItemHeader";
+
+                    const title = document.createElement("div");
+                    title.className = "homebrewItemName";
+                    title.textContent = entry.values.name || `Untitled ${modes[activeMode].label}`;
+
+                    const actions = document.createElement("div");
+                    actions.className = "homebrewItemActions";
+                    actions.appendChild(makeItemButton("Edit", () => editEntry(entry.id)));
+                    actions.appendChild(makeItemButton("Delete", () => deleteEntry(entry.id)));
+
+                    header.appendChild(title);
+                    header.appendChild(actions);
+
+                    const meta = document.createElement("div");
+                    meta.className = "homebrewItemMeta";
+                    meta.textContent = summarizeEntry(entry);
+
+                    item.appendChild(header);
+                    item.appendChild(meta);
+                    list.appendChild(item);
+                });
+            }
+
+            function makeItemButton(label, onClick) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "homebrewItemButton";
+                button.textContent = label;
+                button.addEventListener("click", onClick);
+                return button;
+            }
+
+            function summarizeEntry(entry) {
+                if (activeMode === "weapon") {
+                    const attacks = normalizeAttackProfiles(entry.values);
+                    const abilities = normalizeClassAbilities(entry.values.abilities);
+                    const attackLabel = attacks.length === 1
+                        ? [attacks[0].name, formatListValue(attacks[0].attackStats), formatDamageEntrySummary(attacks[0].damageEntries)].filter(Boolean).join(" / ")
+                        : `${attacks.length} attack profiles`;
+                    return [
+                        formatListValue(entry.values.type || entry.values.category),
+                        attackLabel,
+                        `${abilities.length} ${abilities.length === 1 ? "ability" : "abilities"}`
+                    ].filter(Boolean).join(" | ");
+                }
+
+                if (activeMode === "armor") {
+                    const isShield = entry.values.equipmentKind === "Shield";
+                    const toughnessEntries = normalizeToughnessEntries(entry.values);
+                    return [
+                        isShield ? "Shield" : "Armor",
+                        isShield ? `Brace ${entry.values.braceCost || 0}` : `Base Evasion ${entry.values.baseEvasion || 16}`,
+                        `Toughness ${formatToughnessEntrySummary(toughnessEntries)}`,
+                        `Dash ${entry.values.dashPenalty || 0}`,
+                        entry.values.cost ? `Cost ${entry.values.cost}` : "",
+                    ].filter(Boolean).join(" | ");
+                }
+
+                if (activeMode === "class") {
+                    const abilities = normalizeClassAbilities(entry.values.abilities);
+                    return [entry.values.group, `${abilities.length} ${abilities.length === 1 ? "ability" : "abilities"}`].filter(Boolean).join(" | ");
+                }
+
+                return [
+                    entry.values.type || "Passive",
+                    entry.values.rank ? `Rank ${entry.values.rank}` : "",
+                    entry.values.type === "Action" && entry.values.actionCost ? `Action ${entry.values.actionCost}` : "",
+                    entry.values.type === "Action" && entry.values.enduranceCost ? `Endurance ${entry.values.enduranceCost}` : ""
+                ].filter(Boolean).join(" | ");
+            }
+
+            function formatListValue(value) {
+                if (Array.isArray(value)) return value.filter(Boolean).join(", ");
+                return String(value || "").trim();
+            }
+
+            function formatDamageEntrySummary(damageEntries) {
+                return normalizeDamageEntries(damageEntries)
+                    .map((damageEntry) => [damageEntry.amount, formatListValue(damageEntry.damageTypes)].filter(Boolean).join(" "))
+                    .filter(Boolean)
+                    .join(" + ");
+            }
+
+            function formatToughnessEntrySummary(toughnessEntries) {
+                return normalizeToughnessEntries(toughnessEntries)
+                    .map((toughnessEntry) => [toughnessEntry.amount, toughnessEntry.type].filter(Boolean).join(" "))
+                    .filter(Boolean)
+                    .join(" + ");
+            }
+
+            async function saveEntry() {
+                let values;
+
+                try {
+                    values = collectFormValues();
+                } catch (error) {
+                    showMessage(error.message || "Complete the selected property values.");
+                    return;
+                }
+
+                const name = String(values.name || "").trim();
+
+                if (!name) {
+                    showMessage("A name is required before saving.");
+                    return;
+                }
+
+                values.name = name;
+                const entry = {
+                    id: editingId || `${activeMode}-${Date.now()}`,
+                    type: activeMode,
+                    updatedAt: new Date().toISOString(),
+                    values
+                };
+
+                state[activeMode] = [
+                    entry,
+                    ...state[activeMode].filter((item) => item.id !== entry.id && item.values.name !== name)
+                ];
+                try {
+                    await writeState();
+                    editingId = null;
+                    resetForm();
+                    renderList();
+                    showMessage(`${modes[activeMode].label} saved to ${saveMode}.`);
+                } catch (error) {
+                    showMessage(error.message || "Unable to save homebrew.");
+                }
+            }
+
+            function collectFormValues() {
+                return modes[activeMode].fields.reduce((values, field) => {
+                    if (field.type === "attackProfiles") {
+                        values[field.name] = collectAttackProfiles();
+                        return values;
+                    }
+
+                    if (field.type === "classAbilities") {
+                        values[field.name] = collectClassAbilities();
+                        return values;
+                    }
+
+                    if (field.type === "toughnessEntries") {
+                        const toughnessEntries = collectToughnessEntries();
+                        values[field.name] = toughnessEntries;
+                        values.toughness = toughnessEntries[0]?.amount ?? "0";
+                        values.toughnessType = toughnessEntries[0]?.type || "Physical";
+                        return values;
+                    }
+
+                    if (field.type === "multiSelect" || field.type === "statChecks") {
+                        const selectedChipValues = getSelectedMultiSelectValues(homebrewForm, field.name);
+                        const selectedValues = selectedChipValues.length
+                            ? selectedChipValues
+                            : Array.from(homebrewForm.querySelectorAll(`input[data-multiselect-field="${field.name}"]:checked, input[name="${field.name}"]:checked`))
+                                .map((input) => input.value);
+                        values[field.name] = resolveMultiSelectValues(field, selectedValues);
+                        return values;
+                    }
+
+                    const control = homebrewForm.elements[field.name];
+                    values[field.name] = control ? control.value : "";
+                    return values;
+                }, {});
+            }
+
+            function collectAttackProfiles() {
+                const cards = Array.from(homebrewForm.querySelectorAll('[data-attack-profile-card="true"]'));
+
+                if (!cards.length) {
+                    throw new Error("Add at least one attack profile.");
+                }
+
+                return cards.map((card, index) => {
+                    const attackStatsName = `attackStats-${index}`;
+                    const propertiesName = `properties-${index}`;
+                    const damageEntries = collectDamageEntries(card, index);
+                    return {
+                        name: card.querySelector('input[name="attackName"]')?.value || "",
+                        attackStats: resolveMultiSelectValues(
+                            { name: attackStatsName, optionSource: "stats" },
+                            getSelectedMultiSelectValues(card, attackStatsName),
+                            card
+                        ),
+                        attackBonus: card.querySelector('input[name="attackBonus"]')?.value || "0",
+                        damageEntries,
+                        damageDice: damageEntries[0]?.amount || "",
+                        damageTypes: Array.from(new Set(damageEntries.flatMap((damageEntry) => damageEntry.damageTypes || []))),
+                        enduranceCost: card.querySelector('input[name="enduranceCost"]')?.value || "0",
+                        properties: resolveMultiSelectValues(
+                            { name: propertiesName, optionSource: "properties" },
+                            getSelectedMultiSelectValues(card, propertiesName),
+                            card
+                        ),
+                    };
+                });
+            }
+
+            function collectDamageEntries(card, attackIndex) {
+                const damageCards = Array.from(card.querySelectorAll('[data-damage-entry-card="true"]'));
+
+                if (!damageCards.length) {
+                    throw new Error("Add at least one damage entry.");
+                }
+
+                return damageCards.map((damageCard, damageIndex) => {
+                    const damageTypesName = `damageTypes-${attackIndex}-${damageIndex}`;
+                    return {
+                        amount: damageCard.querySelector('input[name="damageAmount"]')?.value || "",
+                        damageTypes: resolveMultiSelectValues(
+                            { name: damageTypesName, optionSource: "damageTypes" },
+                            getSelectedMultiSelectValues(damageCard, damageTypesName),
+                            damageCard
+                        ),
+                    };
+                });
+            }
+
+            function collectToughnessEntries() {
+                const cards = Array.from(homebrewForm.querySelectorAll('[data-toughness-entry-card="true"]'));
+
+                if (!cards.length) {
+                    throw new Error("Add at least one toughness entry.");
+                }
+
+                return cards.map((card) => ({
+                    amount: card.querySelector('input[name="toughnessAmount"]')?.value || "0",
+                    type: card.querySelector('select[name="toughnessType"]')?.value || "Physical",
+                }));
+            }
+
+            function resolveMultiSelectValues(field, selectedValues, root = homebrewForm) {
+                if (field.optionSource !== "properties") return selectedValues;
+
+                return selectedValues.map((value) => {
+                    if (!hasXComponent(value)) return value;
+
+                    const input = Array.from(root.querySelectorAll(".homebrewXValueInput"))
+                        .find((xInput) => xInput.dataset.xProperty === value);
+                    const xValue = String(input?.value || "").trim();
+                    if (!xValue) {
+                        throw new Error(`${getXPropertyLabel(value)} needs a value for X.`);
+                    }
+
+                    return resolveXPropertyValue(value, xValue);
+                });
+            }
+
+            function collectClassAbilities() {
+                const cards = Array.from(homebrewForm.querySelectorAll("[data-class-abilities] .homebrewAttackProfile"));
+
+                if (!cards.length) {
+                    if (activeMode === "weapon") {
+                        return [];
+                    }
+                    throw new Error("Add at least one class ability.");
+                }
+
+                return cards.map((card) => {
+                    const type = card.querySelector('select[name="abilityType"]')?.value || "Passive";
+                    const ability = {
+                        name: card.querySelector('input[name="abilityName"]')?.value || "",
+                        type,
+                        description: card.querySelector('textarea[name="description"]')?.value || "",
+                    };
+                    if (activeMode !== "weapon") {
+                        ability.rank = Number(card.querySelector('input[name="rank"]')?.value) || 1;
+                    }
+                    const actionCost = card.querySelector('input[name="actionCost"]')?.value || "";
+                    const enduranceCost = card.querySelector('input[name="enduranceCost"]')?.value || "";
+
+                    if (type === "Action") {
+                        ability.actionCost = actionCost;
+                        ability.enduranceCost = enduranceCost;
+                    }
+
+                    return ability;
+                });
+            }
+
+            function editEntry(id) {
+                const entry = state[activeMode].find((item) => item.id === id);
+                if (!entry) return;
+                editingId = id;
+                renderForm(entry);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+
+            async function deleteEntry(id) {
+                const previousState = normalizeState(state);
+                state[activeMode] = state[activeMode].filter((item) => item.id !== id);
+                if (editingId === id) editingId = null;
+                try {
+                    await writeState();
+                    render();
+                    showMessage(`${modes[activeMode].label} deleted from ${saveMode}.`);
+                } catch (error) {
+                    state = previousState;
+                    render();
+                    showMessage(error.message || "Unable to delete homebrew.");
+                }
+            }
+
+            function resetForm() {
+                editingId = null;
+                renderForm();
+            }
+
+            function exportHomebrew() {
+                const payload = {
+                    kind: "pirate-homebrew-builder",
+                    version: 1,
+                    exportedAt: new Date().toISOString(),
+                    homebrew: state
+                };
+                const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = "pirate-homebrew.json";
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                URL.revokeObjectURL(url);
+                showMessage("Homebrew exported.");
+            }
+
+            function importHomebrew(event) {
+                const file = event.target.files?.[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = async () => {
+                    try {
+                        const parsed = JSON.parse(String(reader.result));
+                        const imported = parsed.homebrew || parsed;
+                        state = {
+                            weapon: mergeEntries(state.weapon, imported.weapon),
+                            armor: mergeEntries(state.armor, imported.armor),
+                            class: mergeEntries(state.class, imported.class),
+                            ability: mergeEntries(state.ability, imported.ability)
+                        };
+                        await writeState();
+                        editingId = null;
+                        render();
+                        showMessage(`Homebrew imported to ${saveMode}.`);
+                    } catch (_error) {
+                        showMessage("That import file could not be read.");
+                    } finally {
+                        importFile.value = "";
+                    }
+                };
+                reader.readAsText(file);
+            }
+
+            function mergeEntries(currentEntries, incomingEntries) {
+                const merged = [...currentEntries];
+                (Array.isArray(incomingEntries) ? incomingEntries : []).forEach((entry) => {
+                    if (!entry?.values) return;
+                    const nextEntry = {
+                        ...entry,
+                        id: entry.id || `${entry.type || "homebrew"}-${Date.now()}-${Math.random().toString(36).slice(2)}`
+                    };
+                    const existingIndex = merged.findIndex((item) => item.id === nextEntry.id || item.values.name === nextEntry.values.name);
+                    if (existingIndex >= 0) {
+                        merged[existingIndex] = nextEntry;
+                    } else {
+                        merged.unshift(nextEntry);
+                    }
+                });
+                return merged;
+            }
+
+            function showMessage(text) {
+                message.textContent = text;
+                message.hidden = false;
+                window.clearTimeout(showMessage.timeout);
+                showMessage.timeout = window.setTimeout(() => {
+                    message.hidden = true;
+                }, 3200);
+            }
+        </script>
+    </body>
+
+</html>

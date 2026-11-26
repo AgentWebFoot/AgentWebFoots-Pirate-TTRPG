@@ -1,0 +1,16 @@
+{
+  "name": "pirate-ttrpg-web-preview",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch preview/start.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "compendium": "file:compendium-0.1.0.tgz",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

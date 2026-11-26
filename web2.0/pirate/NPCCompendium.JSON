@@ -1,0 +1,162 @@
+{
+  "npcArmors": [],
+  "npcShields": [],
+  "npcWeapons": [],
+  "npcActionAbilities": [
+    {
+      "name": "COMBO: Crushing Claw",
+      "actionCost": 1,
+      "enduranceCost": 0,
+      "description": "After you successfully make an attack with the Giant Claw, make a Brawn Contest. On a fail, a creature becomes restrained by the Claws. The Restrain DC is 19. Only one creature can be restrained by it in this way."
+    }
+  ],
+  "npcPassiveAbilities": [
+    {
+      "name": "Gigantic",
+      "description": "Whenever you restrain a creature, they move with you. It does not cost any additional movement to do this."
+    },
+    {
+      "name": "Amphibious",
+      "description": "You can move and breathe underwater as easily as on land."
+    }
+  ],
+  "npcs": [
+    {
+      "version": 1,
+      "name": "Reef Mauler",
+      "difficulty": "14",
+      "npcType": "Monster",
+      "stats": {
+        "Brawn": "9",
+        "Finesse": "3",
+        "Grit": "8",
+        "Awareness": "5",
+        "Brains": 0,
+        "Swagger": "2"
+      },
+      "sideStats": {
+        "Health": 0,
+        "Endurance": 252,
+        "Evasion": 13,
+        "Toughness": 3,
+        "Speed": 0
+      },
+      "speed": {
+        "normalMove": 4,
+        "dashMove": 7
+      },
+      "actionPoints": 0,
+      "selectedArmorName": "No Armor",
+      "selectedShieldName": "No Shield",
+      "weaponChoiceName": "",
+      "selectedWeaponNames": [
+        "Giant Claw",
+        "Smaller Claw"
+      ],
+      "selectedActionAbilityName": "",
+      "selectedActionAbilityNames": [
+        "COMBO: Crushing Claw"
+      ],
+      "selectedPassiveAbilityName": "",
+      "selectedPassiveAbilityNames": [
+        "Gigantic",
+        "Amphibious"
+      ],
+      "customArmors": [],
+      "customShields": [],
+      "customWeapons": [
+        {
+          "name": "Giant Claw",
+          "type": [
+            "Strike"
+          ],
+          "attackStats": [
+            "Brawn"
+          ],
+          "attackBonus": null,
+          "damage": {
+            "dice": "2d8",
+            "type": "Bludgeoning"
+          },
+          "enduranceCost": 3,
+          "properties": [
+            "Armor Breaker",
+            "Armor Piercing"
+          ],
+          "shareToNpcCompendium": false
+        },
+        {
+          "name": "Smaller Claw",
+          "type": [
+            "Strike"
+          ],
+          "attackStats": [
+            "Brawn"
+          ],
+          "attackBonus": null,
+          "damage": {
+            "dice": "1d8",
+            "type": "Bludgeoning"
+          },
+          "enduranceCost": 2,
+          "properties": [],
+          "shareToNpcCompendium": false
+        }
+      ],
+      "customActionAbilities": [
+        {
+          "name": "COMBO: Crushing Claw",
+          "actionCost": 1,
+          "enduranceCost": 0,
+          "description": "After you successfully make an attack with the Giant Claw, make a Brawn Contest. On a fail, a creature becomes restrained by the Claws. The Restrain DC is 19. Only one creature can be restrained by it in this way.",
+          "shareToNpcCompendium": false
+        }
+      ],
+      "customPassiveAbilities": [
+        {
+          "name": "Gigantic",
+          "description": "Whenever you restrain a creature, they move with you. It does not cost any additional movement to do this.",
+          "shareToNpcCompendium": true
+        },
+        {
+          "name": "Amphibious",
+          "description": "You can move and breathe underwater as easily as on land.",
+          "shareToNpcCompendium": true
+        }
+      ],
+      "armorOverrides": {},
+      "shieldOverrides": {},
+      "weaponOverrides": {
+        "Giant Claw": {
+          "name": "Giant Claw",
+          "type": [
+            "Strike"
+          ],
+          "attackStats": [
+            "Brawn"
+          ],
+          "attackBonus": 13,
+          "damage": {
+            "dice": "2d8",
+            "type": "Bludgeoning"
+          },
+          "enduranceCost": 3,
+          "properties": [
+            "Armor Breaker",
+            "Armor Piercing"
+          ]
+        }
+      },
+      "actionAbilityOverrides": {},
+      "passiveAbilityOverrides": {},
+      "sideStatOverrides": {
+        "Health": 0,
+        "Endurance": null,
+        "Evasion": 13,
+        "Toughness": 3,
+        "normalMove": 4,
+        "dashMove": 7
+      }
+    }
+  ]
+}
