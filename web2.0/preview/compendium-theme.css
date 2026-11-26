@@ -1,0 +1,98 @@
+:host {
+  --compendium-panel: #392b1b;
+  --compendium-recess: #302416;
+  --compendium-control: #251a0d;
+  --compendium-border: #6e5637;
+  --compendium-cream: #f6edd7;
+  --compendium-muted: #d5c0a0;
+  --compendium-gold: #e4bd79;
+  --compendium-selected: #b48b50;
+  --compendium-selected-ink: #201508;
+  --compendium-error: #ffc4b4;
+  background: transparent;
+  color: var(--compendium-cream);
+  color-scheme: dark;
+}
+
+h2, h3, h4, h5 { color: var(--compendium-gold); }
+
+article,
+table,
+#search-results,
+#writer-dialog,
+#navigation-dialog,
+#style-guide,
+.spellcheck-menu {
+  background: var(--compendium-panel);
+  color: var(--compendium-cream);
+  border-color: var(--compendium-border);
+}
+
+button, input, select, textarea {
+  background: var(--compendium-control);
+  color: var(--compendium-cream);
+  border-color: var(--compendium-border);
+}
+
+input::placeholder, textarea::placeholder { color: var(--compendium-muted); }
+
+button[aria-pressed="true"] {
+  background: var(--compendium-selected);
+  border-color: var(--compendium-selected);
+  color: var(--compendium-selected-ink);
+}
+
+button:hover:where(:not([aria-pressed="true"], .inline-reference, :disabled)),
+#search-results button:hover,
+#search-results button:focus-visible {
+  background: #513b24;
+}
+
+th { background: var(--compendium-recess); }
+th,
+td,
+nav,
+.subtabs,
+.navigation-with-actions,
+.full-compendium > section + section,
+#search-results button {
+  border-color: var(--compendium-border);
+}
+
+.ability-meta,
+.compendium-image figcaption,
+#search-results small {
+  color: var(--compendium-muted);
+}
+
+.inline-reference, .favorite-star { color: var(--compendium-gold); }
+.favorite-star[aria-pressed="true"] { color: var(--compendium-selected-ink); }
+
+:is(#writer-dialog, #navigation-dialog, #style-guide)::backdrop {
+  background: #130e09b3;
+}
+
+.navigation-actions button:is(:first-child, :nth-child(2)) {
+  background: var(--compendium-control);
+  border-color: var(--compendium-border);
+}
+
+.navigation-actions button:last-child,
+#writer-delete {
+  background: #49291f;
+  border-color: #946354;
+  color: var(--compendium-error);
+}
+
+#writer-status,
+#navigation-status,
+#style-guide-status {
+  color: var(--compendium-error);
+}
+
+.spellcheck-mirror mark { text-decoration-color: #f99a86; }
+
+:focus-visible {
+  outline: 2px solid var(--compendium-gold);
+  outline-offset: 2px;
+}

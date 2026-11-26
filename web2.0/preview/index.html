@@ -44,6 +44,8 @@
       </div>
       <p id="account-status" role="status"></p>
       <p id="account-error" role="alert"></p>
+      <p id="character-migration-status" role="status"></p>
+      <p id="character-migration-error" role="alert"></p>
     </details>
   </header>
   <div class="preview-content">
@@ -56,9 +58,9 @@
       <h1>Pirate TTRPG</h1>
       <div class="pirate-links">
         <a href="/projects/PirateCompendium">Compendium</a>
-        <a href="/projects/PirateCharacterSheet">Character Sheet</a>
+        <a href="/projects/PirateCharacterSheet">Character</a>
         <a href="/projects/PirateNpcBuilder">NPC Builder</a>
-        <a href="/projects/PirateCustom">Homebrew Builder</a>
+        <a href="/projects/PirateCustom">Expansions</a>
       </div>
       <dialog aria-labelledby="pirate-settings-title">
         <div class="pirate-dialog-header">
@@ -69,6 +71,71 @@
         <p class="pirate-role-status" role="status"></p>
         <div class="pirate-role-list"></div>
       </dialog>
+    </section>
+  </template>
+  <template id="character-library">
+    <section class="character-library" aria-labelledby="characters-title">
+      <div class="character-library-inner">
+        <header class="character-library-header">
+          <h1 id="characters-title">Characters</h1>
+          <div class="character-actions">
+            <button type="button" data-new>New Character</button>
+            <button type="button" data-import>Import</button>
+            <input type="file" accept=".json,application/json" hidden>
+            <button type="button" data-refresh hidden>Refresh</button>
+            <button type="button" data-insert-share hidden>Insert Share Code</button>
+          </div>
+        </header>
+        <p class="character-status" role="status"></p>
+        <p class="character-error" role="alert"></p>
+        <section class="character-saves" data-cloud hidden aria-labelledby="cloud-characters-title">
+          <h2 id="cloud-characters-title">Cloud Saves</h2>
+          <p class="character-empty" hidden>No cloud characters yet.</p>
+          <ul class="character-grid" aria-label="Cloud characters"></ul>
+        </section>
+        <section class="character-saves" data-local aria-labelledby="local-characters-title">
+          <h2 id="local-characters-title">Local Saves</h2>
+          <p class="character-empty" hidden>No local characters yet.</p>
+          <ul class="character-grid" aria-label="Local characters"></ul>
+        </section>
+        <dialog data-confirm-character-action aria-labelledby="character-action-title" aria-describedby="character-action-message">
+          <form method="dialog">
+            <h2 id="character-action-title"></h2>
+            <p id="character-action-message"></p>
+            <div class="character-actions">
+              <button value="cancel" autofocus>Cancel</button>
+              <button value="confirm" class="character-delete"></button>
+            </div>
+          </form>
+        </dialog>
+        <dialog data-sharing-dialog aria-labelledby="share-character-title">
+          <div class="character-dialog-header">
+            <h2 id="share-character-title">Share Character</h2>
+            <form method="dialog" class="character-actions"><button>Close</button></form>
+          </div>
+          <p>Anyone with cloud access who uses this link or code can edit the shared sheet.</p>
+          <div class="character-sharing-form">
+            <label>Share code <input type="text" readonly></label>
+            <div class="character-actions"><button type="button" data-copy-code disabled>Copy Code</button></div>
+            <label>Share link <input type="url" readonly></label>
+            <div class="character-actions"><button type="button" data-copy-link disabled>Copy Link</button></div>
+          </div>
+          <p class="character-status" role="status"></p>
+          <p class="character-error" role="alert"></p>
+        </dialog>
+        <dialog data-redeem-dialog aria-labelledby="insert-share-title">
+          <div class="character-dialog-header">
+            <h2 id="insert-share-title">Insert Share Code</h2>
+            <form method="dialog" class="character-actions"><button>Close</button></form>
+          </div>
+          <form data-import-share class="character-sharing-form">
+            <label>Share code <input type="text" required autocomplete="off" spellcheck="false" autofocus></label>
+            <div class="character-actions"><button>Import Share Code</button></div>
+          </form>
+          <p class="character-status" role="status"></p>
+          <p class="character-error" role="alert"></p>
+        </dialog>
+      </div>
     </section>
   </template>
 </body>

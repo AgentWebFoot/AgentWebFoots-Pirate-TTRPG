@@ -9,6 +9,13 @@
     // The preview API defaults to the Test Player account.
   }
   if (!account) return;
+  window.addEventListener("message", event => {
+    if (event.origin !== window.location.origin || event.source !== window.parent) return;
+    if (event.data?.type === "pirate-character-sheet-cloud-save"
+      && event.data.account?.username?.toLowerCase() === account.username.toLowerCase()) {
+      account = event.data.account;
+    }
+  });
   window.fetch = (input, options) => {
     const request = new Request(input instanceof Request ? input : new URL(input, document.baseURI), options);
     const url = new URL(request.url);

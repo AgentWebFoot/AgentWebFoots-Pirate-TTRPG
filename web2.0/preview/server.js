@@ -11,13 +11,16 @@ const assets = new Map([
   ["/", ["index.html", "text/html"]],
   ["/app.js", ["app.js", "text/javascript"]],
   ["/style.css", ["style.css", "text/css"]],
+  ["/compendium-theme.css", ["compendium-theme.css", "text/css"]],
   ["/pirate-frame.js", ["pirate-frame.js", "text/javascript"]],
+  ["/character-library.js", ["character-library.js", "text/javascript"]],
 ]);
 const pirateAssets = new Map([
   ...["PirateCharacterSheet.html", "PirateNpcBuilder.html", "PirateHomebrewBuilder.html"].map(name => [name, "text/html"]),
-  ...["PirateCharacterSheet.bundle.js", "PirateNpcBuilder.bundle.js"].map(name => [name, "text/javascript"]),
+  ...["PirateCharacterSheet.bundle.js", "PirateNpcBuilder.bundle.js", "character-files.js"].map(name => [name, "text/javascript"]),
   ...["CompassRose.png", "InkStain.png", "SkullAndCrossbones.png", "Wheel.png"].map(name => [name, "image/png"]),
   ["rules.json", "application/json"],
+  ["expansion-saves.js", "text/javascript"],
 ]);
 const vendor = new Map([
   ["/vendor/react.js", new URL("./umd/react.development.js", import.meta.resolve("react"))],
@@ -133,7 +136,11 @@ export async function createPreviewServer({
         }
         const active = accounts.access(identity(request));
         const body = method === "POST" && path !== "/pirate-system/roles/list" ? await readJson(request) : undefined;
-        const { status, payload } = await pirateApi(path, method === "HEAD" ? "GET" : method, active, body);
+        const { status, payload, etag } = await pirateApi(path, method === "HEAD" ? "GET" : method, active, body, {
+          ifMatch: request.headers["if-match"],
+          endSharing: request.headers["x-end-pirate-sharing"] === "true",
+        });
+        if (etag) response.setHeader("ETag", etag);
         return json(response, status, payload);
       }
       if (request.method === "POST") return await post(request, response, path);

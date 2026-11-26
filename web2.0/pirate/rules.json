@@ -6,7 +6,7 @@
       "name": "Attack",
       "actionCost": 1,
       "enduranceCost": "Weapon",
-      "description": "Make an attack with a weapon in one of your hands.",
+      "description": "Make an attack with a weapon in one of your hands",
       "type": "Action"
     },
     {
@@ -1950,7 +1950,8 @@
       "properties": [
         "Conceal",
         "Defenseless"
-      ]
+      ],
+      "cost": 0
     },
     {
       "name": "Improvised Weapons",
@@ -1968,7 +1969,8 @@
       "properties": [
         "Breakable",
         "Conceal"
-      ]
+      ],
+      "cost": 0
     },
     {
       "name": "Brass Knuckles",
@@ -1987,7 +1989,8 @@
         "Conceal",
         "Defenseless",
         "Versatile (Piercing)"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Clawed Gloves",
@@ -2006,7 +2009,8 @@
         "Conceal",
         "Defenseless",
         "Versatile (Piercing)"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Siege Gauntlets",
@@ -2028,7 +2032,8 @@
         "Joint Breaker",
         "Powerful",
         "Two-Handed"
-      ]
+      ],
+      "cost": 15
     },
     {
       "name": "Dagger",
@@ -2047,7 +2052,8 @@
         "Conceal",
         "Thrown",
         "Versatile (Piercing)"
-      ]
+      ],
+      "cost": 5
     },
     {
       "name": "Cutlass",
@@ -2064,7 +2070,8 @@
       "enduranceCost": 2,
       "properties": [
         "Versatile (Piercing)"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Rapier",
@@ -2081,7 +2088,8 @@
       "enduranceCost": 2,
       "properties": [
         "Versatile (Slashing)"
-      ]
+      ],
+      "cost": 15
     },
     {
       "name": "Shortsword",
@@ -2098,7 +2106,8 @@
       "enduranceCost": 2,
       "properties": [
         "Versatile (Piercing)"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Sickle",
@@ -2116,7 +2125,8 @@
       "properties": [
         "Hooked",
         "Versatile (Piercing)"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Longsword",
@@ -2133,7 +2143,8 @@
       "enduranceCost": 3,
       "properties": [
         "Versatile (Piercing)"
-      ]
+      ],
+      "cost": 15
     },
     {
       "name": "Greatsword",
@@ -2151,7 +2162,8 @@
       "properties": [
         "Powerful",
         "Two-Handed"
-      ]
+      ],
+      "cost": 20
     },
     {
       "name": "Spear",
@@ -2170,7 +2182,8 @@
         "Reach (1m)",
         "Thrown",
         "Versatile (Slashing)"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Hand-Axe",
@@ -2187,7 +2200,8 @@
       "enduranceCost": 2,
       "properties": [
         "Thrown"
-      ]
+      ],
+      "cost": 5
     },
     {
       "name": "Broadaxe",
@@ -2205,7 +2219,8 @@
       "properties": [
         "Thrown",
         "Versatile (Bludgeoning)"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Battle-Axe",
@@ -2224,7 +2239,8 @@
       "properties": [
         "Armor Breaker",
         "Versatile (Bludgeoning)"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Hamaxe",
@@ -2243,7 +2259,8 @@
       "properties": [
         "Two-Handed",
         "Versatile (Bludgeoning)"
-      ]
+      ],
+      "cost": 15
     },
     {
       "name": "Greataxe",
@@ -2262,7 +2279,8 @@
       "properties": [
         "Powerful",
         "Two-Handed"
-      ]
+      ],
+      "cost": 20
     },
     {
       "name": "Mace",
@@ -2279,7 +2297,8 @@
       "enduranceCost": 2,
       "properties": [
         "Joint Breaker"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Morning Star",
@@ -2296,7 +2315,8 @@
       "enduranceCost": 2,
       "properties": [
         "Joint Breaker"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Hammer",
@@ -2314,7 +2334,8 @@
       "properties": [
         "Armor Breaker",
         "Joint Breaker"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Pickaxe",
@@ -2332,7 +2353,8 @@
       "enduranceCost": 2,
       "properties": [
         "Two-Handed"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Scythe",
@@ -2351,7 +2373,8 @@
         "Hooked",
         "Reach (1m)",
         "Two-Handed"
-      ]
+      ],
+      "cost": 15
     },
     {
       "name": "Halbert",
@@ -2370,7 +2393,8 @@
       "properties": [
         "Reach (1m)",
         "Two-Handed"
-      ]
+      ],
+      "cost": 15
     },
     {
       "name": "Glaive",
@@ -2391,7 +2415,8 @@
         "Reach (1m)",
         "Two-Handed",
         "Versatile (Slashing)"
-      ]
+      ],
+      "cost": 20
     },
     {
       "name": "Warhammer",
@@ -2411,7 +2436,8 @@
         "Armor Breaker",
         "Joint Breaker",
         "Two-Handed"
-      ]
+      ],
+      "cost": 15
     },
     {
       "name": "Greathammer",
@@ -2432,7 +2458,8 @@
         "Joint Breaker",
         "Powerful",
         "Two-Handed"
-      ]
+      ],
+      "cost": 20
     },
     {
       "name": "Club",
@@ -2450,7 +2477,8 @@
       "properties": [
         "Conceal",
         "Thrown"
-      ]
+      ],
+      "cost": 5
     },
     {
       "name": "Bow",
@@ -2470,7 +2498,8 @@
         "Range (70m)",
         "Two-Handed",
         "Quick Reload"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Crossbow",
@@ -2489,7 +2518,8 @@
         "Ammunition",
         "Range (24m)",
         "Quick Reload"
-      ]
+      ],
+      "cost": 15
     },
     {
       "name": "Musket",
@@ -2509,7 +2539,8 @@
         "Armor Piercing",
         "Range (70m)",
         "Two-Handed"
-      ]
+      ],
+      "cost": 30
     },
     {
       "name": "Blunderbuss",
@@ -2529,7 +2560,8 @@
         "Armor Piercing",
         "Range (10m)",
         "Two-Handed"
-      ]
+      ],
+      "cost": 35
     },
     {
       "name": "Pistol",
@@ -2548,7 +2580,8 @@
         "Ammunition",
         "Armor Piercing",
         "Range (16m)"
-      ]
+      ],
+      "cost": 25
     },
     {
       "name": "Alcohol Grenade",
@@ -2569,7 +2602,8 @@
         "Fuse",
         "Thrown",
         "Radius (1m)"
-      ]
+      ],
+      "cost": 20
     },
     {
       "name": "Black Powder Grenade",
@@ -2590,7 +2624,8 @@
         "Fuse",
         "Thrown",
         "Radius (2m)"
-      ]
+      ],
+      "cost": 40
     }
   ],
   "armors": [
@@ -2599,7 +2634,8 @@
       "baseEvasion": 16,
       "toughness": 0,
       "dashPenalty": 0,
-      "properties": []
+      "properties": [],
+      "cost": 0
     },
     {
       "name": "Leather Armor",
@@ -2608,21 +2644,24 @@
       "dashPenalty": -1,
       "properties": [
         "Conceal"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Chain Mail",
       "baseEvasion": 12,
       "toughness": 3,
       "dashPenalty": -2,
-      "properties": []
+      "properties": [],
+      "cost": 25
     },
     {
       "name": "Plate Armor",
       "baseEvasion": 10,
       "toughness": 4,
       "dashPenalty": -5,
-      "properties": []
+      "properties": [],
+      "cost": 50
     }
   ],
   "shields": [
@@ -2635,27 +2674,30 @@
     },
     {
       "name": "Buckler",
-      "toughness": 1,
-      "braceCost": 2,
+      "toughness": 2,
+      "braceCost": 1,
       "dashPenalty": 0,
       "properties": [
         "Attachable",
         "Parry"
-      ]
+      ],
+      "cost": 10
     },
     {
       "name": "Round Shield",
-      "toughness": 2,
-      "braceCost": 3,
+      "toughness": 3,
+      "braceCost": 1,
       "dashPenalty": -2,
-      "properties": []
+      "properties": [],
+      "cost": 15
     },
     {
       "name": "Tower Shield",
       "toughness": 4,
-      "braceCost": 4,
+      "braceCost": 2,
       "dashPenalty": -3,
-      "properties": []
+      "properties": [],
+      "cost": 20
     }
   ],
   "equipmentProperties": [
@@ -2892,6 +2934,296 @@
       "hasSource": false
     }
   ],
+  "customSections": [
+    {
+      "title": "General Rules",
+      "type": "lore",
+      "sections": [
+        {
+          "title": "Statistics",
+          "entries": [
+            {
+              "title": "Statistics",
+              "content": "# Statistics\n\nA character’s statistics are a mathematical way of determining what common aspects they excel. The lowest a statistic can be is 0, and the highest it can be is +10. Having a 3 in a stat is considered average.\n\n## Brawn\nA character’s brawn is how physically strong they are. You use this stat to determine how quickly you learn physical skills. You also use this skill to make most melee attacks.\n\n## Finesse\nA character’s finesse is a combination of both speed and precision. This skill determines dashing speed, and you also use it to make thrust-based or rapid melee attacks. \n\n## Grit\nA character’s grit is how resilient a character is to taking damage. This score helps determine your health, how much alcohol you can consume, and even helps you combat poisons.\n\n## Awareness\nA character’s awareness is how they observe the world. You also use this skill to make ranged weapon attacks.\n\n## Brains\nA character’s brains is how smart and quick-witted they are. You use this stat to determine how quickly you learn new mental skills.\n\n## Swagger\nA character’s swagger is how naturally charismatic they are. It is how the world views you and how you interact with the world.\n"
+            },
+            {
+              "title": "Health",
+              "content": "# Health\nA character's Health to how much damage they can take before they die. Your Health is 15 + Grit. If your Health is ever reduced to 0 you die. You regain 1 Health for each hour you rest. \n"
+            },
+            {
+              "title": "Endurance",
+              "content": "# Endurance\nYour Endurance is calculated half your Grit and your two other highest stats all combined (rounded down) together times your character level. While within combat, many physical actions you may take will have an Endurance cost. Additionally, you can Dodge or Parry an attack, you avoid taking damage, but drain your Endurance by the amount of damage you would have taken. This means that while bigger, larger attacks both cost more Endurance to use, they will also drain more of your opponents Endurance. \n\nWhenever your Endurance is reduced to 0 you fall unconscious. You can be awoken for 2 actions by another person within reach, but cannot take any action other than Catch Breath until you regain some Endurance. You regain ½ of your total Endurance each hour that you rest.\n"
+            },
+            {
+              "title": "Movement Speed",
+              "content": "# Movement Speed\n## Normal Move Speed\nThe base movement speed a character that can move in one action is 3 meters. Some classes have the ability to improve this movement speed.\n\n## Dash Speed\nDuring a move action, a character can choose to dash instead of moving at the Normal Move Speed. A character can move an amount equal to their 3+ Finesse score - their armor dash penalty in meters. Additionally, dashing costs Endurance equal to half the number of meters moved.\n"
+            }
+          ]
+        },
+        {
+          "title": "Rolls",
+          "entries": [
+            {
+              "title": "Skill Check",
+              "content": "# Skills\nAs you journey and level up, you will gain skills that reflect different aspects of each statistic. Whenever you are asked to make a skill check, you roll a d20 and add your bonus for that statistic and that skill. You can have up to +10 in any skill, stacking, giving you a +20 as the maximum bonus you can have for a skill check. Each point you invest in a skill gives you a +1 in that skill.\n"
+            },
+            {
+              "title": "Attack Roll",
+              "content": "# Attack\n## Step 1: Select a Weapon\nChoose a weapon you are currently wielding. If a weapon requires ammunition in order to fire it must be loaded in order to attack with it.\n\n## Step 2: Select an Attack Type\nSome weapons require different skills in order to use them effectively. You will either need to make a Brawn attack, Finesse attack, or Awareness based attack. \n\n## Step 3: Select a Target\nChoose who you would like to attack within range and where you would like to attack them. \nBody- Aiming for the body deals the standard amount of damage on a successful hit.\nHead- Aiming for a creature's head gives an additional +5 to Evasion but they take double damage.\n\n## Step 4: Roll to Hit\nRoll a d20, if your roll is greater than or equal to the Evasion of your opponent, you will deal damage to them. Additionally, you may have training with certain styles of weapons that give you a bonus to attack. Whenever you have a weapon that can benefit from multiple styles of fighting, you may only benefit from one. \n\nUnless specified otherwise, the base Evasion of a creature is 16 + ½ Finesse (rounded down). \n\n## Step 5: Roll damage\nRoll the damage dice associated with your weapon’s attack type and subtract the target’s Physical Toughness from the damage. If a character has a Toughness greater than the amount of damage rolled, they take no damage. Whenever an ability reduces a Toughness, always round up when necessary. When dealing double damage from a headshot, the doubling is done after you subtract the Toughness.\n"
+            },
+            {
+              "title": "Contests",
+              "content": "# Contests\nWhenever you are asked to perform a Contest for a specific skill, you and your target both make a check using that statistic and whoever has the highest result is the winner."
+            },
+            {
+              "title": "Advantage/Disadvantage",
+              "content": "# Advantage/Disadvantage\nSometimes, you might be given advantage or disadvantage on a roll. If you have advantage, you must roll an additional 1d20 and take the highest result. Multiple sources of advantage does not give you more dice to roll. If you have disadvantage, you must roll an additional 1d20 and take the lowest result. Multiple sources of advantage or disadvantage does not give you more dice to roll. If you have numerous sources of both advantage and disadvantage, roll with whichever you have more of. If you have the same amount of advantages and disadvantages they cancel out and you roll as normal. \n"
+            },
+            {
+              "title": "Luck Points",
+              "content": "# Luck Points\nEvery person has an inherent luck that is reflective of your person. A twist of fate that may help or hinder you. All characters initially have 3 Luck Points. As you level up and your skills increase, so does your amount of Luck Points. Luck Points can be spent on skill checks, attack rolls, or to avoid an attack entirely. You regain one Luck Points each day after a Full Days Rest.\n\n## Spending Luck Points\nDuring a fight, Luck can be one of your strongest weapons. The following are ways you can spend your luck points:\n\n- Whenever you miss an attack, you can spend 1 Luck Point to bend the hand of fate, allowing the attack to hit instead, becoming a Lucky Hit. \n\n- Whenever you hit an attack and it is not a critical hit, you can spend 1 Luck Point to sway the blade's angle perfectly to cause it to become a Lucky Critical Hit. \n\n- Whenever an attack may strike you down, you can spend 1 Luck Point to perform a Lucky Dodge, causing the attack miss and instead take no damage. \n\n- Whenever an attack may cause a critical blow against you, you can spend 1 Luck Point to reduce the blows effects, causing a critical hit to instead become a normal hit.\n\n- Whenever you are performing a 2 or 3 action cost ability, you can spend 1 or 2 Luck Points to perform a Lucky Break, reducing the cost of the action by the amount of Luck Points spent, to a minimum of 1 action cost.\n\n- Whenever you are performing a contest, you may spend 1 Luck Point to sway fate in your favor, and pass when you otherwise might have failed.\n\nEach of these methods may only be used once per combat.\n\n## Modifying an Attack Multiple Times\nYou can use multiple Luck Points on the same attack, however the more Luck Points spent the more expensive it becomes. Each time a Luck Point is used to modify an attack, the cost increases by 1 Luck Point. For example, if you miss an attack, you can spend a Luck Point to turn it into a Lucky Hit. On the same attack, you can turn that Lucky Hit into a Lucky Critical Hit, but it now takes 2 Luck Points, meaning the total amount of Luck Points spent on the attack is 3. This applies to Lucky Dodges as well. If you are hit with a Lucky Hit, then it would cost 2 Luck Points to Lucky Dodge it. If you were hit with a Lucky Hit that was turned into a Lucky Critical Hit, it would cost 3 Luck Points to Dodge it.\n"
+            },
+            {
+              "title": "Critical",
+              "content": "# Critical\nWhenever you roll a 20 on the dice, it is a critical roll. On attacks, critical rolls are considered critical hits and automatically hit. If you score a critical hit, roll the weapon's damage twice and take the higher. \n\nWhenever you roll a 1 on the dice, it is a critical fail. On attacks, this is considered an automatic miss. \n\nA critical on a skill check or on an contest is not an automatic failure or success.\n"
+            },
+            {
+              "title": "Cover",
+              "content": "# Cover\nWhenever there are obstacles between you and your attacker, you gain defensive benefits. If at least half of your body is covered, you gain partial cover. If your entire body is covered, you gain full coverage.\n\nPartial Cover- Attack rolls made against you have disadvantage. You gain +1 toughness for all damage types from non-melee attacks. \n\nFull Cover- Attacks cannot target you. All damage from area attacks is halved. \n"
+            }
+          ]
+        },
+        {
+          "title": "Skills",
+          "entries": [
+            {
+              "title": "Skills",
+              "content": "# Skills\nAs you journey and level up, you will gain skills that reflect different aspects of each statistic. Whenever you are asked to make a skill check, you roll a d20 and add your bonus for that statistic and that skill. You can have up to +10 in any skill, stacking, giving you a +20 as the maximum bonus you can have for a skill check. Each point you invest in a skill gives you a +1 in that skill.\n"
+            },
+            {
+              "title": "Brawn Skills",
+              "content": "# Brawn Skills\nRigging- the ability to move across ropes and walls. An example of this skill would be to make a climbing check to climb and swing on a rope.\n\nLifting- the ability to carry large objects. An example of this skill would be to make a lifting check to carry and move a large crate.\n\nPinning- the ability to hold something or someone down. An example of this might be keeping someone down or restraining them.\n\nSwimming- the ability to move through water. An example of this skill would be to make a swimming check to avoid drowning.\n"
+            },
+            {
+              "title": "Finesse Skills",
+              "content": "# Finesse Skills\nAcrobatics- the ability to leap or flip in the air. An example of this skill would be jumping from one ship to another without a rope to swing with.\n\nSkulduggery- the ability to move your fingers and other body parts lightly and with deceit. An example of this skill would be an act of sleight of hand or pickpocketting. \n\nSneaking- the ability to move silently. An example of this skill would be to move behind someone without them knowing you are there.\n"
+            },
+            {
+              "title": "Grit Skills",
+              "content": "# Grit Skills\nNausea- the ability to prevent yourself from becoming sick from what you consume. This skill also directly reflects your maximum Alcohol level before becoming drunk. An example of this skill would be making a nausea check to prevent yourself from getting sick when a boat starts rocking back and forth.\n\nResilience- the ability to preserve yourself from infections and diseases. An example of this skill would be making a resilience check to determine if you get infected when a sick sailor coughs on you.\n\nTolerance- the ability to tolerate extreme hot and cold weather. An example of this skill would be making a weather tolerance check if you fall into ice-cold water. \n"
+            },
+            {
+              "title": "Awareness Skills",
+              "content": "# Awareness Skills\nFishing- the ability to catch fish. An example of this skill would be making a fishing check to fish off the ship's side.\n\nInvestigation- the ability to analyze the world around you. An example of this skill would be to make an investigation check to find the hidden door in the bookcase.\n\nIntuition- the ability to sense the motives of the person you are around. An example of this skill would be to make an intuition check to determine if the person you are talking to seems honest.\n\nTracking- the ability to locate different creatures using the world around you. An example of this skill would be to make a tracking check to find and follow someone’s footprints."
+            },
+            {
+              "title": "Brains Skills",
+              "content": "# Brains Skills\nHistory- the ability to recall information. An example of this skill would be making a history check to recall the name of the island you saw on a map last week.\n\nLearning- the ability to collect and memorize information. An example of this skill \nwould be making a learning check while reading a book to determine what useful information you could gather.\n\nTinkering- the ability to understand how things work. An example of this skill would be making a tinkering check to take apart a watch.\n"
+            },
+            {
+              "title": "Swagger Skills",
+              "content": "# Swagger Skills\nInfamy- the ability to gather information and get those around you to follow what you say in an aggressive manner. An example would be using your infamy to strike fear into the hearts of the people you are plundering.\n\nInfluence- the ability to gather information and get those around you to follow what you say in a friendly manner. An example would be using your influence to make your way to speak with someone of great fame or importance, who you might not otherwise be allowed to meet with.\n\nNegotiation- the ability to make a deal with others. An example of this skill would be making a negotiation check to bring a merchant's price lower (or higher).\n"
+            }
+          ]
+        },
+        {
+          "title": "Levels",
+          "entries": [
+            {
+              "title": "Level 1",
+              "content": "# Level 1\nAt level 1, all characters receive 1 rank in 3 different classes. You also receive 10 points to put into your different stats. Your stat cannot go higher than 5 at level 1. You also receive 10 points to put into your different skills. "
+            },
+            {
+              "title": "Leveling Up",
+              "content": "# Leveling Up\nEach time you level up, you receive an additional 1 rank in any class of your choice, 1 point to put in any stat, and 2 points to put in any skill(s). \n\nAdditionally, whenever you reach 5 levels, you gain 1 additional Luck Point.\n\nThe maximum level you can be is 20.\n"
+            }
+          ]
+        },
+        {
+          "title": "Combat",
+          "entries": [
+            {
+              "title": "Round",
+              "content": "# Round\nA round of combat is the 6 second window that everyone takes their turn in. 10 rounds of combat is 1 minute. All effects that are based on time such as “for the next 10 minutes” are resolved at the end of the round. The order at which creatures are to take their turn is determined by their Initiative (Brains + Finesse), in descending order. If two creatures have the same initiative, they must roll a d20, the higher initiative roll then goes first. Whenever an ability or effect says it happens at the start of the round, that means it happens before the first creature's turn starts. Whenever an ability or effect says it happens at the end of the round, that means it happens after the last creature’s turn has resolved. Unless stated otherwise or triggered by a creature's direct actions, environmental effects are triggered at the start of the round. \n\nAn example of this is a creature lighting a fire will not cause not spread until the start round."
+            },
+            {
+              "title": "Turn",
+              "content": "# Turn\nEach creature is given a turn during a round of combat. Whenever an ability or effect says it happens at the start of your turn, that means it happens before you take any actions. Whenever an ability or effect says it happens at the end of your turn, that means it happens after your last action has been resolved."
+            },
+            {
+              "title": "Types of Damage",
+              "content": "# Types of Damage\nDifferent types of attacks can do different types of damage. The most common damage types are Bludgeoning, Piercing, and Slashing damage. These three damage types are known as Physical damage, and are reduced by a character’s physical toughness. The following is a list of all damage types as well as examples of some of the sources:\n\nBludgeoning -> Blunt attacks\n\nPiercing -> Ranged attacks\n\nSlashing -> Sword or Axe attacks\n\nBleeding -> Damage caused from a previous attack which had long lasting effects.\n\nFire -> Grenade attacks\n\nPoison -> Alchemical reagents which could harm you when ingested or exposed to.\n\nHoly -> A special damage type done by abilities of religious significance\n\nUnholy -> A special damage type done by abilities specifically against religious groups.\n"
+            },
+            {
+              "title": "Preventing Damage",
+              "content": "# Preventing Damage\nWhenever you are hit with an attack, you can spend Endurance to avoid taking damage directly to your Health. Choose from the following options:\n\nDodge- You spend an amount of Endurance equal to the damage that would be taken.\n\nShield Brace- Spend an amount of Endurance equal to the Shield Brace cost. Reduce the damage by your Shield’s Toughness.\n\nWeapon Parry- You lose an amount of Endurance equal to the damage that would be taken and the cost of one attack with your weapon. The opponent attacking gains Difficulty(5) on all attack rolls made against you this turn. \n"
+            },
+            {
+              "title": "Combo Action",
+              "content": "# Combo Action\nCombo actions are actions you can only take on your turn if you have done a specific previous action directly before this action. When performing a Combo action, the Endurance cost is ½ the Endurance cost of a normal attack (rounded down, minimum of 1)."
+            },
+            {
+              "title": "Finishers",
+              "content": "# Finishers\nFinishers are powerful actions a user can take once per combat. Finishers cannot be dodged or parried. Finishers also do not cost Endurance.   "
+            }
+          ]
+        },
+        {
+          "title": "Ship Life",
+          "entries": [
+            {
+              "title": "Camaraderie",
+              "content": "# Camaraderie\nBeing a part of a crew requires teamwork and loyalty among the crew. A ship’s Camaraderie score is shared by the entire crew and represents how well they all get along with each other as a team. Many different situations can improve the ship’s Camaraderie or reduce it. A ship’s maximum Camaraderie score is 5 times the number of crew members. Below are some examples of how the Sea Master may increase or decrease the Ship’s Camaraderie score:\n\n| Cause | Camaraderie Change |\n| A crewmate dies. | -10 |\n| A crewmate becomes severely sick. | -5 |\n| A crewmate becomes severely injured. | -4 |\n| A crewmate goes without eating. | -3 |\n| A crewmate goes without resting. | -2 |\n| A Bad <Omen> has been spotted. | -X |\n| A Good <Omen> has been spotted. | +X |\n| All crewmates get an extra days of rest. | +1 |\n| A shipwide activity strengthens everyone’s spirits. | +5 |\n| Completed a contract. | +5 |\n\n"
+            },
+            {
+              "title": "Omen",
+              "content": "# Omens\nDifferent religions, cultures, and people view different signs and wonders as both Good Omens and Bad Omens. Good Omens can inspire you, beyond increasing Camaraderie, inspiring and helping crew members. Bad Omens can cause great fear and spread worrisome among the crew. Some Omens are purely superstitious, giving minor changes to the ship’s Camaraderie. However strong blessings and curses can take the form of Omens which could cause large swings in your crew’s spirits. Some treasure can even be cursed with powerful bad Omens that not only may lower your Camaraderie, but also carry supernatural abilities with them. These Omens are determined by the Sea Master."
+            },
+            {
+              "title": "Ship Distance",
+              "content": "# Ship Distance\nThere are 4 general distances that you might spot island, ship, or other event might be while you are at sea. How quickly you reach these distances will depend on the speed you are traveling:\n\nBoarding Distance (Less than 50 meters away)\n\nShort Distance (50 - 12,500 meters away)\n\nMedium Distance (12,500 - 25,000 meters away)\n\nLong Distance (25,000 - 50,000 meters away)\n"
+            },
+            {
+              "title": "Ship Combat",
+              "content": "# Ship Combat\nFighting another ship is about teamwork and coordination. At the start of each round of combat, all ships move forward in the direction they are facing, and each crew member rolls a d10. Combined with the ship’s <Camaraderie> score this total number becomes the Ship Action Points (or SAP) each round of combat. For each crew member, the ship is able to perform one of the following Ship Actions, spending SAP as indicated below. Ships alternate performing Ship Actions, starting with the ship with the highest SAP, and all unspent SAP points are lost after all crew members have performed an action chosen to skip their turn.\n\nAssist (0 SAP)- You assist another crew member with one of their actions. When they perform their next Ship Action (excluding Perform a Combat Action), reduce the cost by 3.\n\nDrop Anchor (5 SAP)- Prevent the ship from being moved.\n\nPerform a Combat Action (10 SAP)-  The crew member performing this action gains 3 action points, as if it was their turn in normal combat. They take this turn of combat instantly.\n\nTurn (10 SAP)- Turn the rudder of the ship up to its maximum turning speed.\n\nExtinguish Fire (10 SAP)- Put out one fire from the ship.\n\nFire Weapon (15 SAP)- Make an attack with one of the ships weapons at a target within Short Distance. Each weapon can only be fired once per round unless otherwise stated.\n\nAdjust Rigging (15 SAP)- Adjust the rigging on a ship to increase the speed of the ship. \n\nDraw Anchor (15 SAP)- Allow the ship to move again.\n\nTender (20 SAP)- Tie your ship to another ship within Boarding Distance of your ship with 5 ropes. The smaller ships will now move with the largest ship. If the ships are the same size their speed is reduced by half and both ships move together. When the ropes are cut or untied the ships can move independently of each other.\n\nPrepare (20 SAP)- Choose a Ship Action with a cost less than 20 SAP to hold and perform next turn. Performing this action only costs SAP for the turn in which you stated the action, but does still cost that Crew Member’s ship action for both turns. Prepare actions must be performed before a crew can take any other action.\n\n\nExample: A crew of 5 members with a Camaraderie of 10 starts the round by each rolling a d10 and receiving the rolls 2, 4, 5, 9, 10; their SAP for the round will be 40. Starting with the crew with the highest SAP, over the course of exchanging 5 turns, two of the crewmembers spend their actions to Assist two other crewmembers. This means they are able to fire their cannons two times costing them only 24 SAP for those four crew members. The last crew member is able to adjust the rigging as they now have enough SAP. The last remaining 1 SAP expires since there are no more Crew members left to take actions."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "loreSections": [
+    {
+      "title": "Velthara",
+      "entries": [
+        {
+          "title": "Velthara",
+          "content": "\n# Velthara\n![](pirate-world-map.webp)\n\tThe world of Velthara is divided by its seven great seas and controlled by the ambitions of the five Great Powers. Each sea carries its own mystique, whispers with forgotten songs, roars of the leviathans, cursed relics, or boiling sands. No two seas are alike, and none are truly safe. Sailing the seas of Velthara is a gamble for the lucky and torturous for the skilled.\n\n\tThose who brace these waters seek fame, glory, and the thrill of the unknown. Others chase the promise of gold, their country’s pride, or heed the call put forth before them by a divine purpose. Whether driven by curiosity, greed, or faith, all who venture into Velthara’s vast oceans are met by the ever-changing winds of destiny, and a sea which answers to no one."
+        }
+      ]
+    },
+    {
+      "title": "The Seas",
+      "entries": [
+        {
+          "title": "The Pelassan Sea",
+          "content": "# The Pelassan Sea\n\tThe Pelassan Sea is the largest sea in all of Velthara,  it is a vast expanse with tides that shape trade throughout the rest of the world. It stretches between the great continents of Qiratha and Ombessa. Sea trade flowing through the Pelassan is the lifeblood of both these countries, connecting their sprawling port cities and merchant fleets in peaceful times.\n\n\tUnlike the ceaseless rivalries and bitter trade wars that plague the nations of Eldros, Liorenne, and Revalda within the Altlong Sea, Qiratha and Ombessa share a peaceful alliance rooted in mutual prosperity and long-standing respect. Their peoples may be vastly different but the sea between them has been a bridge on which to share culture, customs, and beliefs for centuries. In addition, joint naval patrols, trade accords, and even floating festivals taking place on the sea itself have helped uphold the legacy shared across these waters.\n\n\tBut the Pelassan is not merely a sea of peace and commerce, myths speak of the Pelassan seas as the birthplace of magic. The Sea Witches speak of their emergence, where their ancestors sensed the rhythm of the waves and the breath of the wind and learned to speak with the elements, calling storms, calming tempests, and etching history in the currents with silent rites. While most Sea Witches now live in Zantica, all trace their origins to Pelassan, where the oldest covens still reside.\n\n## Nobb Islands\n\tShrouded in mystery, the Nobb Islands are a series of islands which rise and sink from the depths of the Pelassan Sea. Some last for a day, others weeks, but all of them surface shooting rapidly from the sea with unnatural overgrowth, that you might mistake it for a normal island. Some even glitter with the ruins of forgotten civilizations, all before vanishing shortly once more without a trace. No map remains accurate for long of the Nobb Islands, and many believe the islands shift their position with each emergence.\n\n\tTheir appearance is unpredictable, and many scholars have unsuccessfully attempted to map out which islands will rise when. The Church of the Divine Light believes the islands to be cursed, the remnants of a proud empire swallowed by the sea as punishment for defying the Light. Others believe the islands to breathe with the rhythm of Pelassa, rising to taunt the greedy and sinking to be their punishment.\n\n\tMany daring treasure hunters, Sea Witches, and fortune-hungry nobles have all sought the secrets found lost in the Nobb Islands. Even the Tribes of Zantica speak of a secret and sacred path their people used to reach their home through the Nobb Islands. But be warned, while the treasures and vaults of the Nobb Islands contain power unknown, those who remain anchored too long often vanish with each island, dragged to the abyss, to not emerge again but for another hundred years."
+        },
+        {
+          "title": "The Altlong Sea",
+          "content": "# The Altlong Sea\n\tThe Altlong Sea is the third largest, yet most prominent sea in all of Velthara for trade because of the nations of Eldros, Liorenne, and Revalda. These three countries have been in a massive bitter trade war for centuries. Each country has their own motivations and each is on a mission to prove their worth compared to the other two. More importantly, Altalong serves as the vital oceanic link to Zantica, the so-called New World. Zantica contains hoards of goods deemed luxury by the people of Eldros, Liorenne, and Revalda, and each wish to expand their empires to control this land. \n\n\tWhile the Altlong is notoriously choppy and prone to seasons of heavy storms, it holds little in the way of inherent magical abnormalities. With rare exception, any magic found within its waters appears to be deliberate, man made through sorcery, artifacts, or ritual. All the magic of the Altlong Sea seemed to be gathered in one place, along the Gulf of Zantica, in the Mage Storm.\n\n## The Mage Storm\n\tAt the threshold of the Gulf of Zantica, where the Altlong narrows into one of the most commercially vital regions of the Zantica, rages an indomitable, arcane tempest known as The Mage Storm. This massive, endless hurricane glows with an unnatural violet mist as lightning of indigo hues stretch for hundreds of miles. It teems with monstrous sea creatures given new powers from the storm itself. No ship has ever sailed through and lived to tell the tale. The only known access to the Trade Ports in Zantica lies through a dense inland river network filled with ruthless privateers from Eldros, Liorenne, and Revalda, each seeking to sabotage their rivals and profit from the chaos.\n\n\tThe origins of the Mage Storm are unknown. However, there are rumors of a path hidden within its havoc. Should such a route ever be discovered, it could revolutionize trade in Zantica; cutting costs, time, and influence away from river-based piracy and providing true access to the sea for the different Trade Companies companies of the world.\n"
+        },
+        {
+          "title": "The Deepbloom Sea",
+          "content": "# Deepbloom Sea\n\tStretching from the southern tip of Qiratha to the southern tip of Zantica, the Deepbloom Sea is one of the most pristine and clear bodies of water in all of Velthara. Isolated trade routes due to its remote location, it remains largely untouched by human development. This ocean is home to the world’s most majestic and endangered creatures, found nowhere else in the world. Beneath the waters crystal surface lie vast coral forests in every vibrant hues, bioluminescent shoals that shimmer like stardust, and the sweet songs and of sirens echoing off the ocean floor.\n\n\tThe unique flora and fauna draws the occasional explorers, naturalists, scholars, and spiritual seekers to search the hidden islands and luminous depths, hoping to uncover forgotten truths about the Deepbloom’s unique bond with the living world. \n\n\tHowever, the beauty of the Deepbloom does not go unthreatened. This ocean has become a hunting ground for poachers and thrill-seeking mercenaries who see its rare beasts as trophies in need of conquest. Whether it’s the towering birds with crystalline wings, serpent-whales that breathe mists that burn like fire, and living reefs that shine like gold, each kill will fetch a high price on the black markets in the Altlong Sea.\n\n\tTo protect this fragile wonder, a coalition of Qirathan scholars and religious guardians known as Druidic Samurai have established floating independent outposts across the sea. From there, they monitor the different ecosystems, catalog new discoveries, and set bounties on the most infamous of poachers. These Druidic Samurai are well-trained and armed with knowledge they have earned of this sea’s secrets, and they do not forgive those who spill blood in sacred waters.\n"
+        },
+        {
+          "title": "The Forst Twin Seas",
+          "content": "# The Frost Twin Seas\n\tStretching from Velthara’s northernmost and southernmost poles, the Frost Twin Seas can be a strange, bone-chilling pair. Vast portions of these waters lie entombed with thick sheets of ice, making travel difficult without hull reinforcements. Although separated by Velthara itself, the two seas share an unusual link which is why they are thought of as one sea. Massive whirlpools are said to erupt without warning, swallowing entire ships and icebergs alike, casting them between the North and South Frost Seas in the blink of an eye.\n\n\tSome lesser Trade Companies have attempted to harness these phenomena, wanting to use the whirlpools to travel back to the Southern end of Zantica. However, the geysers of ice flung from the sea’s depths have crushed the underside of many hulls, but such dangers can never slow the forward progress of capitalism.\n\n\tThe only people known to regularly and successfully navigate these waters are the Varnheim, a hardy, battle driven culture native to the North Frost Sea. Their ability to wayfind through this chaos is attributed to a mystical bond with the Spirits of Battle, a connection similar to the Spirits of the Land held in Ombessa and the Spirits of the Sea held by the Sea Witches.\n"
+        },
+        {
+          "title": "The Emberglass Sea",
+          "content": "# Emberglass Sea\n\tThere are many debates as to whether the Emberglass Sea should count as a \"sea\" among many historians and scholars. To many, the lack of water across its host desert sand make the name a misnomer. Yet all who visit and sail across know this to not be the case, with massive cargo ships still able chart courses across its shifting expanse, and barreling over sand dunes as if it was any ocean. This sea stretches all across Ombessa, making it a critical artery of commerce, conquest, and conflict among the citizens there. While some might confuse this for a normal desert, the Emberglass Sea contains Liquid Sand, and if one stops moving the Liquid Sand will begin to slowly swallow you up.\n\n\tTo traverse the Emberglass Sea, one must coat the bottom of a ship with Ombessan Sand Tar, allowing them to glide over the surface effortlessly and preventing them from sinking below. Many animals have even mastered walking across the sea without the need for Sand Tar, allowing some merchants to travel across using caravans. \nWhile any coated ship can travel across Ombessa, specialty vessels known as Sand Ships possess enhanced Solar Sails made from the woven carcasses of sand moths to create an artificial propulsion under the burning heat of the sun.\n\n\tThe sea earns its name from the massive amber-glass shards that form from the rapid shift in extreme temperatures of the Liquid Sand from day to night. These jagged crystalline monoliths are even known to catch the sun’s light during the scorching summer months, causing the Liquid Sand  itself to boil. Because of this, most traveling during summer across the Emberglass sea is done during the cold pitch black nights.\n\n\tWhile the Emberglass remains vital for travel across Ombessa, its ease of travel for an experienced sailor makes it notoriously lawless. Pirates and raiders who have permanent coatings on their Sand Ships travel across the badlands of Emberglass, hunting any ships that travel on the well known travel routes, ambushing trade vessels and vanishing effortlessly into sandstorms. To cross the Emberglass is to brave not only extreme temperatures, but the blades and greed of the pirates which call it home.\n"
+        },
+        {
+          "title": "The Nekrosdeep Sea",
+          "content": "# The Nekrosdeep Sea\n\n\tShrouded in a deep, hazy green fog, the Nekrosdeep Sea exists in a state of perpetual twilight, forever bound between dusk and dawn, and forever bound between life and death. The sea said to border the Hells themselves, its waters are home to unholy being unable to move on. The undead that make this sea their home are driven by one singular obsession: to reclaim what was lost and cause the living to share their never ending torment.\n\n\tWhile it might look as though one can easily chart a course across the Nekrosdeep, is no simple feat. Entry is only possible by passing through Gates. These Gates occur naturally whether by sailing a strange tide that surge between twin islands, passing under the arch made from a storms lightning, or even sailing in a full moons wake as it meets the horizon. It is possible however to enter through a Gate through powerful magic such as the powers of a Sea Witch calling forth Sea Spirits to condemn ships, or the sacred invocations of a Judge of Light who summon blinding Gates of Heavenly Light to pierce the veil between worlds.\n\n\tWhenever a ship enters the area of the Nekrosdeep without passing through a gate, they enter an empty sea known as Limbo.  Limbo is filled with deadly typhoons that can easily crush the Hull of even the strongest Battleships which fight against them. When traveling across these waters sailors must choose to survive the hunt from the monsters Hell spit out, or brave the typhoons and fear joining them.\n"
+        },
+        {
+          "title": "The Thal'Zir Sea",
+          "content": "# The Thal’Zir Sea\n\tThere is but one fact all which sail Thal’Zir agree on, it is the slumbering resting place of the Leviathan Beasts. But to describe such a monster is to bring an instantaneous and painful end, for how does one describe such a figure, an entity, a presence, ideas that grew too heavy for the worlds above and sank to a resting place of their choosing. Those who have seen them claim they bend the sea and sky around them, as the heavens themselves sing their praises. Blinking eye the size of a village, half-folded wings that rustle with distant hurricanes, mouths that do not open, but unmake reality.\n\n\tSailing across these waters is heavily restricted. Not by law, but through its natural consequences. Those who fall in are not found. Not drowned, forgotten. Ships vanished in a single moment with barely a splash. The Thal’Zir is said to always listen, and always remember.\n\n\tFog-wrapped fragments of forgotten empires can be seen off the horizons, their stone covered in runes that twist when unwatched. Some glow faintly in moonlight. Some hum. Some bleed. None of the World powers claim connections to any parts of Thal’Zir past or present. Sea Witches are said to chart these waters in sleep, and some sailors have returned with sketches of strange architecture that matches no known era or species still found in this islandless, beastless expanse.\n\n\tAs the weather cools these waters begin to change from beneath. A noise that is not heard, but felt in the aching of bones and in the back of teeth. Some scholars are concerned that the tone might awaken the Leviathan Beasts, others believe it to be the hums that keep them sedated. What is known as this noise does more than just enhance their dreams. Ship captains wake screaming with barnacles spewing forth in their mouths. Saltwater begins to flow relentlessly from the eyes of priests in a never ending stream of pain. Tsunamis rise not from wind, but will, coating entire islands with destruction.\n\n\tAs the hum Thal’Zir ends, it is said the sea itself leaves gifts behind a reward, known as Humming Treasures. Pieces of ships that never should have never existed, bones of creatures unrecorded by scholars, and sometimes even sentient beings weeping softly in languages no tongue can form. Artifacts formed from these Humming Treasures become the only reason to sail the waters of Thal’Zir, as their powers are capable of shattering the bounds of known magic.\n\n\tSome believe the Thal’Zir a sea, others a wound or a spirit itself, many know it is something else entirely. It does not answer these questions. But sometimes, it listens, it listens too closely.\n"
+        }
+      ]
+    },
+    {
+      "title": "Countries",
+      "entries": [
+        {
+          "title": "Eldros",
+          "content": "# Eldros\n\tEldros is a nation built on trade and capitalism, no other culture is as deeply rooted in commerce, naval power, and self-pride than Eldros. Its citizens see wealth not as mere currency, but as proof that one has been marked for greatness by the Light. Its coasts are littered in majestic spires, seaports designed for their posh architecture as much as their efficiency, and using every form of magic or arcane artifact they can to improve the daily lives of all in Eldros.\n\n\tAt the center of Eldros’s global influence is the Eldros Trading Company, the largest naval trading fleet in all Velthara. Sponsored directly by the Eldrosian Crown, the Company is a merchant guild made of everything from cargo ships, to naval warships, to privateers, all paid handsomely for their services. The Eldros Trading Company is a political engine that shapes the nation’s foreign policies, naval expansion, and colonial ambitions. Its influence can be felt all throughout Velthara whether it be from the battling storms in their home sea of Altlong Sea, to the mystic waters of the Pelassan trading with Qiratha and Ombessa, and deep within newly colonized ports of Zantica, where Eldros holds the largest foothold in the New World.\n\n\tThe nation of Eldros is currently ruled by King St.George IV, the great-grandson of St. George I, the famed warrior-king and reformer who founded the Church of St. George’s Light after breaking away from <the Church of Light>. Under his descendant’s rule, Eldros continues to embrace a doctrine of pragmatism and divine superiority, preaching that mankind was made to master the world and that wealth, influence, and magic are but the tools given to us by the Light to achieve such things.\n\n\tWhile one might think their religious tension with Revalda would make them Eldros’s biggest rivals, their true and long-standing rival is Liorenne. For over a century, Eldros and Liorenne have been locked in a brutal and unrelenting conflict. Historians who have studied the war state that its base is part territorial, part economic, and entirely personal. Liorenne champions tradition, art, and divine elegance. Eldros counters with innovation, ambition, and an unwavering belief in profit as providence. Their fight is the conflict between the old ways and the new.\n"
+        },
+        {
+          "title": "Liorenne",
+          "content": "# Liorenne\n\tLiorenne is widely considered the cultural jewel of Velthara. A nation renowned for its elegance, artistry, and stuffy sophistication. From gilded concert halls to master-crafted culinary academies, Liorenne thrives on beauty, refinement, and expression. Its government sponsors musicians, painters, sculptors, chefs, and philosophers, leading the world the new greatest artistic renaissance, attracting travelers, scholars, and noble patrons from every corner of the world.\n\n\tThis emphasis on culture even extends beyond their borders to their naval endeavors. The Liorenne Trading Company, while smaller than its Eldrosi rival, has a unique approach to  foreign commerce. This trading company builds what can only be described as floating factories for the most skilled artisans aboard their ships, allowing them to craft fine goods, perfumes, tapestries, and rare wines while at sea. These luxurious products, crafted mid-voyage, are sold at elite ports across the Pelassan and Altlong Seas, making Liorenne’s exports some of the most coveted and exclusive in the world.\n\n\tThe nation’s government is equally unique. Following decades of oppression and inequality under their old monarchy, a series of rebellions culminated in the assassination of the most recent and final king of Liorenne, King Louis. This paved the way for a new form of rule, governed by the Council of Twelve. The Council of Twelve is a prestigious assembly of elite counselors, each representing a different sector of Liorennean society: the arts, commerce, education, diplomacy, etc. These twelve rule together in a republican model, striving for balance, wisdom, and the collective betterment of their people.\n\n\tHowever, while the republic has brought stability and compromises for the middle and upper classes, the lower class still lives in squalor. This wealth inequality remains a lingering scar across the marble gutters of Liorenne’s major cities.\nReligiously, Liorenne national Religion is the Church of the Divine Light, often aligning ideologically with Revalda in moral doctrine and magical regulation. Yet many members of the Council express discomfort with the level of control the Church has in Revalda’s government. They believe spiritual guidance should inform, not control, governance. Still, all twelve counselors agree on one thing without hesitation: Eldros remain Liorenne’s greatest enemy and occasional battles that may take place between Revalda’s Judges of Light and Liorenne’s navy is a regrettable necessity.\n\n\tEven though the century-long war between Liorenne and Eldros conflict started during the time of Liorenne’s monarchy, it continues to burn onward, maintained by the pride and the unyielding will of the people. While the Council may seek peace on paper, its actions tell a different story. Military campaigns, naval skirmishes, and ideological warfare rage on, as Liorenne refuses to kneel before a nation it sees as greedy, sacrilegious, and undeserving of its power.\n"
+        },
+        {
+          "title": "Revalda",
+          "content": "# Revalda\n\tRevalda is not a country of greed or fame, but for conviction. While profit is welcomed and gold fills the Church's coffers, the true purpose behind Revalda’s maritime power lies in the zealous spread of the Church of Divine Light. Its state-sponsored fleet, the Divine Light Trading Company, is unlike any other, a sanctified force with three sacred missions:\n\n1. To spread the traditions of the Divine Light\n2. To purge heretical magic and forbidden relics\n3. To bring home tithes in gold and resource for the glory of both Church and Crown\n\n\tRevalda’s cities may not look as glamorous as the cities of Eldros and Liorenne, but the insides of their churches are said to be architectural masterpieces. Painted domes of religious artwork, immaculate stained glass windows, hymns filling your ears with elegant beauty even after you leave the building. Revalda has no elites to dote over fine riches and luxurious goods, they have priests who use the luxuries of the church and do not directly possess them.\n\tThough the Church and Crown of Revalda are separate institutions, in practice, they are one. The ruling class of Revalda and the High Priests of the Divine Light are of the same bloodline, and through the engrained doctrine in Revalda, the will of one is indistinguishable from the will of the other. The laws of Revalda are scripture, and its scripture is law.\n\n\n\tThe Divine Light Trading Company operates more as a crusade order than a merchant guild. Its ships carry priests, inquisitors, and Judges of Light alongside merchants and soldiers. Each voyage is a test of one's faith, and each port is a battleground for the soul’s of its citizens. This Trade Company can be found mostly near the Nobb Islands of the Pelassan Sea and in sea ports along the coasts of Zantica, where magic runs wild and relics of old gods and forgotten traditions remain untouched by the Church’s purifying hand. Revalda’s control is the main reason why even larger tribes of Zantica will never be considered world powers.\n\n\tWhere the Judges of Light go, heretics burn, relics are shattered, and shrines are salted. Gold is taken in the name of the Light, not as plunder, but as righteous tribute and a tithe owed to the only true faith. Those who resist are not treated as enemies of Revalda, but as enemies of divinity itself, and will face the Judge’s Smite.\n\n\tTo many, the Divine Light Trading Company is a symbol of holy fire on the sea, order to chaos. To others, it is a shadow of death that falls on distant shores, a fleet of sanctified sails and blind conviction that will lead to the end of all other cultures. In Revalda’s eyes, it is the hands of salvation bringing light to the rest of the world.\n"
+        },
+        {
+          "title": "Qiratha",
+          "content": "# Qiratha\n\tQiratha is regarded as one of the most culturally unique and spiritually bound nations in all Velthara. It is a land steeped in ritual, tradition, and bound in honor. Its society is shaped by an ancient code, treated almost as a Religion, that elevates discipline, duty, and reverence for the natural world above all else.\n\n\tThis land is also home to a sect of warrior-philosophers known as samurai. These samurai serve not just as soldiers, but as paragons of the nation’s virtues. The highest ranking samurai is the Emperor of Qiratha, a title not inherited, but earned in battle. Each year, during the Festival of the Moon, a country wide tournament is held to determine the samurai worthy to lead. This festival is held during the Lunar New Year, and culminates in a ceremonial duel between the reigning Emperor and the tournament’s victor. The winner becomes the new Emperor, ruling until the next cycle. Not just anyone may enter this tournament, only samurai sponsored by a royal house of Qiratha are granted the honor to compete, which prevents any foreigners from competing. It also means that it is not uncommon to see a tournament’s victor surrender to show honor towards the current ruling house.\n\n\tQiratha is famed for its artisanship and refined goods, using its unique flora and fauna to craft luxury wares coveted across the world. From enchanted silks to masterwork steel and ritual incense, countries such as Eldros, Liorenne, and Revalda pay high prices for Qirathan exports. These goods are not only known for their quality, but for the status alone associated with possessing them. Despite its having steep isolationist tendencies, Qiratha maintains a strong and longstanding peace with Ombessa, founded on shared respect for the land and mutual distrust of its more greedy and religious neighbors.\n\n\tUnlike the theocracies of the eastern powers, Qiratha does not worship a god or pantheon. Instead, its people find sanctity in the natural world itself. They believe that all things whether beast, tree, stone, and sea are imbued with precious spirit which should be preserved. They consider themselves guardians of balance, and it is even possible to find a group of Druidic Samurai often serving as traveling emissaries, where they see the natural order disrupted.\n\n\tThese Druid Samurai can be found most in the Deepbloom sea fighting poachers from Eldros and Liorenne. However many wander towards the Nobb Islands to oppose the Judges of Light from Revalda, who would see magical beasts slain and relics destroyed. To the people of Qiratha, there is no holier act than the protection of nature, and no greater shame than its defilement.\n"
+        },
+        {
+          "title": "Ombessa",
+          "content": "# Ombessa\n\tOmbessa is a land of endless rhythm and beating grounds. A vast, sun-filled continent where the sand itself is alive, and its people move with purpose between dune and ash. Though often underestimated by outsiders, Ombessa stands as one of the strongest of the five great powers of Velthara. What it lacks in a lack of conquest, it makes up for with resilience, community, and harmony with the world beneath their feet.\n\n\tAt the heart of Ombessa lies the legendary Emberglass Sea, a vast inland sea of scalding sand and jagged amber crystal, traversable but not by foot as one would pass through a normal desert, but by coating ship in an obsidian-black tar and gliding across the dunes like boats on a blustering day. To the people of Ombessa, this sea is not a barrier, it is the veins running through the continent that connect its people. Trade flows across it on land-bound ships, while the coasts ensure that Ombessan goods reach the far corners of Velthara by sea.\n\n\tMovement defines Ombessa. Great merchant caravans travel across the land bearing salts, dyes, enchanted herbs, woven gold, and sung-stone tools. The Liquid Sand of the Emberglass sea makes it a unique environment, allowing its rare luxuries to only be possible within Ombessa. Cities blossom like flowers along fertile deltas where sands settle and  soil begins while roving traders and desert-faring pilgrims travel by on the pulse beating the land.\n\n\tYet Ombessa is not merely a land of trade, it is a land of faith as well. Its people find spirit in the land itself, worshipping the Spirits of the Land, ancient and unseen entities said to dwell in fertile earth, sacred stone, and living roots. Farmable land is consecrated grounds, and communities come together to work it in communion rather than ownership. To walk the land without giving back is considered a spiritual trespass. Harvests are festivals, and every planting is a ritual. Even <The Emberglass Sea>, as lifeless as it seems, is thought to hold spirits buried deep and waiting to be awakened once more.\n\n\tThe Ombessan government is not a single throne, but a council of tribal coalitions, each with its own chief, elder-shaman, and guardian of land. These coalitions come together in Great Gatherings, where decisions are made through consensus, performance, and debate. These Great Gatherings often last for weeks and are accompanied by spirit offerings and public storytelling. This also makes them a target for outsiders who wish to profit off the richest in Ombessa. However, raiders from <Eldros> or <Liorenne> who attempt to cross <The Emberglass Sea> uninvited often vanish, their bones left behind, turned to ash beneath the boiling sun.\n\n\tWhile peaceful by nature, Ombessa is not Passive. Its warriors known as Guardians of the Land, train in blade and spirit-channeling. The shamans are even capable of speaking and shaping stones, healing soil, and placing curses on those who defile their sacred ground.\n\n\tOmbessa's greatest strength lies not in its armies or fleets, but in its unbreakable connection to the earth and to each other. It is said that in Ombessa, the land does not serve the people. The people serve the land.\n"
+        },
+        {
+          "title": "Varnheim",
+          "content": "# Varnheim\n\tAlthough not counted among the great powers of Velthara, Varnheim is a name spoken with fear and remembered with deep cutting scars. Nestled within the icy reaches of the Frost Twin Sea, the people of Varnheim dwell in their realm of frozen storms, shifting ice floes, and unnatural cold, isolated from the rest of the world. They are the only known seafarers capable of navigating the Frost Twin Sea, their longships cutting through iced waters with a precision that defies explanation.\n\n\tVarnheim is a land of isolation and brutality. Its people are forged of ice and iron, their lives defined by their strength and the calling of inner rage. Their people rarely leave their icy homeland, but when they do, it is not for diplomacy. They raid. They pillage. They vanquish. Villages have been known to vanish overnight, wiped from maps, histories, and memory, as the ashes carried what remains far away on northern winds.\n\n\tThe greatest warriors of Varnheim, known as Vikings, have a religious bond with the Spirits of Battle, ancient and inscrutable forces believed to awaken in the hearts of warriors during moments of conflict. Vikings speak of these spirits not as metaphors, but as companions, friends, ancestors, and gods. Through this bond with these Spirits of Battle, Varnheim’s warriors achieve inhuman levels of endurance, fury, and resistance to pain. Some say their hearts beat hotter in the cold, fueled by echoes of every battle their ancestors fought.\n\n\n\tFew in Velthara ever meet the Vikings of Varnheim, and fewer still survive to describe it. Those who do often speak in reverent whispers of their Ice-Iron armor, blood-stained runes, and eyes which burn like a dying star. To encounter the Varnheim is to pray they find the coming battle enjoyable for you to live another day.\n"
+        },
+        {
+          "title": "Tribes of Zantica",
+          "content": "# Tribes of Zantica\n\tZantica, also known as the New World, is not a nation. Similar to Ombessa, its land is scattered with disconnected tribes filled with shifting. The lack of a unified banner means the other nations refuse to consider it a great power. However, while the citizens of its land might lack foreign influence, it would be a mistake to underestimate their power.\n\n\tThe land itself is rich with natural resources which make it vital for trade. However, the entrance to the continent is closed off by a violent storm known as the Mage Storm. This storm is said to be impassable and is why the Tribes of Zantica do not travel out into the rest of the world. The resources however are too viable for Eldros, Liorenne, and Revalda to pass up so all three have used the river systems of Zantica to establish many different colonies around the continent, in hopes to one day claim the land entirely as their own.\n\n\tEach tribe is distinct in language, custom, and belief, but almost all are guided by the wills of the Sea Witches. These fearsome spellcasters command the Spirits of the Sea themselves. Unlike the Samurai Druids, Vikings, and Shaman of other lands, the Sea Witches of Zantica do not commune with the sea, they command it. The Spirits of the Sea are said to be wild, merciless, incapable of reckoning, and the Sea Witches are said to be worse. When they speak, the waves listen. Where they point, storms obey. Their enemies are swallowed whole by angry tides. Their foes dragged under by unseen hands. Their victims turned to salt before the scream escaped their lips.\n\n\n## The Golden Path\n\tWhile each tribe tells it a bit differently, the Zantican people tell an old story, passed from memory to memory and never written. It is a story of a time before even the seas knew their name. In those days they say, their ancestors lived upon islands that rose with the sun and on the back of great stone-backed beasts, and they followed a path of Gold to their promised land.\n\n\tBeing one of the few connections shared throughout the tribes, scholars and historians from Eldros, Revalda, and Liorenne have studied and debated the tale’s meaning. Some dismiss it as a myth. Others suggest the Nobb Islands, which rise and fall once every century, may be linked to the legends. But even among Sea Witches, who know their own origins connect back to the Nobb Islands no not the tale’s merit. Others whisper that the islands themselves remember the tribes that abandoned them, and the Golden Path will not make itself known until the Tribes of Zantica once more begin to sail the seas again.\n"
+        }
+      ]
+    },
+    {
+      "title": "Religions",
+      "entries": [
+        {
+          "title": "The Church of Light",
+          "content": "# The Church of Light\n\tThe Church of Light is the largest and most influential Religion in all of Velthara. Its followers worship a singular radiant deity known only as The Light. According to the Church of the Light teachings, The Light is a benevolent presence that brings all things good into the world bringing forth order and purpose to humanity. The Light created mankind to tame the beasts and monsters, to bring law to chaos, and to carry the flame of civilization across every land.\n\n\tThe Church’s influence is strongest in Eldros, Liorenne, and Revalda, where worship of The Light is woven into daily life. Weekly services are a universal practice there, and citizens proudly consider themselves Children of The Light. But though unified in its central doctrine, the Church has fractured into two rival sects, each with its own ideology and political entanglements.\n\n\tThough both sects worship the same divine source, their ideological divide grows deeper by the year. The Church of Divine Light sees the St. Georgians as blasphemers who have corrupted the faith with greed and pride. While the Church of St. George’s Light views the Divine branch as blind zealots who cling to outdated dogma. \n\n\tVelthara watches carefully as these two wings of the same faith compete for power across continents, each sending missionaries, diplomats, and holy warriors into distant lands to spread their doctrine of The Light and ensure the other eventually succumbs to the ravages of time.\n\n## The Church of Divine Light\n\tThe Church of Divine Light is the older and more traditional branch of The Church of Light. It is deeply hierarchical, steeped in ancient rites and sacred scripture. Strict laws govern the lives of both the priesthood and the church's followers. Its doctrine emphasizes the submission to a divine order, determined by the church. The sacred mission of mankind is as the chosen guardians of the world, and that magic and unnatural power is a corruption. For one to rejoin The Light in heaven as they die they must reject and purify evil from the world.\n\n\tThis sect can be found in both Liorenne and Revalda. While Liorenne maintains a more ceremonial adherence, integrating their faith in art and tradition, Revalda has fused the Church into the very fabric of its government. In Revalda, the Church of Divine Light is not merely a spiritual institution but a pillar of law, the state and the church operate as one.\n\n\tRevalda’s military might is found through the Church of Divine Light’s Judges of Light. These zealous inquisitors and holy warriors are tasked with hunting down and destroying magical artifacts, heretical knowledge, and practitioners of what they call unworthy Magic. Their presence is both revered and feared throughout Velthara.\n\n## The Church of St George’s Light\n\tThe Church of St. George’s Light was formed in the wake of a bitter political schism. A group of Judges of Light attacked a series of Eldros ships in a witch hunt looking for a series of Whispering Artifacts, and while they came up empty handed the Church of Light refused to condemn Revalda’s questionable crusades. St. George, the warrior-king of Eldros, declared their silence sacrilegious. If such actions had been taken by Eldros against Revalda they would have been greatly punished.\n\n\tIn response, he broke from the old church and established a new branch under his rule. This new branch of the church aligned more closely with Eldrosian values of commerce and strength, while the older branch renamed themselves from the Church of Light to the Church of Divine Light.\n\n\tUnlike its counterpart, the Church of St. George’s Light doesn’t hide the fact that it’s controlled directly by the crown of Eldros and the Eldros Trade Company. Their interpretation of doctrine is more pragmatic and profit-driven. They believe The Light created mankind not only to rule over beasts, but also to rise above all else. Magic and monsters alike are tools to be controlled. So long as one does not directly harm their fellow man, the hunt for ambition, wealth, and even otherworldly magic are considered tools beneath humanity, to be used without shame.\n\n\tThis sect preaches individual greatness as a form of divine expression; seeing conquest, innovation, and trade as acts of holy purpose. Missionaries of St. George’s Light often travel not just to convert the world to its doctrine, but to negotiate, broker deals, and establish influence in the name of their god and their nation.\n"
+        },
+        {
+          "title": "Spirits of Land",
+          "content": "# Spirits of the Land\n\tTo Ombessa, the land is more than terrain. It’s sacred, sentient, and alive. Its soil, stone, and roots are believed to hum with the presence of ancient powers known as the Spirits of the Land. The Spirits of the Land are mysterious unseen forces that dwell within the bones of Velthara. These spirits are not gods in the traditional sense, but ancestral presences and primordial echoes of the living essences of the natural world.\nFertile earth a gift and to till it, a sacred act. Every harvest is a conversation with the land, and every drought is a sign of disapproval. A land’s fertility is considered the clearest sign of a spirits’ favor, and many Ombessan rituals revolve around ensuring that the land remains nourished, unspoiled, and respected.\n\n\tThe Shamans of Ombessa serve as the primary spiritual intermediaries, trained in groves, mountains, and on desert paths. These shamans listen to the stories of the land, whispers of stone, the breath of the land beneath their feet. In moments of great harmony, it is believed the Spirits of the Land can even move through a Shaman’s body, allowing them to perform miraculous feats. Moving mountains, filling valleys, forming new soil islands from the Liquid Sand below.\n\n\tThe warriors who channel the Spirits of the Land are known as Guardians of the Land. Their bonds allow them to command stone to split, a tree's roots to weave together, or shake the ground beneath them. The strongest are known as Stonecallers, and entire regions may center their villages, agriculture, or defense around the presence of such a strong figure.\n\n\tThe Spirits of the Land are not always benevolent. If the land is mistreated, its bounty fades. Crops may wither, rivers will dry, illnesses can cull towns. Even foreign nations have learned this the hard way as entire outposts built without proper reverence on Ombessan land have been known to vanish overnight, swallowed by sand, reclaimed by nature.\n"
+        },
+        {
+          "title": "Spirits of Battle",
+          "content": "# Spirits of Battle\nUnlike the other World Spirits, Spirits of Battle are not eternal. They are born in the clash, blood is drawn and fading with an enemy's final breath. They are the soul of violence and the echo of battle given form. Where weapons are drawn, wills are tested, and pain is endured, the Spirits of Battle awaken. To most of the world, these spirits are unknown, the rush of adrenaline you feel in a fight. But to the warriors of Varnheim, they are their silent gods.\n\n\tIn Varnheim, battle is life. The endless war against frost and starvation has taught its people that struggle itself is holy. Varnheim’s warriors are able to harness the Spirits of Battle beyond a bloodied battlefields, harnessing their powers to prevent the succumbing death of a blizzard, to climb the edges of a frigid cliff, to traverse the maelstroms of a raging sea, and even enhance one’s mind in a battle of wits. Where there is resistance, there is spirit. Where there is hearty resolve, a Spirit of Battle will answer.\n\n\tWhen called upon, the Spirits of Battle do not speak, they burn. They pour into the body of the warrior: sharpening reflexes, hardening muscle, dulling pain, and fueling a fire in the lungs and a chill in the veins. A warrior's shadow lengths to consume their enemy, their blood streams on snow. However, this gift is not endless. The spirits burn brightly but briefly, fading when the moment of danger passes or when the will falters. Few outside of Varnheim can call these spirits, and fewer survive the process. The Spirits of Battle do not tolerate weakness, hesitation, or cowardice. To call a Spirit of Battle is to promise it glory or die trying.\n"
+        },
+        {
+          "title": "Spirits of the Sea",
+          "content": "\n# Spirits of the Sea\n\tUnlike the Spirits of the Land, who nourish its followers, or the Spirits of Battle, who answer the call of courage, the Spirits of the Sea are ancient, wild, and unyielding. They serve no mortal, heed no prayer, and hold no regard for the lives of man or beast. The Spirits of the Sea are the raw fury of the deep, the vengeful memory of the drowned, and the screaming hunger of the tide.\n\n\tThese spirits exist to cause destruction. They rise in storms without warning, churn the waves into mountains, currents that drag entire fleets under, fog that speaks with voices long dead, and flooded coastlines erasing histories. Sailors speak of them not in reverence, but in fear. To most, the Spirits of the Sea are an unknowable destruction, primal hate, chaos given form.\n\n\tBut there are those who do not beg for mercy, they command for it, the Sea Witches, the only beings said to match the sea’s fury are these witches who walk its edge. The Sea Witches chain Spirits of the Sea to artifacts through rituals of tides and blood, bending them to their will, forced to obey. They can also channel the Spirits of the Sea’s powers into unstable spells, causing destruction to either their chosen target or themselves.\n\n\tThe loyalties of a Sea Witch lies not with kings, nor the people they often lead. They serve only the sea’s will when it suits them, and their own when it doesn't. To anger a Sea Witch is to invite the wrath of the ocean itself. To trust one is to gamble with your life. But when the sea rises, and no prayer will hold it back, the people of Velthara know who they seek; only the Sea Witches can protect you.\n"
+        }
+      ]
+    },
+    {
+      "title": "Pirate Lords",
+      "entries": [
+        {
+          "title": "The Gravedigger Captain Kidd",
+          "content": "# The Gravedigger Captain Kidd\n\tThe youngest ever to rise among the Pirate Lords of Velthara, “The Gravedigger” Captain Kidd is said to be no older than his late twenties, yet his legend stretches farther than most sailors’ lifetimes. Where others earned fame through blood-soaked decks and thunderous broadsides, Kidd became feared through something far more chilling: the silence, patience, and downright cruel way he vanquished his enemies.\n\n\tHe is most often recognized by his greasy black hair, a wide hemp sun-hat, and the dirt-crusted shovel found almost ritualistically slung across his back. He never draws a blade, he never raises his voice, but making an enemy of Kidd is to dig your own grave.\n\n\tHis preferred method of execution is now legend. Those who cross him are not slain in open combat, they are found days later drugged and unconscious (if not days later), buried alive six feet under, suffocating in darkness. Kidd possesses the Aspect of Land, commanding the soil itself. The Aspect of the Land is similar to the powers possessed by Shaman who can use the Spirits of the Land, however while the Shaman works with the Land, Kidd commands it.\n\n\tEntire ships have disappeared on dry land, swallowed without a sound. Graves have been found in places where no man could have dug them, marked only by Kidd’s sun-hat laid atop the dirt. Though young, he does not hunger for chaos, his body unshakable and eerily calm, more ghost than man. The Spirits speak to him in groans and shifting stones, guiding him to those whose time has run out. To most, he is a pirate. To his enemies, he is the ground, waiting to claim them."
+        },
+        {
+          "title": "Dr. Drake “The Dragon”",
+          "content": "# Dr. Drake “The Dragon”\n\tOnce a celebrated privateer in service to the Eldros Navy, Dr. Francis Drake has since carved a new identity into the bones of the sea as one of the most cold and calculated Pirate Lords in all of Velthara. A man more of intellect than chaotic destruction. Drake is both a renowned scientist and navigator. His moniker, “The Dragon,” was earned during his years in uniform, after a series of brutal raids left the Revalda navy in ruins, their ships left burning with an efficiency and ferocity unmatched by any officer before or since. The name followed him when he abandoned his commission, and the world never stopped using it.\n\n\tSome say the title is not just metaphor, saying through either alchemy or artifice Drake can breathe fire. His victim’s ships are said to only be identifiable by the misshapen metal joints.\n\n\tDrake cuts a sharp figure on deck, dressed in his former navy tailcoat, the remnants of his former allegiance still visible beneath soot and salt. His eyes, always covered by a modified pair of blacksmith goggles, stained by smoke and laced with custom lenses designed for sighting storms, stars, and distant sails. Some say he never removes them, even while sleeping.\n\n\tUnlike other Pirate Lords driven by bloodlust or superstition, Drake charts his warpath with reason. Every route he charts, every ship he sinks, is a calculated move in a game few others understand. Yet for all his logic, there is a mad brilliance in him, a passion for flame and chaos that no education could contain. He is the storm in a scholar’s coat. And when The Dragon sets his eyes on a prize, there remains only ash."
+        },
+        {
+          "title": "Black Bart",
+          "content": "# Black Bart\n\tNo one is quite sure if Black Bart should be considered a Pirate Lord or an undead monster, for he is a figure so ancient and feared that even time seems reluctant to touch him. His skin thin and pale, stretched over bone like parchment over driftwood. His black unblinking eyes, able to pierce straight into the soul of any who meet them. His crooked leg, already beginning to rot and smell as he limps towards his enemies.\n\n\tHis exact age is uncertain but what his feeble demeanor lacks in physical strength, his Aspect of Disease makes up for in power. Crews who've tried to kill him have withered before they could draw their blades, his presence alone is a curse, his silence more damning than any threat. The Aspect of Disease festers within him like a second heart, marking his victims with a rotting brand called the Black Spot. Often beginning on the hand, The Black Spot slowly consumes flesh and soul alike, the only known cure being to burn the infected limb in a priest's holy fire, and even that only sometimes slows the spread, some still die days later, coughing up black brine and shards of bone.\n\n\tBart carries with him the nature of entropy, rot, mold, plague, and death. Rats crawl from his ship's hull, The Gallow’s Mercy. His sails carry the stench of damp crypts. It creaks not with age, but with something alive beneath the planks.\n\n\tFlies gather around his wake even on the open sea. He is the creeping death behind every curtain of fog. He is the sickness incarnate."
+        },
+        {
+          "title": "The Reaping Lovers: Anne Bonny and Calico Jack",
+          "content": "# The Reaping Lovers: Anne Bonny and Calico Jack\n\tThe match made in Hell; feared as much for their passion as for their cruelty, Anne Bonny and Calico Jack are the only known dual Pirate Lords in all of Velthara.\n\n\tCalico Jack, once a tactical officer in the Liorenne Navy, earned his reputation through outlandish tactics and flawless ambushes. His plans brink on the edge of insanity, yet more than one fleet fell without even seeing where the first cannonball came from. Known for his incredible surprise attacks, Jack is the strategist known for his twisted blade behind the curtain.\n\n\tAnne Bonny, is a master of deception, infiltration, and disguise. She has walked into naval bases dressed as merchants, nobles, even once as a grieving widow, and left it burning by nightfall. Her charisma disarms, her blades faster and stronger than her husband’s, and her laughter is often the last sound her enemies hear. She’s as deadly in court as she is in combat, slinging illusionary tales, misinformation, and betrayal the same way an artist slings paints on a canvas.\n\n\tWhen they sail together, no one stands a chance. Anne is the whisper in your ear, Jack is the knife in your back. Their ship, the Crimson Vow, is wrapped in blood-red sails and bearing the flag of two intertwined daggers said to represent their vow of love and vengeance. The only thing stronger than facing their wrath, the love they share with each other."
+        },
+        {
+          "title": "Seven Deviled Blackbeard",
+          "content": "# Seven Deviled Blackbeard\n\tFeared across every sea, whispered about in every port, hunted by every nation, Blackbeard is not only known as the strongest Pirate Lord, but the deadliest man alive. Wanted by kings, hunted by every holy order, and cursed in prayer daily, his bounty is so vast, no single nation can pay it, and no captain dares claim it.\n\n\tHis infamous moniker, Seven-Deviled Blackbeard, comes not just from the shadowy black beard that cloaks his face, but from the seven pistols he carries, each said to be cursed by the Devil himself. These pistols are no mortal weapons, each holds a different unholy power, and Blackbeard wields them as extensions of his soul.\n\n\tBlackbeard does not fight battles. He ends them. Entire warships have turned to driftwood in minutes. Forts fall silent when his ship, the Hell’s Howl, crests its black sails stitched from the robes of dead priests across the horizon. Sailors say to serve under Blackbeard is to sell your soul, and not to the Devil, but to a man the Devil himself fears. Some believe Blackbeard to be a Spirit of the Sea made flesh; others believe he already died and bargained with Hell and won. Either way, one truth remains:\n\nEven the devil fear Blackbeard."
+        }
+      ]
+    },
+    {
+      "title": "Aspects",
+      "entries": [
+        {
+          "title": "Aspects",
+          "content": "# Aspects\n\tBeyond the World Spirits of powers of The Light, beyond the reach of temples and tides, there exists a power older and stranger than belief itself. In the shadowed corners of Velthara’s legends, powers known only in whispers and fragments, feared and sought in equal measure, called Aspects.\n\n\tThe Aspects are not purely magic, but a concept or force made manifest and left unbound. Some say they are gifts from forgotten gods, others claim they are wounds in reality that bleed power into those reckless enough to gash at their openings. But what is known is that each Aspect is unique in both origins, powers, and strength. \n\n\tThere is no single path to claiming an Aspect. Some stumble upon them in cursed ruins or shipwrecks beneath a night of unnatural stars. Others inherit them through bloodlines, bargains, or deathbed rites. A rare few are said to be claimed by the Aspect itself, as if chosen by something outside fate.\n\n\tTo wield an Aspect is to walk a knife’s edge. They grant power beyond reckoning, but at a cost. The stronger the Aspect, the deeper the price, whether it be your sanity, body, or soul. Even the most formidable Aspect Bearers are changed by the weight of the weapon they now wield.\n"
+        }
+      ]
+    }
+  ],
   "classPageStructure": {
     "groups": [
       {
@@ -2971,5 +3303,410 @@
       "Navigator": "Navigator",
       "Noble": "Noble"
     }
-  }
+  },
+  "tabOrder": [
+    "lore",
+    "custom:General Rules",
+    "classes",
+    "equipment",
+    "conditions"
+  ],
+  "generalItems": [
+    {
+      "name": "Medical Supplies",
+      "description": "",
+      "amountCharges": "6 Charges",
+      "cost": "25"
+    },
+    {
+      "name": "Brewer's Supplies",
+      "description": "",
+      "amountCharges": "10 Charges",
+      "cost": "15"
+    },
+    {
+      "name": "Alchemist’s Supplies",
+      "description": "",
+      "amountCharges": "10 Charges",
+      "cost": "15"
+    },
+    {
+      "name": "Trapper’s Kit",
+      "description": "",
+      "amountCharges": "5 Charges",
+      "cost": "20"
+    },
+    {
+      "name": "Fishing Kit",
+      "description": "",
+      "amountCharges": "15 Charges",
+      "cost": "20"
+    },
+    {
+      "name": "Grenade Kit",
+      "description": "",
+      "amountCharges": "5 Charges",
+      "cost": "15"
+    },
+    {
+      "name": "Cooking Supplies",
+      "description": "",
+      "amountCharges": "20 Charges",
+      "cost": "10"
+    },
+    {
+      "name": "Ammunition",
+      "description": "",
+      "amountCharges": "30 Bullets",
+      "cost": "5"
+    },
+    {
+      "name": "Arrows",
+      "description": "",
+      "amountCharges": "20 Arrows",
+      "cost": "2"
+    },
+    {
+      "name": "Rope",
+      "description": "",
+      "amountCharges": "50 ft",
+      "cost": "5"
+    },
+    {
+      "name": "Tinder Box",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "2"
+    },
+    {
+      "name": "Navigation Tools",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "25"
+    },
+    {
+      "name": "Ship Repair Kit",
+      "description": "",
+      "amountCharges": "4 Charges",
+      "cost": "15"
+    },
+    {
+      "name": "Fresh Water",
+      "description": "",
+      "amountCharges": "10 Days",
+      "cost": "4"
+    },
+    {
+      "name": "Salted Rations",
+      "description": "",
+      "amountCharges": "5 Days",
+      "cost": "3"
+    },
+    {
+      "name": "Barrel of Rum",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "35"
+    },
+    {
+      "name": "Ale Keg",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "10"
+    },
+    {
+      "name": "Fine Wine",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "25"
+    },
+    {
+      "name": "Tobacco Pouch",
+      "description": "",
+      "amountCharges": "5 Days",
+      "cost": "8"
+    },
+    {
+      "name": "Tea Leaves",
+      "description": "",
+      "amountCharges": "30 Days",
+      "cost": "8"
+    },
+    {
+      "name": "Lantern",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "1"
+    },
+    {
+      "name": "Candles",
+      "description": "",
+      "amountCharges": "5",
+      "cost": "1"
+    },
+    {
+      "name": "Chain",
+      "description": "",
+      "amountCharges": "10 ft",
+      "cost": "6"
+    },
+    {
+      "name": "Grappling Hook",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "12"
+    },
+    {
+      "name": "Sailcloth Roll",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "20"
+    },
+    {
+      "name": "Anchor",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "40"
+    },
+    {
+      "name": "Barrel",
+      "description": "",
+      "amountCharges": "5",
+      "cost": "12"
+    },
+    {
+      "name": "Spyglass",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "75"
+    },
+    {
+      "name": "Lock",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "3"
+    },
+    {
+      "name": "Armor Repair Kit",
+      "description": "",
+      "amountCharges": "5 Charges",
+      "cost": "10"
+    },
+    {
+      "name": "Dice Set",
+      "description": "",
+      "amountCharges": "6",
+      "cost": "1"
+    },
+    {
+      "name": "Playing Cards",
+      "description": "",
+      "amountCharges": "54 Cards",
+      "cost": "2"
+    },
+    {
+      "name": "Drum",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "18"
+    },
+    {
+      "name": "Lute",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "40"
+    },
+    {
+      "name": "Sewing Kit",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "5"
+    },
+    {
+      "name": "Fruit",
+      "description": "",
+      "amountCharges": "10 Days",
+      "cost": "20"
+    },
+    {
+      "name": "Leeches",
+      "description": "",
+      "amountCharges": "5",
+      "cost": "2"
+    },
+    {
+      "name": "Iron Ore",
+      "description": "",
+      "amountCharges": "10",
+      "cost": "100"
+    },
+    {
+      "name": "Copper Ore",
+      "description": "",
+      "amountCharges": "10",
+      "cost": "80"
+    },
+    {
+      "name": "Tin Ore",
+      "description": "",
+      "amountCharges": "10",
+      "cost": "80"
+    },
+    {
+      "name": "Silver Ore",
+      "description": "",
+      "amountCharges": "10",
+      "cost": "300"
+    },
+    {
+      "name": "Gold Ore",
+      "description": "",
+      "amountCharges": "10",
+      "cost": "600"
+    },
+    {
+      "name": "Workable Iron",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "20"
+    },
+    {
+      "name": "Workable Tin",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "16"
+    },
+    {
+      "name": "Workable Copper",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "16"
+    },
+    {
+      "name": "Workable Silver",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "45"
+    },
+    {
+      "name": "Workable Gold",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "90"
+    },
+    {
+      "name": "Fine Leather",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "10"
+    },
+    {
+      "name": "Farming Supplies",
+      "description": "",
+      "amountCharges": "20 Charges",
+      "cost": "10"
+    },
+    {
+      "name": "Chicken",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "8"
+    },
+    {
+      "name": "Pig",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "35"
+    },
+    {
+      "name": "Goat",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "45"
+    },
+    {
+      "name": "Sheep",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "40"
+    },
+    {
+      "name": "Mule",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "150"
+    },
+    {
+      "name": "Indigo Dye Crate",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "40"
+    },
+    {
+      "name": "Tobacco Crate",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "50"
+    },
+    {
+      "name": "Sugar Crate",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "45"
+    },
+    {
+      "name": "Coffee Crate",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "60"
+    },
+    {
+      "name": "Tea Crate",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "75"
+    },
+    {
+      "name": "Silk Bundles",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "100"
+    },
+    {
+      "name": "Rare Spices",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "120"
+    },
+    {
+      "name": "Salt Barrels",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "20"
+    },
+    {
+      "name": "Ivory Tusks",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "200"
+    },
+    {
+      "name": "Fine Artwork",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "400"
+    },
+    {
+      "name": "Crate of Gemstones (common)",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "120"
+    },
+    {
+      "name": "Crate of Gemstones (Rare)",
+      "description": "",
+      "amountCharges": "1",
+      "cost": "300"
+    }
+  ]
 }

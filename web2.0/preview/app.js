@@ -1,4 +1,7 @@
 import { mountCompendium } from "/compendium/browser/index.js";
+import { characterEditorUrl, migrateLocalCharacters, mountCharacterLibrary } from "/character-library.js";
+import { characterSlotPattern } from "/games/PirateSystem/character-files.js";
+import { migrateLocalExpansions } from "/games/PirateSystem/expansion-saves.js";
 
 const form = document.querySelector("#account-form");
 const controls = document.querySelector(".account-controls");
@@ -12,20 +15,33 @@ const back = document.querySelector(".pirate-back");
 const accountLabel = document.querySelector("#active-account");
 const status = document.querySelector("#account-status");
 const alert = document.querySelector("#account-error");
+const migrationStatus = document.querySelector("#character-migration-status");
+const migrationError = document.querySelector("#character-migration-error");
 const sessionKey = "pirate-ttrpg-preview:account";
 const defaultAccount = { username: "Test Player", role: "user" };
 const label = value => value.charAt(0).toUpperCase() + value.slice(1);
 const tools = new Map([
   ["/projects/PirateCharacterSheet", ["Character Sheet", "PirateCharacterSheet.html"]],
   ["/projects/PirateNpcBuilder", ["NPC Builder", "PirateNpcBuilder.html"]],
-  ["/projects/PirateCustom", ["Homebrew Builder", "PirateHomebrewBuilder.html"]],
-  ["/projects/PirateCustomItem", ["Homebrew Builder", "PirateHomebrewBuilder.html"]],
+  ["/projects/PirateCustom", ["Expansions", "PirateHomebrewBuilder.html"]],
+  ["/projects/PirateCustomItem", ["Expansions", "PirateHomebrewBuilder.html"]],
 ].map(([route, tool]) => [route.toLowerCase(), tool]));
 const path = window.location.pathname.toLowerCase();
 const onCompendium = path === "/" || path === "/projects/piratecompendium";
+container.classList.toggle("compendium-page", onCompendium);
+const onCharacters = path === "/projects/piratecharactersheet";
+const characterPath = "/projects/PirateCharacterSheet";
+const characterParams = new URLSearchParams(window.location.search);
+let requestedSlot = characterParams.get("slot");
+let useLocalSave = characterParams.get("storage") === "local";
+const openEditor = onCharacters && characterSlotPattern.test(requestedSlot);
 back.hidden = path === "/projects/pirate";
+if (openEditor) {
+  back.href = characterPath;
+  back.setAttribute("aria-label", "Back to Characters");
+}
 
-if (path === "/projects/piratecharactersheet") {
+if (openEditor) {
   window.addEventListener("message", event => {
     if (event.origin !== window.location.origin || event.source !== container.querySelector("iframe")?.contentWindow) return;
     if (event.data?.type === "pirate-character-sheet-theme") {
@@ -45,8 +61,8 @@ function restoreAccount() {
   }
 }
 
-async function request(path, { account, body, file, signal } = {}) {
-  const headers = {};
+async function request(path, { account, body, file, signal, headers: extraHeaders, method = file || body !== undefined ? "POST" : "GET" } = {}) {
+  const headers = { ...extraHeaders };
   if (account) {
     headers["X-Preview-Username"] = encodeURIComponent(account.username);
     headers["X-Preview-Role"] = account.role;
@@ -59,7 +75,7 @@ async function request(path, { account, body, file, signal } = {}) {
   }
   const response = await fetch(path, {
     headers,
-    method: file || body !== undefined ? "POST" : "GET",
+    method,
     body: file ?? JSON.stringify(body),
     signal,
   });
@@ -107,6 +123,11 @@ function writerFor(account) {
 async function apply(account) {
   const preview = onCompendium ? await request("/preview/compendium", { account }) : null;
   const next = preview?.active ?? await request("/preview/account", { account });
+  const editor = openEditor && container.querySelector("iframe");
+  const keepEditor = editor && next.key === active.key && next.canUseCloudSharing
+    && (useLocalSave || !active.canUseCloudSharing);
+  const returnToLibrary = editor && !keepEditor
+    && (next.key !== active.key || next.pirateRole !== active.pirateRole);
   active = next;
   form.elements.username.value = next.username;
   form.elements.role.value = next.role;
@@ -117,24 +138,81 @@ async function apply(account) {
   } catch {
     // The active account still works for the current page.
   }
+  if (returnToLibrary) {
+    window.location.assign(characterPath);
+    return;
+  }
   renderAccountActions();
   compendium?.destroy();
-  container.replaceChildren();
+  if (keepEditor) editor.inert = true;
+  else container.replaceChildren();
+  migrationStatus.textContent = migrationError.textContent = "";
+  const accountRequest = (url, options) => request(url, { ...options, account: next });
+  let movedOpenSave;
+  if (next.canUseCloudSharing) {
+    try {
+      const { moved, remaining } = await migrateLocalCharacters(accountRequest);
+      if (openEditor && (useLocalSave || keepEditor) && moved.has(requestedSlot)) {
+        movedOpenSave = moved.get(requestedSlot);
+        requestedSlot = movedOpenSave.slot;
+        useLocalSave = false;
+        window.history.replaceState(null, "", characterEditorUrl(requestedSlot));
+      }
+      if (moved.size) migrationStatus.textContent = `Moved ${moved.size} local ${moved.size === 1 ? "character" : "characters"} to Cloud Saves.`;
+      if (remaining) migrationError.textContent = `${remaining} local ${remaining === 1 ? "save could" : "saves could"} not be moved. Apply your account again to retry.`;
+    } catch {
+      migrationError.textContent = "Could not access browser saves to move them to the cloud.";
+    }
+    try {
+      const moved = await migrateLocalExpansions(accountRequest);
+      if (moved) {
+        migrationStatus.textContent = [migrationStatus.textContent,
+          `Moved ${moved} local ${moved === 1 ? "expansion" : "expansions"} to Cloud Saves.`].filter(Boolean).join(" ");
+      }
+    } catch {
+      migrationError.textContent = [migrationError.textContent,
+        "Local expansions could not be moved. Apply your account again to retry."].filter(Boolean).join(" ");
+    }
+  }
+  if (keepEditor) {
+    if (movedOpenSave) {
+      editor.contentWindow.postMessage({
+        type: "pirate-character-sheet-cloud-save",
+        slot: requestedSlot,
+        etag: movedOpenSave.etag,
+        account: { username: next.username, role: next.role },
+      }, window.location.origin);
+    } else {
+      useLocalSave = true;
+      window.history.replaceState(null, "", characterEditorUrl(requestedSlot, true));
+    }
+    editor.inert = false;
+    return;
+  }
   if (preview) {
     compendium = mountCompendium(container, preview.configuration, {
       title: "Pirate TTRPG Compendium",
       routing: true,
+      stylesheets: ["/compendium-theme.css"],
       projectId: `${preview.configuration.id ?? "pirate-ttrpg"}:${next.key}`,
       imageBaseUrl: "/images/",
       writer: writerFor(next),
       saveTarget: "web2.0/compendium.json",
+    });
+  } else if (onCharacters && !openEditor) {
+    mountCharacterLibrary(container, {
+      cloud: next.canUseCloudSharing,
+      request: accountRequest,
     });
   } else if (tools.has(path)) {
     const [title, file] = tools.get(path);
     const frame = document.createElement("iframe");
     frame.className = "pirate-tool";
     frame.title = `Pirate ${title}`;
-    frame.src = `/games/PirateSystem/${file}?${new URLSearchParams({ apiUrl: window.location.origin, role: next.pirateRole })}`;
+    const params = new URLSearchParams({ apiUrl: window.location.origin, role: next.pirateRole });
+    if (openEditor) params.set("slot", requestedSlot);
+    if (openEditor && useLocalSave) params.set("storage", "local");
+    frame.src = `/games/PirateSystem/${file}?${params}`;
     container.append(frame);
   } else {
     renderPirateHome(next);

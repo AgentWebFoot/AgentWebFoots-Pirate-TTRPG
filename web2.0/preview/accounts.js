@@ -53,8 +53,9 @@ export async function createAccountStore(file) {
     const saved = accounts.find(item => item.key === key);
     const membership = account.role === "owner" ? "owner"
       : account.role === "manager" ? "admin" : saved?.membership ?? "viewer";
+    const pirateRole = resolvePirateRole(account, saved);
     return {
-      ...account, key, membership, pirateRole: resolvePirateRole(account, saved),
+      ...account, key, membership, pirateRole, canUseCloudSharing: pirateRole !== "viewer",
       canWrite: ["writer", "admin", "owner"].includes(membership),
       canManage: ["admin", "owner"].includes(membership),
     };

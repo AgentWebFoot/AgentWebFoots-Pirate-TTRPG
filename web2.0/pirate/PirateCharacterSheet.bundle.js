@@ -1,3 +1,5 @@
+import { characterSlotPattern, withLocalCharacterSaves } from "./character-files.js";
+
 // Pirate Character Sheet runtime.
 // This is the actual app code the browser executes.
 // The main sections are:
@@ -157,6 +159,146 @@ function getSelectionAbilityKey(ability) {
 function getSelectionCategoryStateKey(className, categoryKey) {
   return `${className}::${categoryKey}`;
 }
+
+function AbilityCard({ ability, costs = [], selection }) {
+  const h = React.createElement;
+  const title = selection ? h("label", { className: "ability-choice" },
+    h("input", {
+      type: "checkbox",
+      checked: selection.checked,
+      disabled: selection.disabled,
+      onChange: selection.onChange
+    }),
+    h("span", null, ability.name)) : ability.name;
+  const metadata = [ability.class, ability.rank == null ? "" : `Rank ${ability.rank}`].filter(Boolean);
+  const shownCosts = costs.filter(([, value]) => value != null && value !== "");
+  return h("li", {
+    className: "ability-card",
+    "data-selected": selection?.checked || undefined
+  },
+  h(selection ? "h6" : "h5", { className: "ability-title" }, title),
+  metadata.length > 0 && h("p", { className: "ability-metadata" }, metadata.join(" · ")),
+  shownCosts.length > 0 && h("dl", { className: "ability-costs" },
+    shownCosts.map(([label, value]) => h("div", { key: label },
+      h("dt", null, label), h("dd", null, value)))),
+  ability.description && h("p", { className: "ability-description" }, ability.description));
+}
+
+function RecordFacts({ facts }) {
+  const h = React.createElement;
+  return h("dl", { className: "record-facts" }, facts.map(([label, value]) =>
+    h("div", { key: label }, h("dt", null, label), h("dd", null, value))));
+}
+
+function RecordOrder({ name, index, count, onMove }) {
+  const h = React.createElement;
+  return h("div", { className: "record-order" },
+    h("button", {
+      type: "button",
+      "aria-label": `Move ${name} up`,
+      disabled: index === 0,
+      onClick: () => onMove(-1)
+    }, "↑"),
+    h("button", {
+      type: "button",
+      "aria-label": `Move ${name} down`,
+      disabled: index === count - 1,
+      onClick: () => onMove(1)
+    }, "↓"));
+}
+
+function CharacterAbilities({
+  classCounts,
+  sortBy,
+  setSortBy,
+  sortedActionAbilities,
+  passiveAbilities,
+  selectionAbilitiesByClass,
+  selectionCategoryDefinitionsByClass,
+  selectedSelectionCategories,
+  knownSelectionAbilities,
+  toggleKnownSelectionAbility,
+  updateSelectionCategory,
+  hideUnselectedSelectionAbilities,
+  setHideUnselectedSelectionAbilities
+}) {
+  const h = React.createElement;
+  const ranks = Object.entries(classCounts);
+  return h("div", { className: "character-abilities" },
+    h("section", null, h("h3", null, "Class Ranks"), ranks.length > 0
+      ? h("ul", { className: "character-class-ranks" }, ranks.map(([className, rank]) =>
+        h("li", { key: className }, className, " ", h("strong", null, `Rank ${rank}`))))
+      : h("p", { className: "ability-empty" }, "No classes selected.")),
+    h("section", null,
+      h("h3", null, "Class Abilities"),
+      h("section", null,
+        h("div", { className: "ability-section-header" },
+          h("h4", null, "Action Abilities"),
+          h("label", { className: "ability-control" }, "Sort actions",
+            h("select", { value: sortBy, onChange: event => setSortBy(event.target.value) },
+              h("option", { value: "rank" }, "By Rank"),
+              h("option", { value: "cost" }, "By Cost")))),
+        sortedActionAbilities.length ? h("ul", { className: "ability-grid" },
+          sortedActionAbilities.map((ability, index) => h(AbilityCard, {
+            key: `${getSelectionAbilityKey(ability)}-${index}`,
+            ability,
+            costs: [["Action Cost", ability.actionCost], ["Endurance", ability.enduranceCost]]
+          }))) : h("p", { className: "ability-empty" }, "No action abilities.")),
+      h("section", null,
+        h("h4", null, "Free / Passive Abilities"),
+        passiveAbilities.length ? h("ul", { className: "ability-grid" },
+          passiveAbilities.map((ability, index) => h(AbilityCard, {
+            key: `${getSelectionAbilityKey(ability)}-${index}`,
+            ability
+          }))) : h("p", { className: "ability-empty" }, "No free or passive abilities.")),
+      selectionAbilitiesByClass.length > 0 && h("section", null,
+        h("div", { className: "ability-section-header" },
+          h("h4", null, "Selection Abilities"),
+          h("label", { className: "ability-control" }, h("input", {
+            type: "checkbox",
+            checked: hideUnselectedSelectionAbilities,
+            onChange: event => setHideUnselectedSelectionAbilities(event.target.checked)
+          }), "Hide unselected")),
+        selectionAbilitiesByClass.map(({ className, availableCount, abilities }) => {
+          const categories = selectionCategoryDefinitionsByClass[className] || [];
+          const filteredAbilities = abilities.filter(ability => {
+            if (!ability.selectionCategory || !ability.selectionOption) return true;
+            const key = getSelectionCategoryStateKey(className, ability.selectionCategory);
+            return selectedSelectionCategories[key] === ability.selectionOption;
+          });
+          const isKnown = ability => Boolean(knownSelectionAbilities[getSelectionAbilityKey(ability)]);
+          const selectedCount = filteredAbilities.filter(isKnown).length;
+          const visibleAbilities = hideUnselectedSelectionAbilities ? filteredAbilities.filter(isKnown) : filteredAbilities;
+          return h("section", { key: className, className: "ability-selection-group" },
+            h("div", { className: "ability-section-header" },
+              h("h5", null, className),
+              h("span", { className: "ability-metadata" }, `Selections available: ${availableCount - selectedCount}`)),
+            categories.length > 0 && h("div", { className: "ability-category-controls" },
+              categories.map(category => {
+                const key = getSelectionCategoryStateKey(className, category.categoryKey);
+                const label = category.label || category.name;
+                return h("label", { key, className: "ability-control" }, label,
+                  h("select", {
+                    value: selectedSelectionCategories[key] ?? "",
+                    onChange: event => updateSelectionCategory(className, category.categoryKey, event.target.value)
+                  },
+                  h("option", { value: "" }, `Select ${label}`),
+                  (category.options || []).map(option => h("option", { key: option, value: option }, option))));
+              })),
+            visibleAbilities.length ? h("ul", { className: "ability-grid" },
+              visibleAbilities.map((ability, index) => h(AbilityCard, {
+                key: `${getSelectionAbilityKey(ability)}-${index}`,
+                ability,
+                costs: [["Cost", ability.cost ?? ability.actionCost ?? 0]],
+                selection: {
+                  checked: isKnown(ability),
+                  disabled: !isKnown(ability) && selectedCount >= availableCount,
+                  onChange: () => toggleKnownSelectionAbility(ability)
+                }
+              }))) : h("p", { className: "ability-empty" }, hideUnselectedSelectionAbilities
+              ? "No abilities selected." : "No abilities match these selections."));
+        }))));
+}
 const DEFAULT_ARMORS = [{
   name: "No Armor",
   baseEvasion: 16,
@@ -228,7 +370,6 @@ function MainPage({
   setSortBy,
   sortedActionAbilities,
   passiveAbilities,
-  selectionAbilities,
   selectionAbilitiesByClass,
   selectionCategoryDefinitionsByClass,
   knownSelectionAbilities,
@@ -237,21 +378,10 @@ function MainPage({
   updateSelectionCategory,
   background,
   setBackground,
-  activeSlot,
-  activeSlotLabel,
-  cloudSaveEnabled,
-  generatedShareCode,
-  shareCodeInput,
-  setShareCodeInput,
-  generateShareCode,
-  importShareCode,
-  isShareCodeBusy,
   expansions,
   importExpansionFile,
   removeExpansion,
-  exportExpansions,
-  downloadGearTemplate,
-  downloadClassTemplate
+  exportExpansions
 }) {
   const [activeTab, setActiveTab] = React.useState("class");
   const [hideUnselectedSelectionAbilities, setHideUnselectedSelectionAbilities] = React.useState(false);
@@ -544,17 +674,172 @@ function MainPage({
     type: "button",
     onClick: confirmAttack
   }, "Confirm"))));
+
+  function renderCombatRecords() {
+    const h = React.createElement;
+    const renderProperties = gear => h("p", { className: "record-description" },
+      h("strong", null, "Properties: "), gear.properties?.join(", ") || "None");
+    const renderWeapons = (group, list, title) => {
+      const entries = list.map((weapon, index) => ({ weapon, index }))
+        .filter(({ weapon }) => group === "equipped" || weapon.name !== UNARMED_WEAPON_NAME);
+      return h("section", null, h("h4", null, title), entries.length
+        ? h("ul", { className: "record-grid" }, entries.map(({ weapon, index }) => {
+          const attackBonus = getWeaponAttackBonus(weapon);
+          const isUnarmed = weapon.name === UNARMED_WEAPON_NAME;
+          return h("li", { key: `${weapon.name}-${index}`, className: "record-card" },
+            h("div", { className: "record-heading" },
+              h("h5", null, weapon.name),
+              isUnarmed && h("span", { className: "record-caption" }, "Always equipped")),
+            h(RecordFacts, { facts: [
+              ["Type", weapon.type.join(", ")],
+              ["Attack Stat", weapon.attackStats.join(", ")],
+              ["Attack Bonus", attackBonus >= 0 ? `+${attackBonus}` : attackBonus],
+              ["Damage", [weapon.damage.dice, weapon.damage.type].filter(Boolean).join(" ")],
+              ["Endurance", weapon.enduranceCost]
+            ] }),
+            renderProperties(weapon),
+            h("div", { className: "record-actions" },
+              h("button", { type: "button", className: "record-primary", onClick: () => openAttackDialog(weapon, attackBonus) }, "Attack"),
+              !isUnarmed && h(React.Fragment, null,
+                h("button", { type: "button", onClick: () => swapWeapon(index, group) },
+                  group === "equipped" ? "Unequip" : "Equip"),
+                h("button", { type: "button", onClick: () => removeWeapon(index, group) }, "Remove")),
+              h(RecordOrder, {
+                name: weapon.name, index, count: list.length,
+                onMove: direction => moveWeapon(index, group, direction)
+              })));
+        })) : h("p", { className: "record-caption" }, group === "equipped" ? "No weapons equipped." : "No weapons in the backpack."));
+    };
+    return h(React.Fragment, null,
+      h("div", { className: "character-records" },
+        h("h3", null, "Combat"),
+        h("div", { className: "record-grid record-overview" },
+          h("section", { className: "record-card" },
+            h("h4", null, "Initiative"),
+            h("p", { className: "record-value" }, initiative),
+            h("p", { className: "record-caption" }, settings.initiativeOverride == null ? "Brains + Finesse" : "Settings override"),
+            h("label", { className: "record-field record-number" }, "Armor Breaker", h("input", {
+              type: "number", min: "0", value: settings.armorBreaker ?? 0,
+              onChange: event => setSettings(prev => ({
+                ...prev, armorBreaker: Math.max(0, Number(event.target.value) || 0)
+              }))
+            }))),
+          h("section", { className: "record-card" },
+            h("h4", null, "Armor"),
+            h("label", { className: "record-field" }, "Equipped armor", h("select", {
+              value: armor, onChange: event => setArmor(event.target.value)
+            }, Object.keys(armorStatsMap).map(name => h("option", { key: name, value: name }, name)))),
+            h(RecordFacts, { facts: [
+              ["Base Evasion", `${armorStats.baseEvasion} + ½ Finesse`],
+              ["Toughness Bonus", `+${armorStats.toughness}`],
+              ["Dash Penalty", armorStats.dashPenalty ?? 0]
+            ] }),
+            renderProperties(armorStats)),
+          h("section", { className: "record-card" },
+            h("h4", null, "Shield"),
+            h("label", { className: "record-field" }, "Equipped shield", h("select", {
+              value: shield, onChange: event => setShield(event.target.value)
+            }, Object.keys(shieldStatsMap).map(name => h("option", { key: name, value: name }, name)))),
+            h("label", { className: "record-checkbox" }, h("input", {
+              type: "checkbox", checked: useShield, onChange: event => setUseShield(event.target.checked)
+            }), "Use Shield"),
+            h(RecordFacts, { facts: [
+              ["Physical Toughness", shieldStats.toughness > 0 ? `+${shieldStats.toughness}` : 0],
+              ["Brace Endurance Cost", shieldStats.braceCost],
+              ["Dash Penalty", useShield ? shieldStats.dashPenalty ?? 0 : 0]
+            ] }),
+            renderProperties(shieldStats))),
+        h("section", { className: "record-section" },
+          h("div", { className: "record-heading" }, h("h4", null, "Conditions"),
+            h("div", { className: "record-actions" },
+              h("select", {
+                "aria-label": "Condition", value: conditionChoice, onChange: event => setConditionChoice(event.target.value)
+              }, h("option", { value: "" }, "Select Condition"),
+              conditions.map(condition => h("option", { key: condition.name, value: condition.name }, condition.name))),
+              h("button", {
+                type: "button", className: "record-primary", disabled: !conditionChoice, onClick: () => addCondition(conditionChoice)
+              }, "Add Condition"))),
+          activeConditions.length ? h("ul", { className: "record-grid" }, activeConditions.map((condition, index) =>
+            h("li", { key: condition.id, className: "record-card" },
+              h("h5", null, condition.name),
+              condition.description && h("p", { className: "record-description" }, condition.description),
+              h("div", { className: "record-actions" },
+                condition.hasStack && h("label", { className: "record-field record-number" }, "Stacks", h("input", {
+                  type: "number", min: "1", value: condition.stacks ?? 1,
+                  onChange: event => updateCondition(condition.id, "stacks", Math.max(1, Number(event.target.value) || 1))
+                })),
+                condition.hasSource && h("label", { className: "record-field record-source" }, "Source", h("input", {
+                  value: condition.source ?? "", onChange: event => updateCondition(condition.id, "source", event.target.value)
+                }))),
+              h("div", { className: "record-actions" },
+                h("button", { type: "button", onClick: () => removeCondition(condition.id) }, "Remove"),
+                h(RecordOrder, {
+                  name: condition.name, index, count: activeConditions.length,
+                  onMove: direction => moveCondition(index, direction)
+                }))))) : h("p", { className: "record-caption" }, "No active conditions.")),
+        h("section", { className: "record-section" },
+          h("div", { className: "record-heading" }, h("h4", null, "Weapons"),
+            h("div", { className: "record-actions" },
+              h("select", {
+                "aria-label": "Weapon", value: weaponChoice, onChange: event => setWeaponChoice(event.target.value)
+              }, h("option", { value: "" }, "Select Weapon"),
+              weapons.filter(weapon => weapon.name !== UNARMED_WEAPON_NAME).map(weapon =>
+                h("option", { key: weapon.name, value: weapon.name }, weapon.name))),
+              h("button", {
+                type: "button", className: "record-primary", disabled: !weaponChoice, onClick: () => addWeaponToInventory(weaponChoice)
+              }, "Add to Backpack"))),
+          renderWeapons("equipped", equippedWeapons, "Equipped Weapons"),
+          renderWeapons("inventory", inventoryWeapons, "Backpack"))),
+      attackDialogElement);
+  }
+
+  function renderInventoryRecords() {
+    const h = React.createElement;
+    return h("div", { className: "character-records" },
+      h("div", { className: "record-heading" }, h("h3", null, "Inventory"),
+        h("div", { className: "record-actions" },
+          h("label", { className: "record-field record-number" }, "Doubloons", h("input", {
+            type: "number", min: "0", value: doubloons,
+            onChange: event => setDoubloons(Math.max(0, Number(event.target.value) || 0))
+          })),
+          h("button", { type: "button", className: "record-primary", onClick: addItem }, "Add Item"))),
+      items.length ? h("ul", { className: "record-grid" }, items.map((item, index) => {
+        const isCombatGear = item.isCombatGear || item.isWeapon;
+        const name = String(item.name ?? "").trim() || "unnamed item";
+        return h("li", { key: item.id, className: "record-card" },
+          isCombatGear ? h(React.Fragment, null,
+            h("h4", null, item.name),
+            h("p", { className: "record-caption" }, "Managed in Combat"),
+            item.notes && h("p", { className: "record-description" }, item.notes))
+            : h(React.Fragment, null,
+              h("label", { className: "record-field" }, "Name", h("input", {
+                value: item.name ?? "", onChange: event => updateItem(item.id, "name", event.target.value)
+              })),
+              h("label", { className: "record-field" }, "Notes", h("textarea", {
+                rows: 2, value: item.notes ?? "", onChange: event => updateItem(item.id, "notes", event.target.value)
+              })),
+              h("div", { className: "record-actions" },
+                h("label", { className: "record-field record-number" }, "Charges", h("input", {
+                  type: "number", value: item.charges ?? 0,
+                  onChange: event => updateItem(item.id, "charges", Number(event.target.value))
+                })),
+                h("label", { className: "record-field record-number" }, "Amount", h("input", {
+                  type: "number", value: item.amount ?? 1,
+                  onChange: event => updateItem(item.id, "amount", Number(event.target.value))
+                })))),
+          h("div", { className: "record-actions" },
+            !isCombatGear && h("button", { type: "button", onClick: () => removeItem(item.id) }, "Remove"),
+            h(RecordOrder, { name, index, count: items.length, onMove: direction => moveItem(index, direction) })));
+      })) : h("p", { className: "record-caption" }, "No items in your inventory."));
+  }
+
   return React.createElement("div", {
     className: "mainpage"
   }, React.createElement("section", {
     className: "folioHero statsHero"
   }, React.createElement("div", {
     className: "folioHeroHeader"
-  }, React.createElement("div", {
-    className: "combatDataCell"
-  }, React.createElement("div", {
-    className: "combatDataCellLabel"
-  }, "Order"), React.createElement("div", {
+  }, React.createElement("div", null, React.createElement("div", {
     className: "folioKicker"
   }, "Crew Record"), React.createElement("h2", {
     className: "sectionTitle"
@@ -591,443 +876,52 @@ function MainPage({
     className: "folioSection sectionSpacer recordsSection"
   }, React.createElement("div", {
     className: "sectionHeader"
-  }, React.createElement("div", {
-    className: "combatDataCell"
-  }, React.createElement("div", {
-    className: "combatDataCellLabel"
-  }, "Order"), React.createElement("div", {
+  }, React.createElement("div", null, React.createElement("div", {
     className: "folioKicker"
   }, "Ship Operations"), React.createElement("h2", {
     className: "sectionTitle"
   }, "Mechanical Records"))), React.createElement("div", {
     className: "tabBar"
   }, React.createElement("button", {
+    "aria-pressed": activeTab === "class",
     onClick: () => setActiveTab("class")
   }, "Class"), React.createElement("button", {
+    "aria-pressed": activeTab === "combat",
     onClick: () => setActiveTab("combat")
   }, "Combat"), React.createElement("button", {
+    "aria-pressed": activeTab === "inventory",
     onClick: () => setActiveTab("inventory")
   }, "Inventory"), React.createElement("button", {
+    "aria-pressed": activeTab === "background",
     onClick: () => setActiveTab("background")
   }, "Background")), React.createElement("div", {
     className: "tabContent"
-  }, activeTab === "class" && React.createElement("div", null, React.createElement("h3", null, "Class Ranks"), React.createElement("ul", null, Object.entries(classCounts).map(([cls, count]) => React.createElement("li", {
-    key: cls
-  }, cls, " - ", count))), React.createElement("div", null, React.createElement("h3", null, "Class Abilities"), React.createElement("div", {
-    style: {
-      marginBottom: "10px"
-    }
-  }, "Sort:", " ", React.createElement("select", {
-    value: sortBy,
-    onChange: e => setSortBy(e.target.value)
-  }, React.createElement("option", {
-    value: "rank"
-  }, "By Rank"), React.createElement("option", {
-    value: "cost"
-  }, "By Cost"))), React.createElement("h4", null, "Action Abilities"), sortedActionAbilities.map((a, i) => React.createElement("div", {
-    key: i,
-    style: {
-      borderBottom: "1px solid #ccc",
-      marginBottom: "6px"
-    }
-  }, React.createElement("strong", null, a.name), " (Rank ", a.rank, ")", React.createElement("br", null), "Class: ", a.class, React.createElement("br", null), "Action Cost: ", a.actionCost, " | Endurance: ", a.enduranceCost, React.createElement("br", null), a.description)), React.createElement("h4", null, "Free / Passive Abilities"), passiveAbilities.map((a, i) => React.createElement("div", {
-    key: i,
-    style: {
-      borderBottom: "1px solid #ccc",
-      marginBottom: "6px"
-    }
-  }, React.createElement("strong", null, a.name), " (Rank ", a.rank, ")", React.createElement("br", null), "Class: ", a.class, React.createElement("br", null), a.description)), selectionAbilities.length > 0 && React.createElement("div", {
-    style: {
-      marginTop: "14px"
-    }
-  }, React.createElement("h4", null, "Selection Abilities"), React.createElement("label", {
-    style: {
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "6px",
-      marginBottom: "10px"
-    }
-  }, React.createElement("input", {
-    type: "checkbox",
-    checked: hideUnselectedSelectionAbilities,
-    onChange: e => setHideUnselectedSelectionAbilities(e.target.checked)
-  }), "Hide unselected"), selectionAbilitiesByClass.map(({
-    className,
-    availableCount,
-    abilities
-  }) => {
-    const categoryDefinitions = selectionCategoryDefinitionsByClass[className] || [];
-    const filteredAbilities = abilities.filter(ability => {
-      const categoryKey = ability.selectionCategory;
-      const categoryOption = ability.selectionOption;
-      if (!categoryKey || !categoryOption) return true;
-      return selectedSelectionCategories[getSelectionCategoryStateKey(className, categoryKey)] === categoryOption;
-    });
-    const selectedCount = filteredAbilities.filter(ability => knownSelectionAbilities[getSelectionAbilityKey(ability)]).length;
-    return React.createElement("div", {
-      key: className,
-      style: {
-        marginBottom: "12px"
-      }
-    }, React.createElement("div", {
-      style: {
-        fontWeight: "bold",
-        marginBottom: "6px"
-      }
-    }, className, " Selections Available: ", availableCount - selectedCount), categoryDefinitions.map(category => React.createElement("div", {
-      key: getSelectionCategoryStateKey(className, category.categoryKey),
-      style: {
-        marginBottom: "8px"
-      }
-    }, React.createElement("label", {
-      style: {
-        display: "block",
-        marginBottom: "4px"
-      }
-    }, category.label || category.name), React.createElement("select", {
-      value: selectedSelectionCategories[getSelectionCategoryStateKey(className, category.categoryKey)] ?? "",
-      onChange: e => updateSelectionCategory(className, category.categoryKey, e.target.value)
-    }, React.createElement("option", {
-      value: ""
-    }, "Select ", category.label || category.name), (category.options || []).map(option => React.createElement("option", {
-      key: option,
-      value: option
-    }, option))))), filteredAbilities.filter(ability => !hideUnselectedSelectionAbilities || knownSelectionAbilities[getSelectionAbilityKey(ability)]).map((a, i) => {
-      const isKnown = Boolean(knownSelectionAbilities[getSelectionAbilityKey(a)]);
-      const isUnavailable = !isKnown && selectedCount >= availableCount;
-      return React.createElement("div", {
-        key: `${getSelectionAbilityKey(a)}-${i}`,
-        style: {
-          borderBottom: "1px solid #ccc",
-          marginBottom: "6px",
-          paddingBottom: "4px",
-          opacity: isUnavailable ? 0.45 : 1
-        }
-      }, React.createElement("label", {
-        style: {
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "8px",
-          marginBottom: "4px",
-          color: isUnavailable ? "#777" : "inherit"
-        }
-      }, React.createElement("input", {
-        type: "checkbox",
-        checked: isKnown,
-        disabled: isUnavailable,
-        onChange: () => toggleKnownSelectionAbility(a)
-      }), React.createElement("strong", null, a.name), " (Rank ", a.rank, ")"), React.createElement("br", null), "Class: ", a.class, React.createElement("br", null), "Cost: ", a.cost ?? a.actionCost ?? 0, React.createElement("br", null), a.description);
-    }));
-  })))), activeTab === "combat" && React.createElement("div", null, React.createElement("h3", null, "Combat"), React.createElement("div", {
-    style: {
-      marginBottom: "12px"
-    }
-  }, React.createElement("label", null, "Initiative: "), React.createElement("input", {
-    type: "number",
-    value: initiative,
-    readOnly: true,
-    style: {
-      width: "60px",
-      marginLeft: "8px",
-      textAlign: "center"
-    }
-  }), React.createElement("div", {
-    style: {
-      marginTop: "6px"
-    }
-  }, "Brains + Finesse")), React.createElement("div", {
-    className: "combatSplit"
-  }, React.createElement("div", null, React.createElement("label", null, "Armor: "), React.createElement("select", {
-    value: armor,
-    onChange: e => setArmor(e.target.value)
-  }, Object.keys(armorStatsMap).map(armorName => React.createElement("option", {
-    key: armorName,
-    value: armorName
-  }, armorName))), React.createElement("div", {
-    style: {
-      marginTop: "8px"
-    }
-  }, "Base Evasion: ", armorStats.baseEvasion, " + 1/2 Finesse", React.createElement("br", null), "Toughness Bonus: +", armorStats.toughness, React.createElement("br", null), "Dash Penalty: ", armorStats.dashPenalty ?? 0, React.createElement("br", null), "Additional Properties:", armorStats.properties?.length ? " " + armorStats.properties.join(", ") : " None")), React.createElement("div", null, React.createElement("label", null, "Shield: "), React.createElement("select", {
-    value: shield,
-    onChange: e => setShield(e.target.value)
-  }, Object.keys(shieldStatsMap).map(shieldName => React.createElement("option", {
-    key: shieldName,
-    value: shieldName
-  }, shieldName))), React.createElement("div", {
-    style: {
-      marginTop: "8px"
-    }
-  }, "Physical Toughness: ", shieldStats.toughness > 0 ? "+" + shieldStats.toughness : "0", React.createElement("br", null), "Brace Endurance Cost: ", shieldStats.braceCost, React.createElement("br", null), "Dash Penalty: ", useShield ? shieldStats.dashPenalty ?? 0 : 0, React.createElement("br", null), "Additional Properties:", shieldStats.properties?.length ? " " + shieldStats.properties.join(", ") : " None"), React.createElement("div", {
-    style: {
-      marginTop: "8px"
-    }
-  }, React.createElement("label", null, "Armor Breaker: "), React.createElement("input", {
-    type: "number",
-    min: "0",
-    value: settings.armorBreaker ?? 0,
-    onChange: e => setSettings(prev => ({
-      ...prev,
-      armorBreaker: Math.max(0, Number(e.target.value) || 0)
-    })),
-    style: {
-      width: "70px",
-      marginLeft: "8px",
-      textAlign: "center"
-    }
-  })), React.createElement("label", null, React.createElement("input", {
-    type: "checkbox",
-    checked: useShield,
-    onChange: e => setUseShield(e.target.checked)
-  }), "Use Shield"))), React.createElement("h3", null, "Conditions"), React.createElement("div", {
-    style: {
-      marginBottom: "10px",
-      display: "flex",
-      gap: "8px",
-      alignItems: "center",
-      flexWrap: "wrap"
-    }
-  }, React.createElement("select", {
-    value: conditionChoice,
-    onChange: e => setConditionChoice(e.target.value)
-  }, React.createElement("option", {
-    value: ""
-  }, "Select Condition"), conditions.map(condition => React.createElement("option", {
-    key: condition.name,
-    value: condition.name
-  }, condition.name))), React.createElement("button", {
-    onClick: () => addCondition(conditionChoice)
-  }, "Add Condition")), React.createElement("div", {
-    className: "combatDataTable combatDataTable--conditions"
-  }, React.createElement("div", {
-    className: "combatDataHeader",
-    style: {
-      display: "grid",
-      gridTemplateColumns: "180px 120px 180px 80px 90px",
-      fontWeight: "bold",
-      borderBottom: "2px solid #ccc",
-      paddingBottom: "4px"
-    }
-  }, React.createElement("div", null, "Name"), React.createElement("div", null, "Stacks"), React.createElement("div", null, "Source"), React.createElement("div", null, "Remove"), React.createElement("div", null, "Order")), activeConditions.map((condition, index) => React.createElement("div", {
-    key: condition.id,
-    className: "combatDataRow",
-    style: {
-      display: "grid",
-      gridTemplateColumns: "180px 120px 180px 80px 90px",
-      padding: "4px 0",
-      borderBottom: "1px solid #ddd",
-      alignItems: "center"
-    }
-  }, React.createElement("div", {
-    className: "combatDataCell",
-    title: condition.description,
-    style: {
-      textDecoration: "underline dotted",
-      cursor: "help"
-    }
-  }, React.createElement("div", {
-    className: "combatDataCellLabel"
-  }, "Name"), condition.name), React.createElement("div", {
-    className: "combatDataCell"
-  }, React.createElement("div", {
-    className: "combatDataCellLabel"
-  }, "Stacks"), condition.hasStack ? React.createElement("input", {
-    type: "number",
-    min: "1",
-    value: condition.stacks ?? 1,
-    onChange: e => updateCondition(condition.id, "stacks", Math.max(1, Number(e.target.value) || 1)),
-    style: {
-      width: "60px"
-    }
-  }) : React.createElement("span", null, "-")), React.createElement("div", {
-    className: "combatDataCell combatDataCell--full"
-  }, React.createElement("div", {
-    className: "combatDataCellLabel"
-  }, "Source"), condition.hasSource ? React.createElement("input", {
-    value: condition.source ?? "",
-    onChange: e => updateCondition(condition.id, "source", e.target.value),
-    placeholder: "Source",
-    style: {
-      width: "150px"
-    }
-  }) : React.createElement("span", null, "-")), React.createElement("div", {
-    className: "combatDataCell"
-  }, React.createElement("div", {
-    className: "combatDataCellLabel"
-  }, "Remove"), React.createElement("button", {
-    onClick: () => removeCondition(condition.id)
-  }, "Remove")), React.createElement("div", null, React.createElement("button", {
-    onClick: () => moveCondition(index, -1)
-  }, "\u2191"), React.createElement("button", {
-    onClick: () => moveCondition(index, 1)
-  }, "\u2193"))))), React.createElement("h3", null, "Weapons"), React.createElement("select", {
-    value: weaponChoice,
-    onChange: e => setWeaponChoice(e.target.value)
-  }, React.createElement("option", {
-    value: ""
-  }, "Select Weapon"), weapons.filter(w => w.name !== UNARMED_WEAPON_NAME).map(w => React.createElement("option", {
-    key: w.name,
-    value: w.name
-  }, w.name))), React.createElement("button", {
-    onClick: () => addWeaponToInventory(weaponChoice)
-  }, " Add to Inventory "), React.createElement("h4", null, "Equipped Weapons"), React.createElement("div", {
-    className: "combatDataTable combatDataTable--weapons"
-  }, React.createElement("div", {
-    className: "combatDataHeader",
-    style: {
-      display: "grid",
-      gridTemplateColumns: "120px 120px 120px 120px 90px 150px 120px 1fr 80px 80px 90px",
-      fontWeight: "bold",
-      borderBottom: "2px solid #ccc",
-      paddingBottom: "4px"
-    }
-  }, React.createElement("div", null, "Name"), React.createElement("div", null, "Type"), React.createElement("div", null, "Attack Stat"), React.createElement("div", null, "Attack Bonus"), React.createElement("div", null, "Attack"), React.createElement("div", null, "Damage"), React.createElement("div", null, "Endurance"), React.createElement("div", null, "Properties"), React.createElement("div", null, "Swap"), React.createElement("div", null, "Remove"), React.createElement("div", null, "Order")), equippedWeapons.map((w, i) => {
-    const attackBonus = getWeaponAttackBonus(w);
-    return React.createElement("div", {
-      key: i,
-      className: "combatDataRow",
-      style: {
-        display: "grid",
-        gridTemplateColumns: "120px 120px 120px 120px 90px 150px 120px 1fr 80px 80px 90px",
-        padding: "4px 0",
-        borderBottom: "1px solid #ddd"
-      }
-    }, React.createElement("div", null, w.name), React.createElement("div", null, w.type.join(", ")), React.createElement("div", null, w.attackStats.join(", ")), React.createElement("div", null, "+", attackBonus), React.createElement("div", null, React.createElement("button", {
-      onClick: () => openAttackDialog(w, attackBonus)
-    }, "Attack")), React.createElement("div", null, w.damage.dice, " ", w.damage.type), React.createElement("div", null, w.enduranceCost), React.createElement("div", null, w.properties.join(", ")), w.name === UNARMED_WEAPON_NAME ? React.createElement("div", null, "Always Equipped") : React.createElement("div", null, React.createElement("button", {
-      onClick: () => swapWeapon(i, "equipped")
-    }, "Unequip")), React.createElement("div", null, w.name === UNARMED_WEAPON_NAME ? null : React.createElement("button", {
-      onClick: () => removeWeapon(i, "equipped")
-    }, "Remove")), React.createElement("div", null, React.createElement(React.Fragment, null, React.createElement("button", {
-      onClick: () => moveWeapon(i, "equipped", -1)
-    }, "\u2191"), React.createElement("button", {
-      onClick: () => moveWeapon(i, "equipped", 1)
-    }, "\u2193"))));
-  })), React.createElement("h4", null, "Backpack"), React.createElement("div", {
-    className: "combatDataTable combatDataTable--weapons"
-  }, React.createElement("div", {
-    className: "combatDataHeader",
-    style: {
-      display: "grid",
-      gridTemplateColumns: "120px 120px 120px 120px 90px 150px 120px 1fr 80px 80px 90px",
-      fontWeight: "bold",
-      borderBottom: "2px solid #ccc",
-      paddingBottom: "4px"
-    }
-  }, React.createElement("div", null, "Name"), React.createElement("div", null, "Type"), React.createElement("div", null, "Attack Stat"), React.createElement("div", null, "Attack Bonus"), React.createElement("div", null, "Attack"), React.createElement("div", null, "Damage"), React.createElement("div", null, "Endurance"), React.createElement("div", null, "Properties"), React.createElement("div", null, "Swap"), React.createElement("div", null, "Remove"), React.createElement("div", null, "Order")), inventoryWeapons.map((w, index) => ({
-    w,
-    index
-  })).filter(({
-    w
-  }) => w.name !== UNARMED_WEAPON_NAME).map(({
-    w,
-    index
-  }) => {
-    const attackBonus = getWeaponAttackBonus(w);
-    return React.createElement("div", {
-      key: `${w.name}-${index}`,
-      className: "combatDataRow",
-      style: {
-        display: "grid",
-        gridTemplateColumns: "120px 120px 120px 120px 90px 150px 120px 1fr 80px 80px 90px",
-        borderBottom: "1px solid #ddd"
-      }
-    }, React.createElement("div", null, w.name), React.createElement("div", null, w.type.join(", ")), React.createElement("div", null, w.attackStats.join(", ")), React.createElement("div", null, "+", attackBonus), React.createElement("div", null, React.createElement("button", {
-      onClick: () => openAttackDialog(w, attackBonus)
-    }, "Attack")), React.createElement("div", null, w.damage.dice, " ", w.damage.type), React.createElement("div", null, w.enduranceCost), React.createElement("div", null, w.properties.join(", ")), React.createElement("div", null, React.createElement("button", {
-      onClick: () => swapWeapon(index, "inventory")
-    }, "Equip")), React.createElement("div", null, React.createElement("button", {
-      onClick: () => removeWeapon(index, "inventory")
-    }, "Remove")), React.createElement("div", null, React.createElement("button", {
-      onClick: () => moveWeapon(index, "inventory", -1)
-    }, "\u2191"), React.createElement("button", {
-      onClick: () => moveWeapon(index, "inventory", 1)
-    }, "\u2193")));
-  }))), attackDialogElement), activeTab === "inventory" && React.createElement("div", null, React.createElement("h3", null, "Inventory"), React.createElement("div", {
-    style: {
-      marginBottom: "12px"
-    }
-  }, React.createElement("label", {
-    style: {
-      display: "block",
-      marginBottom: "4px"
-    }
-  }, "Doubloons"), React.createElement("input", {
-    type: "number",
-    min: "0",
-    value: doubloons,
-    onChange: e => setDoubloons(Math.max(0, Number(e.target.value) || 0))
-  })), React.createElement("button", {
-    onClick: addItem
-  }, "Add Item"), React.createElement("div", {
-    style: {
-      marginTop: "10px"
-    }
-  }, React.createElement("div", {
-    style: {
-      display: "grid",
-      gridTemplateColumns: "200px 140px 100px 100px 80px 90px",
-      fontWeight: "bold",
-      borderBottom: "2px solid #ccc",
-      paddingBottom: "4px"
-    }
-  }, React.createElement("div", null, "Name"), React.createElement("div", null, "Notes"), React.createElement("div", null, "Charges"), React.createElement("div", null, "Amount"), React.createElement("div", null, "Remove"), React.createElement("div", null, "Order")), items.map((item, index) => React.createElement("div", {
-    key: item.id,
-    style: {
-      display: "grid",
-      gridTemplateColumns: "200px 140px 100px 100px 80px 90px",
-      padding: "4px 0",
-      borderBottom: "1px solid #ddd"
-    }
-  }, React.createElement("input", {
-    value: item.name,
-    readOnly: item.isCombatGear || item.isWeapon,
-    onChange: e => updateItem(item.id, "name", e.target.value)
-  }), React.createElement("input", {
-    value: item.notes ?? "",
-    readOnly: item.isCombatGear || item.isWeapon,
-    onChange: e => updateItem(item.id, "notes", e.target.value)
-  }), item.isCombatGear || item.isWeapon ? React.createElement("div", null) : React.createElement("input", {
-    type: "number",
-    value: item.charges,
-    onChange: e => updateItem(item.id, "charges", Number(e.target.value)),
-    style: {
-      width: "60px"
-    }
-  }), item.isCombatGear || item.isWeapon ? React.createElement("div", null) : React.createElement("input", {
-    type: "number",
-    value: item.amount,
-    onChange: e => updateItem(item.id, "amount", Number(e.target.value)),
-    style: {
-      width: "60px"
-    }
-  }), item.isCombatGear || item.isWeapon ? React.createElement("div", null) : React.createElement("button", {
-    onClick: () => removeItem(item.id)
-  }, "Remove"), React.createElement("div", null, React.createElement(React.Fragment, null, React.createElement("button", {
-    onClick: () => moveItem(index, -1)
-  }, "\u2191"), React.createElement("button", {
-    onClick: () => moveItem(index, 1)
-  }, "\u2193"))))))), activeTab === "background" && React.createElement("div", null, React.createElement("h3", null, "Character Journal"), renderBackgroundJournal())));
+  }, activeTab === "class" && React.createElement(CharacterAbilities, {
+    classCounts,
+    sortBy,
+    setSortBy,
+    sortedActionAbilities,
+    passiveAbilities,
+    selectionAbilitiesByClass,
+    selectionCategoryDefinitionsByClass,
+    selectedSelectionCategories,
+    knownSelectionAbilities,
+    toggleKnownSelectionAbility,
+    updateSelectionCategory,
+    hideUnselectedSelectionAbilities,
+    setHideUnselectedSelectionAbilities
+  }), activeTab === "combat" && renderCombatRecords(), activeTab === "inventory" && renderInventoryRecords()),
+  activeTab === "background" && React.createElement("div", null, React.createElement("h3", null, "Character Journal"), renderBackgroundJournal())));
 }
 function SettingsModal({
   isOpen,
   onClose,
   settings,
   setSettings,
-  activeSlot,
-  activeSlotLabel,
-  cloudSaveEnabled,
-  generatedShareCode,
-  shareCodeInput,
-  setShareCodeInput,
-  generateShareCode,
-  importShareCode,
-  isShareCodeBusy,
   expansions,
   importExpansionFile,
   removeExpansion,
-  exportExpansions,
-  downloadGearTemplate,
-  downloadClassTemplate
+  exportExpansions
 }) {
   if (!isOpen) return null;
   const settingsOverrideInputStyle = {
@@ -1196,51 +1090,7 @@ function SettingsModal({
         }
       }));
     }
-  }))), React.createElement("h3", null, "Cloud Sharing"), React.createElement("div", null), React.createElement("div", {
-    style: {
-      display: "grid",
-      gap: "8px",
-      gridColumn: "1 / span 2"
-    }
-  }, cloudSaveEnabled ? React.createElement(React.Fragment, null, React.createElement("div", {
-    style: {
-      display: "grid",
-      gridTemplateColumns: "220px minmax(220px, 1fr)",
-      gap: "8px",
-      alignItems: "center"
-    }
-  }, React.createElement("button", {
-    onClick: () => generateShareCode(activeSlot),
-    disabled: isShareCodeBusy
-  }, isShareCodeBusy ? "Please wait..." : `Generate from ${activeSlotLabel}`), React.createElement("input", {
-    value: generatedShareCode,
-    readOnly: true,
-    placeholder: "Generated share code",
-    style: {
-      width: "100%"
-    }
-  })), React.createElement("div", {
-    style: {
-      display: "grid",
-      gridTemplateColumns: "220px minmax(220px, 1fr)",
-      gap: "8px",
-      alignItems: "center"
-    }
-  }, React.createElement("button", {
-    onClick: importShareCode,
-    disabled: isShareCodeBusy
-  }, isShareCodeBusy ? "Please wait..." : "Import Share Code"), React.createElement("input", {
-    value: shareCodeInput,
-    onChange: e => setShareCodeInput(e.target.value.toUpperCase()),
-    placeholder: "Enter share code",
-    style: {
-      width: "100%"
-    }
-  }))) : React.createElement("div", {
-    style: {
-      color: settings.darkMode ? "rgba(232, 237, 246, 0.72)" : "rgba(47, 36, 23, 0.72)"
-    }
-  }, "Sign in with a traveler, admin, writer, or owner account to use cloud sharing.")), React.createElement("h3", null, "Expansions"), React.createElement("div", null), React.createElement("div", {
+  }))), React.createElement("h3", null, "Expansions"), React.createElement("div", null), React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(2, minmax(180px, 1fr))",
@@ -1251,11 +1101,7 @@ function SettingsModal({
   }, "Import Expansion"), React.createElement("button", {
     onClick: exportExpansions,
     disabled: expansions.length === 0
-  }, "Export Expansions"), React.createElement("button", {
-    onClick: downloadGearTemplate
-  }, "Download Gear Template"), React.createElement("button", {
-    onClick: downloadClassTemplate
-  }, "Download Class Template")), React.createElement("div", {
+  }, "Export Expansions")), React.createElement("div", {
     style: {
       gridColumn: "1 / span 2"
     }
@@ -1973,9 +1819,12 @@ function getDefaultApiUrl() {
   return origin;
 }
 const PAGE_PARAMS = new URLSearchParams(window.location.search);
+const REQUESTED_SLOT = PAGE_PARAMS.get("slot");
+const INITIAL_SAVE_SLOT = characterSlotPattern.test(REQUESTED_SLOT) ? REQUESTED_SLOT : "slot1";
 const API_URL = getDefaultApiUrl();
 const RESOLVED_ROLE = PAGE_PARAMS.get("role") || "viewer";
-const CLOUD_SAVE_ENABLED = RESOLVED_ROLE === "traveler" || RESOLVED_ROLE === "admin" || RESOLVED_ROLE === "writer" || RESOLVED_ROLE === "owner";
+const CLOUD_SAVE_ENABLED = PAGE_PARAMS.get("storage") !== "local" &&
+  ["traveler", "admin", "writer", "owner"].includes(RESOLVED_ROLE);
 
 // Shared fetch helper for all Character Sheet API calls.
 async function fetchPirateJson(path, options = {}) {
@@ -2495,307 +2344,17 @@ function App() {
     a.click();
     URL.revokeObjectURL(url);
   }
-  function downloadGearTemplate() {
-    const template = {
-      name: "Gear Expansion",
-      weapons: [{
-        name: "Boarding Pike",
-        type: ["Polearm"],
-        attackStats: ["Brawn"],
-        damage: {
-          dice: "1d8",
-          type: "Piercing"
-        },
-        enduranceCost: 2,
-        properties: ["Reach"]
-      }],
-      armors: [{
-        name: "Captain's Coat",
-        baseEvasion: 15,
-        toughness: 1,
-        dashPenalty: 0,
-        properties: []
-      }],
-      shields: [{
-        name: "Reinforced Buckler",
-        toughness: 2,
-        braceCost: 2,
-        dashPenalty: 0,
-        properties: ["Attachable", "Parry"]
-      }]
-    };
-    const json = JSON.stringify(template, null, 2);
-    const blob = new Blob([json], {
-      type: "application/json"
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "gear-expansion-template.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-  function downloadClassTemplate() {
-    const template = {
-      name: "Class Expansion",
-      classGroups: [{
-        title: "Corsairs",
-        classes: ["Stormcaller"]
-      }],
-      classAbilities: [{
-        class: "Stormcaller",
-        rank: 1,
-        name: "Thunder Wake",
-        type: "action",
-        actionCost: 2,
-        description: "Describe the class ability here."
-      }, {
-        class: "Stormcaller",
-        rank: 2,
-        name: "Storm Lessons",
-        type: "passive",
-        selectionBonus: "+",
-        description: "This passive grants one additional Stormcaller selection per rank in Stormcaller."
-      }, {
-        class: "Stormcaller",
-        rank: 1,
-        name: "Storm Tradition",
-        type: "selection-category",
-        categoryKey: "tradition",
-        label: "Tradition",
-        options: ["Tempest", "Mist", "Tide"]
-      }, {
-        class: "Stormcaller",
-        rank: 1,
-        name: "Tempest Trick",
-        type: "selection",
-        selectionCategory: "tradition",
-        selectionOption: "Tempest",
-        cost: 1,
-        description: "Describe the selection ability here."
-      }],
-      conditions: [{
-        name: "Static Mark",
-        description: "The target crackles with storm energy and is easier to track.",
-        hasStack: false,
-        hasSource: true
-      }]
-    };
-    const json = JSON.stringify(template, null, 2);
-    const blob = new Blob([json], {
-      type: "application/json"
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "class-expansion-template.json";
-    a.click();
-    URL.revokeObjectURL(url);
-  }
   function removeExpansion(id) {
     setExpansions(prev => prev.filter(expansion => expansion.id !== id));
   }
-  function exportData() {
-    const data = {
-      name,
-      crew,
-      currentLevel,
-      levels,
-      level1,
-      levelStats,
-      levelSkills,
-      knownSelectionAbilities,
-      selectedSelectionCategories,
-      settings,
-      armor,
-      shield,
-      activeConditions,
-      equippedWeapons,
-      inventoryWeapons,
-      health,
-      endurance,
-      luck,
-      doubloons,
-      inventoryItems: items,
-      expansions,
-      background,
-      version: 1.7
-    };
-    const json = JSON.stringify(data, null, 2);
-    const blob = new Blob([json], {
-      type: "application/json"
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    // eslint-disable-next-line no-control-regex -- Strip control characters forbidden in downloaded filenames.
-    const sanitizedName = String(name || "").trim().replace(/[<>:"/\\|?*\x00-\x1F]/g, "");
-    a.download = `${sanitizedName || "character"}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-  function importData() {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "application/json";
-    input.onchange = e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = event => {
-        try {
-          const raw = JSON.parse(event.target.result);
-          if (file.size > 100000) {
-            alert("File too large");
-            return;
-          }
-          if (typeof raw !== "object" || raw === null) {
-            alert("Invalid file");
-            return;
-          }
-          if (raw.version !== 1.1 && raw.version !== 1.2 && raw.version !== 1.3 && raw.version !== 1.4 && raw.version !== 1.5 && raw.version !== 1.6 && raw.version !== 1.7) {
-            alert("Invalid version");
-            return;
-          }
-          delete raw.__proto__;
-          delete raw.constructor;
-          delete raw.prototype;
-          setName(raw.name ?? "");
-          setCrew(raw.crew ?? "");
-          setCurrentLevel(raw.currentLevel ?? 1);
-          setLevels(raw.levels ?? Array(20).fill(null));
-          setLevel1(raw.level1 ?? ["", "", ""]);
-          setLevelStats(raw.levelStats ?? levelStats);
-          setLevelSkills(raw.levelSkills ?? levelSkills);
-          setKnownSelectionAbilities(raw.knownSelectionAbilities ?? {});
-          setSelectedSelectionCategories(raw.selectedSelectionCategories ?? {});
-          setSettings({
-            ...createDefaultSettings(),
-            ...(raw.settings || {}),
-            statOverrides: {
-              ...createDefaultSettings().statOverrides,
-              ...(raw.settings?.statOverrides || {})
-            },
-            weaponTypeOverrides: {
-              ...createDefaultSettings().weaponTypeOverrides,
-              ...(raw.settings?.weaponTypeOverrides || {})
-            }
-          });
-          setArmor(raw.armor ?? "No Armor");
-          setShield(raw.shield ?? "No Shield");
-          setActiveConditions(raw.activeConditions ?? []);
-          setEquippedWeapons((raw.equippedWeapons ?? []).filter(w => w?.name !== UNARMED_WEAPON_NAME));
-          setInventoryWeapons((raw.inventoryWeapons ?? []).filter(w => w?.name !== UNARMED_WEAPON_NAME));
-          setHealth(raw.health ?? 0);
-          setEndurance(raw.endurance ?? 0);
-          setLuck(raw.luck ?? 3);
-          setDoubloons(raw.doubloons ?? 0);
-          if (Array.isArray(raw.expansions)) {
-            setExpansions(raw.expansions.map((expansion, index) => normalizeExpansion(expansion, expansion?.name || `Expansion ${index + 1}`)));
-          }
-          setItems(raw.inventoryItems ?? []);
-          setBackground(raw.background ?? DEFAULT_BACKGROUND);
-        } catch (err) {
-          console.error(err);
-          alert("Invalid file");
-        }
-      };
-      reader.readAsText(file);
-    };
-    input.click();
-  }
-  const MIN_SAVE_SLOT_COUNT = 3;
-  const [activeSlot, setActiveSlot] = React.useState("slot1");
-  const [saveSlots, setSaveSlots] = React.useState(["slot1", "slot2", "slot3"]);
   const [saveMessage, setSaveMessage] = React.useState("");
   const [isCloudBusy, setIsCloudBusy] = React.useState(false);
-  const [generatedShareCode, setGeneratedShareCode] = React.useState("");
-  const [shareCodeInput, setShareCodeInput] = React.useState("");
-  const [isShareCodeBusy, setIsShareCodeBusy] = React.useState(false);
-  const activeSlotRef = React.useRef("slot1");
-  const latestLoadRequestRef = React.useRef(0);
-  const isSlotLoadingRef = React.useRef(false);
-  const [slotLabels, setSlotLabels] = React.useState({
-    slot1: "Slot 1",
-    slot2: "Slot 2",
-    slot3: "Slot 3"
-  });
-  const [filledSlots, setFilledSlots] = React.useState({
-    slot1: false,
-    slot2: false,
-    slot3: false
-  });
-  function getDefaultSlotLabel(slot) {
-    const slotNumber = Number(String(slot).replace("slot", ""));
-    if (Number.isInteger(slotNumber) && slotNumber >= 1) {
-      return `Slot ${slotNumber}`;
-    }
-    return slot;
-  }
-  function getSlotNumber(slot) {
-    const slotNumber = Number(String(slot).replace("slot", ""));
-    return Number.isInteger(slotNumber) && slotNumber >= 1 ? slotNumber : 0;
-  }
-  function buildVisibleSlots(occupiedSlots = {}, knownSlots = []) {
-    const slotNumbers = new Set();
-    for (let i = 1; i <= MIN_SAVE_SLOT_COUNT; i += 1) {
-      slotNumbers.add(i);
-    }
-    knownSlots.forEach(slot => {
-      const slotNumber = getSlotNumber(slot);
-      if (slotNumber >= 1) {
-        slotNumbers.add(slotNumber);
-      }
-    });
-    Object.keys(occupiedSlots).forEach(slot => {
-      const slotNumber = getSlotNumber(slot);
-      if (slotNumber >= 1) {
-        slotNumbers.add(slotNumber);
-      }
-    });
-    const maxSlotNumber = Math.max(...slotNumbers);
-    const nextSlots = [];
-    for (let i = 1; i <= maxSlotNumber; i += 1) {
-      nextSlots.push(`slot${i}`);
-    }
-    const allFilled = nextSlots.every(slot => Boolean(occupiedSlots[slot]));
-    if (allFilled) {
-      nextSlots.push(`slot${maxSlotNumber + 1}`);
-    }
-    return nextSlots;
-  }
-  function formatSlotLabel(slot, characterName) {
-    const trimmedName = String(characterName || "").trim();
-    return trimmedName || getDefaultSlotLabel(slot);
-  }
-  function updateSlotState(slot, characterName, isFilled) {
-    setSlotLabels(prev => {
-      const nextLabel = formatSlotLabel(slot, characterName);
-      const currentLabel = prev[slot];
-      const defaultLabel = getDefaultSlotLabel(slot);
-      const shouldPreserveExistingLabel = Boolean(isFilled) && !String(characterName || "").trim() && typeof currentLabel === "string" && currentLabel.trim() && currentLabel !== defaultLabel;
-      return {
-        ...prev,
-        [slot]: shouldPreserveExistingLabel ? currentLabel : nextLabel
-      };
-    });
-    setFilledSlots(prev => {
-      const nextFilledSlots = {
-        ...prev,
-        [slot]: Boolean(isFilled)
-      };
-      setSaveSlots(buildVisibleSlots(nextFilledSlots, saveSlots));
-      return nextFilledSlots;
-    });
-  }
-  function getNextAvailableSlot() {
-    const emptyVisibleSlot = saveSlots.find(slot => !filledSlots[slot]);
-    if (emptyVisibleSlot) {
-      return emptyVisibleSlot;
-    }
-    const nextSlotNumber = saveSlots.length + 1;
-    return `slot${nextSlotNumber}`;
-  }
+  const [saveTarget, setSaveTarget] = React.useState({ slot: INITIAL_SAVE_SLOT, cloud: CLOUD_SAVE_ENABLED });
+  const [cloudConflict, setCloudConflict] = React.useState(false);
+  const cloudSync = React.useRef({ etag: null, shared: false, baseline: null, capture: false, pending: false });
+  const draft = React.useRef(null);
+  draft.current = saveTarget.cloud ? JSON.stringify(buildSaveData()) : null;
+
   function buildSaveData() {
     return {
       name,
@@ -2820,98 +2379,8 @@ function App() {
       items,
       expansions,
       background,
-      version: 1.7,
-      timestamp: Date.now()
+      version: 1.7
     };
-  }
-
-  // Rebuild the visible save-slot list and labels from whichever storage backend
-  // is active so the save bar reflects real character names/fill state.
-  async function refreshSlotLabels() {
-    if (CLOUD_SAVE_ENABLED) {
-      try {
-        const {
-          response,
-          payload
-        } = await fetchPirateJson(`/pirate-character-sheet/saves`, {
-          method: "GET"
-        });
-        if (!response.ok) {
-          setSaveSlots(buildVisibleSlots({}, []));
-          setSlotLabels({
-            slot1: "Slot 1",
-            slot2: "Slot 2",
-            slot3: "Slot 3"
-          });
-          setFilledSlots({
-            slot1: false,
-            slot2: false,
-            slot3: false
-          });
-          return;
-        }
-        const nextLabels = {};
-        const nextFilledSlots = {};
-        const knownSlots = Array.isArray(payload.saves) ? payload.saves.map(save => save.slot) : [];
-        for (let i = 1; i <= MIN_SAVE_SLOT_COUNT; i += 1) {
-          const slot = `slot${i}`;
-          nextLabels[slot] = getDefaultSlotLabel(slot);
-          nextFilledSlots[slot] = false;
-        }
-        ;
-        (payload.saves || []).forEach(save => {
-          nextLabels[save.slot] = formatSlotLabel(save.slot, save.name);
-          nextFilledSlots[save.slot] = true;
-        });
-        setSaveSlots(buildVisibleSlots(nextFilledSlots, knownSlots));
-        setSlotLabels(nextLabels);
-        setFilledSlots(nextFilledSlots);
-      } catch (_error) {
-        setSaveSlots(buildVisibleSlots({}, []));
-        setSlotLabels({
-          slot1: "Slot 1",
-          slot2: "Slot 2",
-          slot3: "Slot 3"
-        });
-        setFilledSlots({
-          slot1: false,
-          slot2: false,
-          slot3: false
-        });
-      }
-      return;
-    }
-    const nextLabels = {};
-    const nextFilledSlots = {};
-    const knownSlots = [];
-    for (let i = 1; i <= MIN_SAVE_SLOT_COUNT; i += 1) {
-      const slot = `slot${i}`;
-      nextLabels[slot] = getDefaultSlotLabel(slot);
-      nextFilledSlots[slot] = false;
-    }
-    Object.keys(localStorage).forEach(storageKey => {
-      const match = /^characterSheet_(slot[1-9]\d*)$/.exec(storageKey);
-      if (match) {
-        knownSlots.push(match[1]);
-      }
-    });
-    knownSlots.forEach(slot => {
-      const saved = localStorage.getItem(`characterSheet_${slot}`);
-      if (!saved) {
-        return;
-      }
-      try {
-        const data = JSON.parse(saved);
-        nextLabels[slot] = formatSlotLabel(slot, data.name);
-        nextFilledSlots[slot] = true;
-      } catch (_error) {
-        nextLabels[slot] = getDefaultSlotLabel(slot);
-        nextFilledSlots[slot] = false;
-      }
-    });
-    setSaveSlots(buildVisibleSlots(nextFilledSlots, knownSlots));
-    setSlotLabels(nextLabels);
-    setFilledSlots(nextFilledSlots);
   }
 
   // Take one persisted character payload and split it back into the many pieces
@@ -2923,15 +2392,16 @@ function App() {
     };
     setName(nextData.name ?? "");
     setCrew(nextData.crew ?? "");
-    setCurrentLevel(nextData.currentLevel ?? 1);
+    const level = Number(nextData.currentLevel);
+    setCurrentLevel(Number.isInteger(level) && level >= 1 && level <= 20 ? level : 1);
     setLevels(nextData.levels ?? Array(20).fill(null));
     setLevel1(nextData.level1 ?? ["", "", ""]);
-    setLevelStats(nextData.levelStats ?? Array.from({
-      length: 20
-    }, createEmptyStatLevel));
-    setLevelSkills(nextData.levelSkills ?? Array.from({
-      length: 20
-    }, createEmptySkillLevel));
+    setLevelStats(Array.from({ length: 20 }, (_, index) => ({
+      ...createEmptyStatLevel(), ...nextData.levelStats?.[index]
+    })));
+    setLevelSkills(Array.from({ length: 20 }, (_, index) => ({
+      ...createEmptySkillLevel(), ...nextData.levelSkills?.[index]
+    })));
     setKnownSelectionAbilities(nextData.knownSelectionAbilities ?? {});
     setSelectedSelectionCategories(nextData.selectedSelectionCategories ?? {});
     setSettings({
@@ -2960,17 +2430,19 @@ function App() {
     } else {
       setExpansions([]);
     }
-    setItems(nextData.items ?? nextData.inventoryItems ?? []);
+    setItems(data?.items ?? data?.inventoryItems ?? []);
     setBackground(nextData.background ?? {
       ...DEFAULT_BACKGROUND
     });
   }
 
-  // Save the currently assembled character either to the cloud API or to
-  // localStorage depending on the current role.
-  async function saveToSlot(slot = activeSlot) {
-    const data = buildSaveData();
-    if (CLOUD_SAVE_ENABLED) {
+  async function saveToSlot() {
+    const { slot, cloud } = saveTarget;
+    const data = { ...buildSaveData(), timestamp: Date.now() };
+    if (cloud) {
+      const sync = cloudSync.current;
+      const beforeSave = draft.current;
+      sync.pending = true;
       setIsCloudBusy(true);
       try {
         const {
@@ -2978,16 +2450,20 @@ function App() {
           payload
         } = await fetchPirateJson(`/pirate-character-sheet/saves/${slot}`, {
           method: "POST",
+          headers: sync.etag ? { "If-Match": sync.etag } : undefined,
           body: JSON.stringify({
             character: data
           })
         });
         if (!response.ok) {
+          if (response.status === 412) setCloudConflict(true);
           setSaveMessage(payload.message || `Failed to save ${slot} to the cloud`);
           return false;
         }
+        sync.etag = payload.etag ?? null;
+        sync.shared = Boolean(payload.shared);
+        sync.baseline = beforeSave;
         console.log(`Cloud saved to ${slot}`, data);
-        updateSlotState(slot, data.name, true);
         setSaveMessage(`Cloud saved to ${slot}`);
         return true;
       } catch (error) {
@@ -2995,37 +2471,63 @@ function App() {
         setSaveMessage("Cloud save failed");
         return false;
       } finally {
+        sync.pending = false;
         setIsCloudBusy(false);
       }
     }
-    localStorage.setItem(`characterSheet_${slot}`, JSON.stringify(data));
-    console.log(`Saved to ${slot}`, data);
-    updateSlotState(slot, data.name, true);
-    setSaveMessage(`Saved to ${slot}`);
-    return true;
+    try {
+      await withLocalCharacterSaves(() => {
+        const key = `characterSheet_${slot}`;
+        let keepLocal;
+        try {
+          keepLocal = JSON.parse(localStorage.getItem(key))?.keepLocal === true;
+        } catch {
+          // The new save replaces unreadable local data.
+        }
+        localStorage.setItem(key, JSON.stringify(keepLocal ? { ...data, keepLocal: true } : data));
+      });
+      setSaveMessage(`Saved to ${slot}`);
+      return true;
+    } catch {
+      setSaveMessage("Local save failed");
+      return false;
+    }
   }
 
-  // Load the selected slot. The requestId guard prevents stale async responses
-  // from overwriting the UI if the user switches slots quickly.
-  async function loadFromSlot(slot = activeSlot) {
-    const requestId = latestLoadRequestRef.current + 1;
-    latestLoadRequestRef.current = requestId;
-    isSlotLoadingRef.current = true;
+  function applyCloudSnapshot(payload) {
+    Object.assign(cloudSync.current, {
+      etag: payload.etag, shared: Boolean(payload.shared), baseline: null, capture: true,
+    });
+    applySaveData(payload.character);
+    setCloudConflict(false);
+  }
+
+  async function reloadCloudSave() {
+    if (!window.confirm("Load the latest cloud save? This replaces the unsaved edits in this editor.")) return;
+    const sync = cloudSync.current;
+    sync.pending = true;
+    setIsCloudBusy(true);
+    try {
+      const { response, payload } = await fetchPirateJson(`/pirate-character-sheet/saves/${saveTarget.slot}`);
+      if (!response.ok) throw new Error(payload.message || "Could not load the latest cloud save.");
+      applyCloudSnapshot(payload);
+      setSaveMessage("Loaded the latest cloud save.");
+    } catch (error) {
+      setSaveMessage(error.message);
+    } finally {
+      sync.pending = false;
+      setIsCloudBusy(false);
+    }
+  }
+
+  async function loadFromSlot(slot, signal) {
     if (CLOUD_SAVE_ENABLED) {
+      cloudSync.current.pending = true;
       setIsCloudBusy(true);
       try {
-        const {
-          response,
-          payload
-        } = await fetchPirateJson(`/pirate-character-sheet/saves/${slot}`, {
-          method: "GET"
-        });
-        if (requestId !== latestLoadRequestRef.current || slot !== activeSlotRef.current) {
-          return;
-        }
+        const { response, payload } = await fetchPirateJson(`/pirate-character-sheet/saves/${slot}`, { signal });
+        if (signal.aborted) return;
         if (response.status === 404) {
-          console.log(`No cloud save in ${slot}`);
-          updateSlotState(slot, "", false);
           applySaveData(createBlankCharacterData());
           setSaveMessage(`Opened a blank character for ${slot}`);
           return;
@@ -3034,161 +2536,24 @@ function App() {
           setSaveMessage(payload.message || `Failed to load ${slot} from the cloud`);
           return;
         }
-        console.log(`Cloud loaded from ${slot}`, payload.character);
-        updateSlotState(slot, payload.character?.name, true);
+        applyCloudSnapshot(payload);
         setSaveMessage(`Cloud loaded from ${slot}`);
-        applySaveData(payload.character || {});
-        return;
-      } catch (error) {
-        if (requestId !== latestLoadRequestRef.current || slot !== activeSlotRef.current) {
-          return;
-        }
-        console.error("Cloud load failed", error);
-        setSaveMessage("Cloud load failed");
-        return;
+      } catch {
+        if (!signal.aborted) setSaveMessage("Cloud load failed");
       } finally {
-        if (requestId === latestLoadRequestRef.current) {
-          isSlotLoadingRef.current = false;
+        if (!signal.aborted) {
+          cloudSync.current.pending = false;
           setIsCloudBusy(false);
         }
       }
-    }
-    const saved = localStorage.getItem(`characterSheet_${slot}`);
-    if (requestId !== latestLoadRequestRef.current || slot !== activeSlotRef.current) {
-      isSlotLoadingRef.current = false;
-      return;
-    }
-    if (!saved) {
-      console.log(`No save in ${slot}`);
-      updateSlotState(slot, "", false);
-      applySaveData(createBlankCharacterData());
-      setSaveMessage(`Opened a blank character for ${slot}`);
-      isSlotLoadingRef.current = false;
       return;
     }
     try {
-      const data = JSON.parse(saved);
-      if (requestId !== latestLoadRequestRef.current || slot !== activeSlotRef.current) {
-        isSlotLoadingRef.current = false;
-        return;
-      }
-      console.log(`Loaded from ${slot}`, data);
-      updateSlotState(slot, data.name, true);
-      setSaveMessage(`Loaded from ${slot}`);
-      applySaveData(data);
-    } catch (e) {
-      if (requestId !== latestLoadRequestRef.current || slot !== activeSlotRef.current) {
-        isSlotLoadingRef.current = false;
-        return;
-      }
-      console.error("Failed to load", e);
+      const saved = localStorage.getItem(`characterSheet_${slot}`);
+      applySaveData(saved ? JSON.parse(saved) : createBlankCharacterData());
+      setSaveMessage(saved ? `Loaded from ${slot}` : `Opened a blank character for ${slot}`);
+    } catch {
       setSaveMessage("Failed to load save (invalid data)");
-    } finally {
-      if (requestId === latestLoadRequestRef.current) {
-        isSlotLoadingRef.current = false;
-      }
-    }
-  }
-  async function clearSlot(slot = activeSlot) {
-    const confirmDelete = window.confirm(`Are you sure you want to clear ${slot}? This cannot be undone.`);
-    if (!confirmDelete) return;
-    if (CLOUD_SAVE_ENABLED) {
-      setIsCloudBusy(true);
-      try {
-        const {
-          response,
-          payload
-        } = await fetchPirateJson(`/pirate-character-sheet/saves/${slot}`, {
-          method: "DELETE"
-        });
-        if (!response.ok) {
-          setSaveMessage(payload.message || `Failed to clear ${slot} from the cloud`);
-          return;
-        }
-        console.log(`Cleared cloud save ${slot}`);
-        updateSlotState(slot, "", false);
-        setSaveMessage(`Cleared cloud save ${slot}`);
-        return;
-      } catch (error) {
-        console.error("Cloud clear failed", error);
-        setSaveMessage("Cloud clear failed");
-        return;
-      } finally {
-        setIsCloudBusy(false);
-      }
-    }
-    localStorage.removeItem(`characterSheet_${slot}`);
-    console.log(`Cleared ${slot}`);
-    updateSlotState(slot, "", false);
-    setSaveMessage(`Cleared ${slot}`);
-  }
-
-  // Share codes are cloud-backed exports/imports of a saved character slot.
-  async function generateShareCode(slot = activeSlot) {
-    if (!CLOUD_SAVE_ENABLED) {
-      setSaveMessage("Cloud saves are required for share codes");
-      return;
-    }
-    setIsShareCodeBusy(true);
-    try {
-      const {
-        response,
-        payload
-      } = await fetchPirateJson(`/pirate-character-sheet/share-codes/generate`, {
-        method: "POST",
-        body: JSON.stringify({
-          slot
-        })
-      });
-      if (!response.ok) {
-        setSaveMessage(payload.message || "Failed to generate a share code");
-        return;
-      }
-      setGeneratedShareCode(payload.code || "");
-      setSaveMessage(`Share code generated for ${slot}`);
-    } catch (error) {
-      console.error("Share code generation failed", error);
-      setSaveMessage("Share code generation failed");
-    } finally {
-      setIsShareCodeBusy(false);
-    }
-  }
-  async function importShareCode() {
-    if (!CLOUD_SAVE_ENABLED) {
-      setSaveMessage("Cloud saves are required for share codes");
-      return;
-    }
-    const normalizedCode = String(shareCodeInput || "").trim().toUpperCase();
-    if (!normalizedCode) {
-      setSaveMessage("Enter a share code first");
-      return;
-    }
-    const targetSlot = filledSlots[activeSlot] ? getNextAvailableSlot() : activeSlot;
-    setIsShareCodeBusy(true);
-    try {
-      const {
-        response,
-        payload
-      } = await fetchPirateJson(`/pirate-character-sheet/share-codes/redeem`, {
-        method: "POST",
-        body: JSON.stringify({
-          code: normalizedCode,
-          slot: targetSlot
-        })
-      });
-      if (!response.ok) {
-        setSaveMessage(payload.message || "Failed to import that share code");
-        return;
-      }
-      updateSlotState(targetSlot, payload.name, true);
-      setShareCodeInput("");
-      setActiveSlot(targetSlot);
-      setSaveMessage(`Imported share code into ${formatSlotLabel(targetSlot, payload.name)}`);
-    } catch (error) {
-      console.error("Share code import failed", error);
-      setSaveMessage("Share code import failed");
-    } finally {
-      setIsShareCodeBusy(false);
     }
   }
   React.useEffect(() => {
@@ -3199,14 +2564,64 @@ function App() {
     return () => clearTimeout(t);
   }, [saveMessage]);
   React.useEffect(() => {
-    activeSlotRef.current = activeSlot;
-  }, [activeSlot]);
-  React.useEffect(() => {
-    refreshSlotLabels();
+    const controller = new AbortController();
+    loadFromSlot(INITIAL_SAVE_SLOT, controller.signal);
+    return () => controller.abort();
   }, []);
   React.useEffect(() => {
-    loadFromSlot(activeSlot);
-  }, [activeSlot]);
+    const sync = cloudSync.current;
+    if (!sync.capture) return;
+    const frame = requestAnimationFrame(() => {
+      sync.baseline = draft.current;
+      sync.capture = false;
+    });
+    return () => cancelAnimationFrame(frame);
+  });
+  React.useEffect(() => {
+    if (!saveTarget.cloud) return;
+    const controller = new AbortController();
+    const sync = cloudSync.current;
+    let checking = false;
+    const timer = setInterval(async () => {
+      if (checking || sync.pending || sync.capture || document.hidden || !sync.etag) return;
+      const revision = sync.etag;
+      checking = true;
+      try {
+        const { response, payload } = await fetchPirateJson(`/pirate-character-sheet/saves/${saveTarget.slot}`, { signal: controller.signal });
+        if (!response.ok || controller.signal.aborted || sync.pending || sync.etag !== revision) return;
+        if (payload.etag === revision) {
+          sync.shared = Boolean(payload.shared);
+        } else if (sync.shared || payload.shared) {
+          if (sync.baseline === null || sync.baseline !== draft.current) {
+            setCloudConflict(true);
+          } else {
+            applyCloudSnapshot(payload);
+            setSaveMessage("Shared character updated.");
+          }
+        }
+      } catch {
+        // The next check can recover from a temporary connection failure.
+      } finally {
+        checking = false;
+      }
+    }, 3000);
+    return () => {
+      clearInterval(timer);
+      controller.abort();
+    };
+  }, [saveTarget]);
+  React.useEffect(() => {
+    function followCloudSave(event) {
+      if (event.origin !== window.location.origin || event.source !== window.parent) return;
+      if (event.data?.type === "pirate-character-sheet-cloud-save" && characterSlotPattern.test(event.data.slot)) {
+        cloudSync.current.etag = event.data.etag ?? null;
+        setSaveTarget({ slot: event.data.slot, cloud: true });
+        setSaveMessage("Character moved to Cloud Saves.");
+      }
+    }
+    window.addEventListener("message", followCloudSave);
+    return () => window.removeEventListener("message", followCloudSave);
+  }, []);
   React.useEffect(() => {
     document.body.classList.toggle("dark-mode", Boolean(settings.darkMode));
     try {
@@ -3341,7 +2756,6 @@ function App() {
     setSortBy: setSortBy,
     sortedActionAbilities: sortedActionAbilities,
     passiveAbilities: passiveAbilities,
-    selectionAbilities: selectionAbilities,
     selectionAbilitiesByClass: selectionAbilitiesByClass,
     selectionCategoryDefinitionsByClass: selectionCategoryDefinitionsByClass,
     knownSelectionAbilities: knownSelectionAbilities,
@@ -3350,64 +2764,33 @@ function App() {
     updateSelectionCategory: updateSelectionCategory,
     background: background,
     setBackground: setBackground,
-    activeSlot: activeSlot,
-    activeSlotLabel: slotLabels[activeSlot] || getDefaultSlotLabel(activeSlot),
-    cloudSaveEnabled: CLOUD_SAVE_ENABLED,
-    generatedShareCode: generatedShareCode,
-    shareCodeInput: shareCodeInput,
-    setShareCodeInput: setShareCodeInput,
-    generateShareCode: generateShareCode,
-    importShareCode: importShareCode,
-    isShareCodeBusy: isShareCodeBusy,
     expansions: expansions,
     importExpansionFile: importExpansionFile,
     removeExpansion: removeExpansion,
-    exportExpansions: exportExpansions,
-    downloadGearTemplate: downloadGearTemplate,
-    downloadClassTemplate: downloadClassTemplate
+    exportExpansions: exportExpansions
   }), React.createElement(SettingsModal, {
     isOpen: isSettingsDialogOpen,
     onClose: () => setIsSettingsDialogOpen(false),
     settings: settings,
     setSettings: setSettings,
-    activeSlot: activeSlot,
-    activeSlotLabel: slotLabels[activeSlot] || getDefaultSlotLabel(activeSlot),
-    cloudSaveEnabled: CLOUD_SAVE_ENABLED,
-    generatedShareCode: generatedShareCode,
-    shareCodeInput: shareCodeInput,
-    setShareCodeInput: setShareCodeInput,
-    generateShareCode: generateShareCode,
-    importShareCode: importShareCode,
-    isShareCodeBusy: isShareCodeBusy,
     expansions: expansions,
     importExpansionFile: importExpansionFile,
     removeExpansion: removeExpansion,
-    exportExpansions: exportExpansions,
-    downloadGearTemplate: downloadGearTemplate,
-    downloadClassTemplate: downloadClassTemplate
+    exportExpansions: exportExpansions
   }), React.createElement("div", {
     className: "saveBar"
-  }, React.createElement("span", null, CLOUD_SAVE_ENABLED ? "Cloud Saves" : "Local Saves"), React.createElement("select", {
-    value: activeSlot,
-    onChange: e => {
-      setActiveSlot(e.target.value);
-    },
-    disabled: isCloudBusy
-  }, saveSlots.map(slot => React.createElement("option", {
-    key: slot,
-    value: slot
-  }, slotLabels[slot] || getDefaultSlotLabel(slot)))), React.createElement("button", {
+  }, React.createElement("span", null, saveTarget.cloud ? "Cloud Saves" : "Local Saves"), React.createElement("button", {
     onClick: () => saveToSlot(),
-    disabled: isCloudBusy
-  }, isCloudBusy ? "Please wait..." : "Save"), React.createElement("button", {
-    onClick: exportData
-  }, "Export"), React.createElement("button", {
-    onClick: importData
-  }, "Import"), React.createElement("button", {
-    onClick: () => clearSlot(),
-    disabled: isCloudBusy
-  }, "Clear Save Slot"), saveMessage && React.createElement("div", {
+    disabled: isCloudBusy || cloudConflict
+  }, isCloudBusy ? "Please wait..." : "Save"), saveMessage && React.createElement("div", {
     className: "saveToast"
-  }, saveMessage)));
+  }, saveMessage)), cloudConflict && React.createElement("aside", {
+    className: "cloudSaveConflict",
+    role: "status"
+  }, "The cloud sheet changed while you were editing.", React.createElement("button", {
+    type: "button",
+    disabled: isCloudBusy,
+    onClick: reloadCloudSave
+  }, "Load Latest")));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App, null));

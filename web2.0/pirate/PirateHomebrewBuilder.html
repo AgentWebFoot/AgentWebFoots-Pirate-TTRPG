@@ -5,7 +5,7 @@
         <script src="/pirate-frame.js"></script>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Pirate Homebrew Builder</title>
+        <title>Pirate Expansions</title>
         <style>
             :root {
                 --bg-page: #1d140d;
@@ -81,7 +81,7 @@
 
             .homebrewHeader {
                 display: flex;
-                align-items: flex-end;
+                align-items: center;
                 justify-content: space-between;
                 gap: 16px;
                 padding: 20px;
@@ -103,6 +103,10 @@
                 line-height: 1.1;
             }
 
+            @media (min-width: 901px) {
+                .homebrewHeader > :first-child { flex-shrink: 0; }
+            }
+
             .homebrewModeTabs {
                 display: flex;
                 flex-wrap: wrap;
@@ -111,16 +115,17 @@
 
             .homebrewSaveControls {
                 display: flex;
-                flex-direction: column;
-                align-items: flex-end;
+                min-width: 0;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                align-items: center;
                 gap: 8px;
             }
 
             .homebrewModeButton,
             .homebrewButton,
             .homebrewFooterButton,
-            .homebrewItemButton,
-            .homebrewSaveModeButton {
+            .homebrewItemButton {
                 min-height: 38px;
                 padding: 8px 12px;
                 border: 1px solid rgba(217, 187, 121, 0.32);
@@ -133,7 +138,6 @@
             }
 
             .homebrewModeButton.isActive,
-            .homebrewSaveModeButton.isActive,
             .homebrewButtonPrimary,
             .homebrewFooterButton:hover,
             .homebrewItemButton:hover {
@@ -141,12 +145,8 @@
                 border-color: rgba(217, 187, 121, 0.5);
             }
 
-            .homebrewSaveModeButton:disabled {
-                cursor: not-allowed;
-                opacity: 0.52;
-            }
-
             .homebrewSaveStatus {
+                flex-basis: 100%;
                 color: var(--text-muted);
                 font-size: 0.78rem;
                 line-height: 1.4;
@@ -546,7 +546,6 @@
             }
 
             @media (max-width: 900px) {
-                .homebrewHeader,
                 .homebrewLayout {
                     grid-template-columns: 1fr;
                 }
@@ -557,7 +556,7 @@
                 }
 
                 .homebrewSaveControls {
-                    align-items: flex-start;
+                    justify-content: flex-start;
                 }
 
                 .homebrewSaveStatus {
@@ -609,7 +608,7 @@
                 <header class="homebrewHeader">
                     <div>
                         <p class="homebrewKicker">Pirate TTRPG</p>
-                        <h1 class="homebrewTitle">Homebrew Builder</h1>
+                        <h1 class="homebrewTitle">Expansions</h1>
                     </div>
                     <div class="homebrewSaveControls">
                         <div class="homebrewModeTabs" role="tablist" aria-label="Homebrew type">
@@ -617,11 +616,7 @@
                             <button class="homebrewModeButton" type="button" data-mode="armor">Armor</button>
                             <button class="homebrewModeButton" type="button" data-mode="class">Class</button>
                         </div>
-                        <div class="homebrewModeTabs" role="group" aria-label="Save location">
-                            <button class="homebrewSaveModeButton isActive" type="button" data-save-mode="local">Local Saves</button>
-                            <button class="homebrewSaveModeButton" type="button" data-save-mode="cloud" id="cloudSaveButton">Cloud Saves</button>
-                        </div>
-                        <div class="homebrewSaveStatus" id="saveStatus">Local saves are stored in this browser.</div>
+                        <div class="homebrewSaveStatus" id="saveStatus" role="status"></div>
                     </div>
                 </header>
 
@@ -658,8 +653,11 @@
             </div>
         </div>
 
-        <script>
-            const storageKey = "pirate-homebrew-builder-v1";
+        <script type="module">
+            import {
+                expansionStorageKey as storageKey,
+                normalizeExpansionSaves as normalizeState, withLocalExpansionSaves,
+            } from "./expansion-saves.js";
             const PIRATE_STATS = ["Brawn", "Finesse", "Grit", "Awareness", "Brains", "Swagger"];
             const PIRATE_DAMAGE_TYPES = ["Bludgeoning", "Piercing", "Slashing", "Holy", "Unholy", "Bleeding", "Fire", "Poison"];
             const PIRATE_TOUGHNESS_TYPES = ["Physical", "Bludgeoning", "Piercing", "Slashing", "Holy", "Unholy", "Bleeding", "Fire", "Poison"];
@@ -710,6 +708,7 @@
 
             let saveMode = "local";
             let state = readLocalState();
+            let cloudEtag;
             let activeMode = "weapon";
             let editingId = null;
             let equipmentProperties = [];
@@ -727,14 +726,9 @@
             const exportButton = document.getElementById("exportButton");
             const importFile = document.getElementById("importFile");
             const saveStatus = document.getElementById("saveStatus");
-            const cloudSaveButton = document.getElementById("cloudSaveButton");
 
             document.querySelectorAll("[data-mode]").forEach((button) => {
                 button.addEventListener("click", () => setMode(button.dataset.mode));
-            });
-
-            document.querySelectorAll("[data-save-mode]").forEach((button) => {
-                button.addEventListener("click", () => setSaveMode(button.dataset.saveMode));
             });
 
             document.addEventListener("click", (event) => {
@@ -754,32 +748,13 @@
             exportButton.addEventListener("click", exportHomebrew);
             importFile.addEventListener("change", importHomebrew);
 
-            cloudSaveButton.disabled = !cloudSaveEnabled;
-            cloudSaveButton.title = cloudSaveEnabled
-                ? "Use your individual Pirate cloud homebrew."
-                : "Traveler, admin, writer, or owner access is required for cloud saves.";
-            render();
-            loadEquipmentProperties();
-
-            function emptyState() {
-                return { weapon: [], armor: [], class: [], ability: [] };
-            }
-
-            function normalizeState(value) {
-                const source = value && typeof value === "object" && !Array.isArray(value) ? value : {};
-                return {
-                    weapon: Array.isArray(source.weapon) ? source.weapon : [],
-                    armor: Array.isArray(source.armor) ? source.armor : [],
-                    class: Array.isArray(source.class) ? source.class : [],
-                    ability: Array.isArray(source.ability) ? source.ability : []
-                };
-            }
+            initializeStorage();
 
             function readLocalState() {
                 try {
                     return normalizeState(JSON.parse(localStorage.getItem(storageKey)));
                 } catch (_error) {
-                    return emptyState();
+                    return normalizeState();
                 }
             }
 
@@ -789,7 +764,8 @@
                     return;
                 }
 
-                localStorage.setItem(storageKey, JSON.stringify(state));
+                const snapshot = JSON.stringify(state);
+                await withLocalExpansionSaves(() => localStorage.setItem(storageKey, snapshot));
             }
 
             function setMode(mode) {
@@ -798,36 +774,28 @@
                 render();
             }
 
-            async function setSaveMode(mode) {
-                if (mode === "cloud" && !cloudSaveEnabled) {
-                    showMessage("Traveler access is required for cloud saves.");
-                    return;
+            async function initializeStorage() {
+                if (cloudSaveEnabled && Object.values(state).every(entries => entries.length === 0)) {
+                    homebrewForm.inert = true;
+                    importButton.disabled = exportButton.disabled = true;
+                    saveStatus.textContent = "Loading cloud saves…";
+                    saveMode = "cloud";
+                    try {
+                        await loadCloudState();
+                    } finally {
+                        homebrewForm.inert = false;
+                        importButton.disabled = exportButton.disabled = false;
+                    }
                 }
-
-                saveMode = mode;
-                editingId = null;
-
-                if (saveMode === "cloud") {
-                    await loadCloudState();
-                } else {
-                    state = readLocalState();
-                }
-
                 render();
+                loadEquipmentProperties();
             }
 
             function render() {
                 document.querySelectorAll("[data-mode]").forEach((button) => {
                     button.classList.toggle("isActive", button.dataset.mode === activeMode);
                 });
-                document.querySelectorAll("[data-save-mode]").forEach((button) => {
-                    button.classList.toggle("isActive", button.dataset.saveMode === saveMode);
-                });
-                saveStatus.textContent = saveMode === "cloud"
-                    ? "Cloud saves are private to your signed-in Pirate account."
-                    : cloudSaveEnabled
-                        ? "Local saves are stored in this browser. Cloud saves are available."
-                        : "Local saves are stored in this browser. Traveler access unlocks cloud saves.";
+                saveStatus.textContent = saveMode === "cloud" ? "Cloud saves" : "Local saves";
                 renderForm();
                 renderList();
             }
@@ -942,7 +910,7 @@
                     }
 
                     state = normalizeState(payload.homebrew);
-                    showMessage("Cloud homebrew loaded.");
+                    cloudEtag = payload.etag;
                 } catch (_error) {
                     saveMode = "local";
                     state = readLocalState();
@@ -953,12 +921,14 @@
             async function saveCloudState() {
                 const { response, payload } = await fetchPirateJson("/pirate-homebrew/saves", {
                     method: "POST",
+                    headers: cloudEtag ? { "If-Match": cloudEtag } : undefined,
                     body: JSON.stringify({ homebrew: state })
                 });
 
                 if (!response.ok) {
                     throw new Error(payload.message || "Unable to save cloud homebrew.");
                 }
+                cloudEtag = payload.etag;
             }
 
             function renderForm(entry = null) {
@@ -2051,6 +2021,7 @@
                     values
                 };
 
+                const previousState = normalizeState(state);
                 state[activeMode] = [
                     entry,
                     ...state[activeMode].filter((item) => item.id !== entry.id && item.values.name !== name)
@@ -2062,6 +2033,7 @@
                     renderList();
                     showMessage(`${modes[activeMode].label} saved to ${saveMode}.`);
                 } catch (error) {
+                    state = previousState;
                     showMessage(error.message || "Unable to save homebrew.");
                 }
             }
@@ -2269,6 +2241,7 @@
 
                 const reader = new FileReader();
                 reader.onload = async () => {
+                    const previousState = state;
                     try {
                         const parsed = JSON.parse(String(reader.result));
                         const imported = parsed.homebrew || parsed;
@@ -2282,8 +2255,9 @@
                         editingId = null;
                         render();
                         showMessage(`Homebrew imported to ${saveMode}.`);
-                    } catch (_error) {
-                        showMessage("That import file could not be read.");
+                    } catch (error) {
+                        state = previousState;
+                        showMessage(error instanceof SyntaxError ? "That import file could not be read." : error.message);
                     } finally {
                         importFile.value = "";
                     }

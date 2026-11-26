@@ -5,6 +5,7 @@ const STAT_NAMES = ["Brawn", "Finesse", "Grit", "Awareness", "Brains", "Swagger"
 const SIDE_STAT_NAMES = ["Health", "Endurance", "Evasion", "Toughness", "Speed"];
 const NPC_TYPE_OPTIONS = ["Human", "Undead", "Monster", "Beast"];
 const NPC_LIBRARY_FILTER_STATS = [...STAT_NAMES, "Health", "Endurance", "Evasion", "Toughness", "Normal Move", "Dash Move"];
+const NPC_LIBRARY_DIFFICULTY_MAXIMUM = 20;
 const NPC_LIBRARY_STAT_MAXIMUMS = {
   Health: 200,
   Endurance: 500,
@@ -111,13 +112,70 @@ function createNpcLibraryStatRanges() {
     ...ranges,
     [statName]: {
       min: "0",
-      max: String(getNpcLibraryStatMaximum(statName))
+      max: ""
     }
   }), {});
 }
 
 function getNpcLibraryStatMaximum(statName) {
   return NPC_LIBRARY_STAT_MAXIMUMS[statName] || 20;
+}
+
+function NpcLibraryRange({ name, label = name, min, max, sliderMaximum, onChange }) {
+  const minValue = Math.max(0, parseOptionalNumber(min) ?? 0);
+  const parsedMax = parseOptionalNumber(max);
+  const maxValue = parsedMax === null ? null : Math.max(0, parsedMax);
+  const finalTick = Math.max(sliderMaximum, Math.ceil(minValue), Math.ceil(maxValue ?? 0)) + 1;
+  const upperThumb = maxValue ?? finalTick;
+  const controls = { min: 0, step: 1, max: finalTick };
+  return h("div", { className: "npcLibraryStatRanges" },
+    h("div", { className: "npcLibraryTypeHeading" }, label),
+    h("div", { className: "npcLibraryStatRangeCard" },
+      h("div", { className: "npcLibraryStatRangeSummary" },
+        h("div", { className: "npcLibraryStatRangeValue" }, `${minValue} – ${maxValue ?? "No max"}`),
+        maxValue !== null && h("button", {
+          type: "button", className: "npcSecondaryButton npcRangeClear",
+          "aria-label": `Remove ${name} maximum`,
+          onClick: () => onChange("max", ""),
+        }, "No max")),
+      h("div", { className: "npcRangeSliderRow" },
+        h("input", {
+          className: "npcRangeNumberInput", type: "number", min: 0, step: "any", value: min,
+          "aria-label": `Minimum ${name} value`,
+          onChange: event => onChange("min", event.target.value),
+          onBlur: () => {
+            if (Number(min) < 0) onChange("min", "0");
+            else if (maxValue !== null && minValue > maxValue) onChange("min", String(maxValue));
+          },
+        }),
+        h("div", { className: "npcDualSliderTrack" },
+          h("div", { className: "npcSliderTrack" }),
+          h("div", { className: "npcSliderRangeFill", style: {
+            left: `${minValue / finalTick * 100}%`,
+            width: `${Math.max(0, upperThumb - minValue) / finalTick * 100}%`,
+          } }),
+          h("input", {
+            ...controls, className: "npcSliderInput npcSliderInputMin", type: "range",
+            "aria-label": `Minimum ${name}`, value: minValue,
+            onChange: event => onChange("min", String(Math.min(Number(event.target.value), maxValue ?? finalTick - 1))),
+          }),
+          h("input", {
+            ...controls, className: "npcSliderInput npcSliderInputMax", type: "range",
+            "aria-label": `Maximum ${name}`, "aria-valuetext": maxValue === null ? "No upper limit" : String(maxValue),
+            value: upperThumb,
+            onChange: event => {
+              const value = Number(event.target.value);
+              onChange("max", value === finalTick ? "" : String(Math.max(value, minValue)));
+            },
+          })),
+        h("input", {
+          className: "npcRangeNumberInput", type: "number", min: 0, step: "any", value: max,
+          placeholder: "No max", "aria-label": `Maximum ${name} value`,
+          onChange: event => onChange("max", event.target.value),
+          onBlur: () => {
+            if (maxValue !== null && (Number(max) < 0 || maxValue < minValue)) onChange("max", String(minValue));
+          },
+        }))));
 }
 
 function getNpcFilterStatValue(entry, statName) {
@@ -131,10 +189,6 @@ function getNpcFilterStatValue(entry, statName) {
     return Number(entry?.speed?.dashMove);
   }
   return Number(entry?.sideStats?.[statName]);
-}
-
-function clampNpcFilterRangeValue(value, maximum = 20) {
-  return Math.max(0, Math.min(maximum, Number(value) || 0));
 }
 
 function createNpcLibraryItemFilters() {
@@ -300,7 +354,7 @@ function NpcBuilderApp() {
   const [npcLibrarySortField, setNpcLibrarySortField] = useState("name");
   const [npcLibrarySortDirection, setNpcLibrarySortDirection] = useState("asc");
   const [npcLibraryDifficultyMin, setNpcLibraryDifficultyMin] = useState("0");
-  const [npcLibraryDifficultyMax, setNpcLibraryDifficultyMax] = useState("20");
+  const [npcLibraryDifficultyMax, setNpcLibraryDifficultyMax] = useState("");
   const [npcLibraryStatRanges, setNpcLibraryStatRanges] = useState(() => createNpcLibraryStatRanges());
   const [npcLibraryTypeFilters, setNpcLibraryTypeFilters] = useState([]);
   const [npcLibraryItemFilters, setNpcLibraryItemFilters] = useState(() => createNpcLibraryItemFilters());
@@ -711,47 +765,20 @@ function NpcBuilderApp() {
     }));
   };
   const updateNpcLibraryStatRange = (statName, bound, value) => {
-    const statMaximum = getNpcLibraryStatMaximum(statName);
-    const nextValue = clampNpcFilterRangeValue(value, statMaximum);
     setNpcLibraryStatRanges(previousRanges => ({
       ...previousRanges,
-      [statName]: (() => {
-        const currentRange = previousRanges[statName] || {
-          min: "0",
-          max: String(statMaximum)
-        };
-        const currentMin = clampNpcFilterRangeValue(currentRange.min, statMaximum);
-        const currentMax = clampNpcFilterRangeValue(currentRange.max || statMaximum, statMaximum);
-
-        if (bound === "min") {
-          return {
-            min: String(Math.min(nextValue, currentMax)),
-            max: String(currentMax)
-          };
-        }
-
-        return {
-          min: String(currentMin),
-          max: String(Math.max(nextValue, currentMin))
-        };
-      })()
+      [statName]: { ...previousRanges[statName], [bound]: value }
     }));
   };
   const updateNpcLibraryDifficultyRange = (bound, value) => {
-    const nextValue = clampNpcFilterRangeValue(value);
-    const currentMin = clampNpcFilterRangeValue(npcLibraryDifficultyMin);
-    const currentMax = clampNpcFilterRangeValue(npcLibraryDifficultyMax || 20);
-    if (bound === "min") {
-      setNpcLibraryDifficultyMin(String(Math.min(nextValue, currentMax)));
-      return;
-    }
-    setNpcLibraryDifficultyMax(String(Math.max(nextValue, currentMin)));
+    if (bound === "min") setNpcLibraryDifficultyMin(value);
+    else setNpcLibraryDifficultyMax(value);
   };
   const clearNpcLibraryFilters = () => {
     setNpcLibrarySortField("name");
     setNpcLibrarySortDirection("asc");
     setNpcLibraryDifficultyMin("0");
-    setNpcLibraryDifficultyMax("20");
+    setNpcLibraryDifficultyMax("");
     setNpcLibraryStatRanges(createNpcLibraryStatRanges());
     setNpcLibraryTypeFilters([]);
     setNpcLibraryItemFilters(createNpcLibraryItemFilters());
@@ -1940,142 +1967,18 @@ function NpcBuilderApp() {
       className: `npcLibraryTypeChip${npcLibraryTypeFilters.includes(typeName) ? " isSelected" : ""}`,
       onClick: () => toggleNpcLibraryTypeFilter(typeName)
     }, typeName)))),
-    (() => {
-      const difficultyMinValue = Math.max(0, Math.min(20, Number(npcLibraryDifficultyMin) || 0));
-      const difficultyMaxValue = Math.max(0, Math.min(20, Number(npcLibraryDifficultyMax) || 20));
-      return h("div", {
-        key: "difficulty-range",
-        className: "npcLibraryStatRanges"
-      }, [
-        h("div", {
-          key: "difficulty-heading",
-          className: "npcLibraryTypeHeading"
-        }, "Difficulty Range"),
-        h("div", {
-          key: "difficulty-card",
-          className: "npcLibraryStatRangeCard"
-        }, h("div", {
-          className: "npcLibraryStatRangeValue"
-        }, `${difficultyMinValue} - ${difficultyMaxValue}`), h("div", {
-          className: "npcRangeSliderRow"
-        }, h("input", {
-          className: "npcRangeNumberInput",
-          type: "number",
-          min: "0",
-          max: "20",
-          step: "1",
-          value: String(difficultyMinValue),
-          onChange: event => updateNpcLibraryDifficultyRange("min", event.target.value)
-        }), h("div", {
-          className: "npcDualSliderTrack"
-        }, h("div", {
-          className: "npcSliderTrack"
-        }), h("div", {
-          className: "npcSliderRangeFill",
-          style: {
-            left: `${difficultyMinValue / 20 * 100}%`,
-            width: `${Math.max(0, difficultyMaxValue - difficultyMinValue) / 20 * 100}%`
-          }
-        }), h("input", {
-          className: "npcSliderInput npcSliderInputMin",
-          type: "range",
-          min: "0",
-          max: "20",
-          step: "1",
-          value: String(difficultyMinValue),
-          onChange: event => updateNpcLibraryDifficultyRange("min", event.target.value)
-        }), h("input", {
-          className: "npcSliderInput npcSliderInputMax",
-          type: "range",
-          min: "0",
-          max: "20",
-          step: "1",
-          value: String(difficultyMaxValue),
-          onChange: event => updateNpcLibraryDifficultyRange("max", event.target.value)
-        })), h("input", {
-          className: "npcRangeNumberInput",
-          type: "number",
-          min: "0",
-          max: "20",
-          step: "1",
-          value: String(difficultyMaxValue),
-          onChange: event => updateNpcLibraryDifficultyRange("max", event.target.value)
-        })))
-      ]);
-    })(),
-    h("div", {
-      key: "stat-ranges",
-      className: "npcLibraryStatRanges"
-    }, [
-      h("div", {
-        key: "stat-ranges-heading",
-        className: "npcLibraryTypeHeading"
-      }, "Stat Ranges"),
-      ...NPC_LIBRARY_FILTER_STATS.map(statName => {
-      const statMaximum = getNpcLibraryStatMaximum(statName);
-      const minValue = clampNpcFilterRangeValue(npcLibraryStatRanges?.[statName]?.min ?? "0", statMaximum);
-      const maxValue = clampNpcFilterRangeValue(npcLibraryStatRanges?.[statName]?.max ?? String(statMaximum), statMaximum);
-      return h("div", {
-        key: statName,
-        className: "npcLibraryStatRanges"
-      }, [
-        h("div", {
-          key: `${statName}-heading`,
-          className: "npcLibraryTypeHeading"
-        }, statName),
-        h("div", {
-          key: `${statName}-card`,
-          className: "npcLibraryStatRangeCard"
-        }, h("div", {
-          className: "npcLibraryStatRangeValue"
-        }, `${minValue} - ${maxValue}`), h("div", {
-          className: "npcRangeSliderRow"
-        }, h("input", {
-          className: "npcRangeNumberInput",
-          type: "number",
-          min: "0",
-          max: String(statMaximum),
-          step: "1",
-          value: String(minValue),
-          onChange: event => updateNpcLibraryStatRange(statName, "min", event.target.value)
-        }), h("div", {
-          className: "npcDualSliderTrack"
-        }, h("div", {
-          className: "npcSliderTrack"
-        }), h("div", {
-          className: "npcSliderRangeFill",
-          style: {
-            left: `${minValue / statMaximum * 100}%`,
-            width: `${Math.max(0, maxValue - minValue) / statMaximum * 100}%`
-          }
-        }), h("input", {
-          className: "npcSliderInput npcSliderInputMin",
-          type: "range",
-          min: "0",
-          max: String(statMaximum),
-          step: "1",
-          value: String(minValue),
-          onChange: event => updateNpcLibraryStatRange(statName, "min", event.target.value)
-        }), h("input", {
-          className: "npcSliderInput npcSliderInputMax",
-          type: "range",
-          min: "0",
-          max: String(statMaximum),
-          step: "1",
-          value: String(maxValue),
-          onChange: event => updateNpcLibraryStatRange(statName, "max", event.target.value)
-        })), h("input", {
-          className: "npcRangeNumberInput",
-          type: "number",
-          min: "0",
-          max: String(statMaximum),
-          step: "1",
-          value: String(maxValue),
-          onChange: event => updateNpcLibraryStatRange(statName, "max", event.target.value)
-        })))
-      ]);
-    })
-    ]),
+    h(NpcLibraryRange, {
+      key: "difficulty-range", name: "Difficulty", label: "Difficulty Range",
+      min: npcLibraryDifficultyMin, max: npcLibraryDifficultyMax,
+      sliderMaximum: NPC_LIBRARY_DIFFICULTY_MAXIMUM, onChange: updateNpcLibraryDifficultyRange,
+    }),
+    h("div", { key: "stat-ranges", className: "npcLibraryStatRanges" },
+      h("div", { className: "npcLibraryTypeHeading" }, "Stat Ranges"),
+      NPC_LIBRARY_FILTER_STATS.map(statName => h(NpcLibraryRange, {
+        key: statName, name: statName,
+        ...npcLibraryStatRanges[statName], sliderMaximum: getNpcLibraryStatMaximum(statName),
+        onChange: (bound, value) => updateNpcLibraryStatRange(statName, bound, value),
+      }))),
     h("div", {
       key: "item-filters",
       className: "npcLibraryItemFilterSections"
